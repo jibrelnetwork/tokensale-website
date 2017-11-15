@@ -3,7 +3,7 @@ import React from 'react'
 import PropType from 'prop-types'
 import { Field, reduxForm } from 'redux-form'
 import { set, compose, identity } from 'lodash/fp'
-import { Input, Datepicker } from '../../common';
+import { Input, Datepicker, Select } from '../../common';
 import * as actions from '../../../actions'
 
 const UserInfo = ({ submitting, handleSubmit }) => (
@@ -12,8 +12,8 @@ const UserInfo = ({ submitting, handleSubmit }) => (
       <Field name="firstName" type="text" component={Input} label="First Name" />
       <Field name="lastName" type="text" component={Input} label="Last Name" />
       <Field name="birthday" type="text" component={Datepicker} label="Birthday" />
-      <Field name="residency" type="text" component={Input} label="Residency" />
-      <Field name="citizenship" type="text" component={Input} label="Citizenship" />
+      <Field name="residency" type="text" component={Select} label="Residency" />
+      <Field name="citizenship" type="text" component={Select} label="Citizenship" />
       <div className="submit">
         <button type="submit" disabled={submitting}>Next Step</button>
       </div>

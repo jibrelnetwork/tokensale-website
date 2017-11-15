@@ -66,7 +66,7 @@ export function* updateUserInfo() {
     const response = yield call(request, server('/api/account/'), data, 'put');
     if (response && response.status < 400) {
       yield put(stopSubmit(form))
-      yield put(actions.auth.register.changeStage('identification'))
+      yield put(actions.auth.register.changeStage('document'))
     } else {
       const errors = {
         lastName: response.data.lastName,

@@ -14,9 +14,13 @@ const Datepicker = ({ input: { value, onChange }, meta: { error, touched } }) =>
 )
 
 Datepicker.propTypes = {
-  input: PropType.object.isRequired, // redux-form injected props
+  input: PropType.shape({
+    value: PropType.oneOfType([PropType.instanceOf(Date), PropType.string]),
+    onChange: PropType.func.isRequired,
+  }).isRequired, // redux-form injected props
   meta: PropType.shape({ // redux-form injected props
     error: PropType.oneOfType([PropType.array, PropType.string]),
+    touched: PropType.bool,
   }).isRequired,
 }
 

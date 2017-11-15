@@ -3,7 +3,7 @@ import PropType from 'prop-types'
 import ReactFilestack from 'filestack-react';
 import { head, map, compose } from 'lodash/fp'
 
-const Uploader = ({ input: { onChange }, meta: { error } }) => (
+const Uploader = ({ input: { onChange }, meta: { error, touched } }) => (
   <div className="Uploader">
     <ReactFilestack
       apikey="AnARH4cA6SiuvN5hCQvdCz"
@@ -16,16 +16,17 @@ const Uploader = ({ input: { onChange }, meta: { error } }) => (
       buttonClass="classname"
       onSuccess={(files) => onChange(compose(head, map((file) => file.url))(files.filesUploaded))}
     />
-    {error && <div className="error">{error}</div>}
+    {touched && error && <div className="error">{error}</div>}
   </div>
 )
 
 Uploader.propTypes = {
-  input: PropType.shape({ // redux-form injected props
+  input: PropType.shape({
     onChange: PropType.func.isRequired,
-  }).isRequired,
+  }).isRequired, // redux-form injected props
   meta: PropType.shape({ // redux-form injected props
     error: PropType.oneOfType([PropType.array, PropType.string]),
+    touched: PropType.bool,
   }).isRequired,
 }
 

@@ -4,7 +4,7 @@ import { set } from 'lodash/fp'
 import * as REGISTER from '../constants/auth/register'
 
 const defaultState = {
-  stage: 'main',
+  stage: 'account',
 };
 
 const authReducer = (state = defaultState, action) => {

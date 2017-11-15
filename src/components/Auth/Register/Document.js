@@ -4,7 +4,7 @@ import { Field, reduxForm } from 'redux-form'
 import { Uploader } from '../../common'
 import * as actions from '../../../actions'
 
-const Identification = ({ submitting, handleSubmit }) => (
+const Document = ({ submitting, handleSubmit }) => (
   <div className="Identification">
     <form onSubmit={handleSubmit} className="form">
       <Field name="documentUrl" component={Uploader} />
@@ -15,7 +15,7 @@ const Identification = ({ submitting, handleSubmit }) => (
   </div>
 )
 
-Identification.propTypes = {
+Document.propTypes = {
   submitting: PropType.bool.isRequired,
   handleSubmit: PropType.func.isRequired,
 }
@@ -23,6 +23,6 @@ Identification.propTypes = {
 export default reduxForm({
   form: 'register',
   onSubmit: ({ documentUrl }, dispatch) => dispatch(actions.auth.register.uploadDocument(documentUrl)),
-  validate: ({ documentUrl }) => !documentUrl ? { documentsUrls: 'Upload documents scans in order to verify your identity' } : {},
+  validate: ({ documentUrl }) => !documentUrl ? { documentUrl: 'Upload document scan in order to verify your identity' } : {},
   destroyOnUnmount: false,
-})(Identification)
+})(Document)
