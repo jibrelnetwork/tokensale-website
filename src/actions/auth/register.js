@@ -18,3 +18,8 @@ export const updateUserInfo = (firstName, lastName, birthday, residency, citizen
   type: REGISTER.UPDATE_USER_INFO,
   payload: { firstName, lastName, birthday, residency, citizenship },
 })
+
+export const uploadDocument = (documentUrl) => ({
+  type: REGISTER.UPLOAD_DOCUMENT,
+  payload: { documentUrl },
+})

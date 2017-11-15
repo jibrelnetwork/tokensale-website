@@ -78,3 +78,19 @@ export function* updateUserInfo() {
     }
   }
 }
+
+export function* uploadDocument() {
+  while (true) { // eslint-disable-line fp/no-loops
+    const { payload: { documentUrl } } = yield take(REGISTER.UPLOAD_DOCUMENT)
+    const data = { document_url: documentUrl }
+    yield put(startSubmit(form))
+    const response = yield call(request, server('/api/account/'), data, 'put');
+    if (response && response.status < 400) {
+      yield put(stopSubmit(form))
+      yield put(actions.auth.register.changeStage('email-verification'))
+    } else {
+      const errors = { documentUrl: response.data.document_url }
+      yield put(stopSubmit(form, errors))
+    }
+  }
+}
