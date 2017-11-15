@@ -4,7 +4,7 @@ import PropType from 'prop-types'
 import { Field, reduxForm } from 'redux-form'
 import { set, compose, identity } from 'lodash/fp'
 import * as actions from '../../../actions'
-import Input from '../../common/Input';
+import { Input } from '../../common';
 
 const Terms = ({ submitting, handleSubmit }) => (
   <div className="Terms">

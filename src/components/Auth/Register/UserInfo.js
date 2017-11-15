@@ -3,15 +3,15 @@ import React from 'react'
 import PropType from 'prop-types'
 import { Field, reduxForm } from 'redux-form'
 import { set, compose, identity } from 'lodash/fp'
+import { Input, Datepicker } from '../../common';
 import * as actions from '../../../actions'
-import Input from '../../common/Input';
 
 const UserInfo = ({ submitting, handleSubmit }) => (
   <div className="UserInfo">
     <form onSubmit={handleSubmit} className="form">
       <Field name="firstName" type="text" component={Input} label="First Name" />
       <Field name="lastName" type="text" component={Input} label="Last Name" />
-      <Field name="birthday" type="text" component={Input} label="Birthday" />
+      <Field name="birthday" type="text" component={Datepicker} label="Birthday" />
       <Field name="residency" type="text" component={Input} label="Residency" />
       <Field name="citizenship" type="text" component={Input} label="Citizenship" />
       <div className="submit">

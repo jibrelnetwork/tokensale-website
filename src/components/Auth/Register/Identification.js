@@ -1,7 +1,7 @@
 import React from 'react'
 import PropType from 'prop-types'
 import { Field, reduxForm } from 'redux-form'
-import Uploader from '../../common/Uploader'
+import { Uploader } from '../../common'
 import * as actions from '../../../actions'
 
 const Identification = ({ submitting, handleSubmit }) => (

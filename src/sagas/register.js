@@ -1,5 +1,6 @@
 import { startSubmit, stopSubmit } from 'redux-form'
 import { put, call, take } from 'redux-saga/effects';
+import format from 'date-fns/format'
 import * as REGISTER from '../constants/auth/register'
 import * as actions from '../actions'
 import request from './request';
@@ -59,7 +60,7 @@ export function* updateUserInfo() {
       last_name: lastName,
       first_name: firstName,
       citizenship,
-      date_of_birth: birthday,
+      date_of_birth: format(new Date(birthday), 'YYYY-MM-DD'),
     }
     yield put(startSubmit(form))
     const response = yield call(request, server('/api/account/'), data, 'put');
