@@ -4,14 +4,15 @@ import PropType from 'prop-types'
 import { Field, reduxForm } from 'redux-form'
 import { set, compose, identity } from 'lodash/fp'
 import * as actions from '../../../actions'
-import { Input } from '../../common';
+import { Input, Captcha } from '../../common';
 
-const Main = ({ submitting, handleSubmit }) => (
-  <div className="Main">
+const Account = ({ submitting, handleSubmit }) => (
+  <div className="Account">
     <form onSubmit={handleSubmit} className="form">
       <Field name="email" type="email" component={Input} label="Email" />
       <Field name="password" type="password" component={Input} label="Password" />
       <Field name="passwordConfirm" type="password" component={Input} label="Password Confirmation" />
+      <Field name="captcha" component={Captcha} />
       <div className="submit">
         <button type="submit" disabled={submitting}>Next Step</button>
       </div>
@@ -19,7 +20,7 @@ const Main = ({ submitting, handleSubmit }) => (
   </div>
 )
 
-Main.propTypes = {
+Account.propTypes = {
   submitting: PropType.bool.isRequired,
   handleSubmit: PropType.func.isRequired,
 }
@@ -44,6 +45,7 @@ export default reduxForm({
     values.passwordConfirm && values.password !== values.passwordConfirm
       ? set('password', 'Password does not match the confirm password')
       : identity,
+    !values.captcha ? set('captcha', 'Click on captcha checkbox') : identity,
   )({}),
   destroyOnUnmount: false,
-})(Main)
+})(Account)

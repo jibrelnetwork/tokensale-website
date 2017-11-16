@@ -3,10 +3,12 @@ import PropType from 'prop-types'
 import ReactFilestack from 'filestack-react';
 import { head, map, compose } from 'lodash/fp'
 
+const FILESTACK_API_KEY = 'AnARH4cA6SiuvN5hCQvdCz'
+
 const Uploader = ({ input: { onChange }, meta: { error, touched } }) => (
   <div className="Uploader">
     <ReactFilestack
-      apikey="AnARH4cA6SiuvN5hCQvdCz"
+      apikey={FILESTACK_API_KEY}
       options={{
         accept: ['image/*', '.pdf', '.doc', '.docx', '.docm'],
         fromSources: ['local_file_system', 'webcam'],
