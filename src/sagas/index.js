@@ -1,10 +1,13 @@
-import * as register from './register';
+import * as auth from './auth';
+
+export const SERVER = 'http://37.59.55.6:8080'
 
 export default function* sagas() {
   yield [
-    register.confirmTerms(),
-    register.createAccount(),
-    register.uploadDocument(),
-    register.updateUserInfo(),
+    auth.login(),
+    auth.register.confirmTerms(),
+    auth.register.createAccount(),
+    auth.register.uploadDocument(),
+    auth.register.updateUserInfo(),
   ];
 }

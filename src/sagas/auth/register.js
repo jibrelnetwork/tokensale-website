@@ -1,12 +1,12 @@
 import { startSubmit, stopSubmit } from 'redux-form'
 import { put, call, take } from 'redux-saga/effects';
 import format from 'date-fns/format'
-import * as REGISTER from '../constants/auth/register'
-import * as actions from '../actions'
-import request from './request';
+import * as REGISTER from '../../constants/auth/register'
+import * as actions from '../../actions'
+import request from '../request';
+import { SERVER } from '../.'
 
-const form = 'register'
-const server = (api) => `http://37.59.55.6:8080${api}`
+const FORM = 'register'
 
 export function* createAccount() {
   while (true) { // eslint-disable-line fp/no-loops
@@ -18,11 +18,11 @@ export function* createAccount() {
       password,
       password_confirm: passwordConfirm,
     }
-    yield put(startSubmit(form))
-    const response = yield call(request, server('/auth/registration/'), data, 'post');
+    yield put(startSubmit(FORM))
+    const response = yield call(request, `${SERVER}/auth/registration/`, data, 'post');
     if (response && response.status < 400) {
       yield put(actions.auth.setToken(response.data.key))
-      yield put(stopSubmit(form))
+      yield put(stopSubmit(FORM))
       yield put(actions.auth.register.changeStage('terms'))
     } else {
       const errors = {
@@ -30,7 +30,7 @@ export function* createAccount() {
         password: response.data.password,
         passwordConfirm: response.data.password_confirm,
       }
-      yield put(stopSubmit(form, errors))
+      yield put(stopSubmit(FORM, errors))
     }
   }
 }
@@ -39,13 +39,13 @@ export function* confirmTerms() {
   while (true) { // eslint-disable-line fp/no-loops
     yield take(REGISTER.CONFIRM_TERMS)
     const data = { terms_confirmed: true }
-    yield put(startSubmit(form))
-    const response = yield call(request, server('/api/account/'), data, 'put');
+    yield put(startSubmit(FORM))
+    const response = yield call(request, `${SERVER}/api/account/`, data, 'put');
     if (response && response.status < 400) {
-      yield put(stopSubmit(form))
+      yield put(stopSubmit(FORM))
       yield put(actions.auth.register.changeStage('user-info'))
     } else {
-      yield put(stopSubmit(form))
+      yield put(stopSubmit(FORM))
     }
   }
 }
@@ -62,10 +62,10 @@ export function* updateUserInfo() {
       citizenship,
       date_of_birth: format(new Date(birthday), 'YYYY-MM-DD'),
     }
-    yield put(startSubmit(form))
-    const response = yield call(request, server('/api/account/'), data, 'put');
+    yield put(startSubmit(FORM))
+    const response = yield call(request, `${SERVER}/api/account/`, data, 'put');
     if (response && response.status < 400) {
-      yield put(stopSubmit(form))
+      yield put(stopSubmit(FORM))
       yield put(actions.auth.register.changeStage('document'))
     } else {
       const errors = {
@@ -75,7 +75,7 @@ export function* updateUserInfo() {
         residency: response.data.residency,
         citizenship: response.data.citizenship,
       }
-      yield put(stopSubmit(form, errors))
+      yield put(stopSubmit(FORM, errors))
     }
   }
 }
@@ -84,14 +84,14 @@ export function* uploadDocument() {
   while (true) { // eslint-disable-line fp/no-loops
     const { payload: { documentUrl } } = yield take(REGISTER.UPLOAD_DOCUMENT)
     const data = { document_url: documentUrl }
-    yield put(startSubmit(form))
-    const response = yield call(request, server('/api/account/'), data, 'put');
+    yield put(startSubmit(FORM))
+    const response = yield call(request, `${SERVER}/api/account/`, data, 'put');
     if (response && response.status < 400) {
-      yield put(stopSubmit(form))
+      yield put(stopSubmit(FORM))
       yield put(actions.auth.register.changeStage('email-verification'))
     } else {
       const errors = { documentUrl: response.data.document_url }
-      yield put(stopSubmit(form, errors))
+      yield put(stopSubmit(FORM, errors))
     }
   }
 }

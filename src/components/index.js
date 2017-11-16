@@ -1,4 +1,4 @@
 import * as Auth from './Auth'
-import Main from './Main'
+import Welcome from './Welcome'
 
-export { Auth, Main }
+export { Auth, Welcome }

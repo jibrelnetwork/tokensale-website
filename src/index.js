@@ -20,7 +20,7 @@ import './styles/normalize.css'
 import reducers from './reducers'
 import middlewares from './middlewares';
 import sagas from './sagas';
-import { Auth, Main } from './components';
+import { Auth, Welcome } from './components';
 
 FocusStyleManager.onlyShowFocusOnTabs();
 
@@ -57,7 +57,8 @@ ReactDOM.render(
     <PersistGate persistor={persistor} loading={null}>
       <ConnectedRouter history={history}>
         <div>
-          <Route path="/" exact component={Main} />
+          <Route path="/" exact component={Welcome} />
+          <Route path="/login" component={Auth.Login} />
           <Route path="/register" component={Auth.Register} />
         </div>
       </ConnectedRouter>

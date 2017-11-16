@@ -11,3 +11,12 @@ export const setToken = (token) => ({
 export const resetToken = () => ({
   type: AUTH.RESET_TOKEN,
 })
+
+export const login = (email, password) => ({
+  type: AUTH.LOGIN,
+  payload: { email, password },
+})
+
+export const logout = () => ({
+  type: AUTH.LOGOUT,
+})
