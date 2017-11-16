@@ -11,7 +11,7 @@ const Input = ({
     touched,
   },
 }) => (
-  <div className={cx('field', 'field-input', { error })}>
+  <div className={cx('field', 'field-input', { error: error && touched })}>
     <input {...input} placeholder={label} type={type} />
     {touched && error && <div className="error-text">{error}</div>}
   </div>

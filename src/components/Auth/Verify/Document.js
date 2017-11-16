@@ -21,8 +21,8 @@ Document.propTypes = {
 }
 
 export default reduxForm({
-  form: 'register',
-  onSubmit: ({ documentUrl }, dispatch) => dispatch(actions.auth.register.uploadDocument(documentUrl)),
+  form: 'account',
+  onSubmit: ({ documentUrl }, dispatch) => dispatch(actions.auth.verify.uploadDocument(documentUrl)),
   validate: ({ documentUrl }) => !documentUrl ? { documentUrl: 'Upload document scan in order to verify your identity' } : {},
   destroyOnUnmount: false,
 })(Document)

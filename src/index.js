@@ -16,7 +16,8 @@ import '@blueprintjs/datetime/dist/blueprint-datetime.css'
 import '@blueprintjs/labs/dist/blueprint-labs.css'
 import '@blueprintjs/core/dist/blueprint.css'
 import './styles/normalize.css'
-import './styles/style.css'
+import './styles/global.css'
+import './styles/local.scss'
 
 import sagas from './sagas';
 import reducers from './reducers'
@@ -60,6 +61,7 @@ ReactDOM.render(
         <div>
           <Route path="/" exact component={Welcome} />
           <Route path="/login" component={Auth.Login} />
+          <Route path="/verify" component={Auth.Verify} />
           <Route path="/account" component={Account} />
           <Route path="/register" component={Auth.Register} />
         </div>

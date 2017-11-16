@@ -1,0 +1,32 @@
+.Captcha {
+  > .error {
+    margin-top: 20px;
+    color: #e91e63;
+  }
+}
+
+.Input {
+  position: relative;
+  margin-bottom: 40px;
+
+  > .pt-input {
+    all: unset;
+    width: 100%;
+    border: none;
+    display: block;
+    padding: 15px 0;
+    font-size: 13px;
+    appearance: none;
+    font-weight: normal;
+    font-family: 'Open Sans', Arial, sans-serif;
+    border-bottom: 1px solid rgba(45, 44, 62, 0.1);
+    border-radius: 0;
+    -moz-appearance: none;
+    background-color: transparent;
+    -webkit-appearance: none;
+  }
+}
+
+.pt-input-group.pt-intend-danger {
+  all: unset;
+}

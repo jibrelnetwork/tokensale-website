@@ -1,16 +1,16 @@
 // move to inner auth reducer
 
 import { set } from 'lodash/fp'
-import * as REGISTER from '../constants/auth/register'
+import * as VERIFY from '../constants/auth/verify'
 
 const defaultState = {
-  stage: 'account',
+  stage: 'terms',
 };
 
-const authReducer = (state = defaultState, action) => {
+const verifyReducer = (state = defaultState, action) => {
   switch (action.type) {
 
-    case REGISTER.CHANGE_STAGE: {
+    case VERIFY.CHANGE_STAGE: {
       const { stage } = action.payload
       return set('stage', stage, state)
     }
@@ -19,4 +19,4 @@ const authReducer = (state = defaultState, action) => {
   }
 }
 
-export default authReducer
+export default verifyReducer

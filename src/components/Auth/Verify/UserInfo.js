@@ -27,9 +27,9 @@ UserInfo.propTypes = {
 }
 
 export default reduxForm({
-  form: 'register',
+  form: 'account',
   onSubmit: ({ firstName, lastName, birthday, residency, citizenship }, dispatch) =>
-    dispatch(actions.auth.register.updateUserInfo(firstName, lastName, birthday, residency, citizenship)),
+    dispatch(actions.auth.verify.updateUserInfo(firstName, lastName, birthday, residency, citizenship)),
   validate: (values) => compose(
     !values.firstName ? set('firstName', 'First name is required') : identity,
     !values.lastName ? set('lastName', 'Last name is required') : identity,

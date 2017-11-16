@@ -1,0 +1,5 @@
+export const COMPLETE = '@auth/verify/Complete'
+export const CHANGE_STAGE = '@auth/verify/Change stage'
+export const CONFIRM_TERMS = '@auth/verify/Confirm terms'
+export const UPLOAD_DOCUMENT = '@auth/verify/Upload document'
+export const UPDATE_USER_INFO = '@auth/verify/Update user info'

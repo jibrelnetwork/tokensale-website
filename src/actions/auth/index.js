@@ -1,7 +1,8 @@
 import * as register from './register'
+import * as verify from './verify'
 import * as AUTH from '../../constants/auth'
 
-export { register }
+export { verify, register }
 
 export const setToken = (token) => ({
   type: AUTH.SET_TOKEN,

@@ -1,6 +1,6 @@
 import auth from './auth';
-import register from './register'
+import verify from './verify'
 
-const reducers = { auth, register }
+const reducers = { auth, verify }
 
 export default reducers

@@ -1,4 +1,4 @@
-import moment from 'moment'
+import { push } from 'react-router-redux'
 import { put, call, take } from 'redux-saga/effects';
 import { startSubmit, stopSubmit } from 'redux-form'
 import * as REGISTER from '../../constants/auth/register'
@@ -24,7 +24,7 @@ export function* createAccount() {
     if (response && response.status < 400) {
       yield put(actions.auth.setToken(response.data.key))
       yield put(stopSubmit(FORM))
-      yield put(actions.auth.register.changeStage('terms'))
+      yield put(push('/verify'))
     } else {
       const errors = {
         email: response.data.email,
@@ -32,67 +32,6 @@ export function* createAccount() {
         password: response.data.password,
         passwordConfirm: response.data.password_confirm,
       }
-      yield put(stopSubmit(FORM, errors))
-    }
-  }
-}
-
-export function* confirmTerms() {
-  while (true) { // eslint-disable-line fp/no-loops
-    yield take(REGISTER.CONFIRM_TERMS)
-    const data = { terms_confirmed: true }
-    yield put(startSubmit(FORM))
-    const response = yield call(request, `${SERVER}/api/account/`, data, 'put');
-    if (response && response.status < 400) {
-      yield put(stopSubmit(FORM))
-      yield put(actions.auth.register.changeStage('user-info'))
-    } else {
-      yield put(stopSubmit(FORM))
-    }
-  }
-}
-
-export function* updateUserInfo() {
-  while (true) { // eslint-disable-line fp/no-loops
-    const {
-      payload: { firstName, lastName, birthday, residency, citizenship },
-    } = yield take(REGISTER.UPDATE_USER_INFO)
-    const data = {
-      residency,
-      last_name: lastName,
-      first_name: firstName,
-      citizenship,
-      date_of_birth: moment(birthday).format('YYYY-MM-DD'),
-    }
-    yield put(startSubmit(FORM))
-    const response = yield call(request, `${SERVER}/api/account/`, data, 'put');
-    if (response && response.status < 400) {
-      yield put(stopSubmit(FORM))
-      yield put(actions.auth.register.changeStage('document'))
-    } else {
-      const errors = {
-        lastName: response.data.lastName,
-        birthday: response.data.date_of_birth,
-        firstName: response.data.first_name,
-        residency: response.data.residency,
-        citizenship: response.data.citizenship,
-      }
-      yield put(stopSubmit(FORM, errors))
-    }
-  }
-}
-
-export function* uploadDocument() {
-  while (true) { // eslint-disable-line fp/no-loops
-    const { payload: { documentUrl } } = yield take(REGISTER.UPLOAD_DOCUMENT)
-    const data = { document_url: documentUrl }
-    yield put(startSubmit(FORM))
-    const response = yield call(request, `${SERVER}/api/account/`, data, 'put');
-    if (response && response.status < 400) {
-      yield put(stopSubmit(FORM))
-      yield put(actions.auth.register.changeStage('email-verification'))
-    } else {
-      const errors = { documentUrl: response.data.document_url }
       yield put(stopSubmit(FORM, errors))
     }
   }

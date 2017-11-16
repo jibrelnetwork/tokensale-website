@@ -1,5 +1,6 @@
-import { startSubmit, stopSubmit } from 'redux-form'
+import { push } from 'react-router-redux'
 import { put, call, take } from 'redux-saga/effects';
+import { startSubmit, stopSubmit } from 'redux-form'
 import * as actions from '../../actions'
 import * as AUTH from '../../constants/auth'
 import request from '../request';
@@ -17,7 +18,7 @@ export function* login() {
       yield put(stopSubmit(FORM))
       const token = response.data.key
       yield put(actions.auth.setToken(token))
-      // ! Redirect to user transaction history
+      yield put(push('/account'))
     } else {
       const errors = { password: response.data.non_field_errors }
       yield put(stopSubmit(FORM, errors))

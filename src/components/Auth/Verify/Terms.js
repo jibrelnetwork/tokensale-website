@@ -24,8 +24,8 @@ Terms.propTypes = {
 }
 
 export default reduxForm({
-  form: 'register',
-  onSubmit: (_, dispatch) => dispatch(actions.auth.register.confirmTerms()),
+  form: 'account',
+  onSubmit: (_, dispatch) => dispatch(actions.auth.verify.confirmTerms()),
   validate: (values) => compose(
     !values.policyConfirm ? set('policyConfirm', 'Policy agreement is required') : identity,
     !values.citizenshipConfirm ? set('citizenshipConfirm', 'Citizenship confirmation is required') : identity,
