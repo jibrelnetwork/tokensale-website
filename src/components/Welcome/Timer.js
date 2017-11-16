@@ -6,7 +6,7 @@ import { withState, lifecycle } from 'recompose'
 
 const Timer = ({ timeLeft }) => (
   <div className="Timer">
-    {timeLeft.seconds() > 0 ? (
+    {timeLeft.asMilliseconds() > 0 ? (
       <div className="counter">
         <div className="day">
           {timeLeft.days()}
@@ -42,17 +42,20 @@ const enhance = compose(
   lifecycle({
     /* eslint-disable fp/no-this */
     componentWillMount() {
-      const { timeLeft, setTimeLeft } = this.props
-      if (timeLeft.seconds() > 0) {
-        this.timer = setInterval(() => setTimeLeft(timeLeft.subtract(1, 'seconds')), 1000)
+      const { timeLeft, setTimeLeft } = this.props;
+      if (timeLeft.asMilliseconds() > 0) {
+        this.timer = setInterval(
+          () => setTimeLeft(timeLeft.subtract(1, 'seconds')), 1000
+        )
       }
     },
     componentWillUnmount() {
       clearInterval(this.timer)
     },
     componentDidUpdate() {
-      const { timeLeft } = this.props;
-      if (timeLeft.seconds() === 0) { clearInterval(this.timer) }
+      if (this.props.timeLeft.asMilliseconds() < 0) {
+        clearInterval(this.timer)
+      }
     },
   /* eslint-enable */
   })
