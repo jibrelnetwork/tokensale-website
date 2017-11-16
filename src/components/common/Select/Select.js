@@ -16,7 +16,7 @@ const Select = ({ input: { value, onChange }, meta: { error, touched } }) => (
       itemPredicate={(query, item) => item.toLowerCase().indexOf(query.toLowerCase()) === 0}
       inputValueRenderer={(_) => _}
     >
-      <input value={value} />
+      <input value={value} onChange={onChange} />
     </Blueprint.Select>
     {touched && (error && <div className="error">{error}</div>)}
   </div>
