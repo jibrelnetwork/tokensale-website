@@ -1,7 +1,8 @@
 import React from 'react'
+import Timer from './Timer'
 
 const Welcome = () => (
-  <div>Welcome</div>
+  <Timer />
 )
 
 export default Welcome
