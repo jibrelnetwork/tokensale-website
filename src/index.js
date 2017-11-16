@@ -16,11 +16,12 @@ import '@blueprintjs/datetime/dist/blueprint-datetime.css'
 import '@blueprintjs/labs/dist/blueprint-labs.css'
 import '@blueprintjs/core/dist/blueprint.css'
 import './styles/normalize.css'
+import './styles/style.css'
 
+import sagas from './sagas';
 import reducers from './reducers'
 import middlewares from './middlewares';
-import sagas from './sagas';
-import { Auth, Welcome } from './components';
+import { Auth, Welcome, Account } from './components';
 
 FocusStyleManager.onlyShowFocusOnTabs();
 
@@ -59,6 +60,7 @@ ReactDOM.render(
         <div>
           <Route path="/" exact component={Welcome} />
           <Route path="/login" component={Auth.Login} />
+          <Route path="/account" component={Account} />
           <Route path="/register" component={Auth.Register} />
         </div>
       </ConnectedRouter>

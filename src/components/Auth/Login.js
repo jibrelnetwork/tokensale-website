@@ -8,7 +8,7 @@ import { Input } from '../common';
 const Login = ({ submitting, handleSubmit }) => (
   <div className="Login">
     <form onSubmit={handleSubmit} className="form">
-      <Field name="email" type="email" component={Input} label="Email" />
+      <Field name="email" type="text" component={Input} label="Email" />
       <Field name="password" type="password" component={Input} label="Password" />
       <div className="submit">
         <button type="submit" disabled={submitting}>Login</button>

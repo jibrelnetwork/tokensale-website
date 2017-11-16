@@ -9,7 +9,7 @@ import { Input, Captcha } from '../../common';
 const Account = ({ submitting, handleSubmit }) => (
   <div className="Account">
     <form onSubmit={handleSubmit} className="form">
-      <Field name="email" type="email" component={Input} label="Email" />
+      <Field name="email" type="text" component={Input} label="Email" />
       <Field name="password" type="password" component={Input} label="Password" />
       <Field name="passwordConfirm" type="password" component={Input} label="Password Confirmation" />
       <Field name="captcha" component={Captcha} />
