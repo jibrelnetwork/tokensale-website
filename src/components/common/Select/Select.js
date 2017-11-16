@@ -2,9 +2,10 @@ import React from 'react'
 import PropType from 'prop-types'
 import * as Blueprint from '@blueprintjs/labs'
 import { MenuItem } from '@blueprintjs/core';
+import Input from '../Input'
 import { countries } from '.'
 
-const Select = ({ input: { value, onChange }, meta: { error, touched } }) => (
+const Select = ({ label, input: { value, onChange }, meta }) => (
   <div className="Select">
     <Blueprint.Select
       items={countries}
@@ -14,15 +15,21 @@ const Select = ({ input: { value, onChange }, meta: { error, touched } }) => (
         <MenuItem key={item} onClick={handleClick} text={item} />
       )}
       itemPredicate={(query, item) => item.toLowerCase().indexOf(query.toLowerCase()) === 0}
+      popoverProps={{ placement: 'top' }}
       inputValueRenderer={(_) => _}
     >
-      <input value={value} onChange={onChange} />
+      <Input
+        type="text"
+        meta={meta}
+        input={{ value, onChange }}
+        label={label}
+      />
     </Blueprint.Select>
-    {touched && (error && <div className="error">{error}</div>)}
   </div>
 )
 
 Select.propTypes = {
+  label: PropType.string.isRequired,
   input: PropType.shape({ // redux-form injected props
     value: PropType.string.isRequired,
     onChange: PropType.func.isRequired,
