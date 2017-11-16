@@ -8,7 +8,7 @@ const Captcha = ({ input: { onChange }, meta: { error, touched } }) => (
   <div className="Captcha">
     <Recaptcha
       sitekey={RECAPTCHA_SITE_KEY}
-      callback={() => onChange(true)}
+      callback={onChange}
       expiredCallback={() => window.grecaptcha.reset()} // eslint-disable-line more/no-window
     />
     {touched && (error && <div className="error">{error}</div>)}

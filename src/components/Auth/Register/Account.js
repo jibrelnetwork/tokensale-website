@@ -27,8 +27,8 @@ Account.propTypes = {
 
 export default reduxForm({
   form: 'register',
-  onSubmit: ({ email, password, passwordConfirm }, dispatch) => dispatch(
-    actions.auth.register.createAccount(email, password, passwordConfirm)
+  onSubmit: ({ email, password, passwordConfirm, captcha }, dispatch) => dispatch(
+    actions.auth.register.createAccount(email, password, passwordConfirm, captcha)
   ),
   validate: (values) => compose(
     !values.email

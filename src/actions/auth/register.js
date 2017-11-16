@@ -5,9 +5,9 @@ export const changeStage = (stage) => ({
   payload: { stage },
 })
 
-export const createAccount = (email, password, passwordConfirm) => ({
+export const createAccount = (email, password, passwordConfirm, captcha) => ({
   type: REGISTER.CREATE_ACCOUNT,
-  payload: { email, password, passwordConfirm },
+  payload: { email, password, passwordConfirm, captcha },
 })
 
 export const confirmTerms = () => ({

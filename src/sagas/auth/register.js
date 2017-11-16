@@ -1,6 +1,6 @@
-import { startSubmit, stopSubmit } from 'redux-form'
+import moment from 'moment'
 import { put, call, take } from 'redux-saga/effects';
-import format from 'date-fns/format'
+import { startSubmit, stopSubmit } from 'redux-form'
 import * as REGISTER from '../../constants/auth/register'
 import * as actions from '../../actions'
 import request from '../request';
@@ -11,10 +11,11 @@ const FORM = 'register'
 export function* createAccount() {
   while (true) { // eslint-disable-line fp/no-loops
     const {
-      payload: { email, password, passwordConfirm },
+      payload: { email, password, passwordConfirm, captcha },
     } = yield take(REGISTER.CREATE_ACCOUNT)
     const data = {
       email,
+      captcha,
       password,
       password_confirm: passwordConfirm,
     }
@@ -27,6 +28,7 @@ export function* createAccount() {
     } else {
       const errors = {
         email: response.data.email,
+        captcha: response.data.captcha,
         password: response.data.password,
         passwordConfirm: response.data.password_confirm,
       }
@@ -60,7 +62,7 @@ export function* updateUserInfo() {
       last_name: lastName,
       first_name: firstName,
       citizenship,
-      date_of_birth: format(new Date(birthday), 'YYYY-MM-DD'),
+      date_of_birth: moment(birthday).format('YYYY-MM-DD'),
     }
     yield put(startSubmit(FORM))
     const response = yield call(request, `${SERVER}/api/account/`, data, 'put');
