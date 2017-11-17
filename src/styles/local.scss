@@ -29,6 +29,12 @@
   }
 }
 
+.Verify {
+  .start .header {
+    padding-bottom: 50px;
+  }
+}
+
 .pt-input-group.pt-intend-danger {
   all: unset;
 }
@@ -53,4 +59,10 @@ button {
   border: unset;
   cursor: pointer;
   font-family: unset;
+}
+
+.field.field-checkbox.error {
+  .error-text {
+    top: 110px;
+  }
 }

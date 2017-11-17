@@ -11,8 +11,18 @@ const Input = ({
     touched,
   },
 }) => (
-  <div className={cx('field', 'field-input', { error: error && touched })}>
-    <input {...input} placeholder={label} type={type} />
+  <div className={cx(
+    'field',
+    `field-${type === 'checkbox' ? 'checkbox' : 'input'}`,
+    { error: error && touched })}
+  >
+    <input
+      {...input}
+      id={type === 'checkbox' ? label : undefined}
+      type={type}
+      placeholder={label}
+    />
+    {type === 'checkbox' && <label htmlFor={label}>{label}</label>}
     {touched && error && <div className="error-text">{error}</div>}
   </div>
 )
@@ -21,7 +31,7 @@ Input.propTypes = {
   type: PropTypes.oneOf(['text', 'password', 'checkbox']).isRequired,
   label: PropTypes.string.isRequired,
   input: PropTypes.shape({ // redux-form injected props
-    value: PropTypes.oneOfType([PropTypes.instanceOf(Date), PropTypes.string]),
+    value: PropTypes.oneOfType([PropTypes.instanceOf(Date), PropTypes.string, PropTypes.bool]).isRequired,
     onChange: PropTypes.func.isRequired,
   }).isRequired,
   meta: PropTypes.shape({ // redux-form injected props
