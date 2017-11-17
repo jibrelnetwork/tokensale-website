@@ -1,5 +1,5 @@
 import React from 'react'
-// import { push } from 'react-router-redux'
+import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import { Field, reduxForm } from 'redux-form'
 import { set, compose, identity } from 'lodash/fp'
@@ -8,15 +8,20 @@ import { Input, Captcha } from '../common';
 
 const Register = ({ submitting, handleSubmit }) => (
   <div className="Register">
-    <form onSubmit={handleSubmit} className="form">
-      <Field name="email" type="text" component={Input} label="Email" />
-      <Field name="password" type="password" component={Input} label="Password" />
-      <Field name="passwordConfirm" type="password" component={Input} label="Password Confirmation" />
-      <Field name="captcha" component={Captcha} />
-      <div className="submit">
-        <button type="submit" disabled={submitting}>Next Step</button>
+    <div className="auth">
+      <div className="form-block">
+        <form onSubmit={handleSubmit} className="form">
+          <Field name="email" type="text" component={Input} label="Email" />
+          <Field name="password" type="password" component={Input} label="Password" />
+          <Field name="passwordConfirm" type="password" component={Input} label="Password Confirmation" />
+          <Field name="captcha" component={Captcha} />
+          <div className="buttons clear">
+            <button type="submit" disabled={submitting} className="button pull-left">Register</button>
+            <Link to="/welcome/login" className="pull-right">Have an account?</Link>
+          </div>
+        </form>
       </div>
-    </form>
+    </div>
   </div>
 )
 
@@ -47,5 +52,5 @@ export default reduxForm({
       : identity,
     !values.captcha ? set('captcha', 'Click on captcha checkbox') : identity,
   )({}),
-  destroyOnUnmount: true,
+  destroyOnUnmount: false,
 })(Register)
