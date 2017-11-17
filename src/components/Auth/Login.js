@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import { Field, reduxForm } from 'redux-form'
 import { set, compose, identity } from 'lodash/fp'
@@ -7,13 +8,18 @@ import { Input } from '../common';
 
 const Login = ({ submitting, handleSubmit }) => (
   <div className="Login">
-    <form onSubmit={handleSubmit} className="form">
-      <Field name="email" type="text" component={Input} label="Email" />
-      <Field name="password" type="password" component={Input} label="Password" />
-      <div className="submit">
-        <button type="submit" disabled={submitting}>Login</button>
+    <div className="auth">
+      <div className="form-block">
+        <form onSubmit={handleSubmit} className="form">
+          <Field name="email" type="text" component={Input} label="Email" />
+          <Field name="password" type="password" component={Input} label="Password" />
+          <div className="buttons clear">
+            <button type="submit" disabled={submitting} className="button pull-left">Login</button>
+            <Link to="/reset-password" className="pull-right">Forgotten password?</Link>
+          </div>
+        </form>
       </div>
-    </form>
+    </div>
   </div>
 )
 
@@ -37,5 +43,5 @@ export default reduxForm({
         ? set('password', 'Password is too short')
         : identity,
   )({}),
-  destroyOnUnmount: false,
+  destroyOnUnmount: true,
 })(Login)
