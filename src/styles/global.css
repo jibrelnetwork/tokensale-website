@@ -1,5 +1,9 @@
 /* Colors */
+
 /* Basic */
+
+/* stylelint-disable */
+
 * {
   margin: 0;
   padding: 0;
@@ -621,10 +625,10 @@ body.overlay .start .close {
   cursor: pointer;
   padding-right: 32px;
 }
-.start .address .value:hover .save {
+.start .address .value:hover .edit {
   opacity: 0.5;
 }
-.start .address .save {
+.start .address .edit {
   position: absolute;
   right: 0;
   top: -8px;
@@ -636,6 +640,24 @@ body.overlay .start .close {
   background-position: 7px 7px;
   display: block;
   opacity: 0;
+}
+.start .kyc-status {
+  color: #ffffff;
+  margin-left: 30px;
+  position: relative;
+  padding: 5px 0;
+}
+.start .kyc-status .title {
+  opacity: 0.5;
+  margin-bottom: 8px;
+}
+.start .kyc-status .value {
+  position: relative;
+  cursor: pointer;
+  padding-right: 32px;
+}
+.start .kyc-status .value:hover .save {
+  opacity: 0.5;
 }
 .start .steps {
   color: #ffffff;
@@ -920,6 +942,57 @@ body.overlay .start .close {
     opacity: 1;
   }
 }
+.email-verification {
+  text-align: center;
+  position: relative;
+  color: #ffffff;
+}
+.email-verification .img {
+  margin: 0 auto;
+  width: 72px;
+  height: 72px;
+  background-image: url("/static/icons/email-sent.svg");
+  background-size: 72px 72px;
+}
+.email-verification p {
+  font-size: 15px;
+  line-height: 24px;
+  margin: 30px 0 40px 0;
+}
+.status-declined {
+  text-align: center;
+  position: relative;
+  padding: 20px 0;
+}
+.status-declined .icon {
+  margin: 0 auto;
+  width: 72px;
+  height: 72px;
+  background-image: url("/static/icons/benefit-4.svg");
+  background-size: 72px 72px;
+}
+.status-declined p {
+  font-size: 15px;
+  line-height: 24px;
+  margin-top: 30px;
+}
+.ico-waiting {
+  text-align: center;
+  position: relative;
+  padding: 20px 0;
+}
+.ico-waiting .icon {
+  margin: 0 auto;
+  width: 72px;
+  height: 72px;
+  background-image: url("/static/icons/waiting.svg");
+  background-size: 72px 72px;
+}
+.ico-waiting p {
+  font-size: 15px;
+  line-height: 24px;
+  margin-top: 30px;
+}
 /* Inner page */
 .inner-page .start .header {
   padding-bottom: 50px;
@@ -994,6 +1067,19 @@ body.overlay .start .close {
 .content .addresses .value {
   font-size: 14px;
   font-weight: 600;
+}
+.content .addresses.declined {
+  text-align: center;
+  color: #3d4f6c;
+}
+.content .addresses.declined:before {
+  display: none;
+}
+.content .addresses.declined .status-declined .img {
+  position: relative;
+  left: 0;
+  top: 0;
+  margin-top: 0;
 }
 .content .tabs {
   line-height: 40px;
