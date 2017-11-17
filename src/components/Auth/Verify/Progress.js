@@ -20,8 +20,8 @@ const Progress = ({ stage }) => (
       <div className="steps">
         <div
           className={cx('item', {
-            active: ['terms', 'user-info', 'document'].includes(stage),
-            checked: ['user-info', 'document'].includes(stage),
+            active: ['terms', 'user-info', 'document', 'loader'].includes(stage),
+            checked: ['user-info', 'document', 'loader'].includes(stage),
           })}
         >
           <div className="img" />
@@ -29,8 +29,8 @@ const Progress = ({ stage }) => (
         </div>
         <div
           className={cx('item', {
-            active: ['user-info', 'document'].includes(stage),
-            checked: ['document'].includes(stage),
+            active: ['user-info', 'document', 'loader'].includes(stage),
+            checked: ['document', 'loader'].includes(stage),
           })}
         >
           <div className="img" />
@@ -38,8 +38,8 @@ const Progress = ({ stage }) => (
         </div>
         <div
           className={cx('item', {
-            active: ['document'].includes(stage),
-            checked: false,
+            active: ['document', 'loader'].includes(stage),
+            checked: stage === 'loader',
           })}
         >
           <div className="img" />
@@ -51,7 +51,7 @@ const Progress = ({ stage }) => (
 )
 
 Progress.propTypes = {
-  stage: PropTypes.oneOf(['terms', 'document', 'user-info']).isRequired,
+  stage: PropTypes.oneOf(['terms', 'user-info', 'document', 'loader']).isRequired,
 }
 
 export default Progress

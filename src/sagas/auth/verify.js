@@ -1,5 +1,5 @@
 import moment from 'moment'
-import { push } from 'react-router-redux'
+// import { push } from 'react-router-redux'
 import { put, call, take } from 'redux-saga/effects';
 import { startSubmit, stopSubmit } from 'redux-form'
 import * as VERIFY from '../../constants/auth/verify'
@@ -62,8 +62,7 @@ export function* uploadDocument() {
     const response = yield call(request, `${SERVER}/api/account/`, data, 'put');
     if (response && response.status < 400) {
       yield put(stopSubmit(FORM))
-      yield put(actions.auth.verify.complete())
-      yield put(push('/account'))
+      yield put(actions.auth.verify.changeStage('loader'))
     } else {
       const errors = { documentUrl: response.data.document_url }
       yield put(stopSubmit(FORM, errors))

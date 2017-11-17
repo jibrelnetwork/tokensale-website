@@ -1,19 +1,20 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-// import { Route } from 'react-router-dom'
 import { connect } from 'react-redux'
 
 import Terms from './Terms'
+import Loader from './Loader'
 import UserInfo from './UserInfo'
 import Document from './Document'
 import Progress from './Progress'
 
-const Verify = ({ /* match: { url } */ stage }) => (
+const Verify = ({ stage }) => (
   <div className="Verify">
     <Progress stage={stage} />
     <div className="section form">
       <div className="inner">
         {stage === 'terms' && <Terms />}
+        {stage === 'loader' && <Loader />}
         {stage === 'document' && <Document />}
         {stage === 'user-info' && <UserInfo />}
       </div>
@@ -22,10 +23,7 @@ const Verify = ({ /* match: { url } */ stage }) => (
 )
 
 Verify.propTypes = {
-  // match: PropTypes.shape({
-  //   url: PropTypes.string.isRequired,
-  // }).isRequired,
-  stage: PropTypes.string.isRequired,
+  stage: PropTypes.oneOf(['terms', 'loader', 'document', 'user-info']).isRequired,
 }
 
 const mapStateToProps = (state) => ({
@@ -33,12 +31,3 @@ const mapStateToProps = (state) => ({
 })
 
 export default connect(mapStateToProps)(Verify)
-
-// export default Verify
-
-// on Router
-/*
-<Route path={url} exact component={Terms} />
-<Route path={`${url}/document`} component={Document} />
-<Route path={`${url}/user-info`} component={UserInfo} />
-*/
