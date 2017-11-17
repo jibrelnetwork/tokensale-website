@@ -4,12 +4,12 @@ import createSagaMiddleware from 'redux-saga';
 import { createStore, applyMiddleware } from 'redux'
 import { ConnectedRouter, routerReducer, routerMiddleware } from 'react-router-redux'
 import { persistStore, persistCombineReducers } from 'redux-persist'
+import { Route, Redirect, Switch } from 'react-router-dom'
 import { reducer as formReducer } from 'redux-form'
 import { FocusStyleManager } from '@blueprintjs/core';
 import { PersistGate } from 'redux-persist/es/integration/react'
 import createHistory from 'history/createHashHistory'
 import { Provider } from 'react-redux'
-import { Route } from 'react-router-dom'
 import storage from 'redux-persist/es/storage'
 
 import '@blueprintjs/datetime/dist/blueprint-datetime.css'
@@ -59,11 +59,12 @@ ReactDOM.render(
     <PersistGate persistor={persistor} loading={null}>
       <ConnectedRouter history={history}>
         <div>
-          <Route path="/" exact component={Welcome} />
-          <Route path="/login" component={Auth.Login} />
+          <Switch>
+            <Redirect exact from="/" to="/welcome" />
+            <Route path="/welcome" component={Welcome} />
+          </Switch>
           <Route path="/verify" component={Auth.Verify} />
           <Route path="/account" component={Account} />
-          <Route path="/register" component={Auth.Register} />
         </div>
       </ConnectedRouter>
     </PersistGate>
