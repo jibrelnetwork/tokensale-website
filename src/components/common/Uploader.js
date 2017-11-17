@@ -1,5 +1,5 @@
 import React from 'react'
-import PropType from 'prop-types'
+import PropTypes from 'prop-types'
 import ReactFilestack from 'filestack-react';
 import { head, map, compose } from 'lodash/fp'
 
@@ -23,12 +23,12 @@ const Uploader = ({ input: { onChange }, meta: { error, touched } }) => (
 )
 
 Uploader.propTypes = {
-  input: PropType.shape({
-    onChange: PropType.func.isRequired,
+  input: PropTypes.shape({
+    onChange: PropTypes.func.isRequired,
   }).isRequired, // redux-form injected props
-  meta: PropType.shape({ // redux-form injected props
-    error: PropType.oneOfType([PropType.array, PropType.string]),
-    touched: PropType.bool,
+  meta: PropTypes.shape({ // redux-form injected props
+    error: PropTypes.oneOfType([PropTypes.array, PropTypes.string]),
+    touched: PropTypes.bool,
   }).isRequired,
 }
 

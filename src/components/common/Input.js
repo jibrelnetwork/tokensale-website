@@ -1,6 +1,6 @@
 import React from 'react'
 import cx from 'classnames'
-import PropType from 'prop-types'
+import PropTypes from 'prop-types'
 
 const Input = ({
   type,
@@ -18,15 +18,15 @@ const Input = ({
 )
 
 Input.propTypes = {
-  type: PropType.oneOf(['text', 'password', 'checkbox']).isRequired,
-  label: PropType.string.isRequired,
-  input: PropType.shape({ // redux-form injected props
-    value: PropType.oneOfType([PropType.instanceOf(Date), PropType.string]),
-    onChange: PropType.func.isRequired,
+  type: PropTypes.oneOf(['text', 'password', 'checkbox']).isRequired,
+  label: PropTypes.string.isRequired,
+  input: PropTypes.shape({ // redux-form injected props
+    value: PropTypes.oneOfType([PropTypes.instanceOf(Date), PropTypes.string]),
+    onChange: PropTypes.func.isRequired,
   }).isRequired,
-  meta: PropType.shape({ // redux-form injected props
-    error: PropType.oneOfType([PropType.array, PropType.string]),
-    touched: PropType.bool,
+  meta: PropTypes.shape({ // redux-form injected props
+    error: PropTypes.oneOfType([PropTypes.array, PropTypes.string]),
+    touched: PropTypes.bool,
   }).isRequired,
 }
 

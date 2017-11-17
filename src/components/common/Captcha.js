@@ -1,5 +1,5 @@
 import React from 'react'
-import PropType from 'prop-types'
+import PropTypes from 'prop-types'
 import Recaptcha from 'react-grecaptcha'
 
 const RECAPTCHA_SITE_KEY = '6Lcd-DgUAAAAAJj89dm3aR43OMwW5_OS3Q4tg9MO'
@@ -16,12 +16,12 @@ const Captcha = ({ input: { onChange }, meta: { error, touched } }) => (
 )
 
 Captcha.propTypes = {
-  input: PropType.shape({
-    onChange: PropType.func.isRequired,
+  input: PropTypes.shape({
+    onChange: PropTypes.func.isRequired,
   }).isRequired, // redux-form injected props
-  meta: PropType.shape({ // redux-form injected props
-    error: PropType.oneOfType([PropType.array, PropType.string]),
-    touched: PropType.bool,
+  meta: PropTypes.shape({ // redux-form injected props
+    error: PropTypes.oneOfType([PropTypes.array, PropTypes.string]),
+    touched: PropTypes.bool,
   }).isRequired,
 }
 

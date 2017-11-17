@@ -1,6 +1,6 @@
 import React from 'react'
 import cx from 'classnames'
-import PropType from 'prop-types'
+import PropTypes from 'prop-types'
 import { DateInput } from '@blueprintjs/datetime'
 
 const Datepicker = ({ input: { value, onChange }, meta: { error, touched }, label }) => (
@@ -17,14 +17,14 @@ const Datepicker = ({ input: { value, onChange }, meta: { error, touched }, labe
 )
 
 Datepicker.propTypes = {
-  label: PropType.string.isRequired,
-  input: PropType.shape({
-    value: PropType.oneOfType([PropType.instanceOf(Date), PropType.string]),
-    onChange: PropType.func.isRequired,
+  label: PropTypes.string.isRequired,
+  input: PropTypes.shape({
+    value: PropTypes.oneOfType([PropTypes.instanceOf(Date), PropTypes.string]),
+    onChange: PropTypes.func.isRequired,
   }).isRequired, // redux-form injected props
-  meta: PropType.shape({ // redux-form injected props
-    error: PropType.oneOfType([PropType.array, PropType.string]),
-    touched: PropType.bool,
+  meta: PropTypes.shape({ // redux-form injected props
+    error: PropTypes.oneOfType([PropTypes.array, PropTypes.string]),
+    touched: PropTypes.bool,
   }).isRequired,
 }
 

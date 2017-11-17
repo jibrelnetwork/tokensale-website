@@ -1,5 +1,5 @@
 import React from 'react'
-import PropType from 'prop-types'
+import PropTypes from 'prop-types'
 import * as Blueprint from '@blueprintjs/labs'
 import { MenuItem } from '@blueprintjs/core';
 import Input from '../Input'
@@ -29,14 +29,14 @@ const Select = ({ label, input: { value, onChange }, meta }) => (
 )
 
 Select.propTypes = {
-  label: PropType.string.isRequired,
-  input: PropType.shape({ // redux-form injected props
-    value: PropType.string.isRequired,
-    onChange: PropType.func.isRequired,
+  label: PropTypes.string.isRequired,
+  input: PropTypes.shape({ // redux-form injected props
+    value: PropTypes.string.isRequired,
+    onChange: PropTypes.func.isRequired,
   }).isRequired,
-  meta: PropType.shape({ // redux-form injected props
-    error: PropType.oneOfType([PropType.array, PropType.string]),
-    touched: PropType.bool,
+  meta: PropTypes.shape({ // redux-form injected props
+    error: PropTypes.oneOfType([PropTypes.array, PropTypes.string]),
+    touched: PropTypes.bool,
   }).isRequired,
 }
 

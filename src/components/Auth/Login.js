@@ -1,5 +1,5 @@
 import React from 'react'
-import PropType from 'prop-types'
+import PropTypes from 'prop-types'
 import { Field, reduxForm } from 'redux-form'
 import { set, compose, identity } from 'lodash/fp'
 import * as actions from '../../actions'
@@ -18,8 +18,8 @@ const Login = ({ submitting, handleSubmit }) => (
 )
 
 Login.propTypes = {
-  submitting: PropType.bool.isRequired,
-  handleSubmit: PropType.func.isRequired,
+  submitting: PropTypes.bool.isRequired,
+  handleSubmit: PropTypes.func.isRequired,
 }
 
 export default reduxForm({

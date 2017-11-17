@@ -1,5 +1,5 @@
 import React from 'react'
-import PropType from 'prop-types'
+import PropTypes from 'prop-types'
 import { Field, reduxForm } from 'redux-form'
 import { Uploader } from '../../common'
 import * as actions from '../../../actions'
@@ -16,8 +16,8 @@ const Document = ({ submitting, handleSubmit }) => (
 )
 
 Document.propTypes = {
-  submitting: PropType.bool.isRequired,
-  handleSubmit: PropType.func.isRequired,
+  submitting: PropTypes.bool.isRequired,
+  handleSubmit: PropTypes.func.isRequired,
 }
 
 export default reduxForm({
