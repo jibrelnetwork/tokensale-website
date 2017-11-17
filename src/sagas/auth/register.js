@@ -32,6 +32,7 @@ export function* createAccount() {
         password: response.data.password,
         passwordConfirm: response.data.password_confirm,
       }
+      if (errors.captcha) { window.grecaptcha.reset() } // eslint-disable-line more/no-window
       yield put(stopSubmit(FORM, errors))
     }
   }
