@@ -12,17 +12,17 @@ const ProtectedRoute = ({ component: Component, path, store, ...restProps }) => 
           ? isAuthorized && !isVerified
             ? <Component {...props} />
             : isAuthorized && isVerified
-              ? <Redirect to={{ pathname: '/account' }} />
-              : <Redirect to={{ pathname: '/welcome/login' }} />
+              ? <Redirect to="/account" />
+              : <Redirect to="/welcome/login" />
           : path === '/account'
             ? isAuthorized && isVerified
               ? <Component {...props} />
               : isAuthorized && !isVerified
-                ? <Redirect to={{ pathname: '/verify' }} />
+                ? <Redirect to="/verify" />
                 : !isAuthorized && isVerified
-                  ? <Redirect to={{ pathname: '/welcome/login' }} />
-                  : <Redirect to={{ pathname: '/welcome/login' }} />
-            : <Redirect to={{ pathname: '/welcome' }} />
+                  ? <Redirect to="/welcome/login" />
+                  : <Redirect to="/welcome/login" />
+            : <Redirect to="/welcome" />
       )}
       {...restProps}
     />

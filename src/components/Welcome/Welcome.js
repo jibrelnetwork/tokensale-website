@@ -1,11 +1,13 @@
 import React from 'react'
+import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
 import { Route, Switch, Redirect } from 'react-router-dom'
 import Benefits from './Benefits'
 import Content from './Content'
 import Header from './Header'
 import * as Auth from '../Auth';
 
-const Welcome = () => (
+const Welcome = ({ isAuthorized }) => (
   <div className="Welcome">
     <div className="section start">
       <div className="bg-1" />
@@ -15,8 +17,14 @@ const Welcome = () => (
         <Route path="/welcome" exact component={Content} />
       </div>
       <Switch>
-        <Route path="/welcome/login" component={Auth.Login} />
-        <Route path="/welcome/register" component={Auth.Register} />
+        {isAuthorized
+          ? <Redirect from="/welcome/login" to="/welcome" />
+          : <Route path="/welcome/login" component={Auth.Login} />
+        }
+        {isAuthorized
+          ? <Redirect from="/welcome/register" to="/welcome" />
+          : <Route path="/welcome/register" component={Auth.Register} />
+        }
         <Redirect from="/welcome/:not_found" to="/welcome" />
       </Switch>
     </div>
@@ -24,4 +32,15 @@ const Welcome = () => (
   </div>
 )
 
-export default Welcome
+Welcome.propTypes = {
+  isAuthorized: PropTypes.bool.isRequired,
+}
+
+const mapStateToProps = (state) => ({
+  isAuthorized: !!state.auth.token,
+})
+
+export default connect(
+  mapStateToProps,
+)(Welcome)
+
