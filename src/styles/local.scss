@@ -66,3 +66,24 @@ button {
     top: 110px;
   }
 }
+
+.start .header li.bordered button {
+  padding: 12px 30px 13px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  text-align: center;
+  border-radius: 20px;
+}
+
+.start .header li.bordered button:hover {
+  opacity: 1;
+  background-color: #00c1ff;
+  border-color: transparent;
+}
+
+.start .header li button {
+  color: #fff;
+  display: block;
+  padding: 12px 0 13px;
+  transition: all 0.3s ease 0s;
+  background-color: transparent;
+}

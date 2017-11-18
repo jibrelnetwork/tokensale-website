@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
 import Terms from './Terms'
+import Header from './Header'
 import Loader from './Loader'
 import UserInfo from './UserInfo'
 import Document from './Document'
@@ -10,7 +11,12 @@ import Progress from './Progress'
 
 const Verify = ({ stage }) => (
   <div className="Verify">
-    <Progress stage={stage} />
+    <div className="section start">
+      <div className="inner">
+        <Header />
+        <Progress stage={stage} />
+      </div>
+    </div>
     <div className="section form">
       <div className="inner">
         {stage === 'terms' && <Terms />}
