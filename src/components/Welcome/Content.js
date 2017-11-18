@@ -1,9 +1,12 @@
 import React from 'react'
+import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-import Tokens from './Tokens'
 import Timer from './Timer'
+import Tokens from './Tokens'
+import * as actions from '../../actions'
 
-const Content = () => (
+const Content = ({ isAuthorized }) => (
   <div className="Content">
     <div className="text">
       <h1 style={{ color: 'white' }}>Tokenize Everything</h1>
@@ -11,10 +14,25 @@ const Content = () => (
     </div>
     <Timer />
     <div className="link">
-      <Link to="/welcome/register" className="button big">Get Tokens</Link>
+      <Link to={isAuthorized ? '/account' : '/welcome/register'} className="button big">Get Tokens</Link>
     </div>
     <Tokens />
   </div>
 )
 
-export default Content
+Content.propTypes = {
+  isAuthorized: PropTypes.bool.isRequired,
+}
+
+const mapStateToProps = (state) => ({
+  isAuthorized: !!state.auth.token,
+})
+
+const mapDispatchToProps = {
+  logout: actions.auth.logout,
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(Content)
