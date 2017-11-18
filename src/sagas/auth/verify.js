@@ -17,7 +17,7 @@ export function* confirmTerms() {
     const response = yield call(request, `${SERVER}/api/account/`, data, 'put');
     if (response && response.status < 400) {
       yield put(stopSubmit(FORM))
-      yield put(actions.auth.verify.changeStage('user-info'))
+      yield put(actions.auth.verify.setStage('user-info'))
     } else {
       yield put(stopSubmit(FORM))
     }
@@ -40,7 +40,7 @@ export function* updateUserInfo() {
     const response = yield call(request, `${SERVER}/api/account/`, data, 'put');
     if (response && response.status < 400) {
       yield put(stopSubmit(FORM))
-      yield put(actions.auth.verify.changeStage('document'))
+      yield put(actions.auth.verify.setStage('document'))
     } else {
       const errors = {
         lastName: response.data.lastName,
@@ -63,7 +63,7 @@ export function* uploadDocument() {
     if (response && response.status < 400) {
       yield put(stopSubmit(FORM))
       yield put(actions.auth.verify.setStatus('pending'))
-      yield put(actions.auth.verify.changeStage('loader'))
+      yield put(actions.auth.verify.setStage('loader'))
     } else {
       const errors = { documentUrl: response.data.document_url }
       yield put(stopSubmit(FORM, errors))

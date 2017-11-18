@@ -10,7 +10,7 @@ const defaultState = {
 const verifyReducer = (state = defaultState, action) => {
   switch (action.type) {
 
-    case VERIFY.CHANGE_STAGE: {
+    case VERIFY.SET_STAGE: {
       const { stage } = action.payload
       return set('stage', stage, state)
     }

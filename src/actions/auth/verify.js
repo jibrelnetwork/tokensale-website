@@ -10,8 +10,8 @@ export const getStatus = (token) => ({
   payload: { token },
 })
 
-export const changeStage = (stage) => ({
-  type: VERIFY.CHANGE_STAGE,
+export const setStage = (stage) => ({
+  type: VERIFY.SET_STAGE,
   payload: { stage },
 })
 
