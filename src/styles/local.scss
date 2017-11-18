@@ -36,6 +36,39 @@
   }
 }
 
+.Select {
+  > span {
+    display: block;
+
+    > div {
+      display: block;
+    }
+  }
+}
+
+.Datepicker {
+  .pt-input {
+    color: black;
+  }
+
+  .pt-popover-target {
+    display: block;
+  }
+
+  .error-text {
+    top: 65px !important;
+  }
+}
+
+.pt-popover-content .pt-input {
+  box-shadow: unset;
+  border-radius: unset;
+}
+
+.pt-popover-content .pt-input:focus {
+  box-shadow: 0 0 0 1px #137cbd;
+}
+
 .pt-input-group.pt-intend-danger {
   all: unset;
 }
@@ -87,4 +120,20 @@ button {
   padding: 12px 0 13px;
   transition: all 0.3s ease 0s;
   background-color: transparent;
+}
+
+::-webkit-input-placeholder {
+  color: #757575 !important;
+}
+
+::-moz-placeholder {
+  color: #757575 !important;
+}
+
+:-ms-input-placeholder {
+  color: #757575 !important;
+}
+
+:-moz-placeholder {
+  color: #757575 !important;
 }

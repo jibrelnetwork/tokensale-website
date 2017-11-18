@@ -15,7 +15,7 @@ const Select = ({ label, input: { value, onChange }, meta }) => (
         <MenuItem key={item} onClick={handleClick} text={item} />
       )}
       itemPredicate={(query, item) => item.toLowerCase().indexOf(query.toLowerCase()) === 0}
-      popoverProps={{ placement: 'right' }}
+      popoverProps={{ placement: 'top' }}
       inputValueRenderer={(_) => _}
     >
       <Input

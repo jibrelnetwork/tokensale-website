@@ -5,14 +5,16 @@ import { DateInput } from '@blueprintjs/datetime'
 
 const Datepicker = ({ input: { value, onChange }, meta: { error, touched }, label }) => (
   <div className="Datepicker">
-    <DateInput
-      value={value}
-      minDate={new Date('1900-01-01')}
-      onChange={onChange}
-      inputProps={{ placeholder: label, className: cx('Input', 'field', 'field-input', { error }) }}
-      popoverProps={{ placement: 'right' }}
-    />
-    {touched && error && <div className="error-text">{error}</div>}
+    <div className={cx('Input', 'field', 'field-input', { error: error && touched })}>
+      <DateInput
+        value={value}
+        minDate={new Date('1900-01-01')}
+        onChange={onChange}
+        inputProps={{ placeholder: label, className: cx('Input') }}
+        popoverProps={{ placement: 'right' }}
+      />
+      {touched && error && <div className="error-text">{error}</div>}
+    </div>
   </div>
 )
 

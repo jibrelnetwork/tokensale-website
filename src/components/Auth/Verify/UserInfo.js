@@ -14,8 +14,8 @@ const UserInfo = ({ submitting, handleSubmit }) => (
       <Field name="birthday" type="text" component={Datepicker} label="Birthday" />
       <Field name="residency" component={Select} label="Residency" />
       <Field name="citizenship" component={Select} label="Citizenship" />
-      <div className="submit">
-        <button type="submit" disabled={submitting}>Next Step</button>
+      <div className="buttons clear">
+        <button type="submit" className="button bordered pull-right" disabled={submitting}>Next Step</button>
       </div>
     </form>
   </div>
