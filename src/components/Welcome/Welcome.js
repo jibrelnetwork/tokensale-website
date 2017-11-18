@@ -1,5 +1,5 @@
 import React from 'react'
-import { Route } from 'react-router-dom'
+import { Route, Switch, Redirect } from 'react-router-dom'
 import Benefits from './Benefits'
 import Content from './Content'
 import Header from './Header'
@@ -14,8 +14,11 @@ const Welcome = () => (
         <Header />
         <Route path="/welcome" exact component={Content} />
       </div>
-      <Route path="/welcome/login" component={Auth.Login} />
-      <Route path="/welcome/register" component={Auth.Register} />
+      <Switch>
+        <Route path="/welcome/login" component={Auth.Login} />
+        <Route path="/welcome/register" component={Auth.Register} />
+        <Redirect from="/welcome/:not_found" to="/welcome" />
+      </Switch>
     </div>
     <Benefits />
   </div>
