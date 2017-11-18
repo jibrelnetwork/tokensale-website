@@ -1,1 +1,3 @@
-export { PrivateRoute } from './router'
+import ProtectedRoute from './protected'
+
+export { ProtectedRoute }

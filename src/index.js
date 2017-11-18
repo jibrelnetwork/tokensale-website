@@ -22,7 +22,7 @@ import './styles/local.scss'
 import sagas from './sagas';
 import reducers from './reducers'
 import middlewares from './middlewares';
-import { PrivateRoute } from './routes'
+import { ProtectedRoute } from './routes'
 import { Auth, Welcome, Account } from './components';
 
 FocusStyleManager.onlyShowFocusOnTabs();
@@ -63,8 +63,16 @@ ReactDOM.render(
           <Switch>
             <Redirect exact from="/" to="/welcome" />
             <Route path="/welcome" component={Welcome} />
-            <PrivateRoute path="/verify" component={Auth.Verify} store={store} />
-            <PrivateRoute path="/account" component={Account} store={store} />
+            <ProtectedRoute
+              path="/verify"
+              store={store}
+              component={Auth.Verify}
+            />
+            <ProtectedRoute
+              path="/account"
+              store={store}
+              component={Account}
+            />
             <Redirect from="*" to="/welcome" />
           </Switch>
         </div>

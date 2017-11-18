@@ -1,7 +1,7 @@
 import * as VERIFY from '../../constants/auth/verify'
 
 export const setStatus = (status) => ({
-  type: VERIFY.GET_STATUS,
+  type: VERIFY.SET_STATUS,
   payload: { status },
 })
 
