@@ -6,27 +6,55 @@ import { Field, reduxForm } from 'redux-form'
 import { Uploader } from '../../common'
 import * as actions from '../../../actions'
 
-const Document = ({ submitting, handleSubmit }) => (
+const Document = ({ setStage, submitting, handleSubmit }) => (
   <div className="Identification">
     <form onSubmit={handleSubmit} className="form">
       <Field name="documentUrl" component={Uploader} />
-      <div className="submit">
-        <button type="submit" disabled={submitting}>Next Step</button>
+      <div className="buttons clear">
+        <button
+          type="submit"
+          disabled={submitting}
+          className="button bordered pull-right"
+        >
+          Next Step
+        </button>
+        <button
+          onClick={() => setStage('user-info')}
+          disabled={submitting}
+          className="button bordered"
+        >
+          Previous Step
+        </button>
       </div>
     </form>
   </div>
 )
 
 Document.propTypes = {
+  setStage: PropTypes.func.isRequired,
   submitting: PropTypes.bool.isRequired,
   handleSubmit: PropTypes.func.isRequired,
 }
 
+const mapStateToProps = (state) => ({
+  form: `account-${state.auth.token}`,
+})
+
+const mapDispatchToProps = {
+  setStage: actions.auth.verify.setStage,
+}
+
 export default compose(
-  connect((state, props) => ({ form: `account-${props.id}` })),
+  connect(
+    mapStateToProps,
+    mapDispatchToProps,
+  ),
   reduxForm({
-    onSubmit: ({ documentUrl }, dispatch) => dispatch(actions.auth.verify.uploadDocument(documentUrl)),
-    validate: ({ documentUrl }) => !documentUrl ? { documentUrl: 'Upload document scan in order to verify your identity' } : {},
+    onSubmit: ({ documentUrl }, dispatch) =>
+      dispatch(actions.auth.verify.uploadDocument(documentUrl)),
+    validate: ({ documentUrl }) => !documentUrl
+      ? { documentUrl: 'Upload document scan in order to verify your identity' }
+      : {},
     destroyOnUnmount: false,
   })
 )(Document)
