@@ -4,13 +4,13 @@ import { put, call, select } from 'redux-saga/effects'
 import { constant } from 'lodash/fp'
 import * as actions from '../actions'
 
-export default function* request(url, data, method) {
-  const token = yield select((state) => state.auth.token)
+export default function* request(url, data, method, token) {
+  const authToken = token || (yield select((state) => state.auth.token))
   const response = yield call(axios, {
     url,
     data,
     method,
-    headers: token ? { Authorization: `Token ${token}` } : undefined,
+    headers: authToken ? { Authorization: `Token ${authToken}` } : undefined,
     timeout: 10000,
     validateStatus: constant(true), // resolve all
   })
