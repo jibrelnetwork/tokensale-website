@@ -1,8 +1,8 @@
 import React from 'react'
-// import { push } from 'react-router-redux'
 import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
 import { Field, reduxForm } from 'redux-form'
-import { set, compose, identity } from 'lodash/fp'
+import { set, identity, compose } from 'lodash/fp'
 import { Input, Datepicker, Select } from '../../common';
 import * as actions from '../../../actions'
 
@@ -26,16 +26,18 @@ UserInfo.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
 }
 
-export default reduxForm({
-  form: 'account',
-  onSubmit: ({ firstName, lastName, birthday, residency, citizenship }, dispatch) =>
-    dispatch(actions.auth.verify.updateUserInfo(firstName, lastName, birthday, residency, citizenship)),
-  validate: (values) => compose(
-    !values.firstName ? set('firstName', 'First name is required') : identity,
-    !values.lastName ? set('lastName', 'Last name is required') : identity,
-    !values.residency ? set('residency', 'Residency is required') : identity,
-    !values.birthday ? set('birthday', 'Birthday is required') : identity,
-    !values.citizenship ? set('citizenship', 'Citizenship is required') : identity,
-  )({}),
-  destroyOnUnmount: false,
-})(UserInfo)
+export default compose(
+  connect((state, props) => ({ form: `form-${props.id}` })),
+  reduxForm({
+    onSubmit: ({ firstName, lastName, birthday, residency, citizenship }, dispatch) =>
+      dispatch(actions.auth.verify.updateUserInfo(firstName, lastName, birthday, residency, citizenship)),
+    validate: (values) => compose(
+      !values.firstName ? set('firstName', 'First name is required') : identity,
+      !values.lastName ? set('lastName', 'Last name is required') : identity,
+      !values.residency ? set('residency', 'Residency is required') : identity,
+      !values.birthday ? set('birthday', 'Birthday is required') : identity,
+      !values.citizenship ? set('citizenship', 'Citizenship is required') : identity,
+    )({}),
+    destroyOnUnmount: false,
+  })
+)(UserInfo)

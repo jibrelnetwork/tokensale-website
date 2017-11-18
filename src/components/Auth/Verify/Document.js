@@ -1,5 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
+import { compose } from 'lodash/fp'
 import { Field, reduxForm } from 'redux-form'
 import { Uploader } from '../../common'
 import * as actions from '../../../actions'
@@ -20,9 +22,11 @@ Document.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
 }
 
-export default reduxForm({
-  form: 'account',
-  onSubmit: ({ documentUrl }, dispatch) => dispatch(actions.auth.verify.uploadDocument(documentUrl)),
-  validate: ({ documentUrl }) => !documentUrl ? { documentUrl: 'Upload document scan in order to verify your identity' } : {},
-  destroyOnUnmount: false,
-})(Document)
+export default compose(
+  connect((state, props) => ({ form: `account-${props.id}` })),
+  reduxForm({
+    onSubmit: ({ documentUrl }, dispatch) => dispatch(actions.auth.verify.uploadDocument(documentUrl)),
+    validate: ({ documentUrl }) => !documentUrl ? { documentUrl: 'Upload document scan in order to verify your identity' } : {},
+    destroyOnUnmount: false,
+  })
+)(Document)

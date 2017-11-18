@@ -1,6 +1,6 @@
 import React from 'react'
-// import { push } from 'react-router-redux'
 import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
 import { Field, reduxForm } from 'redux-form'
 import { set, compose, identity } from 'lodash/fp'
 import * as actions from '../../../actions'
@@ -28,12 +28,14 @@ Terms.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
 }
 
-export default reduxForm({
-  form: 'account',
-  onSubmit: (_, dispatch) => dispatch(actions.auth.verify.confirmTerms()),
-  validate: (values) => compose(
-    !values.policyConfirm ? set('policyConfirm', 'Policy agreement confirm is required') : identity,
-    !values.citizenshipConfirm ? set('citizenshipConfirm', 'Citizenship confirmation is required') : identity,
-  )({}),
-  destroyOnUnmount: false,
-})(Terms)
+export default compose(
+  connect((state, props) => ({ form: `account-${props.id}` })),
+  reduxForm({
+    onSubmit: (_, dispatch) => dispatch(actions.auth.verify.confirmTerms()),
+    validate: (values) => compose(
+      !values.policyConfirm ? set('policyConfirm', 'Policy agreement confirm is required') : identity,
+      !values.citizenshipConfirm ? set('citizenshipConfirm', 'Citizenship confirmation is required') : identity,
+    )({}),
+    destroyOnUnmount: false,
+  })
+)(Terms)
