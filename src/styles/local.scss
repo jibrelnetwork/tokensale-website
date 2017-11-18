@@ -58,6 +58,32 @@
   .error-text {
     top: 65px !important;
   }
+
+  .pt-input-group.pt-intent-danger .pt-input:focus {
+    box-shadow: none;
+  }
+
+  .pt-input-group.pt-intent-danger .pt-input {
+    box-shadow: none;
+  }
+}
+
+.Uploader {
+  margin-bottom: 30px;
+
+  > .area {
+    width: 100%;
+    border: 1px solid #ddd;
+    display: block;
+    padding: 75px;
+    border-radius: 0;
+  }
+
+  > .error-text {
+    color: #e91e63;
+    margin-top: 15px;
+    text-align: center;
+  }
 }
 
 .pt-popover-content .pt-input {

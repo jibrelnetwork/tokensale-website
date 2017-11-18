@@ -14,10 +14,26 @@ const CITIZENSHIP = 'I confirm that I am not citizen, permanent resident, or gra
 const Terms = ({ submitting, handleSubmit }) => (
   <div className="Terms">
     <form onSubmit={handleSubmit} className="form">
-      <Field name="policyConfirm" type="checkbox" component={Input} label={POLICY} />
-      <Field name="citizenshipConfirm" type="checkbox" component={Input} label={CITIZENSHIP} />
+      <Field
+        name="policyConfirm"
+        type="checkbox"
+        label={POLICY}
+        component={Input}
+      />
+      <Field
+        name="citizenshipConfirm"
+        type="checkbox"
+        label={CITIZENSHIP}
+        component={Input}
+      />
       <div className="buttons clear">
-        <button type="submit" className="button bordered pull-right" disabled={submitting}>Next Step</button>
+        <button
+          type="submit"
+          disabled={submitting}
+          className="button bordered pull-right"
+        >
+          Next Step
+        </button>
       </div>
     </form>
   </div>
@@ -28,8 +44,12 @@ Terms.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
 }
 
+const mapStateToProps = (state) => ({
+  form: `account-${state.auth.token}`,
+})
+
 export default compose(
-  connect((state, props) => ({ form: `account-${props.id}` })),
+  connect(mapStateToProps),
   reduxForm({
     onSubmit: (_, dispatch) => dispatch(actions.auth.verify.confirmTerms()),
     validate: (values) => compose(

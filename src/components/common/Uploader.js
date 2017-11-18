@@ -5,7 +5,7 @@ import { head, map, compose } from 'lodash/fp'
 
 const FILESTACK_API_KEY = 'AnARH4cA6SiuvN5hCQvdCz'
 
-const Uploader = ({ input: { onChange }, meta: { error, touched } }) => (
+const Uploader = ({ input: { onChange, value }, meta: { error, touched } }) => (
   <div className="Uploader">
     <ReactFilestack
       apikey={FILESTACK_API_KEY}
@@ -14,16 +14,17 @@ const Uploader = ({ input: { onChange }, meta: { error, touched } }) => (
         fromSources: ['local_file_system', 'webcam'],
         transformations: { crop: true, rotate: true },
       }}
-      buttonText="Select file to upload"
-      buttonClass="classname"
+      buttonText={value ? 'File uploaded' : 'Select file to upload'}
+      buttonClass="area"
       onSuccess={(files) => onChange(compose(head, map((file) => file.url))(files.filesUploaded))}
     />
-    {touched && error && <div className="error">{error}</div>}
+    {touched && error && <div className="error-text">{error}</div>}
   </div>
 )
 
 Uploader.propTypes = {
   input: PropTypes.shape({
+    value: PropTypes.string.isRequired,
     onChange: PropTypes.func.isRequired,
   }).isRequired, // redux-form injected props
   meta: PropTypes.shape({ // redux-form injected props

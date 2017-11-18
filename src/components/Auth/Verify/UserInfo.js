@@ -15,7 +15,13 @@ const UserInfo = ({ submitting, handleSubmit }) => (
       <Field name="residency" component={Select} label="Residency" />
       <Field name="citizenship" component={Select} label="Citizenship" />
       <div className="buttons clear">
-        <button type="submit" className="button bordered pull-right" disabled={submitting}>Next Step</button>
+        <button
+          type="submit"
+          className="button bordered pull-right"
+          disabled={submitting}
+        >
+          Next Step
+        </button>
       </div>
     </form>
   </div>
@@ -26,8 +32,12 @@ UserInfo.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
 }
 
+const mapStateToProps = (state) => ({
+  form: `account-${state.auth.token}`,
+})
+
 export default compose(
-  connect((state, props) => ({ form: `form-${props.id}` })),
+  connect(mapStateToProps),
   reduxForm({
     onSubmit: ({ firstName, lastName, birthday, residency, citizenship }, dispatch) =>
       dispatch(actions.auth.verify.updateUserInfo(firstName, lastName, birthday, residency, citizenship)),

@@ -7,13 +7,11 @@ import * as actions from '../../../actions'
 const Controls = ({ isAuthorized, isVerified, logout }) => (
   isAuthorized ? isVerified ? (
     <ul className="menu pull-right">
-      <li><Link to="/">About Jibrel Network</Link></li>
       <li><Link to="/account">Go to dashboard</Link></li>
       <li className="bordered"><button onClick={logout}>Logout</button></li>
     </ul>
   ) : (
     <ul className="menu pull-right">
-      <li><Link to="/">About Jibrel Network</Link></li>
       <li><Link to="/verify">Complete verification</Link></li>
       <li className="bordered"><button onClick={logout}>Logout</button></li>
     </ul>
