@@ -17,7 +17,7 @@ export default function* request(url, data, method) {
   if (response.status > 200 || response.status <= 400) {
     return response
   } else if (response.status === 401) {
-    yield put(actions.auth.resetToken())
+    yield put(actions.auth.logout())
     yield put(push('/login'))
     return null
   } else if (response.status === 404) {

@@ -3,6 +3,10 @@ import * as AUTH from '../constants/auth'
 
 const defaultState = {
   token: undefined,
+  /* Verification statuses, one of "pending", "approved", "declined"
+     all statuses means that user completed all steps of verification
+     and waits server response with results */
+  verifyStatus: undefined,
 };
 
 const authReducer = (state = defaultState, action) => {
@@ -13,8 +17,13 @@ const authReducer = (state = defaultState, action) => {
       return set('token', token, state)
     }
 
-    case AUTH.RESET_TOKEN: {
+    case AUTH.LOGOUT: {
       return set('token', undefined, state)
+    }
+
+    case AUTH.VERIFY.SET_STATUS: {
+      const { status } = action.payload
+      return set('verifyStatus', status, state)
     }
 
     default: return state

@@ -1,7 +1,13 @@
 import * as VERIFY from '../../constants/auth/verify'
 
-export const complete = () => ({
-  type: VERIFY.COMPLETE,
+export const setStatus = (status) => ({
+  type: VERIFY.GET_STATUS,
+  payload: { status },
+})
+
+export const getStatus = (token) => ({
+  type: VERIFY.GET_STATUS,
+  payload: { token },
 })
 
 export const changeStage = (stage) => ({
