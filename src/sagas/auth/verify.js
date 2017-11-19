@@ -65,7 +65,7 @@ export function* uploadDocument() {
     const response = yield call(request, `${SERVER}/api/account/`, data, 'put');
     if (response && response.status < 400) {
       yield put(stopSubmit(form))
-      yield put(actions.auth.verify.setStatus('pending'))
+      yield put(actions.auth.verify.setStatus('Pending'))
       yield put(actions.auth.verify.setStage('loader'))
     } else {
       const errors = { documentUrl: response.data.document_url }

@@ -19,7 +19,7 @@ export function* login() {
       const accountResponse = yield call(request, `${SERVER}/api/account/`, null, 'get', token);
       if (accountResponse && accountResponse.status < 400) {
         const accountData = {
-          verifyStatus: accountResponse.data.onfido_check_result || 'pending', // ?
+          verifyStatus: accountResponse.data.onfido_check_result || 'Pending', // ?
           isTermsConfirmed: accountResponse.data.terms_confirmed,
           isUserInfoFilled:
             !!accountResponse.data.first_name &&
