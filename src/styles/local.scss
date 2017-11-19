@@ -123,6 +123,26 @@
   }
 }
 
+.Account {
+  .start .header {
+    padding-bottom: 50px;
+  }
+
+  .Progress {
+    > .progress {
+      top: 160px;
+
+      .item.raised {
+        color: #00c1ff;
+      }
+
+      .item.total {
+        color: #0050db;
+      }
+    }
+  }
+}
+
 .pt-popover-content .pt-input {
   box-shadow: unset;
   border-radius: unset;
@@ -183,4 +203,21 @@ button {
   padding: 12px 0 13px;
   transition: all 0.3s ease 0s;
   background-color: transparent;
+}
+
+ol,
+ul {
+  all: unset;
+}
+
+.content .tabs li.active div {
+  opacity: 1;
+  color: #0050db;
+  cursor: pointer;
+}
+
+.content .tabs li div {
+  color: #3d4f6c;
+  opacity: 0.5;
+  cursor: pointer;
 }
