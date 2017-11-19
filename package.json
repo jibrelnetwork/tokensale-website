@@ -26,7 +26,7 @@
     "postmerge": "yarn install --pure-lockfile",
     "production": "node server",
     "postcheckout": "yarn install --pure-lockfile",
-    "heroku-postbuild": "yarn add --force node-sass; yarn run build"
+    "heroku-postbuild": "yarn run build"
   },
   "dependencies": {
     "@blueprintjs/core": "1.33.0",
