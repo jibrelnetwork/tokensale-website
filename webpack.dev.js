@@ -6,62 +6,35 @@ const AutoDllPlugin = require('autodll-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = { // eslint-disable-line fp/no-mutation
-  entry: {
-    app: [
-      'babel-polyfill',
-      './src/index.js',
-    ],
-  },
+  entry: { app: ['babel-polyfill', './src/index.js'] },
   devtool: 'source-map',
   output: {
     path: path.join(__dirname, 'build'),
-    publicPath: '/',
     filename: 'bundle.js',
+    publicPath: '/',
   },
   module: {
     rules: [{
+      use: 'babel-loader?cacheDirectory=true',
       test: /\.js$/,
       exclude: /node_modules/,
-      use: ['babel-loader?cacheDirectory=true'],
       include: path.join(__dirname, 'src'),
     }, {
-      test: /\.(css|scss)$/,
       use: ['style-loader', 'css-loader', 'sass-loader'],
+      test: /\.(css|scss)$/,
     }, {
-      test: /\.(eot|otf|svg|ttf|woff|woff2)$/,
-      loader: 'file-loader',
-    }, {
-      test: /\.(jpg|jpeg|png|gif)$/,
-      loaders: [
-        'file-loader',
-        {
-          loader: 'image-webpack-loader',
-          query: {
-            progressive: true,
-            optimizationLevel: 7,
-            interlaced: false,
-            pngquant: {
-              quality: '65-90',
-              speed: 4,
-            },
-          },
-        },
-      ],
+      use: 'file-loader',
+      test: /\.(eot|otf|svg|ttf|woff|woff2|jpg|jpeg|png|gif)$/,
     }],
   },
   plugins: [
     new webpack.NamedModulesPlugin(),
-    new webpack.EnvironmentPlugin({
-      DEVELOPMENT: true,
-    }),
-    new HtmlWebpackPlugin({
-      inject: true,
-      template: './index.html',
-    }),
+    new webpack.EnvironmentPlugin({ DEV: true }),
+    new HtmlWebpackPlugin({ inject: true, template: './index.html' }),
     new AutoDllPlugin({
+      entry: { vendor: keys(packages.dependencies) },
       inject: true,
       context: __dirname,
-      entry: { vendor: keys(packages.dependencies) },
     }),
   ],
   devServer: {

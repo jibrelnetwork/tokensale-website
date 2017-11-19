@@ -42,8 +42,11 @@ const persistedReducers = persistCombineReducers(
 
 const store = createStore(
   persistedReducers,
-  // eslint-disable-next-line no-underscore-dangle, more/no-window
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
+  process.env.DEV &&
+  /* eslint-disable no-underscore-dangle, more/no-window */
+  window.__REDUX_DEVTOOLS_EXTENSION__ &&
+  window.__REDUX_DEVTOOLS_EXTENSION__(),
+  /* eslint-enable */
   applyMiddleware(
     ...middlewares,
     sagaMiddleware,
