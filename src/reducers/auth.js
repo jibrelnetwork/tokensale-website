@@ -3,7 +3,9 @@ import * as AUTH from '../constants/auth'
 
 const defaultState = {
   token: undefined,
-  /* Verification statuses, one of "pending", "approved", "declined"
+  ETHAddress: undefined,
+  BTCAddress: undefined,
+  /* Verification statuses, one of "Pending", "Approved", "Declined"
      all statuses means that user completed all steps of verification
      and waits server response with results */
   verifyStatus: undefined,
