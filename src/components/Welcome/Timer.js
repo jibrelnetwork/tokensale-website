@@ -5,32 +5,26 @@ import { lifecycle } from 'recompose'
 
 const Timer = ({ timeLeft }) => (
   <div className="Timer">
-    {timeLeft.asMilliseconds() > 0 ? (
-      <div className="counter">
-        <div className="row clear">
-          <div className="col-3">
-            <div className="time">{timeLeft.days()}</div>
-            <div className="title">Day</div>
-          </div>
-          <div className="col-3">
-            <div className="time">{timeLeft.hours()}</div>
-            <div className="title">Hour</div>
-          </div>
-          <div className="col-3">
-            <div className="time">{timeLeft.minutes()}</div>
-            <div className="title">Min</div>
-          </div>
-          <div className="col-3">
-            <div className="time">{timeLeft.seconds()}</div>
-            <div className="title">Sec</div>
-          </div>
+    <div className="counter">
+      <div className="row clear">
+        <div className="col-3">
+          <div className="time">{timeLeft.days()}</div>
+          <div className="title">Day</div>
+        </div>
+        <div className="col-3">
+          <div className="time">{timeLeft.hours()}</div>
+          <div className="title">Hour</div>
+        </div>
+        <div className="col-3">
+          <div className="time">{timeLeft.minutes()}</div>
+          <div className="title">Min</div>
+        </div>
+        <div className="col-3">
+          <div className="time">{timeLeft.seconds()}</div>
+          <div className="title">Sec</div>
         </div>
       </div>
-    ) : (
-      <div className="finish">
-        ICO started!
-      </div>
-    )}
+    </div>
   </div>
 )
 
