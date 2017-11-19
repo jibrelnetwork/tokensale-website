@@ -30,6 +30,43 @@
   }
 }
 
+.Datepicker {
+  input::-webkit-input-placeholder {
+    color: #757575 !important;
+  }
+
+  ::-moz-placeholder {
+    color: #757575 !important;
+  }
+
+  :-ms-input-placeholder {
+    color: #757575 !important;
+  }
+
+  :-moz-placeholder {
+    color: #757575 !important;
+  }
+}
+
+.Ligin,
+.Register {
+  input::-webkit-input-placeholder {
+    color: #999 !important;
+  }
+
+  ::-moz-placeholder {
+    color: #999 !important;
+  }
+
+  :-ms-input-placeholder {
+    color: #999 !important;
+  }
+
+  :-moz-placeholder {
+    color: #999 !important;
+  }
+}
+
 .Verify {
   .start .header {
     padding-bottom: 40px;
@@ -146,20 +183,4 @@ button {
   padding: 12px 0 13px;
   transition: all 0.3s ease 0s;
   background-color: transparent;
-}
-
-::-webkit-input-placeholder {
-  color: #757575 !important;
-}
-
-::-moz-placeholder {
-  color: #757575 !important;
-}
-
-:-ms-input-placeholder {
-  color: #757575 !important;
-}
-
-:-moz-placeholder {
-  color: #757575 !important;
 }
