@@ -1,12 +1,13 @@
 import * as register from './register'
 import * as verify from './verify'
+import * as email from './email'
 import * as AUTH from '../../constants/auth'
 
-export { verify, register }
+export { email, verify, register }
 
-export const login = (email, password) => ({
+export const login = (mail, password) => ({
   type: AUTH.LOGIN,
-  payload: { email, password },
+  payload: { email: mail, password },
 })
 
 export const logout = () => ({

@@ -9,7 +9,7 @@ const defaultState = {
      all statuses means that user completed all steps of verification
      and waits server response with results */
   verifyStatus: undefined,
-};
+}
 
 const authReducer = (state = defaultState, action) => {
   switch (action.type) {
