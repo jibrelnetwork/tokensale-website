@@ -18,8 +18,7 @@ const Transactions = ({ list, balance, filter, setFilter }) => (
         list={[
           { type: 'all', label: 'All transactions' },
           { type: 'incoming', label: 'Incoming transactions' },
-          { type: 'outgoing', label: 'Outgoing transactions' },
-          { type: 'jnt', label: 'JNT transfers' },
+          { type: 'outgoing', label: 'JNT transfers' },
         ]}
       />
       <div className="button bordered pull-right">Withdraw</div>
@@ -35,7 +34,7 @@ const Transactions = ({ list, balance, filter, setFilter }) => (
 
 Transactions.propTypes = {
   list: PropTypes.array.isRequired,
-  filter: PropTypes.oneOf(['all', 'jnt', 'incoming', 'outgoing']).isRequired,
+  filter: PropTypes.oneOf(['all', 'incoming', 'outgoing']).isRequired,
   balance: PropTypes.number.isRequired,
   setFilter: PropTypes.func.isRequired,
 }
@@ -45,7 +44,6 @@ const filterTransactions = (transactions, type) =>
 
 const transactionSelector = (transactions, filter) => get(
   filter, {
-    jnt: [],
     all: transactions,
     incoming: filterTransactions(transactions, 'incoming'),
     outgoing: filterTransactions(transactions, 'outgoing'),

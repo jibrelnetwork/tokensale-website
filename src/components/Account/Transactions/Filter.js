@@ -16,11 +16,11 @@ Filter.propTypes = {
   set: PropTypes.func.isRequired,
   list: PropTypes.arrayOf(
     PropTypes.shape({
-      type: PropTypes.oneOf(['all', 'jnt', 'incoming', 'outgoing']).isRequired,
+      type: PropTypes.oneOf(['all', 'incoming', 'outgoing']).isRequired,
       label: PropTypes.string.isRequired,
     }).isRequired,
   ).isRequired,
-  active: PropTypes.oneOf(['all', 'jnt', 'incoming', 'outgoing']).isRequired,
+  active: PropTypes.oneOf(['all', 'incoming', 'outgoing']).isRequired,
 }
 
 export default Filter
