@@ -5,7 +5,7 @@ import { Route, Switch, Redirect } from 'react-router-dom'
 import Benefits from './Benefits'
 import Content from './Content'
 import Header from './Header'
-import * as Auth from '../Auth';
+import * as Auth from '../Auth'
 
 const Welcome = ({ isAuthorized }) => (
   <div className="Welcome">
@@ -25,6 +25,7 @@ const Welcome = ({ isAuthorized }) => (
           ? <Redirect from="/welcome/register" to="/welcome" />
           : <Route path="/welcome/register" component={Auth.Register} />
         }
+        <Route path="/welcome/email/" component={Auth.Email} />
         <Redirect from="/welcome/:not_found" to="/welcome" />
       </Switch>
     </div>
