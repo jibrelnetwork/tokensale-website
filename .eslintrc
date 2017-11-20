@@ -26,7 +26,7 @@
     "ecmaFeatures": { "jsx": true }
   },
   "rules": {
-    "semi": 0,
+    "semi": [2, "never"],
     "no-var": 2,
     "max-len": [2, 130],
     "new-cap": 0,

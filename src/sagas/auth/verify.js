@@ -1,10 +1,10 @@
 import moment from 'moment'
 // import { push } from 'react-router-redux'
-import { put, call, take, select } from 'redux-saga/effects';
+import { put, call, take, select } from 'redux-saga/effects'
 import { startSubmit, stopSubmit } from 'redux-form'
 import * as VERIFY from '../../constants/auth/verify'
 import * as actions from '../../actions'
-import request from '../request';
+import request from '../request'
 import { SERVER } from '../.'
 
 const getForm = (state) => `account-${state.auth.token}`
@@ -15,8 +15,8 @@ export function* confirmTerms() {
     const form = yield select(getForm)
     const data = { terms_confirmed: true }
     yield put(startSubmit(form))
-    const response = yield call(request, `${SERVER}/api/account/`, data, 'put');
-    if (response && response.status < 400) {
+    const response = yield call(request, `${SERVER}/api/account/`, data, 'put')
+    if (response.success) {
       yield put(stopSubmit(form))
       yield put(actions.auth.verify.setStage('user-info'))
     } else {
@@ -39,11 +39,11 @@ export function* updateUserInfo() {
       date_of_birth: moment(birthday).format('YYYY-MM-DD'),
     }
     yield put(startSubmit(form))
-    const response = yield call(request, `${SERVER}/api/account/`, data, 'put');
-    if (response && response.status < 400) {
+    const response = yield call(request, `${SERVER}/api/account/`, data, 'put')
+    if (response.success) {
       yield put(stopSubmit(form))
       yield put(actions.auth.verify.setStage('document'))
-    } else {
+    } else if (response.error) {
       const errors = {
         lastName: response.data.lastName,
         birthday: response.data.date_of_birth,
@@ -52,6 +52,8 @@ export function* updateUserInfo() {
         citizenship: response.data.citizenship,
       }
       yield put(stopSubmit(form, errors))
+    } else {
+      yield put(stopSubmit(form))
     }
   }
 }
@@ -62,14 +64,16 @@ export function* uploadDocument() {
     const form = yield select(getForm)
     const data = { document_url: documentUrl }
     yield put(startSubmit(form))
-    const response = yield call(request, `${SERVER}/api/account/`, data, 'put');
-    if (response && response.status < 400) {
+    const response = yield call(request, `${SERVER}/api/account/`, data, 'put')
+    if (response.success) {
       yield put(stopSubmit(form))
       yield put(actions.auth.verify.setStatus('Pending'))
       yield put(actions.auth.verify.setStage('loader'))
-    } else {
+    } else if (response.error) {
       const errors = { documentUrl: response.data.document_url }
       yield put(stopSubmit(form, errors))
+    } else {
+      yield put(stopSubmit(form))
     }
   }
 }
