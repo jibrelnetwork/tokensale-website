@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { Field, reduxForm } from 'redux-form'
 import { set, compose, identity } from 'lodash/fp'
 import * as actions from '../../../actions'
-import { Input } from '../../common';
+import { Input } from '../../common'
 
 /* eslint-disable max-len */
 const POLICY = 'I have read the Token Sale Terms & Conditions, Privacy Policy and Jibrel Network White Paper, and accept all terms, conditions, obligations, affirmations, representations and warranties outlined in these documents and agree to adhere to them and be legally bound by them'
@@ -32,7 +32,7 @@ const Terms = ({ submitting, handleSubmit }) => (
           disabled={submitting}
           className="button bordered pull-right"
         >
-          Next Step
+          {!submitting && 'Next Step'}
         </button>
       </div>
     </form>

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import { Field, reduxForm } from 'redux-form'
 import { set, compose, identity } from 'lodash/fp'
 import * as actions from '../../actions'
-import { Input, Captcha } from '../common';
+import { Input, Captcha } from '../common'
 
 const Register = ({ submitting, handleSubmit }) => (
   <div className="Register">
@@ -16,7 +16,7 @@ const Register = ({ submitting, handleSubmit }) => (
           <Field name="passwordConfirm" type="password" component={Input} label="Password Confirmation" />
           <Field name="captcha" component={Captcha} />
           <div className="buttons clear">
-            <button type="submit" disabled={submitting} className="button pull-left">Register</button>
+            <button type="submit" disabled={submitting} className="button pull-left">{!submitting && 'Register'}</button>
             <Link to="/welcome/login" className="pull-right">Have an account?</Link>
           </div>
         </form>

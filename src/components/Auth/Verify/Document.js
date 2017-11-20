@@ -16,7 +16,7 @@ const Document = ({ setStage, submitting, handleSubmit }) => (
           disabled={submitting}
           className="button bordered pull-right"
         >
-          Next Step
+          {!submitting && 'Next Step'}
         </button>
         <button
           onClick={() => setStage('user-info')}

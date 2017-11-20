@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import { Field, reduxForm } from 'redux-form'
 import { set, compose, identity } from 'lodash/fp'
 import * as actions from '../../actions'
-import { Input } from '../common';
+import { Input } from '../common'
 
 const Login = ({ submitting, handleSubmit }) => (
   <div className="Login">
@@ -14,7 +14,7 @@ const Login = ({ submitting, handleSubmit }) => (
           <Field name="email" type="text" component={Input} label="Email" />
           <Field name="password" type="password" component={Input} label="Password" />
           <div className="buttons clear">
-            <button type="submit" disabled={submitting} className="button pull-left">Login</button>
+            <button type="submit" disabled={submitting} className="button pull-left">{!submitting && 'Login'}</button>
             <Link to="/reset-password" className="pull-right">Forgotten password?</Link>
           </div>
         </form>

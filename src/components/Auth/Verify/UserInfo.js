@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { Field, reduxForm } from 'redux-form'
 import { set, identity, compose } from 'lodash/fp'
-import { Input, Datepicker, Select } from '../../common';
+import { Input, Datepicker, Select } from '../../common'
 import * as actions from '../../../actions'
 
 const UserInfo = ({ submitting, handleSubmit }) => (
@@ -20,7 +20,7 @@ const UserInfo = ({ submitting, handleSubmit }) => (
           className="button bordered pull-right"
           disabled={submitting}
         >
-          Next Step
+          {!submitting && 'Next Step'}
         </button>
       </div>
     </form>
