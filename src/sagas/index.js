@@ -6,6 +6,7 @@ export const SERVER = 'http://37.59.55.6:8080'
 export default function* sagas() {
   yield [
     auth.login(),
+    auth.email.verify(),
     auth.verify.confirmTerms(),
     auth.verify.uploadDocument(),
     auth.verify.updateUserInfo(),
