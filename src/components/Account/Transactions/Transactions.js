@@ -1,13 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { get, compose } from 'lodash/fp'
 import { lifecycle, withState } from 'recompose'
+import { get, compose, isEmpty } from 'lodash/fp'
 import * as actions from '../../../actions'
 import Transaction from './Transaction'
 import Filter from './Filter'
-
-// Undefined state with empty transactions list
 
 const Transactions = ({ list, balance, filter, setFilter }) => (
   <div className="Transactions">
@@ -25,9 +23,16 @@ const Transactions = ({ list, balance, filter, setFilter }) => (
       <div className="balance pull-right">{`Balance – ${balance} JNT`}</div>
     </div>
     <div className="transactions">
-      {list.map((transaction) => (
-        <Transaction key={transaction.hash} {...transaction} />
-      ))}
+      {!isEmpty(list) ? (
+        list.map((transaction) => <Transaction key={transaction.hash} {...transaction} />)
+      ) : (
+        <div className="empty">
+          <div className="icon" />
+          <div className="text">
+            The jWallet makes it easy and safe to store and transfer value of any tokens
+          </div>
+        </div>
+      )}
     </div>
   </div>
 )

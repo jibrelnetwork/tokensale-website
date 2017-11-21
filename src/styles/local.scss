@@ -1,3 +1,32 @@
+.Transactions {
+  > .transactions {
+    > .empty {
+      text-align: center;
+      margin-top: 170px;
+      margin-bottom: 100px;
+
+      > .icon {
+        height: 72px;
+        background-image: url("/static/icons/no-transactions.svg");
+        background-repeat: no-repeat;
+        background-position: 50% 50%;
+      }
+
+      > .text {
+        color: #3d4f6c;
+        width: 280px;
+        opacity: 0.5;
+        display: inline-block;
+        font-size: 13px;
+        text-align: center;
+        margin-top: 25px;
+        line-height: 24px;
+        font-family: 'Open Sans', Arial, sans-serif;
+      }
+    }
+  }
+}
+
 .Captcha {
   display: flex;
   padding-top: 15px;
