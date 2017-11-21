@@ -1,8 +1,7 @@
+import { LOGIN, LOGOUT, SET_TOKEN } from './auth'
+import * as EMAIL from './email'
 import * as VERIFY from './verify'
+import * as PASSWORD from './password'
 import * as REGISTER from './register'
 
-export const LOGIN = '@auth/Login'
-export const LOGOUT = '@auth/Logout'
-export const SET_TOKEN = '@auth/Set auth token'
-
-export { VERIFY, REGISTER }
+export { LOGIN, LOGOUT, SET_TOKEN, EMAIL, VERIFY, PASSWORD, REGISTER }
