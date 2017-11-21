@@ -15,7 +15,7 @@ const Login = ({ submitting, handleSubmit }) => (
           <Field name="password" type="password" component={Input} label="Password" />
           <div className="buttons clear">
             <button type="submit" disabled={submitting} className="button pull-left">{!submitting && 'Login'}</button>
-            <Link to="/reset-password" className="pull-right">Forgotten password?</Link>
+            <Link to="/welcome/password/reset" className="pull-right">Forgotten password?</Link>
           </div>
         </form>
       </div>

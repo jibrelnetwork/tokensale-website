@@ -26,6 +26,7 @@ const Welcome = ({ isAuthorized }) => (
           : <Route path="/welcome/register" component={Auth.Register} />
         }
         <Route path="/welcome/email/" component={Auth.Email} />
+        <Route path="/welcome/password/" component={Auth.Password} />
         <Redirect from="/welcome/:not_found" to="/welcome" />
       </Switch>
     </div>
