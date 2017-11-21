@@ -17,9 +17,9 @@ function* getUserData(token) {
       isUserInfoFilled:
         !!response.data.first_name &&
         !!response.data.last_name &&
-        !!response.data.date_of_birth &&
-        !!response.data.citizenship &&
-        !!response.data.residency,
+        !!response.data.date_of_birth, // &&
+      /* !!response.data.citizenship && */
+      /* !!response.data.residency, */ // !
       idDocumentUploaded: !!response.data.document_url,
     }
     if (!data.isTermsConfirmed) {
