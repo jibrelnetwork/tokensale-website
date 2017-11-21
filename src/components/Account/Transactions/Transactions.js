@@ -5,9 +5,10 @@ import { lifecycle, withState } from 'recompose'
 import { get, compose, isEmpty } from 'lodash/fp'
 import * as actions from '../../../actions'
 import Transaction from './Transaction'
+import Balance from './Balance'
 import Filter from './Filter'
 
-const Transactions = ({ list, balance, filter, setFilter }) => (
+const Transactions = ({ list, filter, setFilter }) => (
   <div className="Transactions">
     <div className="tabs clear">
       <Filter
@@ -19,8 +20,7 @@ const Transactions = ({ list, balance, filter, setFilter }) => (
           { type: 'outgoing', label: 'JNT transfers' },
         ]}
       />
-      <div className="button bordered pull-right">Withdraw</div>
-      <div className="balance pull-right">{`Balance – ${balance} JNT`}</div>
+      <Balance />
     </div>
     <div className="transactions">
       {!isEmpty(list) ? (
@@ -40,7 +40,6 @@ const Transactions = ({ list, balance, filter, setFilter }) => (
 Transactions.propTypes = {
   list: PropTypes.array.isRequired,
   filter: PropTypes.oneOf(['all', 'incoming', 'outgoing']).isRequired,
-  balance: PropTypes.number.isRequired,
   setFilter: PropTypes.func.isRequired,
 }
 
@@ -61,7 +60,7 @@ const mapStateToProps = (state, { filter }) => ({
 })
 
 const mapDispatchToProps = {
-  download: actions.account.transactions.download,
+  download: actions.account.transactions.request,
 }
 
 const enhance = compose(
