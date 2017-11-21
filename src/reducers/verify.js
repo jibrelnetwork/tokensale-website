@@ -5,7 +5,7 @@ import * as AUTH from '../constants/auth'
 
 const defaultState = {
   stage: 'terms',
-};
+}
 
 const verifyReducer = (state = defaultState, action) => {
   switch (action.type) {
