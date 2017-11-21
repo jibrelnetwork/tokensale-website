@@ -1,8 +1,8 @@
 import { set } from 'lodash/fp'
-import * as TRANSACTIONS from '../constants/account/transactions'
+import * as ACCOUNT from '../constants/account'
 
 const defaultState = {
-  balance: 20000,
+  balance: 0,
   transactions: [{
     jnt: 10000,
     type: 'incoming',
@@ -37,7 +37,12 @@ const defaultState = {
 const accountReducer = (state = defaultState, action) => {
   switch (action.type) {
 
-    case TRANSACTIONS.DOWNLOAD_SUCCESS: {
+    case ACCOUNT.BALANCE.REQUEST_SUCCESS: {
+      const { balance } = action.payload
+      return set('balance', balance, state)
+    }
+
+    case ACCOUNT.TRANSACTIONS.REQUEST_SUCCESS: {
       const { transactions } = action.payload
       return set('transactions', transactions, state)
     }

@@ -7,12 +7,13 @@ export default function* sagas() {
   yield [
     auth.login(),
     auth.email.verify(),
-    auth.password.reset(),
-    auth.password.change(),
     auth.verify.confirmTerms(),
     auth.verify.uploadDocument(),
     auth.verify.updateUserInfo(),
     auth.register.createAccount(),
-    account.transactions.download(),
+    auth.password.reset(),
+    auth.password.change(),
+    account.balance.get(),
+    account.transactions.get(),
   ]
 }
