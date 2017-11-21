@@ -1,3 +1,4 @@
+import * as BALANCE from './balance'
 import * as TRANSACTIONS from './transactions'
 
-export { TRANSACTIONS }
+export { BALANCE, TRANSACTIONS }

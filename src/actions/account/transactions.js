@@ -1,10 +1,10 @@
 import * as TRANSACTIONS from '../../constants/account/transactions'
 
-export const download = () => ({
-  type: TRANSACTIONS.DOWNLOAD,
+export const request = () => ({
+  type: TRANSACTIONS.REQUEST,
 })
 
-export const downloadSuccess = (transactions) => ({
-  type: TRANSACTIONS.DOWNLOAD_SUCCESS,
+export const requestSuccess = (transactions) => ({
+  type: TRANSACTIONS.REQUEST_SUCCESS,
   payload: { transactions },
 })
