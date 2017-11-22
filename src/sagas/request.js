@@ -24,17 +24,17 @@ export default function* request(url, data, method, token) {
       yield put(push('/login'))
       return {}
     } else if (response.status === 404) {
-      alert('Network error') // ?
+      console.log('Network error') // ?
       return {}
     } else if (response.status === 500) {
-      alert('Internal server error') // ?
+      console.log('Internal server error') // ?
       return {}
     } else {
-      alert(`Undefined error: ${response.statusText}`) // ?
+      console.log(`Undefined error: ${response.statusText}`) // ?
       return {}
     }
   } catch (error) {
-    alert(error)
+    console.log(error)
     return {}
   }
 }
