@@ -1,6 +1,5 @@
 import * as auth from './auth'
-import * as tokens from './tokens'
-import * as account from './account'
+import * as sync from './sync'
 
 export const SERVER = 'http://37.59.55.6:8080'
 
@@ -8,15 +7,15 @@ export default function* sagas() {
   yield [
     auth.login(),
     auth.email.verify(),
-    auth.verify.getStatus(),
     auth.verify.confirmTerms(),
     auth.verify.uploadDocument(),
     auth.verify.updateUserInfo(),
     auth.register.createAccount(),
     auth.password.reset(),
     auth.password.change(),
-    tokens.getRaised(),
-    account.balance.get(),
-    account.transactions.get(),
+    sync.raisedTokens(),
+    sync.userBalance(),
+    sync.userTransactions(),
+    sync.accountVerifyStatus(),
   ]
 }
