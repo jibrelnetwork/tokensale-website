@@ -11,7 +11,7 @@ export function* get() {
   while (true) { // eslint-disable-line fp/no-loops
     const response = yield call(request, `${SERVER}/api/account/`, null, 'get')
     if (response.success) {
-      const { balance = 0 } = response.data.jnt_balance
+      const balance = response.data.jnt_balance
       yield put(actions.account.balance.requestSuccess(balance))
     } else { console.log('Balance request error') }
     yield call(delay, DELAY)
