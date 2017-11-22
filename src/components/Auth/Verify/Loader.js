@@ -1,8 +1,16 @@
 import React from 'react'
 import cx from 'classnames'
+import { get } from 'lodash/fp'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
+
+const MESSAGES = {
+  // eslint-disable-next-line max-len
+  Pending: 'We are currently processing your application.\nPlease note, we may request that you submit additional identity verification in the future',
+  Approved: 'Your identity has been verified \n and your application has been approved',
+  Declined: "We currently can't verify your identity",
+}
 
 const Loader = ({ verifyStatus }) => (
   <div className="Loader">
@@ -22,17 +30,9 @@ const Loader = ({ verifyStatus }) => (
       <div className="item item-5">Checking OFAC, sanction and watch lists</div>
       <div className="item item-6">Final decision-making</div>
     </div>
-    <div className={cx('message', verifyStatus === 'Approved' ? 'approved' : 'pending')}>
+    <div className={cx('message', verifyStatus.toLowerCase())}>
       <div className="img" />
-      {verifyStatus === 'Approved' ? (
-        <p>Your identity has been verified <br />and your application has been approved</p>
-      ) : (
-        <p>
-          We are currently processing your application.
-          <br />
-          Please note, we may request that you submit additional identity verification in the future
-        </p>
-      )}
+      <p>{get(verifyStatus, MESSAGES)}</p>
       <Link to="/account" className="button bordered">Go to dashboard</Link>
     </div>
   </div>
@@ -43,7 +43,7 @@ Loader.propTypes = {
 }
 
 Loader.defaultProps = {
-  verifyStatus: undefined,
+  verifyStatus: 'Pending',
 }
 
 const mapStateToProps = (state) => ({
