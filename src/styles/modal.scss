@@ -1,0 +1,172 @@
+$modal-header-height: 24px;
+$modal-close-width: 16px;
+
+.modal {
+  z-index: 1000;
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 100%;
+  backface-visibility: hidden;
+  overflow-scrolling: touch;
+
+  &.close {
+    display: none;
+    visibility: hidden;
+  }
+
+  &.open {
+    display: flex;
+    visibility: visible;
+  }
+
+  &.opening,
+  &.closing {
+    .modal-overlay {
+      animation-duration: 0.3s;
+      animation-fill-mode: forwards;
+    }
+
+    .modal-content {
+      animation-duration: 0.3s;
+      animation-fill-mode: forwards;
+    }
+  }
+
+  &.opening {
+    .modal-overlay {
+      animation-name: modal-overlay-opening;
+    }
+
+    .modal-content {
+      animation-name: modal-content-opening;
+    }
+  }
+
+  &.closing {
+    .modal-overlay {
+      animation-name: modal-overlay-closing;
+    }
+
+    .modal-content {
+      animation-name: modal-content-closing;
+    }
+  }
+
+  .modal-overlay {
+    z-index: 1001;
+    position: fixed;
+    top: -1000px;
+    right: -1000px;
+    bottom: -1000px;
+    left: -1000px;
+    background: rgba(43, 46, 56, 0.9);
+    cursor: pointer;
+  }
+
+  .modal-content {
+    z-index: 1002;
+    position: relative;
+    width: 420px;
+    margin: 40px;
+    padding: 50px;
+    background-color: $white;
+    border-radius: 5px;
+    box-shadow: $shadow;
+    vertical-align: middle;
+    text-size-adjust: 100%;
+    text-align: left;
+    outline: medium none;
+  }
+
+  .modal-header {
+    position: relative;
+    width: 100%;
+    height: $modal-header-height;
+    line-height: $modal-header-height;
+  }
+
+  .modal-title {
+    font-size: 17px;
+  }
+
+  .modal-close {
+    z-index: 1002;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: $modal-close-width;
+    height: $modal-header-height;
+    background-size: $modal-close-width $modal-close-width;
+    background-image: $modal-close-icon;
+    background-repeat: no-repeat;
+    background-position: center center;
+    opacity: 0.5;
+    cursor: pointer;
+    transition: opacity 0.3s ease;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+
+  .modal-body {
+    margin-top: 50px;
+
+    .field {
+      margin-bottom: 30px;
+
+      .error-text {
+        top: 50px;
+      }
+    }
+  }
+}
+
+@keyframes modal-content-opening {
+  from {
+    transform: scale(1.05);
+    opacity: 0;
+  }
+
+  to {
+    transform: none;
+    opacity: 1;
+  }
+}
+
+@keyframes modal-content-closing {
+  from {
+    transform: scale(1);
+    opacity: 1;
+  }
+
+  to {
+    transform: scale(0.95);
+    opacity: 0;
+  }
+}
+
+@keyframes modal-overlay-opening {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes modal-overlay-closing {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}

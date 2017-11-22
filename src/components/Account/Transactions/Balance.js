@@ -5,14 +5,15 @@ import { connect } from 'react-redux'
 import { lifecycle } from 'recompose'
 import * as actions from '../../../actions'
 
-const Balance = ({ balance }) => (
+const Balance = ({ openWithdrawModal, balance }) => (
   <div className="Balance">
-    <div className="button bordered pull-right">Withdraw</div>
+    <div className="button bordered pull-right" onClick={openWithdrawModal}>Withdraw</div>
     <div className="balance pull-right">{`Balance – ${balance} JNT`}</div>
   </div>
 )
 
 Balance.propTypes = {
+  openWithdrawModal: PropTypes.func.isRequired,
   balance: PropTypes.number.isRequired,
 }
 
@@ -22,6 +23,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = {
   download: actions.account.balance.request,
+  openWithdrawModal: () => actions.account.modals.changeState('withdraw', 'open'),
 }
 
 const enhance = compose(

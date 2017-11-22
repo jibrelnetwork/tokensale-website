@@ -4,6 +4,9 @@ import Tokens from '../Welcome/Tokens'
 import Benefits from '../Welcome/Benefits'
 import Addresses from './Addresses'
 import Transactions from './Transactions'
+import Modals from './Modals'
+
+const { SetAddressModal, SetPasswordModal, WithdrawModal } = Modals
 
 const Account = () => (
   <div className="Account">
@@ -20,6 +23,9 @@ const Account = () => (
       </div>
     </div>
     <Benefits />
+    <SetAddressModal />
+    <SetPasswordModal />
+    <WithdrawModal />
   </div>
 )
 

@@ -15,7 +15,11 @@ export default function* sagas() {
     auth.password.reset(),
     auth.password.change(),
     tokens.getRaised(),
+    account.address.set(),
     account.balance.get(),
+    account.balance.withdraw(),
+    account.modals.setState(),
+    account.password.set(),
     account.transactions.get(),
   ]
 }

@@ -2,7 +2,13 @@ import { set } from 'lodash/fp'
 import * as ACCOUNT from '../constants/account'
 
 const defaultState = {
+  address: undefined,
   balance: 0,
+  modals: {
+    setAddress: 'close',
+    setPassword: 'close',
+    withdraw: 'close',
+  },
   transactions: [{
     jnt: 10000,
     type: 'incoming',
@@ -37,9 +43,19 @@ const defaultState = {
 const accountReducer = (state = defaultState, action) => {
   switch (action.type) {
 
+    case ACCOUNT.ADDRESS.SET: {
+      const { address } = action.payload
+      return set('address', address, state)
+    }
+
     case ACCOUNT.BALANCE.REQUEST_SUCCESS: {
       const { balance } = action.payload
       return set('balance', balance, state)
+    }
+
+    case ACCOUNT.MODALS.SET_STATE: {
+      const { modalName, modalState } = action.payload
+      return set(['modals', modalName], modalState, state)
     }
 
     case ACCOUNT.TRANSACTIONS.REQUEST_SUCCESS: {

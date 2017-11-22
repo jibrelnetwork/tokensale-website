@@ -5,4 +5,14 @@
   "plugins": [
     "stylelint-scss"
   ],
+  "rules": {
+    "property-no-unknown": [
+      true,
+      ignoreProperties: ["overflow-scrolling"]
+    ],
+    "selector-pseudo-class-no-unknown": [
+      true,
+      { "ignorePseudoClasses": ["global"] }
+    ]
+  }
 }

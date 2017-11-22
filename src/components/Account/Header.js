@@ -6,7 +6,13 @@ import * as actions from '../../actions'
 
 // Undefined state with no ETHAddress
 
-const Header = ({ logout, ETHAddress, verifyStatus }) => (
+const Header = ({
+  logout,
+  openSetAddressModal,
+  openSetPasswordModal,
+  address,
+  verifyStatus,
+}) => (
   <div className="Header">
     <div className="header clear">
       <Link to="/welcome" className="logo pull-left">
@@ -15,7 +21,9 @@ const Header = ({ logout, ETHAddress, verifyStatus }) => (
       <div className="address pull-left">
         <div className="title">Your address</div>
         <div className="value">
-          <p>{ETHAddress || '0x000000000...'}</p>
+          <div onClick={openSetAddressModal}>
+            {`${(address || '0x000000000').substr(0, 11)}...`}
+          </div>
           {/* <a href="#" className="edit" /> */}
         </div>
       </div>
@@ -26,7 +34,9 @@ const Header = ({ logout, ETHAddress, verifyStatus }) => (
         </div>
       </div>
       <ul className="menu pull-right">
-        <li><Link to="/account/change_password">Change password</Link></li>
+        <li className="bordered">
+          <button onClick={openSetPasswordModal}>Change password</button>
+        </li>
         <li className="bordered">
           <button onClick={logout}>Logout</button>
         </li>
@@ -37,20 +47,26 @@ const Header = ({ logout, ETHAddress, verifyStatus }) => (
 
 Header.propTypes = {
   logout: PropTypes.func.isRequired,
-  ETHAddress: PropTypes.string,
+  openSetAddressModal: PropTypes.func.isRequired,
+  openSetPasswordModal: PropTypes.func.isRequired,
   verifyStatus: PropTypes.string.isRequired,
+  /* optional */
+  address: PropTypes.string,
 }
 
 Header.defaultProps = {
-  ETHAddress: undefined,
+  address: undefined,
 }
 
 const mapStateToProps = (state) => ({
+  address: state.account.address,
   verifyStatus: state.auth.verifyStatus,
 })
 
 const mapDispatchToProps = {
   logout: actions.auth.logout,
+  openSetAddressModal: () => actions.account.modals.changeState('setAddress', 'open'),
+  openSetPasswordModal: () => actions.account.modals.changeState('setPassword', 'open'),
 }
 
 export default connect(
