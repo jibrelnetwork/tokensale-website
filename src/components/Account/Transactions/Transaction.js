@@ -1,18 +1,29 @@
 import React from 'react'
 import cx from 'classnames'
 import numeral from 'numeral'
+import { renameProps } from 'recompose'
 import PropTypes from 'prop-types'
 
-const Transaction = ({ jnt, type, date, hash, status, amount }) => (
+const Transaction = ({
+  jnt,
+  type,
+  date,
+  TXhash,
+  TXtype,
+  status,
+  usdAmount,
+  cryptoAmount,
+}) => (
   <div className="Transaction">
     <div className={cx('item', type, status, 'clear')}>
       <div className="type" />
       <div className="jnt">
         {`${{ incoming: '+', outgoing: '-' }[type]} ${numeral(jnt).format('0 0')}`} JNT
       </div>
-      <div className="amount">
+      <div className={cx('amount', type === 'outgoing' && 'hidden')}>
         <div className="title">Amount</div>
-        <div className="value">{amount}</div>
+        {/* eslint-disable camelcase */}
+        <div className="value">{`${cryptoAmount} ${TXtype} / ${usdAmount} USD `}</div>
       </div>
       <div className="date">
         <div className="title">Date</div>
@@ -21,7 +32,15 @@ const Transaction = ({ jnt, type, date, hash, status, amount }) => (
       <div className="hash">
         <div className="title">TX hash</div>
         <div className="value">
-          <a href={`https://etherscan.io/tx/${hash}`} target="_blank">{hash}</a>
+          <a
+            href={{
+              ETH: `https://etherscan.io/tx/${TXhash}`,
+              BTC: `https://blockchain.info/block/${TXhash}`,
+            }[TXtype]}
+            target="_blank"
+          >
+            {TXhash}
+          </a>
         </div>
       </div>
     </div>
@@ -32,9 +51,21 @@ Transaction.propTypes = {
   jnt: PropTypes.number.isRequired,
   type: PropTypes.oneOf(['incoming', 'outgoing']).isRequired,
   date: PropTypes.string.isRequired, // ?
-  hash: PropTypes.string.isRequired,
-  amount: PropTypes.string.isRequired,
+  TXhash: PropTypes.string.isRequired,
+  TXtype: PropTypes.oneOf(['BTC', 'ETH']).isRequired,
   status: PropTypes.oneOf(['complete', 'waiting']).isRequired,
+  usdAmount: PropTypes.number,
+  cryptoAmount: PropTypes.number,
 }
 
-export default Transaction
+Transaction.defaultProps = {
+  usdAmount: undefined,
+  cryptoAmount: undefined,
+}
+
+const enhance = renameProps({
+  amount_usd: 'usdAmount',
+  amount_cryptocurrency: 'cryptoAmount',
+})
+
+export default enhance(Transaction)

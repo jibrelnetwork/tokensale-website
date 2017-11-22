@@ -52,5 +52,4 @@ export default reduxForm({
       : identity,
     !values.captcha ? set('captcha', 'Click on captcha checkbox') : identity,
   )({}),
-  destroyOnUnmount: false,
 })(Register)

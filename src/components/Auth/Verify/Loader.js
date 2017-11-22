@@ -1,7 +1,18 @@
 import React from 'react'
+import cx from 'classnames'
+import { get } from 'lodash/fp'
+import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 
-const Loader = () => (
+const MESSAGES = {
+  // eslint-disable-next-line max-len
+  Pending: 'We are currently processing your application.\nPlease note, we may request that you submit additional identity verification in the future',
+  Approved: 'Your identity has been verified \n and your application has been approved',
+  Declined: "We currently can't verify your identity",
+}
+
+const Loader = ({ verifyStatus }) => (
   <div className="Loader">
     <div className="loader-content">
       <div className="loader">
@@ -19,20 +30,24 @@ const Loader = () => (
       <div className="item item-5">Checking OFAC, sanction and watch lists</div>
       <div className="item item-6">Final decision-making</div>
     </div>
-    <div className="message done">
+    <div className={cx('message', verifyStatus.toLowerCase())}>
       <div className="img" />
-      <p>Your identity has been verified <br />and your application has been approved</p>
+      <p>{get(verifyStatus, MESSAGES)}</p>
       <Link to="/account" className="button bordered">Go to dashboard</Link>
-    </div>
-    <div className="message" style={{ display: 'none' }}>
-      <div className="img" />
-      <p>
-        We are currently processing your application.
-        <br />
-        Please note, we may request that you submit additional identity verification in the future
-      </p>
     </div>
   </div>
 )
 
-export default Loader
+Loader.propTypes = {
+  verifyStatus: PropTypes.string,
+}
+
+Loader.defaultProps = {
+  verifyStatus: 'Pending',
+}
+
+const mapStateToProps = (state) => ({
+  verifyStatus: state.auth.verifyStatus,
+})
+
+export default connect(mapStateToProps)(Loader)

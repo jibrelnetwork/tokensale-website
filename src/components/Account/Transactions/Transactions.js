@@ -24,7 +24,7 @@ const Transactions = ({ list, filter, setFilter }) => (
     </div>
     <div className="transactions">
       {!isEmpty(list) ? (
-        list.map((transaction) => <Transaction key={transaction.hash} {...transaction} />)
+        list.map((transaction) => <Transaction key={transaction.TXhash} {...transaction} />)
       ) : (
         <div className="empty">
           <div className="icon" />
@@ -60,7 +60,8 @@ const mapStateToProps = (state, { filter }) => ({
 })
 
 const mapDispatchToProps = {
-  download: actions.account.transactions.request,
+  requestStart: actions.account.transactions.request,
+  requestCancel: actions.account.transactions.requestCancel,
 }
 
 const enhance = compose(
@@ -74,10 +75,10 @@ const enhance = compose(
     mapDispatchToProps,
   ),
   lifecycle({
-    componentWillMount() {
-      // eslint-disable-next-line fp/no-this
-      this.props.download()
-    },
+    /* eslint-disable fp/no-this */
+    componentDidMount() { this.props.requestStart() },
+    componentWillUnmount() { this.props.requestCancel() },
+    /* eslint-enable */
   }),
 )
 

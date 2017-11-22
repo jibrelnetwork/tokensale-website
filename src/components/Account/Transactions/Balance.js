@@ -22,8 +22,9 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = {
-  download: actions.account.balance.request,
   openWithdrawModal: () => actions.account.modals.changeState('withdraw', 'open'),
+  requestStart: actions.account.balance.request,
+  requestCancel: actions.account.balance.requestCancel,
 }
 
 const enhance = compose(
@@ -32,10 +33,10 @@ const enhance = compose(
     mapDispatchToProps,
   ),
   lifecycle({
-    componentWillMount() {
-      // eslint-disable-next-line fp/no-this
-      this.props.download()
-    },
+    /* eslint-disable fp/no-this */
+    componentDidMount() { this.props.requestStart() },
+    componentWillUnmount() { this.props.requestCancel() },
+    /* eslint-enable */
   }),
 )
 

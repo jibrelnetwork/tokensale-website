@@ -1,19 +1,24 @@
 import * as VERIFY from '../../constants/auth/verify'
 
-export const setStatus = (status) => ({
-  type: VERIFY.SET_STATUS,
-  payload: { status },
-})
-
-export const getStatus = (token) => ({
-  type: VERIFY.GET_STATUS,
-  payload: { token },
-})
-
 export const setStage = (stage) => ({
   type: VERIFY.SET_STAGE,
   payload: { stage },
 })
+
+export const statusRequest = () => ({
+  type: VERIFY.STATUS_REQUEST,
+})
+
+export const statusRequestCancel = () => ({
+  type: VERIFY.STATUS_REQUEST_CANCEL,
+})
+
+export const statusRequestSuccess = (status) => ({
+  type: VERIFY.STATUS_REQUEST_SUCCESS,
+  payload: { status },
+})
+
+export const setStatus = statusRequestSuccess
 
 export const confirmTerms = () => ({
   type: VERIFY.CONFIRM_TERMS,

@@ -1,5 +1,5 @@
 import moment from 'moment'
-// import { push } from 'react-router-redux'
+import { delay } from 'redux-saga'
 import { put, call, take, select } from 'redux-saga/effects'
 import { startSubmit, stopSubmit } from 'redux-form'
 import * as VERIFY from '../../constants/auth/verify'
@@ -8,6 +8,24 @@ import request from '../request'
 import { SERVER } from '../.'
 
 const getForm = (state) => `account-${state.auth.token}`
+
+const DELAY = 30000
+
+export function* getStatus(periodically = false) {
+  function* makeRequest() {
+    const response = yield call(request, `${SERVER}/api/account/`, null, 'get')
+    if (response.success) {
+      const status = response.data.identity_verification_status
+      yield put(actions.auth.verify.setStatus(status || 'Pending')) // ?
+    } else { console.log('Verification request error') }
+  }
+  if (periodically) {
+    while (true) { // eslint-disable-line fp/no-loops
+      yield call(makeRequest)
+      yield call(delay, DELAY)
+    }
+  } else { yield call(makeRequest) }
+}
 
 export function* confirmTerms() {
   while (true) { // eslint-disable-line fp/no-loops
@@ -69,6 +87,8 @@ export function* uploadDocument() {
       yield put(stopSubmit(form))
       yield put(actions.auth.verify.setStatus('Pending'))
       yield put(actions.auth.verify.setStage('loader'))
+      yield delay(25000)
+      yield call(getStatus)
     } else if (response.error) {
       const errors = { documentUrl: response.data.document_url }
       yield put(stopSubmit(form, errors))
