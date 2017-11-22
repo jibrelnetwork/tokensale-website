@@ -12,14 +12,14 @@ function* getUserData(token) {
   const response = yield call(request, `${SERVER}/api/account/`, null, 'get', token)
   if (response.success) {
     const data = {
-      verifyStatus: response.data.onfido_check_result || 'Pending', // ?
+      verifyStatus: response.data.identity_verification_status || 'Pending', // ?
       isTermsConfirmed: response.data.terms_confirmed,
       isUserInfoFilled:
         !!response.data.first_name &&
         !!response.data.last_name &&
-        !!response.data.date_of_birth, // &&
-      /* !!response.data.citizenship && */
-      /* !!response.data.residency, */ // !
+        !!response.data.date_of_birth &&
+        !!response.data.citizenship &&
+        !!response.data.residency,
       idDocumentUploaded: !!response.data.document_url,
     }
     if (!data.isTermsConfirmed) {
