@@ -41,7 +41,8 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = {
-  getRaised: actions.tokens.raisedRequest,
+  requestStart: actions.tokens.raisedRequest,
+  cancelRequest: actions.tokens.raisedRequestCancel,
 }
 
 const enhance = compose(
@@ -50,9 +51,10 @@ const enhance = compose(
     mapDispatchToProps,
   ),
   lifecycle({
-    componentDidMount() {
-      this.props.getRaised() // eslint-disable-line fp/no-this
-    },
+    /* eslint-disable fp/no-this */
+    componentDidMount() { this.props.requestStart() },
+    componentWillUnmount() { this.props.cancelRequest() },
+    /* eslint-disable fp/no-this */
   })
   // withState('raised', 'setRaised', 12000000),
   // lifecycle({

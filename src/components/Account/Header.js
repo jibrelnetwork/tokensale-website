@@ -1,6 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { compose } from 'lodash/fp'
 import { connect } from 'react-redux'
+import { lifecycle } from 'recompose'
 import { Link } from 'react-router-dom'
 import * as actions from '../../actions'
 
@@ -51,9 +53,19 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = {
   logout: actions.auth.logout,
+  verifyStatusRequestStart: actions.auth.verify.statusRequest,
+  verifyStatusRequestCancel: actions.auth.verify.statusRequestCancel,
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
+export default compose(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps,
+  ),
+  lifecycle({
+    /* eslint-disable fp/no-this */
+    componentDidMount() { this.props.verifyStatusRequestStart() },
+    componentWillUnmount() { this.props.verifyStatusRequestCancel() },
+    /* eslint-enable */
+  }),
 )(Header)
