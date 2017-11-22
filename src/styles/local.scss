@@ -27,6 +27,12 @@
   }
 }
 
+.Transaction {
+  .amount.hidden {
+    opacity: 0;
+  }
+}
+
 .Captcha {
   display: flex;
   padding-top: 15px;
@@ -178,11 +184,15 @@
   }
 
   .message.approved .img {
-    background-image: url("/static/icons/done.svg");
+    background-image: url("/static/icons/verify-approved.svg");
   }
 
   .message.pending .img {
-    background-image: url("/static/icons/in-progress.svg");
+    background-image: url("/static/icons/verify-pending.svg");
+  }
+
+  .message.declined .img {
+    background-image: url("/static/icons/verify-declined.svg");
   }
 }
 
@@ -251,6 +261,10 @@ button {
 ol,
 ul {
   all: unset;
+}
+
+h3 {
+  color: unset;
 }
 
 .content .tabs li.active div {
@@ -333,4 +347,8 @@ ul {
 
 .progress .line {
   // width: unset;
+}
+
+.message p {
+  white-space: pre-line;
 }
