@@ -9,6 +9,24 @@ import { SERVER } from '../.'
 
 const getForm = (state) => `account-${state.auth.token}`
 
+const DELAY = 30000
+
+export function* getStatus(periodically = false) {
+  function* makeRequest() {
+    const response = yield call(request, `${SERVER}/api/account/`, null, 'get')
+    if (response.success) {
+      const status = response.data.identity_verification_status
+      yield put(actions.auth.verify.setStatus(status || 'Pending')) // ?
+    } else { console.log('Verification request error') }
+  }
+  if (periodically) {
+    while (true) { // eslint-disable-line fp/no-loops
+      yield call(makeRequest)
+      yield call(delay, DELAY)
+    }
+  } else { yield call(makeRequest) }
+}
+
 export function* confirmTerms() {
   while (true) { // eslint-disable-line fp/no-loops
     yield take(VERIFY.CONFIRM_TERMS)
@@ -70,23 +88,12 @@ export function* uploadDocument() {
       yield put(actions.auth.verify.setStatus('Pending'))
       yield put(actions.auth.verify.setStage('loader'))
       yield delay(25000)
-      yield put(actions.auth.verify.getStatus())
+      yield call(getStatus)
     } else if (response.error) {
       const errors = { documentUrl: response.data.document_url }
       yield put(stopSubmit(form, errors))
     } else {
       yield put(stopSubmit(form))
-    }
-  }
-}
-
-export function* getStatus() {
-  while (true) { // eslint-disable-line fp/no-loops
-    yield take(VERIFY.GET_STATUS)
-    const response = yield call(request, `${SERVER}/api/account/`, null, 'get')
-    if (response.success) {
-      const status = response.data.identity_verification_status
-      yield put(actions.auth.verify.setStatus(status || 'Pending')) // ?
     }
   }
 }
