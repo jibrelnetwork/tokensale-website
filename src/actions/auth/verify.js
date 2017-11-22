@@ -5,9 +5,8 @@ export const setStatus = (status) => ({
   payload: { status },
 })
 
-export const getStatus = (token) => ({
+export const getStatus = () => ({
   type: VERIFY.GET_STATUS,
-  payload: { token },
 })
 
 export const setStage = (stage) => ({

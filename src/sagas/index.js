@@ -8,6 +8,7 @@ export default function* sagas() {
   yield [
     auth.login(),
     auth.email.verify(),
+    auth.verify.getStatus(),
     auth.verify.confirmTerms(),
     auth.verify.uploadDocument(),
     auth.verify.updateUserInfo(),

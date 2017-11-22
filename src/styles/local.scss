@@ -172,6 +172,20 @@
   }
 }
 
+.Loader {
+  .message .img {
+    background-image: unset;
+  }
+
+  .message.approved .img {
+    background-image: url("/static/icons/done.svg");
+  }
+
+  .message.pending .img {
+    background-image: url("/static/icons/in-progress.svg");
+  }
+}
+
 .pt-popover-content .pt-input {
   box-shadow: unset;
   border-radius: unset;
