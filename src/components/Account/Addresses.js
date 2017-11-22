@@ -3,15 +3,15 @@ import moment from 'moment'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { compose } from 'lodash/fp'
-import { withProps } from 'recompose'
+import { withProps, lifecycle } from 'recompose'
+import * as actions from '../../actions'
 
-// Mocked addresses
-// Undefined state with started ICO and "Pending" verification status
-
-const ETH = '0x00360d2b7d240ec0643b6d819ba81a09e40e5bcd'
-const BTC = '0x00360d2b7d240ec0643b6d819ba81a09e40e5bcd'
-
-const Addresses = ({ isICOStarted, verifyStatus }) => (
+const Addresses = ({
+  btcAddress,
+  ethAddress,
+  isICOStarted,
+  verifyStatus,
+}) => (
   <div className="Wallets">
     {verifyStatus === 'Declined' ? (
       <div className="addresses declined clear">
@@ -32,12 +32,12 @@ const Addresses = ({ isICOStarted, verifyStatus }) => (
         <div className="item">
           <div className="img eth" />
           <div className="title">ETH address for participate</div>
-          <div className="value">{ETH}</div>
+          <div className="value">{ethAddress}</div>
         </div>
         <div className="item">
           <div className="img btc" />
           <div className="title">BTC address for participate</div>
-          <div className="value">{BTC}</div>
+          <div className="value">{btcAddress}</div>
         </div>
       </div>
     ) : (
@@ -56,17 +56,41 @@ const Addresses = ({ isICOStarted, verifyStatus }) => (
 )
 
 Addresses.propTypes = {
+  ethAddress: PropTypes.string,
+  btcAddress: PropTypes.string,
   isICOStarted: PropTypes.bool.isRequired,
   verifyStatus: PropTypes.string.isRequired,
 }
 
+Addresses.defaultProps = {
+  ethAddress: undefined,
+  btcAddress: undefined,
+}
+
+
 const mapStateToProps = (state) => ({
+  btcAddress: state.account.btcAddress,
+  ethAddress: state.account.ethAddress,
   verifyStatus: state.auth.verifyStatus,
 })
 
+const mapDispatchToProps = {
+  request: actions.account.addresses.request,
+}
+
 const enhance = compose(
-  connect(mapStateToProps),
-  withProps({ isICOStarted: moment.utc('2017-11-27T12:00') < moment.utc() })
+  connect(
+    mapStateToProps,
+    mapDispatchToProps,
+  ),
+  lifecycle({
+    /* eslint-disable fp/no-this */
+    componentDidMount() { this.props.request() },
+    /* eslint-enable */
+  }),
+  withProps({
+    isICOStarted: moment.utc('2017-11-27T12:00') < moment.utc(),
+  })
 )
 
 export default enhance(Addresses)
