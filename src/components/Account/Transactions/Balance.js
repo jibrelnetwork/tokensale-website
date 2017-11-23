@@ -1,13 +1,20 @@
 import React from 'react'
+import cx from 'classnames'
 import PropTypes from 'prop-types'
 import { compose } from 'lodash/fp'
 import { connect } from 'react-redux'
 import { lifecycle } from 'recompose'
+
 import * as actions from '../../../actions'
 
-const Balance = ({ openWithdrawModal, balance }) => (
+const Balance = ({ openWithdrawModal, balance, address }) => (
   <div className="Balance">
-    <div className="button bordered pull-right" onClick={openWithdrawModal}>Withdraw</div>
+    <div
+      className={cx('button bordered pull-right', { disabled: !address })}
+      onClick={address ? openWithdrawModal : null}
+    >
+      Withdraw
+    </div>
     <div className="balance pull-right">{`Balance – ${balance} JNT`}</div>
   </div>
 )
@@ -15,9 +22,16 @@ const Balance = ({ openWithdrawModal, balance }) => (
 Balance.propTypes = {
   openWithdrawModal: PropTypes.func.isRequired,
   balance: PropTypes.number.isRequired,
+  /* optional */
+  address: PropTypes.string,
+}
+
+Balance.defaultProps = {
+  address: undefined,
 }
 
 const mapStateToProps = (state) => ({
+  address: state.account.address,
   balance: state.account.balance,
 })
 

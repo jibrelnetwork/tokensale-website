@@ -67,10 +67,11 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = {
   logout: actions.auth.logout,
-  openSetAddressModal: () => actions.account.modals.changeState('setAddress', 'open'),
-  openSetPasswordModal: () => actions.account.modals.changeState('setPassword', 'open'),
+  getAddress: actions.account.address.get,
   verifyStatusRequestStart: actions.auth.verify.statusRequest,
   verifyStatusRequestCancel: actions.auth.verify.statusRequestCancel,
+  openSetAddressModal: () => actions.account.modals.changeState('setAddress', 'open'),
+  openSetPasswordModal: () => actions.account.modals.changeState('setPassword', 'open'),
 }
 
 export default compose(
@@ -80,7 +81,12 @@ export default compose(
   ),
   lifecycle({
     /* eslint-disable fp/no-this */
-    componentDidMount() { this.props.verifyStatusRequestStart() },
+    componentDidMount() {
+      const { getAddress, verifyStatusRequestStart } = this.props
+
+      getAddress()
+      verifyStatusRequestStart()
+    },
     componentWillUnmount() { this.props.verifyStatusRequestCancel() },
     /* eslint-enable */
   }),

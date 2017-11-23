@@ -6,7 +6,8 @@ export const SERVER = 'http://37.59.55.6:8080'
 
 export default function* sagas() {
   yield [
-    account.address.set(),
+    account.address.get(),
+    account.address.send(),
     account.addresses.get(),
     account.balance.withdraw(),
     account.modals.setState(),
