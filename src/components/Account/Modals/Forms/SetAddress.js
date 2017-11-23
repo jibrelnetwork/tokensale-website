@@ -10,7 +10,7 @@ const SetAddress = ({ handleSubmit }) => (
     <form onSubmit={handleSubmit} className="form">
       <Field name="address" type="text" component={Input} label="Address" />
       <div className="clear">
-        <button type="submit" className="button pull-right">Confirm</button>
+        <button type="submit" className="bordered button pull-right">Confirm</button>
       </div>
     </form>
   </div>

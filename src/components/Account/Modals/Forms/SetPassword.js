@@ -13,7 +13,7 @@ const SetPassword = ({ handleSubmit, submitting }) => (
       <Field name="newPassword" type="password" component={Input} label="New Password" />
       <Field name="newPasswordConfirm" type="password" component={Input} label="Confirm Password" />
       <div className="clear">
-        <button type="submit" className="button pull-right" disabled={submitting}>
+        <button type="submit" className="bordered button pull-right" disabled={submitting}>
           {!submitting && 'Confirm'}
         </button>
       </div>

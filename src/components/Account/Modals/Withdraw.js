@@ -7,7 +7,7 @@ import WithdrawForm from './Forms/Withdraw'
 import * as actions from '../../../actions'
 
 const Withdraw = ({ closeModal, modalState }) => (
-  <Modal title="Withdraw JNT" closeModal={closeModal} modalState={modalState}>
+  <Modal closeModal={closeModal} modalState={modalState}>
     <WithdrawForm />
   </Modal>
 )

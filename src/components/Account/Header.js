@@ -36,8 +36,8 @@ const Header = ({
         </div>
       </div>
       <ul className="menu pull-right">
-        <li className="bordered">
-          <button onClick={openSetPasswordModal}>Change password</button>
+        <li>
+          <button className="button clean" onClick={openSetPasswordModal}>Change password</button>
         </li>
         <li className="bordered">
           <button onClick={logout}>Logout</button>

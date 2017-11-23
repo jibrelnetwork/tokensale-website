@@ -17,7 +17,7 @@ function* closeSetPasswordModal() {
 export function* set() {
   while (true) { // eslint-disable-line fp/no-loops
     const { payload: { password, newPassword } } = yield take(PASSWORD.SET)
-    const data = { new_password1: password, new_password2: newPassword }
+    const data = { old_password: password, new_password1: newPassword, new_password2: newPassword }
 
     yield put(startSubmit(FORM))
 

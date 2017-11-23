@@ -1,3 +1,4 @@
+$modal-padding: 50px;
 $modal-header-height: 24px;
 $modal-close-width: 16px;
 
@@ -71,9 +72,9 @@ $modal-close-width: 16px;
   .modal-content {
     z-index: 1002;
     position: relative;
-    width: 420px;
+    width: 440px;
     margin: 40px;
-    padding: 50px;
+    padding: $modal-padding;
     background-color: $white;
     border-radius: 5px;
     box-shadow: $shadow;
@@ -83,22 +84,19 @@ $modal-close-width: 16px;
     outline: medium none;
   }
 
-  .modal-header {
-    position: relative;
+  .modal-title {
     width: 100%;
     height: $modal-header-height;
     line-height: $modal-header-height;
-  }
-
-  .modal-title {
+    margin-bottom: $modal-padding;
     font-size: 17px;
   }
 
   .modal-close {
     z-index: 1002;
     position: absolute;
-    top: 0;
-    right: 0;
+    top: $modal-padding;
+    right: $modal-padding;
     width: $modal-close-width;
     height: $modal-header-height;
     background-size: $modal-close-width $modal-close-width;
@@ -115,8 +113,6 @@ $modal-close-width: 16px;
   }
 
   .modal-body {
-    margin-top: 50px;
-
     .field {
       margin-bottom: 30px;
 

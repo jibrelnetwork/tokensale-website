@@ -1,6 +1,6 @@
 import { put, call, take } from 'redux-saga/effects'
 import { delay } from 'redux-saga'
-import { startSubmit, stopSubmit, reset } from 'redux-form'
+import { startSubmit, stopSubmit } from 'redux-form'
 
 import * as actions from '../../actions'
 import { BALANCE, MODALS } from '../../constants/account'
@@ -37,22 +37,17 @@ export function* get() {
 
 export function* withdraw() {
   while (true) { // eslint-disable-line fp/no-loops
-    const { payload: { address, amount } } = yield take(BALANCE.WITHDRAW)
-    const data = { address, amount: parseFloat(amount, 10) }
-
+    yield take(BALANCE.WITHDRAW)
     yield put(startSubmit(FORM))
 
-    const response = yield call(request, `${SERVER}/api/withdraw/`, data, 'post')
+    const response = yield call(request, `${SERVER}/api/withdraw-jnt/`, null, 'post')
 
     if (response.success) {
       yield requestBalance()
       yield put(stopSubmit(FORM))
       yield closeWithdrawModal()
-      yield put(reset(FORM))
-    } else if (response.fail) {
-      yield put(stopSubmit(FORM, { amount: response.fail }))
     } else {
-      yield put(stopSubmit(FORM, { amount: response.statusText }))
+      yield put(stopSubmit(FORM))
     }
   }
 }

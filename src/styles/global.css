@@ -185,6 +185,14 @@ i,
   background-color: #00c1ff;
   color: #ffffff;
 }
+.button.clean {
+  background-color: transparent;
+  box-shadow: none;
+  font-weight: normal;
+}
+.button.clean:hover {
+  opacity: 0.5;
+}
 /* Menu button */
 .menu-button {
   position: absolute;
@@ -977,22 +985,31 @@ body.overlay .start .close {
   line-height: 24px;
   margin-top: 30px;
 }
-.ico-waiting {
+.info-block {
   text-align: center;
   position: relative;
   padding: 20px 0;
-}
-.ico-waiting .icon {
-  margin: 0 auto;
-  width: 72px;
-  height: 72px;
-  background-image: url("/static/icons/waiting.svg");
-  background-size: 72px 72px;
-}
-.ico-waiting p {
-  font-size: 15px;
-  line-height: 24px;
-  margin-top: 30px;
+
+  .icon {
+    margin: 0 auto;
+    width: 72px;
+    height: 72px;
+    background-size: 72px 72px;
+
+    &.ico-waiting {
+      background-image: url("/static/icons/waiting.svg");
+    }
+
+    &.withdraw-tokens {
+      background-image: url("/static/icons/withdraw.svg");
+    }
+  }
+
+  p {
+    font-size: 15px;
+    line-height: 24px;
+    margin-top: 30px;
+  }
 }
 /* Inner page */
 .inner-page .start .header {
@@ -1184,6 +1201,9 @@ body.overlay .start .close {
 }
 .benefits .inner .benefit-4 {
   color: #3d4f6c;
+}
+.text-center {
+  text-align: center;
 }
 @media (-webkit-min-device-pixel-ratio: 2) {
   .start .device {

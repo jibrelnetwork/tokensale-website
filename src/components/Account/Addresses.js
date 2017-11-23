@@ -42,8 +42,8 @@ const Addresses = ({
       </div>
     ) : (
       <div className="addresses declined clear">
-        <div className="info-block ico-waiting">
-          <div className="icon" />
+        <div className="info-block">
+          <div className="icon ico-waiting" />
           <p>
             Jibrel Network Token Sale starts on 27 November 2017 - 12:00 UTC.
             <br />

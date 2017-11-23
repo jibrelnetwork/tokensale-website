@@ -339,6 +339,11 @@ h3 {
   background-image: url("/static/icons/dots.svg");
   background-repeat: no-repeat;
   background-position: 50% 50%;
+
+  &.bordered {
+    background-color: $light-blue;
+    border-color: transparent;
+  }
 }
 
 .auth .buttons .button {

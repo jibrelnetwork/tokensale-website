@@ -1,19 +1,22 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { Field, reduxForm } from 'redux-form'
+import { reduxForm } from 'redux-form'
 import { set, compose, identity } from 'lodash/fp'
 
-import { Input } from '../../../common'
 import { account } from '../../../../actions'
 
-const Withdraw = ({ handleSubmit, submitting }) => (
+const Withdraw = ({ handleSubmit, address, balance, submitting }) => (
   <div className="form-block">
     <form onSubmit={handleSubmit} className="form">
-      <Field name="address" type="text" component={Input} label="Address" />
-      <Field name="amount" type="text" component={Input} label="Amount" />
-      <div className="buttons clear">
-        <button type="submit" className="button pull-right" disabled={submitting}>
+      <div className="info-block">
+        <div className="icon withdraw-tokens" />
+        <p>
+          You are sending <b>{`${balance} JNT`}</b> to your account address <b>{address}</b>
+        </p>
+      </div>
+      <div className="text-center">
+        <button type="submit" className="bordered button" disabled={submitting}>
           {!submitting && 'Confirm'}
         </button>
       </div>
@@ -23,13 +26,14 @@ const Withdraw = ({ handleSubmit, submitting }) => (
 
 Withdraw.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
+  address: PropTypes.string.isRequired,
+  balance: PropTypes.number.isRequired,
   submitting: PropTypes.bool.isRequired,
 }
 
 const mapStateToProps = (state) => ({
-  initialValues: {
-    address: state.account.address,
-  },
+  address: state.account.address,
+  balance: state.account.balance,
 })
 
 export default compose(
