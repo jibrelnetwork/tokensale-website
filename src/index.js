@@ -6,25 +6,18 @@ import { ConnectedRouter, routerReducer, routerMiddleware } from 'react-router-r
 import { persistStore, persistCombineReducers } from 'redux-persist'
 import { Route, Redirect, Switch } from 'react-router-dom'
 import { reducer as formReducer } from 'redux-form'
-import { FocusStyleManager } from '@blueprintjs/core'
 import { PersistGate } from 'redux-persist/es/integration/react'
 import createHistory from 'history/createHashHistory'
 import { Provider } from 'react-redux'
 import storage from 'redux-persist/es/storage'
 
-import '@blueprintjs/datetime/dist/blueprint-datetime.css'
-import '@blueprintjs/labs/dist/blueprint-labs.css'
-import '@blueprintjs/core/dist/blueprint.css'
 import './styles/core.scss'
-
 import sagas from './sagas'
 import reducers from './reducers'
 import middlewares from './middlewares'
 import { ProtectedRoute } from './routes'
 import { Auth, Welcome, Account } from './components'
 import ga from './services/ga'
-
-FocusStyleManager.onlyShowFocusOnTabs()
 
 const history = createHistory()
 const persistReducer = { key: 'root', storage }
