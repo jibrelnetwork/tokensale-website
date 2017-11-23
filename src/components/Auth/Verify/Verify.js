@@ -10,7 +10,7 @@ import Document from './Document'
 import Progress from './Progress'
 
 const Verify = ({ stage, token }) => (
-  <div className="Verify">
+  <div className="Verify inner-page">
     <div className="section start">
       <div className="inner">
         <Header />
