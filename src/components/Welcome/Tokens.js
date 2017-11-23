@@ -11,17 +11,19 @@ import * as actions from '../../actions'
 const Tokens = ({ raised, available }) => (
   <div className="Progress">
     <div className="progress">
-      <div className="line clear" style={{ width: `${100 - ((raised / available) * 100)}%` }}>
-        <div className="item raised">
-          <div className="title">Raised Tokens</div>
-          <div className="value">{numeral(raised).format('0,0')}</div>
+      <div className="wrap">
+        <div className="line clear" style={{ width: `${100 - ((raised / available) * 100)}%` }}>
+          <div className="item raised">
+            <div className="title">Raised Tokens</div>
+            <div className="value">{numeral(raised).format('0,0')}</div>
+            <div className="point" />
+          </div>
+        </div>
+        <div className="item total">
+          <div className="title">Available Tokens</div>
+          <div className="value">{numeral(available).format('0,0')}</div>
           <div className="point" />
         </div>
-      </div>
-      <div className="item total">
-        <div className="title">Available Tokens</div>
-        <div className="value">{numeral(available).format('0,0')}</div>
-        <div className="point" />
       </div>
     </div>
   </div>
