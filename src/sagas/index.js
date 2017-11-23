@@ -8,11 +8,9 @@ export default function* sagas() {
   yield [
     account.address.set(),
     account.addresses.get(),
-    account.balance.get(),
     account.balance.withdraw(),
     account.modals.setState(),
     account.password.set(),
-    account.transactions.get(),
     auth.login(),
     auth.email.verify(),
     auth.verify.confirmTerms(),
