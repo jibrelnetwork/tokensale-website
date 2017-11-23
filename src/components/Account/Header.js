@@ -1,8 +1,9 @@
 import React from 'react'
+import cx from 'classnames'
 import PropTypes from 'prop-types'
 import { compose } from 'lodash/fp'
 import { connect } from 'react-redux'
-import { lifecycle } from 'recompose'
+import { lifecycle, withState } from 'recompose'
 import { Link } from 'react-router-dom'
 import * as actions from '../../actions'
 
@@ -10,10 +11,12 @@ import * as actions from '../../actions'
 
 const Header = ({
   logout,
+  address,
+  isMenuOpen,
+  toggleMenu,
+  verifyStatus,
   openSetAddressModal,
   openSetPasswordModal,
-  address,
-  verifyStatus,
 }) => (
   <div className="Header">
     <div className="header clear">
@@ -35,7 +38,7 @@ const Header = ({
           <p>{verifyStatus}</p>
         </div>
       </div>
-      <ul className="menu pull-right">
+      <ul className={cx('menu pull-right', isMenuOpen && 'menu-active')}>
         <li className="bordered">
           <button onClick={openSetPasswordModal}>Change password</button>
         </li>
@@ -43,15 +46,23 @@ const Header = ({
           <button onClick={logout}>Logout</button>
         </li>
       </ul>
+      <button
+        onClick={() => toggleMenu(!isMenuOpen)}
+        className={cx('menu-button', isMenuOpen && 'active')}
+      >
+        <span>Menu</span>
+      </button>
     </div>
   </div>
 )
 
 Header.propTypes = {
   logout: PropTypes.func.isRequired,
+  isMenuOpen: PropTypes.bool.isRequired,
+  toggleMenu: PropTypes.func.isRequired,
+  verifyStatus: PropTypes.string.isRequired,
   openSetAddressModal: PropTypes.func.isRequired,
   openSetPasswordModal: PropTypes.func.isRequired,
-  verifyStatus: PropTypes.string.isRequired,
   /* optional */
   address: PropTypes.string,
 }
@@ -77,6 +88,11 @@ export default compose(
   connect(
     mapStateToProps,
     mapDispatchToProps,
+  ),
+  withState(
+    'isMenuOpen',
+    'toggleMenu',
+    false,
   ),
   lifecycle({
     /* eslint-disable fp/no-this */
