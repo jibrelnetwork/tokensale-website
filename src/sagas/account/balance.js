@@ -2,6 +2,7 @@ import { put, call, take } from 'redux-saga/effects'
 import { delay } from 'redux-saga'
 import { startSubmit, stopSubmit } from 'redux-form'
 
+import gtm from '../../services/gtm'
 import * as actions from '../../actions'
 import { BALANCE, MODALS } from '../../constants/account'
 import request from '../request'
@@ -46,6 +47,8 @@ export function* withdraw() {
       yield requestBalance()
       yield put(stopSubmit(FORM))
       yield closeWithdrawModal()
+
+      gtm.pushProfileRequestWithdraw()
     } else {
       yield put(stopSubmit(FORM))
     }

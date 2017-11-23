@@ -1,6 +1,7 @@
 import { call, put, take } from 'redux-saga/effects'
 import { startSubmit, stopSubmit, reset } from 'redux-form'
 
+import gtm from '../../services/gtm'
 import { ADDRESS, MODALS } from '../../constants/account'
 import request from '../request'
 import { SERVER } from '../.'
@@ -23,6 +24,8 @@ function* sendSuccess(address) {
   yield put(stopSubmit(FORM))
   yield closeSetAddressModal()
   yield put(reset(FORM))
+
+  gtm.pushProfileAddedEth()
 }
 
 export function* get() {

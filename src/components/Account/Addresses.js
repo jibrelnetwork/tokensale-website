@@ -4,13 +4,16 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { compose } from 'lodash/fp'
 import { withProps, lifecycle } from 'recompose'
+
+import gtm from '../../services/gtm'
 import * as actions from '../../actions'
 
 const Addresses = ({
+  pushSendRequestEvent,
+  verifyStatus,
+  isICOStarted,
   btcAddress,
   ethAddress,
-  isICOStarted,
-  verifyStatus,
 }) => (
   <div className="Wallets">
     {verifyStatus === 'Declined' ? (
@@ -21,7 +24,11 @@ const Addresses = ({
             In order to participate in JNT Token Sale,
             <br />
             please, contact Jibrel Team via email
-            <a style={{ marginLeft: 5 }} href="mailto:sale@jibrel.network">
+            <a
+              style={{ marginLeft: 5 }}
+              href="mailto:sale@jibrel.network"
+              onClick={pushSendRequestEvent}
+            >
               sale@jibrel.network
             </a>
           </p>
@@ -56,17 +63,18 @@ const Addresses = ({
 )
 
 Addresses.propTypes = {
+  pushSendRequestEvent: PropTypes.func.isRequired,
+  verifyStatus: PropTypes.string.isRequired,
+  isICOStarted: PropTypes.bool.isRequired,
+  /* optional */
   ethAddress: PropTypes.string,
   btcAddress: PropTypes.string,
-  isICOStarted: PropTypes.bool.isRequired,
-  verifyStatus: PropTypes.string.isRequired,
 }
 
 Addresses.defaultProps = {
   ethAddress: undefined,
   btcAddress: undefined,
 }
-
 
 const mapStateToProps = (state) => ({
   btcAddress: state.account.btcAddress,
@@ -76,6 +84,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = {
   request: actions.account.addresses.request,
+  pushSendRequestEvent: gtm.pushProfileSendRequest,
 }
 
 const enhance = compose(

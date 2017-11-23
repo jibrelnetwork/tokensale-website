@@ -22,6 +22,7 @@ import reducers from './reducers'
 import middlewares from './middlewares'
 import { ProtectedRoute } from './routes'
 import { Auth, Welcome, Account } from './components'
+import ga from './services/ga'
 
 FocusStyleManager.onlyShowFocusOnTabs()
 
@@ -82,3 +83,6 @@ ReactDOM.render(
   </Provider>,
   document.getElementById('container')
 )
+
+// Initialise google analytics data: id & utm parameters
+ga.init()
