@@ -3,6 +3,6 @@ import Button from './Button'
 import Select from './Select'
 import Captcha from './Captcha'
 import Uploader from './Uploader'
-import Datepicker from './Datepicker'
+import DateInput from './DateInput'
 
-export { Input, Select, Captcha, Button, Uploader, Datepicker }
+export { Input, Select, Captcha, Button, Uploader, DateInput }
