@@ -9,7 +9,7 @@ import Modals from './Modals'
 const { SetAddressModal, SetPasswordModal, WithdrawModal } = Modals
 
 const Account = () => (
-  <div className="Account">
+  <div className="Account inner-page">
     <div className="section start">
       <div className="inner">
         <Header />

@@ -25,6 +25,12 @@ export function* change() {
     } = yield take(PASSWORD.CHANGE)
     const data = { uid, token, new_password1: newPassword, new_password2: newPasswordConfirm }
     const response = yield call(request, `${SERVER}/auth/password/reset/confirm/`, data, 'post')
-    if (response.success) { yield put(replace('/welcome/login')) }
+    if (response.success) {
+      yield put(replace('/welcome/login'))
+    } else if (response.data.token) {
+      alert('Please try to recover your password again, your recovery link is expired ')
+    } else {
+      alert("We can't reset your password, please contact us via email")
+    }
   }
 }

@@ -159,10 +159,6 @@
 }
 
 .Account {
-  .start .header {
-    padding-bottom: 50px;
-  }
-
   .Progress {
     > .progress {
       top: 160px;
@@ -219,6 +215,10 @@ a {
   position: relative;
   margin-top: -125px;
   padding-bottom: 150px;
+
+  .captcha {
+    margin-top: 15px;
+  }
 }
 
 .close {
@@ -260,7 +260,7 @@ button {
 
 ol,
 ul {
-  all: unset;
+  margin: unset;
 }
 
 h3 {
@@ -335,7 +335,7 @@ h3 {
 }
 
 .button[type="submit"]:disabled {
-  background-size: 40px 40px;
+  background-size: 40px 20px;
   background-image: url("/static/icons/dots.svg");
   background-repeat: no-repeat;
   background-position: 50% 50%;
@@ -356,4 +356,41 @@ h3 {
 
 .message p {
   white-space: pre-line;
+}
+
+@media only screen and (max-width: 600px) {
+  .auth {
+    margin-top: -30px;
+  }
+
+  .auth .buttons .button {
+    float: none;
+    width: 100%;
+    margin-bottom: 20px;
+    display: block;
+    padding: 0 70px;
+  }
+
+  .Password {
+    .Change {
+      margin-top: -100px;
+    }
+
+    margin-top: 100px;
+  }
+
+  .Email {
+    margin-top: 100px;
+  }
+
+  .Identification {
+    .button {
+      width: unset;
+      padding: 0 15px;
+    }
+
+    .button[type="submit"] {
+      min-width: 125px;
+    }
+  }
 }
