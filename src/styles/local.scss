@@ -332,6 +332,7 @@ h3 {
 
 .button[type="submit"] {
   width: 175px;
+  transition: unset;
 }
 
 .button[type="submit"]:disabled {
@@ -393,4 +394,32 @@ h3 {
       min-width: 125px;
     }
   }
+}
+
+.field.field-input select {
+  display: block;
+  width: 100%;
+  padding: 15px 0;
+  border: none;
+  border-bottom: 1px solid rgba(45, 44, 62, 0.1);
+  font-family: 'Open Sans', Arial, sans-serif;
+  font-size: 13px;
+  font-weight: normal;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border-radius: 0;
+  background-color: transparent;
+}
+
+select:required:invalid {
+  color: rgb(117, 117, 117);
+}
+
+option[value=""][disabled] {
+  display: none;
+}
+
+option {
+  color: black;
 }

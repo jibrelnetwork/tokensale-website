@@ -1,8 +1,4 @@
-import Select from './Select'
-
-export default Select
-
-export const countries = [
+export const COUNTRIES = [
   'Afghanistan',
   'Åland Islands',
   'Albania',

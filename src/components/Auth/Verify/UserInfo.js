@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import { Field, reduxForm } from 'redux-form'
 import { set, identity, compose } from 'lodash/fp'
 import { Input, Datepicker, Select } from '../../common'
+import { COUNTRIES } from '../../../data/countries'
 import * as actions from '../../../actions'
 
 const UserInfo = ({ submitting, handleSubmit }) => (
@@ -12,8 +13,8 @@ const UserInfo = ({ submitting, handleSubmit }) => (
       <Field name="firstName" type="text" component={Input} label="First Name" />
       <Field name="lastName" type="text" component={Input} label="Last Name" />
       <Field name="birthday" type="text" component={Datepicker} label="Birthday" />
-      <Field name="residency" component={Select} label="Residency" />
-      <Field name="citizenship" component={Select} label="Citizenship" />
+      <Field name="residency" options={COUNTRIES} component={Select} label="Residency" />
+      <Field name="citizenship" options={COUNTRIES} component={Select} label="Citizenship" />
       <div className="buttons clear">
         <button
           type="submit"
