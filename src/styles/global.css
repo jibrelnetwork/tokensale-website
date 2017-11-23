@@ -163,6 +163,7 @@ i,
   font-weight: 600;
   text-align: center;
   cursor: pointer;
+  transition: all 0.3s ease;
 }
 .button.big {
   height: 50px;
