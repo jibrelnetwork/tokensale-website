@@ -13,7 +13,6 @@ export const requestSuccess = (balance) => ({
   payload: { balance },
 })
 
-export const withdraw = (address, amount) => ({
+export const withdraw = () => ({
   type: BALANCE.WITHDRAW,
-  payload: { address, amount },
 })

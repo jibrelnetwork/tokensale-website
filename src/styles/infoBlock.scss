@@ -29,7 +29,11 @@
   }
 
   .withdraw-text {
-    font-size: 13px;
+    max-width: 300px;
+    margin: 30px auto 0 auto;
+    font-size: 15px;
+
+    /* font-size: 13px; */
   }
 }
 
