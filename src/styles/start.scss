@@ -174,46 +174,47 @@
   margin-left: 40px;
   position: relative;
   padding: 5px 0 5px 40px;
-}
 
-.start .address:before {
-  content: '';
-  height: 100%;
-  width: 1px;
-  background-color: #fff;
-  opacity: 0.1;
-  position: absolute;
-  left: 0;
-  top: 0;
-}
+  &:before {
+    content: '';
+    height: 100%;
+    width: 1px;
+    background-color: #fff;
+    opacity: 0.1;
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
 
-.start .address .title {
-  opacity: 0.5;
-  margin-bottom: 8px;
-}
+  .title {
+    opacity: 0.5;
+    margin-bottom: 8px;
+  }
 
-.start .address .value {
-  position: relative;
-  cursor: pointer;
-  padding-right: 32px;
-}
+  .value {
+    position: relative;
+    cursor: pointer;
+    padding-right: 32px;
 
-.start .address .value:hover .edit {
-  opacity: 0.5;
-}
+    &:hover .edit {
+      opacity: 0.5;
+    }
+  }
 
-.start .address .edit {
-  position: absolute;
-  right: 0;
-  top: -8px;
-  width: 28px;
-  height: 28px;
-  background-image: url("/static/icons/edit.svg");
-  background-size: 16px 16px;
-  background-repeat: no-repeat;
-  background-position: 7px 7px;
-  display: block;
-  opacity: 0;
+  .edit {
+    position: absolute;
+    right: 0;
+    top: -8px;
+    width: 28px;
+    height: 28px;
+    background-image: url("/static/icons/edit.svg");
+    background-size: 16px 16px;
+    background-repeat: no-repeat;
+    background-position: 7px 7px;
+    display: block;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
 }
 
 .start .kyc-status {

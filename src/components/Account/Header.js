@@ -29,7 +29,7 @@ const Header = ({
           <div onClick={openSetAddressModal}>
             {`${(address || '0x000000000').substr(0, 11)}...`}
           </div>
-          {/* <a href="#" className="edit" /> */}
+          <div className="edit" />
         </div>
       </div>
       <div className="kyc-status pull-left">
