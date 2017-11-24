@@ -23,13 +23,13 @@ const Header = ({
       <Link to="/welcome" className="logo pull-left">
         <img src="/static/logo.svg" alt="" />
       </Link>
-      <ul className={cx('menu pull-right', isMenuOpen && 'menu-active')}>
+      <ul className={cx('menu pull-right clear', isMenuOpen && 'menu-active')}>
         <li>
-          <div className="address pull-left">
+          <div className="address">
             {address && <div className="title">Your address</div>}
             <div className="value">
               <div onClick={openSetAddressModal}>
-                {address || (
+                {address ? `${address.substr(0, 20)}...` : (
                   <div className="add">
                     <div className="icon">+</div>
                     <div className="text">
@@ -42,8 +42,8 @@ const Header = ({
             </div>
           </div>
         </li>
-        <li>
-          <div className="kyc-status pull-left">
+        <li style={{ margin: '0 auto 0 0' }}>
+          <div className="kyc-status">
             <div className="title">KYC status</div>
             <div className="value">
               <p>{verifyStatus}</p>
