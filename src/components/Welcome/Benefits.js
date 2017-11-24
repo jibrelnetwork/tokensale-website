@@ -29,8 +29,8 @@ const Benefits = () => (
           <div className="img">
             <img src="/static/icons/benefit-4.svg" alt="" />
           </div>
-          <h3>USA, China, Singapore</h3>
-          <p>Forbidden countries</p>
+          <h3>USA</h3>
+          <p>Forbidden country</p>
         </div>
       </div>
     </div>
