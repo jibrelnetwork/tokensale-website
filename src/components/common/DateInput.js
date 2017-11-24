@@ -50,7 +50,7 @@ export default compose(
   withState(
     'mode',
     'toggleMode',
-    (props) => props.type,
+    (props) => props.input.value ? 'date' : 'text',
   ),
   withHandlers({
     setTextMode: (props) => () =>
