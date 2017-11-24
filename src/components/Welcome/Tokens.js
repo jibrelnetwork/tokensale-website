@@ -21,7 +21,7 @@ const Tokens = ({ raised, available }) => (
         </div>
         <div className="item total">
           <div className="title">Available Tokens</div>
-          <div className="value">{numeral(available).format('0,0')}</div>
+          <div className="value">{numeral(available - raised).format('0,0')}</div>
           <div className="point" />
         </div>
       </div>
