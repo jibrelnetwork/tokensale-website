@@ -7,7 +7,7 @@ import * as actions from '../../../actions'
 import { Input } from '../../common'
 
 /* eslint-disable max-len */
-const POLICY = 'I have read the Token Sale Terms & Conditions, Privacy Policy and Jibrel Network White Paper, and accept all terms, conditions, obligations, affirmations, representations and warranties outlined in these documents and agree to adhere to them and be legally bound by them'
+const POLICY = ', Privacy Policy and Jibrel Network White Paper, and accept all terms, conditions, obligations, affirmations, representations and warranties outlined in these documents and agree to adhere to them and be legally bound by them'
 const CITIZENSHIP = 'I confirm that I am not citizen, permanent resident, or granted indefinite leave to remain in the US, Singapore or China - or any jurisdiction in which the purchase of Jibrel Network Token (JNT) is explicitly prohibited or outlawed.'
 /* eslint-enable */
 
@@ -17,7 +17,19 @@ const Terms = ({ submitting, handleSubmit }) => (
       <Field
         name="policyConfirm"
         type="checkbox"
-        label={POLICY}
+        label={(
+          <span>
+            I have read the
+            <a
+              className="terms-link"
+              href="/static/T&Cs - Jibrel Network Token Sale.pdf"
+              target="_blank"
+            >
+              Token Sale Terms & Conditions
+            </a>
+            {POLICY}
+          </span>
+        )}
         component={Input}
       />
       <Field

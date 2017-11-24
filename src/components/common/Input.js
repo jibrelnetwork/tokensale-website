@@ -30,7 +30,7 @@ const Input = ({
 
 Input.propTypes = {
   type: PropTypes.oneOf(['text', 'password', 'checkbox']).isRequired,
-  label: PropTypes.string.isRequired,
+  label: PropTypes.oneOfType([PropTypes.string, PropTypes.node]).isRequired,
   input: PropTypes.shape({ // redux-form injected props
     value: PropTypes.oneOfType([PropTypes.instanceOf(Date), PropTypes.string, PropTypes.bool]).isRequired,
     onChange: PropTypes.func.isRequired,
