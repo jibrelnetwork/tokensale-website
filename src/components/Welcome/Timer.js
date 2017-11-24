@@ -9,19 +9,19 @@ const Timer = ({ timeLeft }) => (
       <div className="row clear">
         <div className="col-3">
           <div className="time">{timeLeft.days()}</div>
-          <div className="title">Day</div>
+          <div className="title">Days</div>
         </div>
         <div className="col-3">
           <div className="time">{timeLeft.hours()}</div>
-          <div className="title">Hour</div>
+          <div className="title">Hours</div>
         </div>
         <div className="col-3">
           <div className="time">{timeLeft.minutes()}</div>
-          <div className="title">Min</div>
+          <div className="title">Minutes</div>
         </div>
         <div className="col-3">
           <div className="time">{timeLeft.seconds()}</div>
-          <div className="title">Sec</div>
+          <div className="title">Seconds</div>
         </div>
       </div>
     </div>
@@ -36,7 +36,7 @@ const enhance = lifecycle({
   state: { timeLeft: moment.duration(moment.utc('2017-11-27T12:00') - moment.utc()) },
   /* eslint-disable fp/no-this */
   componentWillMount() {
-    const { timeLeft } = this.state;
+    const { timeLeft } = this.state
     if (timeLeft.asMilliseconds() > 0) {
       this.timer = setInterval(
         () => this.setState({
