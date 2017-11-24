@@ -7,7 +7,7 @@ import { lifecycle, withState } from 'recompose'
 import { Link } from 'react-router-dom'
 import * as actions from '../../actions'
 
-// Undefined state with no ETHAddress
+// TODO: Split to subcomponents
 
 const Header = ({
   logout,
@@ -23,22 +23,33 @@ const Header = ({
       <Link to="/welcome" className="logo pull-left">
         <img src="/static/logo.svg" alt="" />
       </Link>
-      <div className="address pull-left">
-        <div className="title">Your address</div>
-        <div className="value">
-          <div onClick={openSetAddressModal}>
-            {`${(address || '0x000000000').substr(0, 11)}...`}
-          </div>
-          <div className="edit" />
-        </div>
-      </div>
-      <div className="kyc-status pull-left">
-        <div className="title">KYC status</div>
-        <div className="value">
-          <p>{verifyStatus}</p>
-        </div>
-      </div>
       <ul className={cx('menu pull-right', isMenuOpen && 'menu-active')}>
+        <li>
+          <div className="address pull-left">
+            {address && <div className="title">Your address</div>}
+            <div className="value">
+              <div onClick={openSetAddressModal}>
+                {address || (
+                  <div className="add">
+                    <div className="icon">+</div>
+                    <div className="text">
+                      Add ETH Address
+                    </div>
+                  </div>
+                )}
+              </div>
+              {address && <div className="edit" />}
+            </div>
+          </div>
+        </li>
+        <li>
+          <div className="kyc-status pull-left">
+            <div className="title">KYC status</div>
+            <div className="value">
+              <p>{verifyStatus}</p>
+            </div>
+          </div>
+        </li>
         <li>
           <button className="button clean" onClick={openSetPasswordModal}>Change password</button>
         </li>
