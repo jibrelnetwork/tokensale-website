@@ -4,7 +4,7 @@ import { Field, reduxForm } from 'redux-form'
 import * as actions from '../../../actions'
 import { Input } from '../../common'
 
-const Change = ({ submitting, handleSubmit }) => (
+const Reset = ({ submitting, handleSubmit }) => (
   <div className="Change">
     <div className="auth">
       <div className="form-block">
@@ -30,7 +30,7 @@ const Change = ({ submitting, handleSubmit }) => (
   </div>
 )
 
-Change.propTypes = {
+Reset.propTypes = {
   submitting: PropTypes.bool.isRequired,
   handleSubmit: PropTypes.func.isRequired,
 }
@@ -45,4 +45,4 @@ export default reduxForm({
     : !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email)
       ? { email: 'Invalid email address' }
       : {},
-})(Change)
+})(Reset)
