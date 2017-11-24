@@ -13,9 +13,9 @@ const Withdraw = ({ handleSubmit, address, balance, submitting }) => (
         <div className="icon withdraw-tokens" />
         <p>
           You are sending
-          <div className="withdraw-balance">{`${balance} JNT`}</div>
+          <span className="withdraw-balance">{`${balance} JNT`}</span>
           to your account address
-          <div className="withdraw-address">{address}</div>
+          <span className="withdraw-address">{address}</span>
         </p>
       </div>
       <div className="text-center">
