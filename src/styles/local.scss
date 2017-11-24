@@ -360,38 +360,40 @@ h3 {
 }
 
 @media only screen and (max-width: 600px) {
-  .auth {
-    margin-top: -30px;
-  }
-
-  .auth .buttons .button {
-    float: none;
-    width: 100%;
-    margin-bottom: 20px;
-    display: block;
-    padding: 0 70px;
-  }
-
-  .Password {
-    .Change {
-      margin-top: -100px;
+  body {
+    .auth {
+      margin-top: -30px;
     }
 
-    margin-top: 100px;
-  }
-
-  .Email {
-    margin-top: 100px;
-  }
-
-  .Identification {
-    .button {
-      width: unset;
-      padding: 0 15px;
+    .auth .buttons .button {
+      float: none;
+      width: 100%;
+      margin-bottom: 20px;
+      display: block;
+      padding: 0 70px;
     }
 
-    .button[type="submit"] {
-      min-width: 125px;
+    .Password {
+      .Change {
+        margin-top: -100px;
+      }
+
+      margin-top: 100px;
+    }
+
+    .Email {
+      margin-top: 100px;
+    }
+
+    .Identification {
+      .button {
+        width: unset;
+        padding: 0 15px;
+      }
+
+      .button[type="submit"] {
+        min-width: 125px;
+      }
     }
   }
 }
