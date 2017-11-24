@@ -35,11 +35,12 @@ const Transaction = ({
           <a
             href={{
               ETH: `https://etherscan.io/tx/${TXhash}`,
-              BTC: `https://blockchain.info/block/${TXhash}`,
+              BTC: `https://blockchain.info/tx/${TXhash}`,
             }[TXtype]}
             target="_blank"
+            rel="noopener noreferrer"
           >
-            {TXhash}
+            {TXhash ? `${TXhash.substr(0, 13)}...` : null}
           </a>
         </div>
       </div>
