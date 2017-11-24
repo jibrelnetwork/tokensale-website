@@ -20,7 +20,7 @@ const Input = ({
       {...input}
       id={type === 'checkbox' ? label : undefined}
       type={type}
-      required
+      required={type !== 'checkbox'}
       placeholder={label}
     />
     {type === 'checkbox' && <label htmlFor={label}>{label}</label>}
