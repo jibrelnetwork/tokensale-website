@@ -121,63 +121,105 @@
       padding: 30px;
       position: relative;
 
+      &:before {
+        content: '';
+        height: 100%;
+        width: 1px;
+        background-color: #ebeef3;
+        opacity: 0.5;
+        left: 104px;
+        top: 0;
+        position: absolute;
+      }
+
+      & > div {
+        float: left;
+        margin-right: 50px;
+      }
+
+      .title {
+        opacity: 0.5;
+        margin-bottom: 10px;
+      }
+
+      .value {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      .type {
+        width: 47px;
+        height: 42px;
+        background-size: 47px 42px;
+        margin-right: 60px;
+      }
+
+      .jnt {
+        width: 100px;
+        font-size: 15px;
+        font-weight: 600;
+        margin-top: 10px;
+      }
+
+      .amount {
+        position: relative;
+        width: 140px;
+      }
+
+      .date {
+        width: 110px;
+      }
+
       .hash {
+        position: relative;
         margin-right: 0;
+      }
+
+      &.incoming {
+        .type {
+          background-image: url("/static/icons/incoming.svg");
+        }
+
+        .jnt {
+          color: #0050db;
+        }
+
+        &.waiting .type {
+          background-image: url("/static/icons/incoming-2.svg");
+        }
+      }
+
+      &.outgoing {
+        .type {
+          background-image: url("/static/icons/outgoing.svg");
+        }
+
+        &.waiting {
+          .type {
+            background-image: url("/static/icons/outgoing-2.svg");
+          }
+
+          .amount,
+          .hash {
+            &:after {
+              position: absolute;
+              top: 30px;
+              left: 0;
+              display: block;
+              width: 100%;
+              height: 1px;
+              background-color: $black2;
+              opacity: 0.5;
+              content: "";
+            }
+
+            .value {
+              display: none;
+            }
+          }
+        }
       }
     }
   }
-}
-
-.content .transactions .item:before {
-  content: '';
-  height: 100%;
-  width: 1px;
-  background-color: #ebeef3;
-  opacity: 0.5;
-  left: 104px;
-  top: 0;
-  position: absolute;
-}
-
-.content .transactions .item > div {
-  float: left;
-  margin-right: 50px;
-}
-
-.content .transactions .item .title {
-  opacity: 0.5;
-  margin-bottom: 10px;
-}
-
-.content .transactions .item .type {
-  width: 47px;
-  height: 42px;
-  background-size: 47px 42px;
-  margin-right: 60px;
-}
-
-.content .transactions .item.incoming .type {
-  background-image: url("/static/icons/incoming.svg");
-}
-
-.content .transactions .item.incoming .jnt {
-  color: #0050db;
-}
-
-.content .transactions .item.outgoing .type {
-  background-image: url("/static/icons/outgoing.svg");
-}
-
-.content .transactions .item.incoming.waiting .type {
-  background-image: url("/static/icons/incoming-2.svg");
-}
-
-.content .transactions .item.outgoing.waiting .type {
-  background-image: url("/static/icons/outgoing-2.svg");
-}
-
-.content .transactions .item .jnt {
-  font-size: 15px;
-  font-weight: 600;
-  margin-top: 10px;
 }

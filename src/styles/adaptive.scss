@@ -114,6 +114,10 @@
     .content {
       .transactions {
         .item {
+          & > div {
+            margin-right: 30px;
+          }
+
           .hash .value {
             width: 100px;
             overflow: hidden;
@@ -130,7 +134,7 @@
       .transactions {
         .item {
           & > div {
-            margin-right: 25px;
+            margin-right: 15px;
           }
         }
       }
@@ -309,39 +313,50 @@
       font-size: 13px;
     }
 
-    .content .transactions .item {
-      padding: 20px;
-    }
+    .content {
+      .transactions {
+        .item {
+          padding: 20px;
 
-    .content .transactions .item > div {
-      margin-right: 0;
-    }
+          .type {
+            display: block;
+            width: 100%;
+            margin-right: 0;
+            background-repeat: no-repeat;
+            margin-bottom: 20px;
+          }
 
-    .content .transactions .item .type {
-      display: block;
-      width: 100%;
-      margin-right: 0;
-      background-repeat: no-repeat;
-      margin-bottom: 20px;
-    }
+          .jnt {
+            position: absolute;
+            margin: 0;
+            left: 75px;
+            top: 32px;
+          }
 
-    .content .transactions .item .jnt {
-      position: absolute;
-      margin: 0;
-      left: 75px;
-      top: 32px;
-    }
+          .amount,
+          .hash,
+          .date {
+            margin-top: 20px;
+            float: none;
+          }
 
-    .content .transactions .item .amount,
-    .content .transactions .item .hash,
-    .content .transactions .item .date {
-      margin-top: 20px;
-      float: none;
-    }
+          .hash .value {
+            width: auto;
+            overflow: hidden;
+          }
 
-    .content .transactions .item .hash .value {
-      width: auto;
-      overflow: hidden;
+          & > div {
+            margin-right: 0;
+          }
+
+          &.outgoing {
+            .amount,
+            &.waiting .hash {
+              display: none;
+            }
+          }
+        }
+      }
     }
 
     .auth {

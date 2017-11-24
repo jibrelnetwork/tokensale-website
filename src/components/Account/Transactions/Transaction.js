@@ -20,7 +20,7 @@ const Transaction = ({
       <div className="jnt">
         {`${{ incoming: '+', outgoing: '-' }[type]} ${numeral(jnt).format('0 0')}`} JNT
       </div>
-      <div className={cx('amount', type === 'outgoing' && 'hidden')}>
+      <div className="amount">
         <div className="title">Amount</div>
         {/* eslint-disable camelcase */}
         <div className="value">{`${cryptoAmount} ${TXtype} / ${usdAmount} USD `}</div>
