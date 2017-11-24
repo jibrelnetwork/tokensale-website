@@ -1,1 +1,46 @@
-$modal-close-icon: url('../../static/icons/modal-close.svg');
+.icons {
+  background-size: 24px 24px;
+  background-repeat: no-repeat;
+  background-position: left center;
+}
+
+.icons.small {
+  background-size: 16px 16px;
+}
+
+.icons.big:before {
+  background-position: -16px -10px;
+  background-size: 150% 150%;
+}
+
+.icons.icon-big-twitter:before {
+  background-image: url("/static/icons/big/twitter.svg");
+}
+
+.icons.icon-big-reddit:before {
+  background-image: url("/static/icons/big/reddit.svg");
+}
+
+.icons.icon-big-bitcointalk:before {
+  background-image: url("/static/icons/big/bitcointalk.svg");
+}
+
+.icons.icon-big-youtube:before {
+  background-image: url("/static/icons/big/youtube.svg");
+}
+
+.icons.icon-big-telegram:before {
+  background-image: url("/static/icons/big/telegram.svg");
+}
+
+.icons.icon-big-slack:before {
+  background-image: url("/static/icons/big/slack.svg");
+}
+
+.icons.icon-big-kakaotalk:before {
+  background-image: url("/static/icons/big/kakao.svg");
+}
+
+.icons.icon-big-medium:before {
+  background-image: url("/static/icons/big/medium.svg");
+}

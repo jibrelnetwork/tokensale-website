@@ -1,0 +1,175 @@
+.content {
+  background-color: #f5f6fa;
+}
+
+.content .inner {
+  padding: 80px 0 160px 0;
+}
+
+.content .addresses {
+  background-color: #fff;
+  padding: 40px 0;
+  border: 1px solid #e4ebf3;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.05);
+  color: #0050db;
+  position: relative;
+  margin-bottom: 60px;
+}
+
+.content .addresses:before {
+  content: '';
+  height: 100%;
+  width: 1px;
+  background-color: #ebeef3;
+  opacity: 0.5;
+  left: 50%;
+  top: 0;
+  position: absolute;
+}
+
+.content .addresses .item {
+  width: 50%;
+  float: left;
+  padding: 0 30px 0 120px;
+  position: relative;
+}
+
+.content .addresses .img {
+  background-size: 72px 72px;
+  width: 72px;
+  height: 72px;
+  position: absolute;
+  left: 30px;
+  top: 50%;
+  margin-top: -36px;
+}
+
+.content .addresses .img.eth {
+  background-image: url("/static/icons/eth.svg");
+}
+
+.content .addresses .img.btc {
+  background-image: url("/static/icons/btc.svg");
+}
+
+.content .addresses .title {
+  opacity: 0.5;
+  margin-bottom: 16px;
+}
+
+.content .addresses .value {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.content .addresses.declined {
+  text-align: center;
+  color: #3d4f6c;
+}
+
+.content .addresses.declined:before {
+  display: none;
+}
+
+.content .addresses.declined .status-declined .img {
+  position: relative;
+  left: 0;
+  top: 0;
+  margin-top: 0;
+}
+
+.content .tabs {
+  line-height: 40px;
+  margin-bottom: 40px;
+}
+
+.content .tabs li {
+  display: inline-block;
+  margin-right: 40px;
+}
+
+.content .tabs li:last-child {
+  margin-right: 0;
+}
+
+.content .tabs li a {
+  color: #3d4f6c;
+  opacity: 0.5;
+}
+
+.content .tabs li a:hover {
+  opacity: 1;
+  color: #0050db;
+}
+
+.content .tabs li.active a {
+  opacity: 1;
+  color: #0050db;
+}
+
+.content .balance {
+  margin-right: 40px;
+}
+
+.content .transactions .item {
+  border: 1px solid #e4ebf3;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.05);
+  background-color: #fff;
+  margin-bottom: 15px;
+  padding: 30px;
+  position: relative;
+}
+
+.content .transactions .item:before {
+  content: '';
+  height: 100%;
+  width: 1px;
+  background-color: #ebeef3;
+  opacity: 0.5;
+  left: 104px;
+  top: 0;
+  position: absolute;
+}
+
+.content .transactions .item > div {
+  float: left;
+  margin-right: 50px;
+}
+
+.content .transactions .item .title {
+  opacity: 0.5;
+  margin-bottom: 10px;
+}
+
+.content .transactions .item .type {
+  width: 47px;
+  height: 42px;
+  background-size: 47px 42px;
+  margin-right: 60px;
+}
+
+.content .transactions .item.incoming .type {
+  background-image: url("/static/icons/incoming.svg");
+}
+
+.content .transactions .item.incoming .jnt {
+  color: #0050db;
+}
+
+.content .transactions .item.outgoing .type {
+  background-image: url("/static/icons/outgoing.svg");
+}
+
+.content .transactions .item.incoming.waiting .type {
+  background-image: url("/static/icons/incoming-2.svg");
+}
+
+.content .transactions .item.outgoing.waiting .type {
+  background-image: url("/static/icons/outgoing-2.svg");
+}
+
+.content .transactions .item .jnt {
+  font-size: 15px;
+  font-weight: 600;
+  margin-top: 10px;
+}

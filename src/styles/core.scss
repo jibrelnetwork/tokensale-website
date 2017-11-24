@@ -1,8 +1,130 @@
 :global {
+  @import 'adaptive';
+  @import 'auth';
+  @import 'base';
+  @import 'benefits';
+  @import 'button';
   @import 'colors';
-  @import 'global';
+  @import 'content';
+  @import 'emailVerification';
+  @import 'form';
+  @import 'grid';
   @import 'icons';
+  @import 'infoBlock';
+  @import 'inner';
+  @import 'loader';
   @import 'local';
+  @import 'message';
   @import 'modal';
+  @import 'noTransactions';
   @import 'normalize';
+  @import 'progress';
+  @import 'start';
+  @import 'status';
+
+  * {
+    margin: 0;
+    padding: 0;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    outline: none;
+  }
+
+  body {
+    margin: 0;
+    padding: 0;
+    background-color: #fff;
+    font-family: 'Open Sans', Arial, sans-serif;
+    font-size: 13px;
+    line-height: 1;
+    color: #3d4f6c;
+  }
+
+  body.overlay {
+    touch-action: none;
+  }
+
+  body.overlay .start {
+    height: 100vh;
+  }
+
+  body.overlay .start .menu,
+  body.overlay .start .text,
+  body.overlay .start .counter,
+  body.overlay .start .progress,
+  body.overlay .start .link {
+    opacity: 0;
+  }
+
+  body.overlay .start .menu-button {
+    display: none;
+  }
+
+  body.overlay .start .auth {
+    display: block;
+  }
+
+  body.overlay .start .close {
+    display: block;
+  }
+
+  .section {
+    position: relative;
+  }
+
+  .clear:after {
+    clear: both;
+    content: "";
+    display: block;
+    height: 0;
+  }
+
+  a {
+    color: #0050db;
+    text-decoration: none;
+  }
+
+  a:hover {
+    color: #00c1ff;
+  }
+
+  li {
+    list-style: none;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-weight: normal;
+  }
+
+  .pull-left {
+    float: left;
+  }
+
+  .pull-right {
+    float: right;
+  }
+
+  /* Animations */
+  a,
+  li,
+  span,
+  label,
+  input,
+  h3,
+  i,
+  .menu,
+  .menu-button,
+  .whitepaper a:before,
+  .footer a:before,
+  .pull-right:before {
+    transition: all 0.3s ease 0s;
+  }
+
+  .text-center {
+    text-align: center;
+  }
 }

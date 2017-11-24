@@ -1,0 +1,164 @@
+.field {
+  position: relative;
+  margin-bottom: 40px;
+}
+
+.field.field-checkbox input {
+  display: none;
+}
+
+.field.field-checkbox input + label {
+  padding-left: 30px;
+  font-size: 13px;
+  font-weight: normal;
+  position: relative;
+  top: 0;
+  color: #3d4f6c;
+  left: 0;
+  display: block;
+  line-height: 24px;
+}
+
+.field.field-checkbox input + label:before {
+  top: 2px;
+  display: inline-block;
+  position: absolute;
+  left: 0;
+  border: 2px solid #bfbec4;
+  background-color: #fff;
+  width: 16px;
+  height: 16px;
+  content: '';
+  border-radius: 10px;
+}
+
+.field.field-checkbox input:checked + label:before {
+  display: block;
+  position: absolute;
+  border: 2px solid #0050db;
+  width: 16px;
+  height: 16px;
+  background-color: #0050db;
+  background-image: url("/static/icons/checkbox.svg");
+  background-size: 20px 20px;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
+.field.field-checkbox input:checked + label {
+  color: #0050db;
+}
+
+.field.field-input input {
+  display: block;
+  width: 100%;
+  padding: 15px 0;
+  border: none;
+  border-bottom: 1px solid rgba(45, 44, 62, 0.1);
+  font-family: 'Open Sans', Arial, sans-serif;
+  font-size: 13px;
+  font-weight: normal;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border-radius: 0;
+  background-color: transparent;
+}
+
+.field.field-input input:invalid,
+.field.field-input input:-moz-ui-invalid {
+  color: #e91e63;
+  box-shadow: none;
+}
+
+.field.field-input input:focus + ul {
+  display: block;
+}
+
+.field.field-input ul {
+  display: none;
+  position: absolute;
+  top: 45px;
+  left: 0;
+  width: 100%;
+  border: 1px solid rgba(45, 44, 62, 0.2);
+  background-color: #fff;
+  z-index: 10;
+  padding: 5px 0;
+  max-height: 160px;
+  overflow: auto;
+}
+
+.field.field-input ul.scroll {
+  height: 136px;
+  overflow: auto;
+}
+
+.field.field-input ul a {
+  display: block;
+  line-height: 40px;
+  padding: 0 15px;
+  cursor: pointer;
+}
+
+.field.field-input ul a.active {
+  background-color: #3d4f6c;
+}
+
+.field.field-input ul a:hover {
+  color: #3d4f6c;
+}
+
+.field.field-input ul.active {
+  display: block;
+}
+
+.field.field-input div.error-text,
+.field.field-select div.error-text {
+  display: none;
+}
+
+.field.field-select select {
+  display: block;
+  width: 100%;
+  padding: 15px 0;
+  border: none;
+  border-bottom: 1px solid rgba(45, 44, 62, 0.1);
+  background: transparent;
+  font-family: 'Open Sans', Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  color: #a9a9a9;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+.field.field-select select.selected {
+  color: #000;
+}
+
+.field.error input {
+  color: #e91e63;
+  border-bottom: 1px solid #e91e63;
+}
+
+.field.error div.error-text {
+  display: block;
+  color: #e91e63;
+  text-align: right;
+  position: absolute;
+  right: 0;
+  top: 60px;
+}
+
+.form .inner {
+  padding: 80px 0;
+  background-color: #fff;
+  margin: 0 auto;
+  width: 500px;
+}
+
+.form .buttons {
+  padding-top: 20px;
+}

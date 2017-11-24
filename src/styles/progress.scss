@@ -1,0 +1,57 @@
+.progress {
+  position: relative;
+  color: #fff;
+}
+
+.progress .point {
+  width: 20px;
+  height: 20px;
+  border-radius: 10px;
+  border: 2px solid #fff;
+  box-shadow: 0 10px 30px rgba(45, 63, 148, 0.4);
+  background-color: #0050db;
+  display: inline-block;
+  position: relative;
+}
+
+.progress .item {
+  position: absolute;
+  bottom: -10px;
+}
+
+.progress .item.raised {
+  left: 0;
+}
+
+.progress .item.raised .point {
+  background-color: #00c1ff;
+}
+
+.progress .item.total {
+  right: 0;
+  text-align: right;
+  bottom: -12px;
+}
+
+.progress .item .title {
+  opacity: 0.5;
+  text-transform: uppercase;
+  font-size: 12px;
+  margin-bottom: 10px;
+}
+
+.progress .item .value {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.progress .line {
+  position: absolute;
+  width: 100%;
+  height: 4px;
+  background-color: #00c1ff;
+  right: 0;
+  bottom: -2px;
+  border-radius: 2px;
+}
