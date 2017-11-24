@@ -1,10 +1,11 @@
 /* eslint-disable more/no-window */
 
-function generateGaId() {
-  const randomFirst = Array.from({ length: 4 }, () => Math.floor(Math.random() * 9)).join('')
-  const randomSecond = Array.from({ length: 6 }, () => Math.floor(Math.random() * 9)).join('')
+function generateNInt(length) {
+  return Array.from({ length }, () => Math.floor(Math.random() * 9)).join('')
+}
 
-  return `7777${randomFirst}.1111${randomSecond}`
+function generateGaId() {
+  return `7777${generateNInt(6)}.1111${generateNInt(6)}`
 }
 
 function getGaId() {
