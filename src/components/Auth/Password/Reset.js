@@ -4,6 +4,8 @@ import { Field, reduxForm } from 'redux-form'
 import * as actions from '../../../actions'
 import { Input } from '../../common'
 
+const VALIDATE_EMAIL_REGEXP = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/ // eslint-disable-line max-len
+
 const Reset = ({ submitting, handleSubmit }) => (
   <div className="Change">
     <div className="auth">
@@ -42,7 +44,7 @@ export default reduxForm({
   ),
   validate: ({ email }) => !email
     ? { email: 'Email address is required' }
-    : !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email)
+    : !VALIDATE_EMAIL_REGEXP.test(email)
       ? { email: 'Invalid email address' }
       : {},
 })(Reset)

@@ -113,6 +113,8 @@
     }],
     "fp/no-mutating-methods": [2, {
       "allowedObjects": ["_", "history", "router"]
-    }]
+    }],
+    "unicorn/regex-shorthand": "off",
+    "no-useless-escape": "off"
   }
 }

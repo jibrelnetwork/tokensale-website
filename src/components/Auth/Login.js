@@ -6,6 +6,8 @@ import { set, compose, identity } from 'lodash/fp'
 import * as actions from '../../actions'
 import { Input } from '../common'
 
+const VALIDATE_EMAIL_REGEXP = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/ // eslint-disable-line max-len
+
 const Login = ({ submitting, handleSubmit }) => (
   <div className="Login">
     <div className="auth">
@@ -14,7 +16,9 @@ const Login = ({ submitting, handleSubmit }) => (
           <Field name="email" type="text" component={Input} label="Email" />
           <Field name="password" type="password" component={Input} label="Password" />
           <div className="buttons clear">
-            <button type="submit" disabled={submitting} className="button pull-left">{!submitting && 'Login'}</button>
+            <button type="submit" disabled={submitting} className="button pull-left">
+              {!submitting && 'Login'}
+            </button>
             <Link to="/welcome/password/reset" className="pull-right">Forgotten password?</Link>
           </div>
         </form>
@@ -34,7 +38,7 @@ export default reduxForm({
   validate: (values) => compose(
     !values.email
       ? set('email', 'Email address is required')
-      : !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)
+      : !VALIDATE_EMAIL_REGEXP.test(values.email)
         ? set('email', 'Invalid email address')
         : identity,
     !values.password

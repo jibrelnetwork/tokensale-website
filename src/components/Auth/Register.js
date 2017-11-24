@@ -6,6 +6,8 @@ import { set, compose, identity } from 'lodash/fp'
 import * as actions from '../../actions'
 import { Input, Captcha } from '../common'
 
+const VALIDATE_EMAIL_REGEXP = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/ // eslint-disable-line max-len
+
 const Register = ({ submitting, handleSubmit }) => (
   <div className="Register">
     <div className="auth">
@@ -13,10 +15,17 @@ const Register = ({ submitting, handleSubmit }) => (
         <form onSubmit={handleSubmit} className="form">
           <Field name="email" type="text" component={Input} label="Email" />
           <Field name="password" type="password" component={Input} label="Password" />
-          <Field name="passwordConfirm" type="password" component={Input} label="Password Confirmation" />
+          <Field
+            name="passwordConfirm"
+            type="password"
+            component={Input}
+            label="Password Confirmation"
+          />
           <Field name="captcha" component={Captcha} />
           <div className="buttons clear">
-            <button type="submit" disabled={submitting} className="button pull-left">{!submitting && 'Register'}</button>
+            <button type="submit" disabled={submitting} className="button pull-left">
+              {!submitting && 'Register'}
+            </button>
             <Link to="/welcome/login" className="pull-right">Have an account?</Link>
           </div>
         </form>
@@ -38,7 +47,7 @@ export default reduxForm({
   validate: (values) => compose(
     !values.email
       ? set('email', 'Email address is required')
-      : !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)
+      : !VALIDATE_EMAIL_REGEXP.test(values.email)
         ? set('email', 'Invalid email address')
         : identity,
     !values.password
@@ -46,7 +55,9 @@ export default reduxForm({
       : values.password.length < 8
         ? set('password', 'Password is too short')
         : identity,
-    !values.passwordConfirm ? set('passwordConfirm', 'Password confirmation is required') : identity,
+    !values.passwordConfirm
+      ? set('passwordConfirm', 'Password confirmation is required')
+      : identity,
     values.passwordConfirm && values.password !== values.passwordConfirm
       ? set('password', 'Password does not match the confirm password')
       : identity,
