@@ -417,6 +417,40 @@
   }
 }
 
+@media only screen and (max-width: 450px) {
+  body {
+    .info-block .withdraw-text {
+      font-size: 11px;
+    }
+  }
+}
+
+@media only screen and (max-width: 360px) {
+  $mobile360-modal-padding: 15px;
+
+  body {
+    .info-block .withdraw-text {
+      font-size: 10px;
+    }
+
+    .modal {
+      .modal-content {
+        margin: 10px;
+        padding: $mobile360-modal-padding;
+      }
+
+      .modal-title {
+        margin-bottom: $mobile360-modal-padding;
+      }
+
+      .modal-close {
+        top: $mobile360-modal-padding;
+        right: $mobile360-modal-padding;
+      }
+    }
+  }
+}
+
 @media (-webkit-min-device-pixel-ratio: 2) {
   body {
     .start {

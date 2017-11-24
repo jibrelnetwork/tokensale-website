@@ -11,7 +11,7 @@ const Withdraw = ({ handleSubmit, address, balance, submitting }) => (
     <form onSubmit={handleSubmit} className="form">
       <div className="info-block">
         <div className="icon withdraw-tokens" />
-        <p>
+        <p className="withdraw-text">
           You are sending
           <span className="withdraw-balance">{`${balance} JNT`}</span>
           to your account address

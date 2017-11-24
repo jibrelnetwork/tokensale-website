@@ -27,4 +27,25 @@
     line-height: 24px;
     margin-top: 30px;
   }
+
+  .withdraw-text {
+    font-size: 13px;
+  }
+}
+
+.withdraw-balance,
+.withdraw-address {
+  font-weight: 600;
+}
+
+.withdraw-balance {
+  margin: 0 5px;
+}
+
+.withdraw-address {
+  display: block;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
