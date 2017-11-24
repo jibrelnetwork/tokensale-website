@@ -12,45 +12,51 @@
   text-align: center;
   cursor: pointer;
   transition: background-color 0.3s ease;
+
+  &:hover {
+    opacity: 1;
+    background-color: #00c1ff;
+    color: #fff;
+  }
+
+  &.big {
+    height: 50px;
+    line-height: 50px;
+    border-radius: 25px;
+  }
+
+  &.bordered {
+    color: #0050db;
+
+    &:hover {
+      background-color: rgba(0, 80, 220, 0.25);
+      color: #0050db;
+      border-color: transparent;
+    }
+
+    &,
+    &.disabled:hover {
+      border: 1px solid rgba(0, 80, 220, 0.25);
+      background-color: transparent;
+      box-shadow: none;
+    }
+
+    &.disabled {
+      opacity: 0.5;
+    }
+  }
+
+  &.clean {
+    background-color: transparent;
+    box-shadow: none;
+    font-weight: normal;
+
+    &:hover {
+      opacity: 0.5;
+    }
+  }
 }
 
-.button.big {
-  height: 50px;
-  line-height: 50px;
-  border-radius: 25px;
-}
-
-.button.bordered,
-.button.bordered.disabled:hover {
-  border: 1px solid rgba(0, 80, 220, 0.25);
-  background-color: transparent;
-  color: #0050db;
-  box-shadow: none;
-}
-
-.button.bordered:hover {
-  background-color: rgba(0, 80, 220, 0.25);
-  color: #0050db;
-  border-color: transparent;
-}
-
-.button:hover {
-  opacity: 1;
-  background-color: #00c1ff;
-  color: #fff;
-}
-
-.button.clean {
-  background-color: transparent;
-  box-shadow: none;
-  font-weight: normal;
-}
-
-.button.clean:hover {
-  opacity: 0.5;
-}
-
-/* Menu button */
 .menu-button {
   position: absolute;
   z-index: 1000;

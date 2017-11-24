@@ -10,8 +10,8 @@ import * as actions from '../../../actions'
 const Balance = ({ openWithdrawModal, balance, address }) => (
   <div className="Balance">
     <div
-      className={cx('button bordered pull-right', { disabled: !address })}
-      onClick={address ? openWithdrawModal : null}
+      className={cx('button bordered pull-right', { disabled: !(address && balance) })}
+      onClick={(address && balance) ? openWithdrawModal : null}
     >
       Withdraw
     </div>
