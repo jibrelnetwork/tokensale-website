@@ -21,6 +21,9 @@ function pushRegistrationEmail() {
   })
 }
 
+/**
+ * eventLabel value is one of ConfirmAgreement/BasicInfo/PassportScan
+ */
 function pushVerificationNextStep(eventLabel) {
   push({
     event: 'VerificationNextStep',
