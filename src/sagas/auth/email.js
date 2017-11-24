@@ -16,3 +16,16 @@ export function* verify() {
     }
   }
 }
+
+export function* resend() {
+  while (true) { // eslint-disable-line fp/no-loops
+    const { payload: { email } } = yield take(EMAIL.RESEND)
+    const data = { email }
+    const response = yield call(request, `${SERVER}/auth/registration/confirm-email-resend/`, data, 'post')
+    if (response.success) {
+      yield put(replace('/welcome/email/sended'))
+    } else {
+      alert('Error on email verification resend')
+    }
+  }
+}

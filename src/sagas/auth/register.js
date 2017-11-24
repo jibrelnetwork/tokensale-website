@@ -12,9 +12,7 @@ const FORM = 'register'
 
 function* createAccountSuccess() {
   yield put(stopSubmit(FORM))
-
   gtm.pushRegistrationEmail()
-
   yield put(push('/welcome/email/sended'))
 }
 
@@ -25,11 +23,9 @@ function* createAccountError(response) {
     password: response.data.password,
     passwordConfirm: response.data.password_confirm,
   }
-
   if (errors.captcha) {
     window.grecaptcha.reset() // eslint-disable-line more/no-window
   }
-
   yield put(stopSubmit(FORM, errors))
 }
 
@@ -38,9 +34,7 @@ export function* createAccount() {
     const {
       payload: { email, password, passwordConfirm, captcha },
     } = yield take(REGISTER.CREATE_ACCOUNT)
-
     const tracking = ga.get()
-
     const data = {
       email,
       captcha,
@@ -48,11 +42,8 @@ export function* createAccount() {
       password,
       password_confirm: passwordConfirm,
     }
-
     yield put(startSubmit(FORM))
-
     const response = yield call(request, `${SERVER}/auth/registration/`, data, 'post')
-
     if (response.success) {
       yield createAccountSuccess()
     } else if (response.error) {

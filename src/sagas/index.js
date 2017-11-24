@@ -14,6 +14,7 @@ export default function* sagas() {
     account.password.set(),
     auth.login(),
     auth.email.verify(),
+    auth.email.resend(),
     auth.verify.confirmTerms(),
     auth.verify.uploadDocument(),
     auth.verify.updateUserInfo(),
