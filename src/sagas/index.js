@@ -2,7 +2,7 @@ import * as account from './account'
 import * as auth from './auth'
 import * as sync from './sync'
 
-export const SERVER = 'http://37.59.55.6:8080'
+export const SERVER = process.env.PROD ? 'https://saleapi.jibrel.network' : 'http://37.59.55.6:8080'
 
 export default function* sagas() {
   yield [
