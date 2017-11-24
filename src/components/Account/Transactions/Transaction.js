@@ -23,7 +23,9 @@ const Transaction = ({
       <div className="amount">
         <div className="title">Amount</div>
         {/* eslint-disable camelcase */}
-        <div className="value">{`${cryptoAmount} ${TXtype} / ${usdAmount} USD `}</div>
+        <div className="value">
+          {(type === 'outgoing') ? '–' : `${cryptoAmount} ${TXtype} / ${usdAmount} USD`}
+        </div>
       </div>
       <div className="date">
         <div className="title">Date</div>
@@ -32,16 +34,18 @@ const Transaction = ({
       <div className="hash">
         <div className="title">TX hash</div>
         <div className="value">
-          <a
-            href={{
-              ETH: `https://etherscan.io/tx/${TXhash}`,
-              BTC: `https://blockchain.info/tx/${TXhash}`,
-            }[TXtype]}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            {TXhash ? `${TXhash.substr(0, 13)}...` : null}
-          </a>
+          {(status === 'waiting') ? '–' : (
+            <a
+              href={{
+                ETH: `https://etherscan.io/tx/${TXhash}`,
+                BTC: `https://blockchain.info/tx/${TXhash}`,
+              }[TXtype]}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {TXhash ? `${TXhash.substr(0, 13)}...` : null}
+            </a>
+          )}
         </div>
       </div>
     </div>

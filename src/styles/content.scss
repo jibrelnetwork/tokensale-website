@@ -199,25 +199,6 @@
           .type {
             background-image: url("/static/icons/outgoing-2.svg");
           }
-
-          .amount,
-          .hash {
-            &:after {
-              position: absolute;
-              top: 30px;
-              left: 0;
-              display: block;
-              width: 100%;
-              height: 1px;
-              background-color: $black2;
-              opacity: 0.5;
-              content: "";
-            }
-
-            .value {
-              display: none;
-            }
-          }
         }
       }
     }
