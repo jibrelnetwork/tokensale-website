@@ -27,6 +27,16 @@
   }
 }
 
+.Verify {
+  .Header {
+    @media only screen and (max-width: 600px) {
+      .menu.pull-right {
+        display: block;
+      }
+    }
+  }
+}
+
 .Transaction {
   .amount.hidden {
     opacity: 0;
@@ -139,6 +149,114 @@
     box-shadow: none;
   }
 }
+
+.Account {
+  .Header {
+    .menu.pull-right {
+      float: none;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-around;
+    }
+
+    .menu.pull-right li {
+      margin-left: 30px;
+    }
+
+    .menu.pull-right li:first-child {
+      margin-left: 0;
+    }
+
+    @media only screen and (max-width: 1100px) {
+      .menu.menu-active li {
+        display: block;
+        margin: 0 0 20px 0;
+      }
+    }
+
+    @media only screen and (max-width: 1100px) {
+      .header {
+        padding: 30px 0;
+      }
+    }
+
+    @media only screen and (max-width: 1100px) {
+      .menu.pull-right {
+        display: none;
+      }
+    }
+
+    @media only screen and (max-width: 1100px) {
+      .menu.pull-right.menu-active {
+        display: flex;
+        flex-direction: column;
+
+        .address {
+          padding: 0;
+          display: block;
+          font-size: 11px;
+          margin-left: 0;
+        }
+
+        .address::before {
+          display: none;
+        }
+
+        .kyc-status {
+          display: block;
+          margin-left: 0;
+        }
+      }
+    }
+
+    @media only screen and (max-width: 1100px) {
+      .menu.menu-active {
+        top: 100px;
+        left: 0;
+        width: 100%;
+        padding: 35px 30px;
+        display: block;
+        z-index: 25;
+        position: absolute;
+        background-color: #002db6;
+      }
+    }
+
+    @media only screen and (max-width: 1100px) {
+      .menu-button {
+        display: block;
+      }
+    }
+
+    .address {
+      .add {
+        display: flex;
+        align-items: center;
+
+        .icon {
+          border: 1px solid #ffffff40;
+          padding: 2px 7px;
+          font-size: 25px;
+          border-radius: 30px;
+        }
+
+        .text {
+          margin-left: 10px;
+        }
+      }
+    }
+  }
+}
+
+// .Wallets {
+//   @media only screen and (max-width: 700px) {
+//     .addresses {
+//       padding: 30px 30px 100px 30px;
+//       overflow: hidden;
+//       margin-bottom: 20px;
+//     }
+//   }
+// }
 
 .Uploader {
   margin-bottom: 30px;
