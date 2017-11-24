@@ -111,13 +111,21 @@
   margin-right: 40px;
 }
 
-.content .transactions .item {
-  border: 1px solid #e4ebf3;
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.05);
-  background-color: #fff;
-  margin-bottom: 15px;
-  padding: 30px;
-  position: relative;
+.content {
+  .transactions {
+    .item {
+      border: 1px solid #e4ebf3;
+      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.05);
+      background-color: #fff;
+      margin-bottom: 15px;
+      padding: 30px;
+      position: relative;
+
+      .hash {
+        margin-right: 0;
+      }
+    }
+  }
 }
 
 .content .transactions .item:before {

@@ -162,3 +162,20 @@
 .form .buttons {
   padding-top: 20px;
 }
+
+.withdraw-balance,
+.withdraw-address {
+  display: inline-block;
+  font-weight: 600;
+}
+
+.withdraw-balance {
+  margin: 0 5px;
+}
+
+.withdraw-address {
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
