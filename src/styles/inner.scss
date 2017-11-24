@@ -1,0 +1,31 @@
+.inner {
+  position: relative;
+  margin: 0 auto;
+  max-width: 1024px;
+}
+
+.inner-page .start .header {
+  padding-bottom: 50px;
+}
+
+.inner-page .progress {
+  top: 160px;
+}
+
+.inner-page .progress .line {
+  height: 1px;
+  bottom: 0;
+}
+
+.inner-page .progress .item.raised {
+  color: #00c1ff;
+}
+
+.inner-page .progress .item.total {
+  color: #0050db;
+}
+
+.inner-page .progress .point {
+  box-shadow: none;
+  border: none;
+}

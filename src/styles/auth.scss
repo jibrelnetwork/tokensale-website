@@ -1,0 +1,54 @@
+.auth {
+  width: 340px;
+  position: absolute;
+  left: 50%;
+  margin-left: -170px;
+  top: 50%;
+  margin-top: -150px;
+  display: none;
+}
+
+.auth .field.field-input {
+  margin-bottom: 30px;
+}
+
+.auth .field.field-input input {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  color: #fff;
+}
+
+.auth .captcha {
+  color: #fff;
+}
+
+.auth .buttons .button {
+  padding: 0 70px;
+}
+
+.auth .buttons .pull-right {
+  line-height: 40px;
+  color: #fff;
+}
+
+.auth .buttons .pull-right:hover {
+  opacity: 0.5;
+}
+
+.close {
+  position: absolute;
+  right: 0;
+  top: 50px;
+  width: 48px;
+  height: 48px;
+  border-radius: 24px;
+  background-color: rgba(255, 255, 255, 0.1);
+  background-image: url("/static/icons/close.svg");
+  background-size: 24px 24px;
+  background-repeat: no-repeat;
+  background-position: center center;
+  display: none;
+}
+
+.close:hover {
+  background-color: rgba(255, 255, 255, 0.25);
+}

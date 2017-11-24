@@ -18,8 +18,8 @@ const Addresses = ({
   <div className="Wallets">
     {verifyStatus === 'Declined' ? (
       <div className="addresses declined clear">
-        <div className="status-declined">
-          <div className="icon" />
+        <div className="info-block">
+          <div className="icon status-declined" />
           <p>
             In order to participate in JNT Token Sale,
             <br />
