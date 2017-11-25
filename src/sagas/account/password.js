@@ -14,23 +14,28 @@ function* closeSetPasswordModal() {
   })
 }
 
+function getSetPasswordRequestData({ password, newPassword }) {
+  return { old_password: password, new_password1: newPassword, new_password2: newPassword }
+}
+
+function* onSetResponse({ success, statusText, data: { old_password: password } }) {
+  if (success) {
+    yield put(stopSubmit(FORM))
+    yield closeSetPasswordModal()
+    yield put(reset(FORM))
+  } else if (password) {
+    yield put(stopSubmit(FORM, { password }))
+  } else {
+    yield put(stopSubmit(FORM, { password: statusText }))
+  }
+}
+
 export function* set() {
   while (true) { // eslint-disable-line fp/no-loops
-    const { payload: { password, newPassword } } = yield take(PASSWORD.SET)
-    const data = { old_password: password, new_password1: newPassword, new_password2: newPassword }
-
+    const { payload } = yield take(PASSWORD.SET)
+    const data = getSetPasswordRequestData(payload)
     yield put(startSubmit(FORM))
-
     const response = yield call(request, `${SERVER}/auth/password/change/`, data, 'post')
-
-    if (response.success) {
-      yield put(stopSubmit(FORM))
-      yield closeSetPasswordModal()
-      yield put(reset(FORM))
-    } else if (response.fail) {
-      yield put(stopSubmit(FORM, { newPassword: response.fail }))
-    } else {
-      yield put(stopSubmit(FORM, { newPassword: response.statusText }))
-    }
+    yield onSetResponse(response)
   }
 }
