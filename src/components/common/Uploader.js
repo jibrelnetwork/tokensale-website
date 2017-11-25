@@ -1,8 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import ReactFilestack from 'filestack-react'
-import { head, map, compose } from 'lodash/fp'
+import { head, map, last, compose } from 'lodash/fp'
 
+const getFileType = (file) => last(file.split('.'))
 const FILESTACK_API_KEY = 'AnARH4cA6SiuvN5hCQvdCz'
 
 const Uploader = ({ input: { onChange, value }, meta: { error, touched } }) => (
@@ -17,7 +18,12 @@ const Uploader = ({ input: { onChange, value }, meta: { error, touched } }) => (
       }}
       buttonText={value ? 'File uploaded' : 'Select file to upload'}
       buttonClass="area"
-      onSuccess={(files) => onChange(compose(head, map((file) => file.url))(files.filesUploaded))}
+      onSuccess={(files) => onChange(
+        compose(
+          head,
+          map(({ url, filename }) => ({ url, type: getFileType(filename) }))
+        )(files.filesUploaded)
+      )}
     />
     {touched && error && <div className="error-text">{error}</div>}
   </div>
@@ -25,7 +31,10 @@ const Uploader = ({ input: { onChange, value }, meta: { error, touched } }) => (
 
 Uploader.propTypes = {
   input: PropTypes.shape({
-    value: PropTypes.string.isRequired,
+    value: PropTypes.shape({
+      url: PropTypes.string,
+      type: PropTypes.string,
+    }).isRequired,
     onChange: PropTypes.func.isRequired,
   }).isRequired, // redux-form injected props
   meta: PropTypes.shape({ // redux-form injected props

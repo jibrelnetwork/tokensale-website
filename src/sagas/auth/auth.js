@@ -25,7 +25,6 @@ function* getUserData(token) {
         !!response.data.residency,
       idDocumentUploaded: !!response.data.document_url,
     }
-
     if (!data.isTermsConfirmed) {
       yield put(actions.auth.verify.setStage('terms'))
     } else if (!data.isUserInfoFilled) {
@@ -35,11 +34,9 @@ function* getUserData(token) {
     } else {
       yield put(actions.auth.verify.setStatus(data.verifyStatus))
     }
-
     yield put(stopSubmit(FORM))
     yield put(actions.auth.setToken(token))
     yield put(data.verifyStatus ? push('/account') : push('/verify'))
-
     gtm.pushAuthSuccess(data.isVerified)
   } else {
     yield put(stopSubmit(FORM))
@@ -51,14 +48,10 @@ export function* login() {
   while (true) { // eslint-disable-line fp/no-loops
     const { payload: { email, password } } = yield take(AUTH.LOGIN)
     const data = { email, password }
-
     yield put(startSubmit(FORM))
-
     const response = yield call(request, `${SERVER}/auth/login/`, data, 'post')
-
     if (response.success) {
       const token = response.data.key
-
       if (token) {
         yield call(getUserData, token)
       }

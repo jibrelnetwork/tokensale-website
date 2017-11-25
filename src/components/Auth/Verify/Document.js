@@ -9,7 +9,7 @@ import * as actions from '../../../actions'
 const Document = ({ setStage, submitting, handleSubmit }) => (
   <div className="Identification">
     <form onSubmit={handleSubmit} className="form">
-      <Field name="documentUrl" component={Uploader} />
+      <Field name="document" component={Uploader} />
       <div className="buttons clear">
         <button
           type="submit"
@@ -50,11 +50,17 @@ export default compose(
     mapDispatchToProps,
   ),
   reduxForm({
-    onSubmit: ({ documentUrl }, dispatch) =>
-      dispatch(actions.auth.verify.uploadDocument(documentUrl)),
-    validate: ({ documentUrl }) => !documentUrl
-      ? { documentUrl: 'Upload document scan in order to verify your identity' }
+    onSubmit: ({ document }, dispatch) =>
+      dispatch(actions.auth.verify.uploadDocument(document.url, document.type)),
+    validate: ({ document: { url, type } = {} }) => !url || !type
+      ? { document: 'Upload document scan in order to verify your identity' }
       : {},
+    initialValues: {
+      document: {
+        url: undefined,
+        type: undefined,
+      },
+    },
     destroyOnUnmount: false,
   })
 )(Document)
