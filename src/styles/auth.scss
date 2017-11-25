@@ -6,32 +6,57 @@
   top: 50%;
   margin-top: -150px;
   display: none;
-}
 
-.auth .field.field-input {
-  margin-bottom: 30px;
-}
+  .field {
+    &.field-input {
+      margin-bottom: 30px;
 
-.auth .field.field-input input {
-  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-  color: #fff;
-}
+      input {
+        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        color: $white;
+      }
 
-.auth .captcha {
-  color: #fff;
-}
+      input::-webkit-input-placeholder {
+        color: $gray !important;
+      }
 
-.auth .buttons .button {
-  padding: 0;
-}
+      ::-moz-placeholder {
+        color: $gray !important;
+      }
 
-.auth .buttons .pull-right {
-  line-height: 40px;
-  color: #fff;
-}
+      :-ms-input-placeholder {
+        color: $gray !important;
+      }
 
-.auth .buttons .pull-right:hover {
-  opacity: 0.5;
+      :-moz-placeholder {
+        color: $gray !important;
+      }
+    }
+
+    &.error div.error-text {
+      color: $white;
+      opacity: 0.5;
+    }
+  }
+
+  .captcha {
+    color: $white;
+  }
+
+  .buttons {
+    .button {
+      padding: 0;
+    }
+
+    .pull-right {
+      line-height: 40px;
+      color: $white;
+
+      &:hover {
+        opacity: 0.5;
+      }
+    }
+  }
 }
 
 .close {
@@ -47,8 +72,8 @@
   background-repeat: no-repeat;
   background-position: center center;
   display: none;
-}
 
-.close:hover {
-  background-color: rgba(255, 255, 255, 0.25);
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.25);
+  }
 }

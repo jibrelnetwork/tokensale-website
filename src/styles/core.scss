@@ -1,10 +1,10 @@
 :global {
+  @import 'base';
+  @import 'colors';
   @import 'adaptive';
   @import 'auth';
-  @import 'base';
   @import 'benefits';
   @import 'button';
-  @import 'colors';
   @import 'content';
   @import 'emailVerification';
   @import 'form';
