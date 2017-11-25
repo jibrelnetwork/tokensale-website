@@ -33,7 +33,7 @@ function parseUtmParams() {
 
   window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, (m, key, value) => {
     if (key.indexOf('utm_') > -1) {
-      data[key] = value // eslint-disable-line fp/no-mutation
+      data[key] = value.replace(/[#\/].*/g, '') // eslint-disable-line fp/no-mutation
     }
   })
 
@@ -48,7 +48,13 @@ function getUtmParams() {
       return null
     }
 
-    return JSON.parse(data)
+    const parsedData = JSON.parse(data)
+
+    if (Object.keys(parsedData).length === 0) {
+      return null
+    }
+
+    return parsedData
   } catch (err) {
     console.error(err)
 
