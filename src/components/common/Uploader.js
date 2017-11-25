@@ -18,7 +18,20 @@ const Uploader = ({ input: { onChange, value }, meta: { error, touched } }) => (
       }}
       buttonText={
         value.url
-          ? <img src={value.url} alt="Document" className="image" />
+          ? value.type === 'pdf'
+            ? (
+              <object
+                data={value.url}
+                type="application/pdf"
+                className="pdf"
+              >
+                <iframe
+                  src={`https://docs.google.com/viewer?url=${value.url}&embedded=true`}
+                  title="pdf"
+                />
+              </object>
+            )
+            : <img src={value.url} alt="Document" className="image" />
           : 'Select file to upload'
       }
       buttonClass="area"
