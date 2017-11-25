@@ -1,3 +1,4 @@
+import cx from 'classnames'
 import React from 'react'
 import PropTypes from 'prop-types'
 import ReactFilestack from 'filestack-react'
@@ -20,21 +21,17 @@ const Uploader = ({ input: { onChange, value }, meta: { error, touched } }) => (
         value.url
           ? value.type === 'pdf'
             ? (
-              <object
-                data={value.url}
-                type="application/pdf"
+              <iframe
+                src={`https://docs.google.com/viewer?url=${value.url}&embedded=true`}
+                title="pdf"
+                width="100%"
                 className="pdf"
-              >
-                <iframe
-                  src={`https://docs.google.com/viewer?url=${value.url}&embedded=true`}
-                  title="pdf"
-                />
-              </object>
+              />
             )
             : <img src={value.url} alt="Document" className="image" />
-          : 'Select file to upload'
+          : 'Upload your passport'
       }
-      buttonClass="area"
+      buttonClass={cx('area', value.url && 'with-file')}
       onSuccess={(files) => onChange(
         compose(
           head,
