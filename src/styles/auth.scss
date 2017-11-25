@@ -17,19 +17,23 @@
       }
 
       input::-webkit-input-placeholder {
-        color: $gray !important;
+        color: $white !important;
+        opacity: 0.5;
       }
 
       ::-moz-placeholder {
-        color: $gray !important;
+        color: $white !important;
+        opacity: 0.5;
       }
 
       :-ms-input-placeholder {
-        color: $gray !important;
+        color: $white !important;
+        opacity: 0.5;
       }
 
       :-moz-placeholder {
-        color: $gray !important;
+        color: $white !important;
+        opacity: 0.5;
       }
     }
 
