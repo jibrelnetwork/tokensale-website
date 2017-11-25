@@ -8,11 +8,13 @@ import { lifecycle } from 'recompose'
 import * as actions from '../../actions'
 // import { SERVER } from '../../sagas'
 
-const Tokens = ({ raised, available }) => (
+const AVAILABLE = 200000000
+
+const Tokens = ({ raised }) => (
   <div className="Progress">
     <div className="progress">
       <div className="wrap">
-        <div className="line clear" style={{ width: `${100 - ((raised / available) * 100)}%` }}>
+        <div className="line clear" style={{ width: `${100 - ((raised / AVAILABLE) * 100)}%` }}>
           <div className="item raised">
             <div className="title">Raised Tokens</div>
             <div className="value">{numeral(raised).format('0,0')}</div>
@@ -21,7 +23,7 @@ const Tokens = ({ raised, available }) => (
         </div>
         <div className="item total">
           <div className="title">Available Tokens</div>
-          <div className="value">{numeral(available - raised).format('0,0')}</div>
+          <div className="value">{numeral(AVAILABLE - raised).format('0,0')}</div>
           <div className="point" />
         </div>
       </div>
@@ -31,11 +33,6 @@ const Tokens = ({ raised, available }) => (
 
 Tokens.propTypes = {
   raised: PropTypes.number.isRequired,
-  available: PropTypes.number,
-}
-
-Tokens.defaultProps = {
-  available: 120000000,
 }
 
 const mapStateToProps = (state) => ({
