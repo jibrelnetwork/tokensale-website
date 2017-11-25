@@ -236,6 +236,11 @@
     display: block;
     padding: 75px;
     border-radius: 0;
+
+    > .image {
+      height: 200px;
+      margin: -50px;
+    }
   }
 
   > .error-text {

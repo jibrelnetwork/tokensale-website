@@ -16,7 +16,11 @@ const Uploader = ({ input: { onChange, value }, meta: { error, touched } }) => (
         fromSources: ['local_file_system', 'webcam'],
         transformations: { crop: true, rotate: true },
       }}
-      buttonText={value.url ? 'File uploaded' : 'Select file to upload'}
+      buttonText={
+        value.url
+          ? <img src={value.url} alt="Document" className="image" />
+          : 'Select file to upload'
+      }
       buttonClass="area"
       onSuccess={(files) => onChange(
         compose(
