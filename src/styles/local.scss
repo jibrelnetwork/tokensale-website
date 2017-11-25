@@ -336,7 +336,7 @@ a {
 }
 
 button {
-  border: unset;
+  border: none;
   cursor: pointer;
   font-family: unset;
 }
@@ -455,10 +455,6 @@ h3 {
     background-color: $light-blue;
     border-color: transparent;
   }
-}
-
-.auth .buttons .button {
-  padding: unset;
 }
 
 .progress .line {
