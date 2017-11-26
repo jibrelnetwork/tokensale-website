@@ -26,7 +26,7 @@ const history = createHistory()
 const persistReducer = { key: 'root', storage }
 const routeMiddleware = routerMiddleware(history)
 const sagaMiddleware = createSagaMiddleware()
-// const logRocketMiddleware = LogRocket.reduxMiddleware()
+const logRocketMiddleware = LogRocket.reduxMiddleware()
 
 const persistedReducers = persistCombineReducers(
   persistReducer, {
@@ -47,7 +47,7 @@ const store = createStore(
     ...middlewares,
     sagaMiddleware,
     routeMiddleware,
-    // logRocketMiddleware,
+    logRocketMiddleware,
   )
 )
 
