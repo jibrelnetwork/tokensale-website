@@ -16,13 +16,13 @@ const Tokens = ({ raised, raisedPercent }) => (
         <div className="line before" style={{ width: `${raisedPercent + 1}%` }} />
         <div className="line after clear" style={{ width: `${100 - raisedPercent}%` }}>
           <div className="item raised">
-            <div className="title">Raised Tokens</div>
+            <div className="title">Allocated Tokens</div>
             <div className="value">{numeral(raised).format('0,0')}</div>
             <div className="point" />
           </div>
         </div>
         <div className="item total">
-          <div className="title">Available Tokens</div>
+          <div className="title">Total Supply</div>
           <div className="value">{numeral(AVAILABLE).format('0,0')}</div>
           <div className="point" />
         </div>
