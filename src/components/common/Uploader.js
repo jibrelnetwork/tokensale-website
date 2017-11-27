@@ -12,7 +12,7 @@ const Uploader = ({ input: { onChange, value }, meta: { error, touched } }) => (
     <ReactFilestack
       apikey={FILESTACK_API_KEY}
       options={{
-        accept: ['jpg', 'pdf', 'png'],
+        accept: ['jpg', 'jpeg', 'pdf', 'png'],
         maxSize: 10000000,
         fromSources: ['local_file_system', 'webcam'],
         transformations: { crop: true, rotate: true },
