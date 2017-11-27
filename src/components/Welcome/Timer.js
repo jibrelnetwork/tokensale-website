@@ -12,15 +12,15 @@ const Timer = ({ timeLeft }) => (
           <div className="title">Days</div>
         </div>
         <div className="col-3">
-          <div className="time">{timeLeft.hours()}</div>
+          <div className="time">{timeLeft.hours() > 0 ? timeLeft.hours() : 0 }</div>
           <div className="title">Hours</div>
         </div>
         <div className="col-3">
-          <div className="time">{timeLeft.minutes()}</div>
+          <div className="time">{timeLeft.minutes() > 0 ? timeLeft.minutes() : 0 }</div>
           <div className="title">Minutes</div>
         </div>
         <div className="col-3">
-          <div className="time">{timeLeft.seconds()}</div>
+          <div className="time">{timeLeft.seconds() > 0 ? timeLeft.seconds() : 0 }</div>
           <div className="title">Seconds</div>
         </div>
       </div>
