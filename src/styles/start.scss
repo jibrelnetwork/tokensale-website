@@ -208,9 +208,9 @@
     width: 28px;
     height: 28px;
     background-image: url("/static/icons/edit.svg");
-    background-size: 16px 16px;
+    background-size: cover;
     background-repeat: no-repeat;
-    background-position: 7px 7px;
+    background-position: 100%;
     display: block;
     opacity: 0;
     transition: opacity 0.3s ease;
@@ -222,21 +222,36 @@
   margin-left: 30px;
   position: relative;
   padding: 5px 0;
-}
 
-.start .kyc-status .title {
-  opacity: 0.5;
-  margin-bottom: 8px;
-}
+  .title {
+    opacity: 0.5;
+    margin-bottom: 8px;
+  }
 
-.start .kyc-status .value {
-  position: relative;
-  cursor: pointer;
-  padding-right: 32px;
-}
+  .value {
+    position: relative;
+    cursor: pointer;
+    padding-right: 32px;
+  }
 
-.start .kyc-status .value:hover .save {
-  opacity: 0.5;
+  .show-hint {
+    position: absolute;
+    right: 0;
+    top: -8px;
+    width: 28px;
+    height: 28px;
+    background-image: url("/static/icons/question.svg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: 100%;
+    display: block;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .value:hover .show-hint {
+    opacity: 0.5;
+  }
 }
 
 .start .steps {

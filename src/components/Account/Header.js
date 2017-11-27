@@ -16,6 +16,7 @@ const Header = ({
   toggleMenu,
   verifyStatus,
   openSetAddressModal,
+  openKYCStatusModal,
   openSetPasswordModal,
 }) => (
   <div className="Header">
@@ -45,8 +46,9 @@ const Header = ({
         <li style={{ margin: '0 auto 0 0' }}>
           <div className="kyc-status">
             <div className="title">KYC status</div>
-            <div className="value">
+            <div className="value" onClick={openKYCStatusModal}>
               <p>{verifyStatus}</p>
+              <div className="show-hint" />
             </div>
           </div>
         </li>
@@ -69,11 +71,12 @@ const Header = ({
 
 Header.propTypes = {
   logout: PropTypes.func.isRequired,
-  isMenuOpen: PropTypes.bool.isRequired,
   toggleMenu: PropTypes.func.isRequired,
-  verifyStatus: PropTypes.string.isRequired,
   openSetAddressModal: PropTypes.func.isRequired,
+  openKYCStatusModal: PropTypes.func.isRequired,
   openSetPasswordModal: PropTypes.func.isRequired,
+  verifyStatus: PropTypes.string.isRequired,
+  isMenuOpen: PropTypes.bool.isRequired,
   /* optional */
   address: PropTypes.string,
 }
@@ -93,6 +96,7 @@ const mapDispatchToProps = {
   verifyStatusRequestStart: actions.auth.verify.statusRequest,
   verifyStatusRequestCancel: actions.auth.verify.statusRequestCancel,
   openSetAddressModal: () => actions.account.modals.changeState('setAddress', 'open'),
+  openKYCStatusModal: () => actions.account.modals.changeState('kycStatus', 'open'),
   openSetPasswordModal: () => actions.account.modals.changeState('setPassword', 'open'),
 }
 
@@ -110,7 +114,6 @@ export default compose(
     /* eslint-disable fp/no-this */
     componentDidMount() {
       const { getAddress, verifyStatusRequestStart } = this.props
-
       getAddress()
       verifyStatusRequestStart()
     },

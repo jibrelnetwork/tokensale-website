@@ -8,6 +8,7 @@ const defaultState = {
     setAddress: 'close',
     setPassword: 'close',
     withdraw: 'close',
+    kycStatus: 'close',
   },
   btcAddress: undefined,
   ethAddress: undefined,

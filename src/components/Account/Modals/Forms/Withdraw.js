@@ -11,7 +11,7 @@ const Withdraw = ({ handleSubmit, /* address, balance, */ submitting }) => (
     <form onSubmit={handleSubmit} className="form">
       <div className="info-block">
         <div className="icon withdraw-tokens" />
-        <p className="withdraw-text">
+        <p className="info-text">
           JNT withdrawals will be available starting from 12:00 PM 15th Dec 2017
           {/* You are sending
           <span className="withdraw-balance">{`${balance} JNT`}</span>

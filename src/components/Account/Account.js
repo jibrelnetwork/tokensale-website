@@ -6,7 +6,7 @@ import Addresses from './Addresses'
 import Transactions from './Transactions'
 import Modals from './Modals'
 
-const { SetAddressModal, SetPasswordModal, WithdrawModal } = Modals
+const { KYCStatusModal, SetAddressModal, SetPasswordModal, WithdrawModal } = Modals
 
 const Account = () => (
   <div className="Account inner-page">
@@ -23,6 +23,7 @@ const Account = () => (
       </div>
     </div>
     <Benefits />
+    <KYCStatusModal />
     <SetAddressModal />
     <SetPasswordModal />
     <WithdrawModal />

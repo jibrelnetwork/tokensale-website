@@ -20,6 +20,18 @@
     &.status-declined {
       background-image: url("/static/icons/benefit-4.svg");
     }
+
+    &.kyc-status.approved {
+      background-image: url("/static/icons/kyc-status-1.svg");
+    }
+
+    &.kyc-status.pending {
+      background-image: url("/static/icons/kyc-status-2.svg");
+    }
+
+    &.kyc-status.declined {
+      background-image: url("/static/icons/kyc-status-3.svg");
+    }
   }
 
   p {
@@ -28,7 +40,7 @@
     margin-top: 30px;
   }
 
-  .withdraw-text {
+  .info-text {
     max-width: 300px;
     margin: 30px auto 0 auto;
     font-size: 15px;
