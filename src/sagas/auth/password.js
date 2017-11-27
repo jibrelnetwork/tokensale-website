@@ -20,8 +20,9 @@ function* onResetResponse(response) {
 export function* reset() {
   while (true) { // eslint-disable-line fp/no-loops
     const { payload: { email } } = yield take(PASSWORD.RESET)
+    const data = { email: email.toLowerCase() }
     yield put(startSubmit(FORM_RESET))
-    const response = yield call(request, `${SERVER}/auth/password/reset/`, { email }, 'post')
+    const response = yield call(request, `${SERVER}/auth/password/reset/`, data, 'post')
     yield put(stopSubmit(FORM_RESET))
     yield onResetResponse(response)
   }
