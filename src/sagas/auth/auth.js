@@ -48,12 +48,12 @@ function* getUserData(token) {
 export function* login() {
   while (true) { // eslint-disable-line fp/no-loops
     const { payload: { email, password } } = yield take(AUTH.LOGIN)
-    const data = { email, password }
+    const data = { email: email.toLowerCase(), password }
     yield put(startSubmit(FORM))
     const response = yield call(request, `${SERVER}/auth/login/`, data, 'post')
     if (response.success) {
       const token = response.data.key
-      LogRocket.identify(email)
+      LogRocket.identify(data.email)
       if (token) {
         yield call(getUserData, token)
       }
