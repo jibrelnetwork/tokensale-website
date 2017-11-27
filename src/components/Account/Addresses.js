@@ -21,16 +21,19 @@ const Addresses = ({
         <div className="info-block">
           <div className="icon status-declined" />
           <p>
-            In order to participate in JNT Token Sale,
+            It seems we were unable to verify your identity.
             <br />
-            please, contact Jibrel Team via email
+            Please contact the
             <a
-              style={{ marginLeft: 5 }}
+              style={{ margin: '0 5px' }}
               href="mailto:sale@jibrel.network"
               onClick={pushSendRequestEvent}
             >
-              sale@jibrel.network
+              support team
             </a>
+            and a representative
+            <br />
+            will assist in manually processing your application.
           </p>
         </div>
       </div>
@@ -66,7 +69,6 @@ Addresses.propTypes = {
   pushSendRequestEvent: PropTypes.func.isRequired,
   verifyStatus: PropTypes.string.isRequired,
   isICOStarted: PropTypes.bool.isRequired,
-  /* optional */
   ethAddress: PropTypes.string,
   btcAddress: PropTypes.string,
 }
