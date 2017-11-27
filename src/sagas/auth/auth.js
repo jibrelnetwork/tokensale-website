@@ -58,10 +58,9 @@ export function* login() {
         yield call(getUserData, token)
       }
     } else if (response.error) {
-      const errors = { password: response.data.non_field_errors }
-      yield put(stopSubmit(FORM, errors))
+      yield put(stopSubmit(FORM, { password: response.data.non_field_errors }))
     } else {
-      yield put(stopSubmit(FORM))
+      yield put(stopSubmit(FORM, { email: 'Internal server error' }))
     }
   }
 }
