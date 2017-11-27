@@ -1,5 +1,6 @@
 function push(data) {
-  window.dataLayer.push(data) // eslint-disable-line fp/no-mutating-methods, more/no-window
+  const dataLayer = window.dataLayer || [] // eslint-disable-line more/no-window
+  dataLayer.push(data) // eslint-disable-line fp/no-mutating-methods
 }
 
 function pushAuthSuccess(isVerified) {
@@ -69,6 +70,14 @@ function pushProfileSendRequest() {
   })
 }
 
+function pushPageView(pathname) {
+  push({
+    event: 'VirtualPageView',
+    virtualTitle: document.title,
+    virtualUrl: pathname,
+  })
+}
+
 export default {
   pushAuthSuccess,
   pushRegistrationEmail,
@@ -77,4 +86,5 @@ export default {
   pushProfileAddedEth,
   pushProfileRequestWithdraw,
   pushProfileSendRequest,
+  pushPageView,
 }
