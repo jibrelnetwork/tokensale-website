@@ -27,8 +27,11 @@ const DateInput = ({
       type={mode}
       onBlur={setTextMode}
       onFocus={setDateMode}
+      onClick={setDateMode}
       required
+      onTouchEnd={setTextMode}
       placeholder={label}
+      onTouchStart={setDateMode}
     />
     {touched && error && <div className="error-text">{error}</div>}
   </div>
