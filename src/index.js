@@ -10,7 +10,7 @@ import { PersistGate } from 'redux-persist/es/integration/react'
 import createHistory from 'history/createHashHistory'
 import { Provider } from 'react-redux'
 import storage from 'redux-persist/es/storage'
-import LogRocket from 'logrocket'
+// import LogRocket from 'logrocket'
 
 import './styles/core.scss'
 import sagas from './sagas'
@@ -20,13 +20,13 @@ import { ProtectedRoute } from './routes'
 import { Auth, Welcome, Account } from './components'
 import ga from './services/ga'
 
-LogRocket.init('pnojyg/jibrel')
+// LogRocket.init('pnojyg/jibrel')
 
 const history = createHistory()
 const persistReducer = { key: 'root', storage }
 const routeMiddleware = routerMiddleware(history)
 const sagaMiddleware = createSagaMiddleware()
-const logRocketMiddleware = LogRocket.reduxMiddleware()
+// const logRocketMiddleware = LogRocket.reduxMiddleware()
 
 const persistedReducers = persistCombineReducers(
   persistReducer, {
@@ -47,7 +47,7 @@ const store = createStore(
     ...middlewares,
     sagaMiddleware,
     routeMiddleware,
-    logRocketMiddleware,
+    // logRocketMiddleware,
   )
 )
 
