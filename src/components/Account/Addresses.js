@@ -38,12 +38,12 @@ const Addresses = ({
       <div className="addresses clear">
         <div className="item">
           <div className="img eth" />
-          <div className="title">ETH address for participate</div>
+          <div className="title">Your ETH Contribution Address</div>
           <div className="value">{ethAddress}</div>
         </div>
         <div className="item">
           <div className="img btc" />
-          <div className="title">BTC address for participate</div>
+          <div className="title">Your BTC Contribution Address</div>
           <div className="value">{btcAddress}</div>
         </div>
       </div>
