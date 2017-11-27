@@ -8,7 +8,7 @@ const Timer = ({ timeLeft }) => (
     <div className="counter">
       <div className="row clear">
         <div className="col-3">
-          <div className="time">{timeLeft.days()}</div>
+          <div className="time">{timeLeft.days() + 31}</div>
           <div className="title">Days</div>
         </div>
         <div className="col-3">
@@ -33,7 +33,7 @@ Timer.propTypes = {
 }
 
 const enhance = lifecycle({
-  state: { timeLeft: moment.duration(moment.utc('2018-02-26T12:00') - moment.utc()) },
+  state: { timeLeft: moment.duration(moment.utc('2018-01-26T12:00') - moment.utc()) },
   /* eslint-disable fp/no-this */
   componentWillMount() {
     const { timeLeft } = this.state
