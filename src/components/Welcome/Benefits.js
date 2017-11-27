@@ -9,7 +9,7 @@ const Benefits = () => (
             <img src="/static/icons/benefit-1.svg" alt="" />
           </div>
           <h3>USD $0.25</h3>
-          <p>Price of the token</p>
+          <p>Price per token</p>
         </div>
         <div className="col-3 benefit-2">
           <div className="img">
@@ -23,14 +23,14 @@ const Benefits = () => (
             <img src="/static/icons/benefit-3.svg" alt="" />
           </div>
           <h3>Feb 1st 2017</h3>
-          <p>Tokens will be listed</p>
+          <p>JNT listed on exchanges</p>
         </div>
         <div className="col-3 benefit-4">
           <div className="img">
             <img src="/static/icons/benefit-4.svg" alt="" />
           </div>
-          <h3>USA</h3>
-          <p>Forbidden country</p>
+          <h3>United States</h3>
+          <p>Restricted Jurisdictions</p>
         </div>
       </div>
     </div>

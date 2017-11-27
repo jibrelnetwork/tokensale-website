@@ -8,7 +8,7 @@ import { Input } from '../../common'
 
 /* eslint-disable max-len */
 const POLICY = ', Privacy Policy and Jibrel Network White Paper, and accept all terms, conditions, obligations, affirmations, representations and warranties outlined in these documents and agree to adhere to them and be legally bound by them'
-const CITIZENSHIP = 'I confirm that I am not citizen, permanent resident, or granted indefinite leave to remain in the US, Singapore or China - or any jurisdiction in which the purchase of Jibrel Network Token (JNT) is explicitly prohibited or outlawed.'
+const CITIZENSHIP = 'I confirm that I am not citizen, permanent resident, or granted indefinite leave to remain in the United States or any jurisdiction in which the purchase of Jibrel Network Token (JNT) is explicitly prohibited or outlawed.'
 /* eslint-enable */
 
 const Terms = ({ submitting, handleSubmit }) => (
