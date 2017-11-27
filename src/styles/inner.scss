@@ -4,28 +4,30 @@
   max-width: 1024px;
 }
 
-.inner-page .start .header {
-  padding-bottom: 50px;
-}
+.inner-page {
+  .start .header {
+    padding-bottom: 50px;
+  }
 
-.inner-page .progress {
-  top: 160px;
-}
+  .progress {
+    top: 160px;
 
-.inner-page .progress .line {
-  height: 1px;
-  bottom: 0;
-}
+    .line {
+      height: 1px;
+      bottom: 0;
+    }
 
-.inner-page .progress .item.raised {
-  color: #00c1ff;
-}
+    .item.raised {
+      color: $blue2;
+    }
 
-.inner-page .progress .item.total {
-  color: #0050db;
-}
+    .item.total {
+      color: $blue3;
+    }
 
-.inner-page .progress .point {
-  box-shadow: none;
-  border: none;
+    .point {
+      box-shadow: none;
+      border: none;
+    }
+  }
 }

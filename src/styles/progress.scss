@@ -1,57 +1,68 @@
 .progress {
   position: relative;
-  color: #fff;
-}
+  color: $white;
 
-.progress .point {
-  width: 20px;
-  height: 20px;
-  border-radius: 10px;
-  border: 2px solid #fff;
-  box-shadow: 0 10px 30px rgba(45, 63, 148, 0.4);
-  background-color: #0050db;
-  display: inline-block;
-  position: relative;
-}
+  .point {
+    width: 20px;
+    height: 20px;
+    border-radius: 10px;
+    border: 2px solid $white;
+    box-shadow: $shadow2;
+    background-color: $blue;
+    display: inline-block;
+    position: relative;
+  }
 
-.progress .item {
-  position: absolute;
-  bottom: -10px;
-}
+  .item {
+    z-index: 3;
+    position: absolute;
+    bottom: -10px;
 
-.progress .item.raised {
-  left: 0;
-}
+    &.raised {
+      left: 0;
 
-.progress .item.raised .point {
-  background-color: #00c1ff;
-}
+      .point {
+        background-color: $blue2;
+      }
+    }
 
-.progress .item.total {
-  right: 0;
-  text-align: right;
-  bottom: -12px;
-}
+    &.total {
+      right: 0;
+      text-align: right;
+      bottom: -12px;
+    }
 
-.progress .item .title {
-  opacity: 0.5;
-  text-transform: uppercase;
-  font-size: 12px;
-  margin-bottom: 10px;
-}
+    .title {
+      opacity: 0.5;
+      text-transform: uppercase;
+      font-size: 12px;
+      margin-bottom: 10px;
+    }
 
-.progress .item .value {
-  font-size: 20px;
-  font-weight: bold;
-  margin-bottom: 20px;
-}
+    .value {
+      font-size: 20px;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+  }
 
-.progress .line {
-  position: absolute;
-  width: 100%;
-  height: 4px;
-  background-color: #00c1ff;
-  right: 0;
-  bottom: -2px;
-  border-radius: 2px;
+  .line {
+    position: absolute;
+    width: 100%;
+    height: 4px;
+    bottom: -2px;
+    border-radius: 2px;
+
+    &.before {
+      z-index: 1;
+      left: 0;
+      background-color: $blue3;
+    }
+
+    &.after {
+      z-index: 2;
+      right: 0;
+      background-color: $blue2;
+    }
+  }
 }
