@@ -7,11 +7,11 @@ import { lifecycle } from 'recompose'
 
 import * as actions from '../../../actions'
 
-const Balance = ({ openWithdrawModal, balance, address }) => (
+const Balance = ({ openWithdrawModal, balance /* , address */ }) => (
   <div className="Balance">
     <div
-      className={cx('button bordered pull-right', { disabled: true /* !(address && balance) */})}
-      onClick={(address && balance) ? openWithdrawModal : null}
+      className={cx('button bordered pull-right', { disabled: false /* !(address && balance) */})}
+      onClick={openWithdrawModal /* (address && balance) ? openWithdrawModal : null */}
     >
       Withdraw
     </div>
@@ -23,15 +23,15 @@ Balance.propTypes = {
   openWithdrawModal: PropTypes.func.isRequired,
   balance: PropTypes.number.isRequired,
   /* optional */
-  address: PropTypes.string,
+  // address: PropTypes.string,
 }
 
 Balance.defaultProps = {
-  address: undefined,
+  // address: undefined,
 }
 
 const mapStateToProps = (state) => ({
-  address: state.account.address,
+  // address: state.account.address,
   balance: state.account.balance,
 })
 
