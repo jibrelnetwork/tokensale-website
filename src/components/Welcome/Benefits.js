@@ -22,7 +22,7 @@ const Benefits = () => (
           <div className="img">
             <img src="/static/icons/benefit-3.svg" alt="" />
           </div>
-          <h3>Feb 1st 2017</h3>
+          <h3>Feb 1st 2018</h3>
           <p>JNT listed on exchanges</p>
         </div>
         <div className="col-3 benefit-4">

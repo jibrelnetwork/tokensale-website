@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import { Route, Switch, Redirect } from 'react-router-dom'
 import Benefits from './Benefits'
 import Content from './Content'
+import Social from './Social'
 import Header from './Header'
 import * as Auth from '../Auth'
 
@@ -31,6 +32,7 @@ const Welcome = ({ isAuthorized }) => (
       </Switch>
     </div>
     <Benefits />
+    <Social />
   </div>
 )
 
