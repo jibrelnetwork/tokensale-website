@@ -16,52 +16,50 @@ const Login = ({
   handleSubmit,
   isEmailNotVerified,
 }) => (
-  <div className="Login">
-    <div className="auth">
-      <div className="form-block">
-        <form
-          onSubmit={handleSubmit}
-          className="form"
-        >
-          <Field
-            name="email"
-            type="text"
-            label="Email"
-            component={Input}
-          />
-          <Field
-            name="password"
-            type="password"
-            label="Password"
-            component={Input}
-          />
-          <div className="buttons clear">
-            <button
-              type="submit"
-              disabled={submitting}
-              className="button pull-left"
+  <div className="auth">
+    <div className="form-block">
+      <form
+        onSubmit={handleSubmit}
+        className="form"
+      >
+        <Field
+          name="email"
+          type="text"
+          label="Email"
+          component={Input}
+        />
+        <Field
+          name="password"
+          type="password"
+          label="Password"
+          component={Input}
+        />
+        <div className="buttons clear">
+          <button
+            type="submit"
+            disabled={submitting}
+            className="button pull-left"
+          >
+            {!submitting && 'Login'}
+          </button>
+          {isEmailNotVerified ? (
+            <div
+              style={{ padding: 0 }}
+              onClick={() => resendEmail(email)}
+              className="button clean pull-right"
             >
-              {!submitting && 'Login'}
-            </button>
-            {isEmailNotVerified ? (
-              <div
-                style={{ padding: 0 }}
-                onClick={() => resendEmail(email)}
-                className="button clean pull-right"
-              >
-                {"Didn't receive email?"}
-              </div>
-            ) : (
-              <Link
-                to="/welcome/password/reset"
-                className="pull-right"
-              >
-                Forgotten password?
-              </Link>
-            )}
-          </div>
-        </form>
-      </div>
+              {"Didn't receive email?"}
+            </div>
+          ) : (
+            <Link
+              to="/welcome/password/reset"
+              className="pull-right"
+            >
+              Forgotten password?
+            </Link>
+          )}
+        </div>
+      </form>
     </div>
   </div>
 )

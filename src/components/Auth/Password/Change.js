@@ -6,34 +6,30 @@ import * as actions from '../../../actions'
 import { Input } from '../../common'
 
 const Change = ({ submitting, handleSubmit }) => (
-  <div className="Change">
-    <div className="auth">
-      <div className="form-block">
-        <form onSubmit={handleSubmit} className="form">
-          <Field
-            name="newPassword"
-            type="password"
-            label="New password"
-            component={Input}
-          />
-          <Field
-            name="newPasswordConfirm"
-            type="password"
-            label="New password confirmation"
-            component={Input}
-          />
-          <div className="buttons clear">
-            <button
-              type="submit"
-              disabled={submitting}
-              className="button pull-left"
-            >
-              {!submitting && 'Change password'}
-            </button>
-          </div>
-        </form>
+  <div className="form-block">
+    <form onSubmit={handleSubmit} className="form">
+      <Field
+        name="newPassword"
+        type="password"
+        label="New password"
+        component={Input}
+      />
+      <Field
+        name="newPasswordConfirm"
+        type="password"
+        label="New password confirmation"
+        component={Input}
+      />
+      <div className="buttons clear">
+        <button
+          type="submit"
+          disabled={submitting}
+          className="button pull-left"
+        >
+          {!submitting && 'Change password'}
+        </button>
       </div>
-    </div>
+    </form>
   </div>
 )
 

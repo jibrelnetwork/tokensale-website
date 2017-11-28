@@ -9,27 +9,25 @@ import { Input, Captcha } from '../common'
 const VALIDATE_EMAIL_REGEXP = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/ // eslint-disable-line max-len
 
 const Register = ({ submitting, handleSubmit }) => (
-  <div className="Register">
-    <div className="auth">
-      <div className="form-block">
-        <form onSubmit={handleSubmit} className="form">
-          <Field name="email" type="text" component={Input} label="Email" />
-          <Field name="password" type="password" component={Input} label="Password" />
-          <Field
-            name="passwordConfirm"
-            type="password"
-            component={Input}
-            label="Password Confirmation"
-          />
-          <Field name="captcha" component={Captcha} />
-          <div className="buttons clear">
-            <button type="submit" disabled={submitting} className="button pull-left">
-              {!submitting && 'Register'}
-            </button>
-            <Link to="/welcome/login" className="pull-right">Have an account?</Link>
-          </div>
-        </form>
-      </div>
+  <div className="auth">
+    <div className="form-block">
+      <form onSubmit={handleSubmit} className="form">
+        <Field name="email" type="text" component={Input} label="Email" />
+        <Field name="password" type="password" component={Input} label="Password" />
+        <Field
+          name="passwordConfirm"
+          type="password"
+          component={Input}
+          label="Password Confirmation"
+        />
+        <Field name="captcha" component={Captcha} />
+        <div className="buttons clear">
+          <button type="submit" disabled={submitting} className="button pull-left">
+            {!submitting && 'Register'}
+          </button>
+          <Link to="/welcome/login" className="pull-right">Have an account?</Link>
+        </div>
+      </form>
     </div>
   </div>
 )

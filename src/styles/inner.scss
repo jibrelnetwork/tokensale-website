@@ -5,8 +5,12 @@
 }
 
 .inner-page {
-  .start .header {
-    padding-bottom: 50px;
+  .start {
+    min-height: auto;
+
+    .header {
+      padding-bottom: 50px;
+    }
   }
 
   .progress {

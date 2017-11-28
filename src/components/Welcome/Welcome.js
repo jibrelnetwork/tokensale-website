@@ -2,10 +2,12 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { Route, Switch, Redirect } from 'react-router-dom'
-import Benefits from './Benefits'
-import Content from './Content'
-import Social from './Social'
+
 import Header from './Header'
+import Content from './Content'
+import Tokens from './Tokens'
+import Benefits from './Benefits'
+import Social from './Social'
 import * as Auth from '../Auth'
 
 const Welcome = ({ isAuthorized }) => (
@@ -31,6 +33,7 @@ const Welcome = ({ isAuthorized }) => (
         <Redirect from="/welcome/:not_found" to="/welcome" />
       </Switch>
     </div>
+    <Tokens />
     <Benefits />
     <Social />
   </div>

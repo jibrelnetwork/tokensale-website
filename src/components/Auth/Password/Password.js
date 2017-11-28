@@ -5,7 +5,7 @@ import Change from './Change'
 import Sended from './Sended'
 
 const Password = () => (
-  <div className="Password">
+  <div className="auth">
     <Switch>
       <Route path="/welcome/password/reset" component={Reset} />
       <Route path="/welcome/password/sended" component={Sended} />

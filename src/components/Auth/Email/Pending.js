@@ -2,16 +2,13 @@ import React from 'react'
 import { compose } from 'lodash/fp'
 import { connect } from 'react-redux'
 import { lifecycle } from 'recompose'
+
 import * as actions from '../../../actions'
 
 const Pending = () => (
-  <div className="Pending">
-    <div className="email-verification">
-      <div className="img pending" />
-      <p>
-        Validating your email...
-      </p>
-    </div>
+  <div className="email-verification">
+    <div className="img pending" />
+    <p>Validating your email...</p>
   </div>
 )
 

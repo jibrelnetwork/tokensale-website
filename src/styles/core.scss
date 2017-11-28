@@ -34,39 +34,11 @@
   body {
     margin: 0;
     padding: 0;
-    background-color: #fff;
-    font-family: 'Open Sans', Arial, sans-serif;
+    background-color: $white;
+    font-family: $font;
     font-size: 13px;
     line-height: 1;
-    color: #3d4f6c;
-  }
-
-  body.overlay {
-    touch-action: none;
-  }
-
-  body.overlay .start {
-    height: 100vh;
-  }
-
-  body.overlay .start .menu,
-  body.overlay .start .text,
-  body.overlay .start .counter,
-  body.overlay .start .progress,
-  body.overlay .start .link {
-    opacity: 0;
-  }
-
-  body.overlay .start .menu-button {
-    display: none;
-  }
-
-  body.overlay .start .auth {
-    display: block;
-  }
-
-  body.overlay .start .close {
-    display: block;
+    color: $black2;
   }
 
   .section {
@@ -74,19 +46,19 @@
   }
 
   .clear:after {
-    clear: both;
-    content: "";
     display: block;
     height: 0;
+    clear: both;
+    content: "";
   }
 
   a {
-    color: #0050db;
+    color: $blue;
     text-decoration: none;
-  }
 
-  a:hover {
-    color: #00c1ff;
+    &:hover {
+      color: $blue2;
+    }
   }
 
   li {

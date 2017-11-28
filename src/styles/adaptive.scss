@@ -105,12 +105,6 @@
       padding-right: 30px;
     }
 
-    .inner-page .content .progress .wrap {
-      margin-left: 30px;
-      margin-right: 30px;
-      position: relative;
-    }
-
     .content {
       .transactions {
         .item {
@@ -360,24 +354,26 @@
     }
 
     .auth {
-      width: 260px;
-      margin-left: -130px;
-      margin-top: 120px;
-      top: 0%;
-      z-index: 20;
-    }
+      padding: 0 0 150px 0;
 
-    .auth .buttons .button {
-      float: none;
-      width: auto;
-      margin-bottom: 20px;
-      display: block;
-    }
+      .form-block {
+        width: 260px;
+      }
 
-    .auth .buttons .pull-right {
-      display: block;
-      float: none;
-      text-align: center;
+      .buttons {
+        .button {
+          float: none;
+          width: auto;
+          margin-bottom: 20px;
+          display: block;
+        }
+
+        .pull-right {
+          display: block;
+          float: none;
+          text-align: center;
+        }
+      }
     }
 
     .close {

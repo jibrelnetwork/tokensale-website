@@ -6,7 +6,7 @@ import Verified from './Verified'
 import Declined from './Declined'
 
 const Email = () => (
-  <div className="Email">
+  <div className="auth">
     <Switch>
       <Route path="/welcome/email/sended" component={Sended} />
       <Route path="/welcome/email/pending/:key" component={Pending} />

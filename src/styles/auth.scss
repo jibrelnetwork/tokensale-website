@@ -1,11 +1,14 @@
 .auth {
-  width: 340px;
-  position: absolute;
-  left: 50%;
-  margin-left: -170px;
-  top: 50%;
-  margin-top: -150px;
-  display: none;
+  z-index: 2;
+  position: relative;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  padding: 30px 0 100px 0;
+
+  .form-block {
+    width: 340px;
+  }
 
   .field {
     &.field-input {
@@ -44,6 +47,7 @@
   }
 
   .captcha {
+    margin-top: 15px;
     color: $white;
   }
 
