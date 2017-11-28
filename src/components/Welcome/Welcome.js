@@ -1,4 +1,5 @@
 import React from 'react'
+import cx from 'classnames'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { Route, Switch, Redirect } from 'react-router-dom'
@@ -10,9 +11,15 @@ import Benefits from './Benefits'
 import Social from './Social'
 import * as Auth from '../Auth'
 
-const Welcome = ({ isAuthorized }) => (
+const HOME_PAGE_PATHNAME = '/welcome'
+
+function isHomePage(pathname) {
+  return (pathname === HOME_PAGE_PATHNAME)
+}
+
+const Welcome = ({ isAuthorized, location: { pathname } }) => (
   <div className="Welcome">
-    <div className="section start">
+    <div className={cx('section', 'start', { home: isHomePage(pathname) })}>
       <div className="bg-1" />
       <div className="bg-2" />
       <div className="inner">
@@ -33,13 +40,20 @@ const Welcome = ({ isAuthorized }) => (
         <Redirect from="/welcome/:not_found" to="/welcome" />
       </Switch>
     </div>
-    <Tokens />
-    <Benefits />
-    <Social />
+    {isHomePage(pathname) && (
+      <div>
+        <Tokens />
+        <Benefits />
+        <Social />
+      </div>
+    )}
   </div>
 )
 
 Welcome.propTypes = {
+  location: PropTypes.shape({
+    pathname: PropTypes.string.isRequired,
+  }).isRequired,
   isAuthorized: PropTypes.bool.isRequired,
 }
 
