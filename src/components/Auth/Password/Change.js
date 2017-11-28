@@ -53,9 +53,11 @@ export default reduxForm({
       : newPassword.length < 8
         ? set('newPassword', 'Password is too short')
         : identity,
-    !newPasswordConfirm ? set('newPasswordConfirm', 'Password confirmation is required') : identity,
+    !newPasswordConfirm
+      ? set('newPasswordConfirm', 'Password confirmation is required')
+      : identity,
     newPasswordConfirm && newPassword !== newPasswordConfirm
-      ? set('newPassword', 'Password does not match the confirm password')
+      ? set('newPasswordConfirm', 'Password does not match the confirm password')
       : identity,
   )({}),
 })(Change)
