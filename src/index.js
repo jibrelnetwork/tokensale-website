@@ -82,5 +82,5 @@ ReactDOM.render(
   document.getElementById('container')
 )
 
-// Initialise google analytics data: id & utm parameters
+// Initialize google analytics data: id & utm parameters
 ga.init()
