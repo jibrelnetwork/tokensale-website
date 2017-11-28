@@ -251,7 +251,9 @@
 }
 
 .Account {
-  .progress {
+  .progress .wrap {
+    top: 160px;
+
     .item.raised {
       color: $blue2;
     }
