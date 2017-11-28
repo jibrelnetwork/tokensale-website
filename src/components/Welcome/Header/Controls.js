@@ -30,7 +30,7 @@ const Controls = ({
     </ul>
     <button
       onClick={() => toggleMenu(!isMenuOpen)}
-      className={cx('menu-button', isMenuOpen && 'active')}
+      className={cx('menu-button', 'pull-right', isMenuOpen && 'active')}
     >
       <span>Menu</span>
     </button>

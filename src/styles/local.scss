@@ -140,23 +140,17 @@
     @media only screen and (max-width: 1100px) {
       .menu.menu-active li {
         display: block;
-        margin: 0 0 20px 0;
+        margin: 0 0 30px 0;
       }
-    }
 
-    @media only screen and (max-width: 1100px) {
       .header {
         padding: 30px 0;
       }
-    }
 
-    @media only screen and (max-width: 1100px) {
       .menu.pull-right {
         display: none;
       }
-    }
 
-    @media only screen and (max-width: 1100px) {
       .menu.pull-right.menu-active {
         display: flex;
         flex-direction: column;
@@ -174,11 +168,15 @@
         .kyc-status {
           display: block;
           margin-left: 0;
+          padding: 0;
+        }
+
+        .clean {
+          height: initial;
+          line-height: initial;
         }
       }
-    }
 
-    @media only screen and (max-width: 1100px) {
       .menu.menu-active {
         top: 100px;
         left: 0;
@@ -189,9 +187,7 @@
         position: absolute;
         background-color: #002db6;
       }
-    }
 
-    @media only screen and (max-width: 1100px) {
       .menu-button {
         display: block;
       }

@@ -43,7 +43,7 @@ const Header = ({
             </div>
           </div>
         </li>
-        <li style={{ margin: '0 auto 0 0' }}>
+        <li style={{ marginRight: 'auto' }}>
           <div className="kyc-status">
             <div className="title">KYC status</div>
             <div className="value" onClick={openKYCStatusModal}>
@@ -61,7 +61,7 @@ const Header = ({
       </ul>
       <button
         onClick={() => toggleMenu(!isMenuOpen)}
-        className={cx('menu-button', isMenuOpen && 'active')}
+        className={cx('menu-button', 'pull-right', isMenuOpen && 'active')}
       >
         <span>Menu</span>
       </button>

@@ -58,12 +58,10 @@
 }
 
 .menu-button {
-  position: absolute;
-  z-index: 1000;
-  top: 40px;
-  right: 30px;
+  position: relative;
   width: 30px;
   height: 24px;
+  margin: 10px 0;
   padding: 0;
   cursor: pointer;
   border: none;
