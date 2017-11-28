@@ -22,7 +22,6 @@ const Transaction = ({
       </div>
       <div className="amount">
         <div className="title">Amount</div>
-        {/* eslint-disable camelcase */}
         <div className="value">
           {(type === 'outgoing') ? '–' : `${cryptoAmount} ${TXtype} / ${usdAmount} USD`}
         </div>
