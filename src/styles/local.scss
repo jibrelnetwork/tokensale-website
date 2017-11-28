@@ -251,17 +251,13 @@
 }
 
 .Account {
-  .Progress {
-    > .progress {
-      top: 160px;
+  .progress {
+    .item.raised {
+      color: $blue2;
+    }
 
-      .item.raised {
-        color: #00c1ff;
-      }
-
-      .item.total {
-        color: #0050db;
-      }
+    .item.total {
+      color: $blue;
     }
   }
 }
