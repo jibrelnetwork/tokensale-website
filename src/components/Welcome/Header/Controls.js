@@ -23,7 +23,7 @@ const Controls = ({
         <li key="0"><Link to="/verify">Complete verification</Link></li>,
         <li key="1"className="bordered"><button onClick={logout}>Logout</button></li>,
       ]) : ([
-        <li key="0"><a href="https://jibrel.network/#about">About Jibrel Network</a></li>,
+        <li key="0"><a href="https://jibrel.network">About Jibrel Network</a></li>,
         <li key="1"><Link to="/welcome/register">Sign Up</Link></li>,
         <li key="2" className="bordered"><Link to="/welcome/login">Sign In</Link></li>,
       ])}
