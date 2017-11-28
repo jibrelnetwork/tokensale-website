@@ -2,7 +2,7 @@ import { set } from 'lodash/fp'
 import * as TOKENS from '../constants/tokens'
 
 const defaultState = {
-  raised: 12000000,
+  raised: 80000000,
 }
 
 const tokensReducer = (state = defaultState, action) => {
