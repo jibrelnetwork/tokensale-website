@@ -82,7 +82,7 @@ const mapStateToProps = (state) => ({
   isEmailNotVerified: get(
     ['password', 0],
     getFormSubmitErrors('login')(state)
-  ) === 'E-mail is not verified.',
+  ) === 'E-mail is not verified.', // ! works only in English API locale
   email: get('email', getFormValues('login')(state)),
 })
 
