@@ -269,6 +269,7 @@ const EN = {
       minutes: 'Minutes',
       seconds: 'Seconds',
     },
+    button: 'Get Tokens',
     tokens: {
       raised: 'Allocated Tokens',
       total: 'Total Supply',

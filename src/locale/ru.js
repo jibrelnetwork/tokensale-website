@@ -239,7 +239,7 @@ const RU = {
       logout: 'Выйти',
       account: 'Перейти в аккаунт',
       registration: 'Зарегистрироваться',
-      verification: 'Завершить верификацию',
+      verification: 'Продолжить верификацию',
     },
     info: {
       price: {
@@ -269,6 +269,7 @@ const RU = {
       minutes: 'Минут',
       seconds: 'Секунд',
     },
+    button: 'Купить токены',
     tokens: {
       raised: 'Продано токенов',
       total: 'Всего токенов',

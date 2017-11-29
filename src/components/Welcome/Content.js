@@ -17,7 +17,12 @@ const Content = ({ t, isAuthorized }) => (
     </div>
     <Timer />
     <div className="link">
-      <Link to={isAuthorized ? '/account' : '/welcome/register'} className="button big">Get Tokens</Link>
+      <Link
+        className="button big"
+        to={isAuthorized ? '/account' : '/welcome/register'}
+      >
+        {t('index.button')}
+      </Link>
     </div>
     <Tokens />
   </div>
