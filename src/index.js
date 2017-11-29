@@ -6,13 +6,16 @@ import { ConnectedRouter, routerReducer, routerMiddleware } from 'react-router-r
 import { persistStore, persistCombineReducers } from 'redux-persist'
 import { Route, Redirect, Switch } from 'react-router-dom'
 import { reducer as formReducer } from 'redux-form'
+import { I18nextProvider } from 'react-i18next'
 import { PersistGate } from 'redux-persist/es/integration/react'
 import createHistory from 'history/createHashHistory'
 import { Provider } from 'react-redux'
+
 import storage from 'redux-persist/es/storage'
 // import LogRocket from 'logrocket'
 
 import './styles/core.scss'
+import i18n from './locale'
 import sagas from './sagas'
 import reducers from './reducers'
 import middlewares from './middlewares'
@@ -57,27 +60,29 @@ sagaMiddleware.run(sagas)
 
 ReactDOM.render(
   <Provider store={store}>
-    <PersistGate persistor={persistor} loading={null}>
-      <ConnectedRouter history={history}>
-        <div>
-          <Switch>
-            <Redirect exact from="/" to="/welcome" />
-            <Route path="/welcome" component={Welcome} />
-            <ProtectedRoute
-              path="/verify"
-              store={store}
-              component={Auth.Verify}
-            />
-            <ProtectedRoute
-              path="/account"
-              store={store}
-              component={Account}
-            />
-            <Redirect from="*" to="/welcome" />
-          </Switch>
-        </div>
-      </ConnectedRouter>
-    </PersistGate>
+    <I18nextProvider i18n={i18n}>
+      <PersistGate persistor={persistor} loading={null}>
+        <ConnectedRouter history={history}>
+          <div>
+            <Switch>
+              <Redirect exact from="/" to="/welcome" />
+              <Route path="/welcome" component={Welcome} />
+              <ProtectedRoute
+                path="/verify"
+                store={store}
+                component={Auth.Verify}
+              />
+              <ProtectedRoute
+                path="/account"
+                store={store}
+                component={Account}
+              />
+              <Redirect from="*" to="/welcome" />
+            </Switch>
+          </div>
+        </ConnectedRouter>
+      </PersistGate>
+    </I18nextProvider>
   </Provider>,
   document.getElementById('container')
 )
