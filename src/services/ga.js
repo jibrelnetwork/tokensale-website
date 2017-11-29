@@ -74,8 +74,9 @@ function init() {
   const id = getGaId()
   setGaId(id)
 
+  const newUtmData = parseUtmParams()
   const utmData = getUtmParams()
-  setUtmParams(utmData || parseUtmParams())
+  setUtmParams((Object.keys(newUtmData).length > 0) ? newUtmData : utmData)
 }
 
 function get() {
