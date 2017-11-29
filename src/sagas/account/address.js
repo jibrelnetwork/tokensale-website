@@ -33,8 +33,8 @@ function* onSendResponse(address, response) {
     yield sendSuccess(address)
   } else if (response.fail) {
     yield put(stopSubmit(FORM, { address: response.fail }))
-  } else if (response.address) {
-    yield put(stopSubmit(FORM, { address: response.address }))
+  } else if (response.data.address && (response.data.address.length > 0)) {
+    yield put(stopSubmit(FORM, { address: response.data.address[0] }))
   } else {
     yield put(stopSubmit(FORM, { address: response.statusText }))
   }
