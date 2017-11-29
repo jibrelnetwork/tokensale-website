@@ -76,7 +76,7 @@ function init() {
 
   const newUtmData = parseUtmParams()
   const utmData = getUtmParams()
-  setUtmParams((Object.keys(newUtmData).length > 0) ? newUtmData : utmData)
+  setUtmParams((Object.keys(newUtmData).length > 0) ? newUtmData : utmData || {})
 }
 
 function get() {
