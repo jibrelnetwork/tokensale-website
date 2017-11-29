@@ -28,6 +28,18 @@ function* sendSuccess(address) {
   gtm.pushProfileAddedEth()
 }
 
+function* onSendResponse(address, response) {
+  if (response.success) {
+    yield sendSuccess(address)
+  } else if (response.fail) {
+    yield put(stopSubmit(FORM, { address: response.fail }))
+  } else if (response.address) {
+    yield put(stopSubmit(FORM, { address: response.address }))
+  } else {
+    yield put(stopSubmit(FORM, { address: response.statusText }))
+  }
+}
+
 export function* get() {
   while (true) { // eslint-disable-line fp/no-loops
     yield take(ADDRESS.GET)
@@ -47,13 +59,6 @@ export function* send() {
     yield put(startSubmit(FORM))
 
     const response = yield call(request, `${SERVER}/api/withdraw-address/`, { address }, 'put')
-
-    if (response.success) {
-      yield sendSuccess(address)
-    } else if (response.fail) {
-      yield put(stopSubmit(FORM, { address: response.fail }))
-    } else {
-      yield put(stopSubmit(FORM, { address: response.statusText }))
-    }
+    yield onSendResponse(address, response)
   }
 }

@@ -58,6 +58,13 @@ $modal-close-width: 16px;
     }
   }
 
+  &.shake {
+    animation: shake 0.82s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+    transform: translateX(0);
+    backface-visibility: hidden;
+    perspective: 1000px;
+  }
+
   .modal-overlay {
     z-index: 1001;
     position: fixed;
@@ -167,5 +174,28 @@ $modal-close-width: 16px;
 
   to {
     opacity: 0;
+  }
+}
+
+@keyframes shake {
+  10%,
+  90% {
+    transform: translateX(-1px);
+  }
+
+  20%,
+  80% {
+    transform: translateX(2px);
+  }
+
+  30%,
+  50%,
+  70% {
+    transform: translateX(-4px);
+  }
+
+  40%,
+  60% {
+    transform: translateX(4px);
   }
 }

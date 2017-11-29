@@ -16,7 +16,7 @@ Modal.propTypes = {
   closeModal: PropTypes.func.isRequired,
   children: PropTypes.node.isRequired,
   /* optional */
-  modalState: PropTypes.oneOf(['open', 'close', 'opening', 'closing']),
+  modalState: PropTypes.oneOf(['open', 'close', 'opening', 'closing', 'shake']),
   title: PropTypes.string,
 }
 
