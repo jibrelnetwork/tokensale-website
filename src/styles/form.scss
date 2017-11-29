@@ -117,6 +117,14 @@
   display: block;
 }
 
+.field.field-input.field-date input {
+  height: 51px;
+}
+
+.field.field-input.field-date input[type="date"] {
+  font-family: $font;
+}
+
 .field.field-input div.error-text,
 .field.field-select div.error-text {
   display: none;

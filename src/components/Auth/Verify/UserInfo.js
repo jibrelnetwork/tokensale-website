@@ -12,7 +12,7 @@ const UserInfo = ({ submitting, handleSubmit }) => (
     <form onSubmit={handleSubmit} className="form">
       <Field name="firstName" type="text" component={Input} label="First Name" />
       <Field name="lastName" type="text" component={Input} label="Last Name" />
-      <Field name="birthday" type="date" component={DateInput} label="Birthday DD/MM/YYYY" />
+      <Field name="birthday" type="date" component={DateInput} label="Birthday" />
       <Field name="residency" options={COUNTRIES} component={Select} label="Residency" />
       <Field name="citizenship" options={COUNTRIES} component={Select} label="Citizenship" />
       <div className="buttons clear">
