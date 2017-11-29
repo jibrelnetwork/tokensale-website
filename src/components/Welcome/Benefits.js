@@ -1,6 +1,8 @@
 import React from 'react'
+import PropTypes from 'prop-types'
+import { translate } from 'react-i18next'
 
-const Benefits = () => (
+const Benefits = ({ t }) => (
   <div className="section benefits">
     <div className="inner">
       <div className="row clear">
@@ -8,33 +10,37 @@ const Benefits = () => (
           <div className="img">
             <img src="/static/icons/benefit-1.svg" alt="" />
           </div>
-          <h3>USD $0.25</h3>
-          <p>Price per token</p>
+          <h3>{t('index.info.price.title')}</h3>
+          <p>{t('index.info.price.text')}</p>
         </div>
         <div className="col-3 benefit-2">
           <div className="img">
             <img src="/static/icons/benefit-2.svg" alt="" />
           </div>
-          <h3>Ethereum, Bitcoin</h3>
-          <p>Accepted currencies</p>
+          <h3>{t('index.info.currencies.title')}</h3>
+          <p>{t('index.info.currencies.text')}</p>
         </div>
         <div className="col-3 benefit-3">
           <div className="img">
             <img src="/static/icons/benefit-3.svg" alt="" />
           </div>
-          <h3>Feb 1st 2018</h3>
-          <p>JNT listed on exchanges</p>
+          <h3>{t('index.info.exchange.title')}</h3>
+          <p>{t('index.info.exchange.text')}</p>
         </div>
         <div className="col-3 benefit-4">
           <div className="img">
             <img src="/static/icons/benefit-4.svg" alt="" />
           </div>
-          <h3>United States</h3>
-          <p>Restricted Jurisdictions</p>
+          <h3>{t('index.info.jurisdictions.title')}</h3>
+          <p>{t('index.info.jurisdictions.text')}</p>
         </div>
       </div>
     </div>
   </div>
 )
 
-export default Benefits
+Benefits.propTypes = {
+  t: PropTypes.func.isRequired,
+}
+
+export default translate()(Benefits)
