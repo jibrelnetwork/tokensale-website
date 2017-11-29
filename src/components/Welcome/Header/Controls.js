@@ -7,6 +7,10 @@ import { connect } from 'react-redux'
 import { withState } from 'recompose'
 import * as actions from '../../../actions'
 
+function isTouchDevice() {
+  return ('ontouchstart' in window) || navigator.maxTouchPoints
+}
+
 const Controls = ({
   logout,
   toggleMenu,
@@ -23,7 +27,11 @@ const Controls = ({
         <li key="0"><Link to="/verify">Complete verification</Link></li>,
         <li key="1"className="bordered"><button onClick={logout}>Logout</button></li>,
       ]) : ([
-        <li key="0"><a href="https://jibrel.network">About Jibrel Network</a></li>,
+        <li key="0">
+          <a href="https://jibrel.network" target={`${isTouchDevice() ? '_self' : '_blank'}`}>
+            About Jibrel Network
+          </a>
+        </li>,
         <li key="1"><Link to="/welcome/register">Sign Up</Link></li>,
         <li key="2" className="bordered"><Link to="/welcome/login">Sign In</Link></li>,
       ])}
