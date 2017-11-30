@@ -163,26 +163,36 @@ const RU = {
     },
   },
   verification: {
-    termsAndConditions: {
+    logout: 'Выйти',
+    stages: {
+      terms: 'Условия и соглашения',
+      userInfo: 'Основная информация',
+      document: 'Загрузка документов',
+    },
+    terms: {
+      link: {
+        text: 'Условия продажи токенов',
+        source: '/static/T&Cs - Jibrel Network Token Sale.pdf',
+      },
       fields: {
-        policyConfirm: 'I have read the {{termsLink}}, Privacy Policy and Jibrel Network White Paper, and accept all terms, conditions, obligations, affirmations, representations and warranties outlined in these documents and agree to adhere to them and be legally bound by them',
-        citizenshipConfirm: 'I confirm that I am not citizen, permanent resident, or granted indefinite leave to remain in the US, Singapore or China - or any jurisdiction in which the purchase of Jibrel Network Token (JNT) is explicitly prohibited or outlawed.',
+        policyConfirm: 'Я прочитал(а) {{link}}, Политику конфиденциальности и Белую книгу Jibrel Network, и принимаю все условия, обязательства, представления и гарантии, изложенные в этих документах, и соглашаюсь придерживаться их и быть юридически ограничен(а) ими',
+        citizenshipConfirm: 'Я подтверждаю, что я не являюсь гражданином, постоянным жителем и мне не предоставлено бессрочное право на пребывание в США, или какой-либо юрисдикции, в которой покупка токенов Jibrel Network (JNT) явно запрещена или незаконна.',
       },
       errors: {
         policyConfirm: {
-          isRequired: 'Email address is required',
+          isRequired: 'Необходимо приниять политуку конфиденциальности',
         },
         citizenshipConfirm: {
-          isRequired: 'Citizenship confirmation is required',
+          isRequired: 'Необходимо подтвердить гражданство',
         },
       },
-      submit: 'Next Step',
+      submit: 'Дальше',
     },
     userInfo: {
       fields: {
         firstName: 'First Name',
         lastName: 'Last Name',
-        birthday: 'Birthday DD/MM/YYYY',
+        birthday: 'Birthday',
         residency: 'Residency',
         citizenship: 'Citizenship',
       },
@@ -205,24 +215,25 @@ const RU = {
       },
       submit: 'Next Step',
     },
-    documentUpload: {
+    document: {
       fields: {
-        document: 'Upload your passport',
+        uploader: 'Загрузите скан вашего паспорта',
       },
       errors: {
-        document: {
-          isRequired: 'Upload document scan in order to verify your identity',
+        uploader: {
+          isRequired: 'Для прохождения верификации необходимо загрузить скан паспорта',
         },
       },
+      goBack: 'Назад',
     },
-    resultsLoader: {
+    loader: {
       stages: {
-        uploading: 'Uploading document to KYC servers',
-        scanning: 'Scanning document for key information',
-        validity: 'Checking document validity',
-        processing: 'Processing and cleaning information',
-        revise: 'Checking OFAC, sanction and watch lists',
-        decision: 'Final decision-making',
+        uploading: 'Загрузка документов на KYC сервер',
+        scanning: 'Обработка данных из документов',
+        validity: 'Проверка документов',
+        processing: 'Каталогизация информации',
+        revise: 'Проверка на наличие запретов',
+        decision: 'Принятие решения',
       },
       results: {
         pending: 'We are currently processing your application. \n Please note, we may request that you submit additional identity verification in the future',
@@ -261,7 +272,7 @@ const RU = {
     },
     title: {
       header: 'Глобальная токенизация',
-      text: 'Jibrel предоставляет традиционные финансовые активы, \n такие как ERC-20 токены, на блокчейне Эфириума',
+      text: 'Jibrel предоставляет традиционные финансовые активы, \n в виде ERC-20 токенов на блокчейне Эфириума',
     },
     timer: {
       days: 'Дней',

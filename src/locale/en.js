@@ -163,14 +163,24 @@ const EN = {
     },
   },
   verification: {
-    termsAndConditions: {
+    logout: 'Logout',
+    stages: {
+      terms: 'Terms & Conditions',
+      userInfo: 'Basic Information',
+      document: 'Identity Image',
+    },
+    terms: {
+      link: {
+        text: 'Token Sale Terms & Conditions',
+        source: '/static/T&Cs - Jibrel Network Token Sale.pdf',
+      },
       fields: {
-        policyConfirm: 'I have read the {{termsLink}}, Privacy Policy and Jibrel Network White Paper, and accept all terms, conditions, obligations, affirmations, representations and warranties outlined in these documents and agree to adhere to them and be legally bound by them',
+        policyConfirm: 'I have read the {{link}}, Privacy Policy and Jibrel Network White Paper, and accept all terms, conditions, obligations, affirmations, representations and warranties outlined in these documents and agree to adhere to them and be legally bound by them',
         citizenshipConfirm: 'I confirm that I am not citizen, permanent resident, or granted indefinite leave to remain in the US, Singapore or China - or any jurisdiction in which the purchase of Jibrel Network Token (JNT) is explicitly prohibited or outlawed.',
       },
       errors: {
         policyConfirm: {
-          isRequired: 'Email address is required',
+          isRequired: 'Policy agreement confirm is required',
         },
         citizenshipConfirm: {
           isRequired: 'Citizenship confirmation is required',
@@ -182,7 +192,7 @@ const EN = {
       fields: {
         firstName: 'First Name',
         lastName: 'Last Name',
-        birthday: 'Birthday DD/MM/YYYY',
+        birthday: 'Birthday',
         residency: 'Residency',
         citizenship: 'Citizenship',
       },
@@ -205,17 +215,18 @@ const EN = {
       },
       submit: 'Next Step',
     },
-    documentUpload: {
+    document: {
       fields: {
-        document: 'Upload your passport',
+        uploader: 'Upload your passport',
       },
       errors: {
-        document: {
+        uploader: {
           isRequired: 'Upload document scan in order to verify your identity',
         },
       },
+      goBack: 'Previous Step',
     },
-    resultsLoader: {
+    loader: {
       stages: {
         uploading: 'Uploading document to KYC servers',
         scanning: 'Scanning document for key information',
