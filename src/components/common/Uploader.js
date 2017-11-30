@@ -7,7 +7,7 @@ import { head, map, last, compose } from 'lodash/fp'
 const getFileType = (file) => last(file.split('.'))
 const FILESTACK_API_KEY = 'AnARH4cA6SiuvN5hCQvdCz'
 
-const Uploader = ({ input: { onChange, value }, meta: { error, touched } }) => (
+const Uploader = ({ input: { onChange, value }, meta: { error, touched }, label }) => (
   <div className="Uploader">
     <ReactFilestack
       apikey={FILESTACK_API_KEY}
@@ -29,7 +29,7 @@ const Uploader = ({ input: { onChange, value }, meta: { error, touched } }) => (
               />
             )
             : <img src={value.url} alt="Document" className="image" />
-          : 'Upload your passport'
+          : label
       }
       buttonClass={cx('area', value.url && 'with-file')}
       onSuccess={(files) => onChange(
@@ -55,6 +55,7 @@ Uploader.propTypes = {
     error: PropTypes.oneOfType([PropTypes.array, PropTypes.string]),
     touched: PropTypes.bool,
   }).isRequired,
+  label: PropTypes.string.isRequired,
 }
 
 export default Uploader
