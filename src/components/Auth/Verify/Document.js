@@ -2,14 +2,20 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { compose } from 'lodash/fp'
+import { translate } from 'react-i18next'
 import { Field, reduxForm } from 'redux-form'
+
 import { Uploader } from '../../common'
 import * as actions from '../../../actions'
 
-const Document = ({ setStage, submitting, handleSubmit }) => (
+const Document = ({ t, setStage, submitting, handleSubmit }) => (
   <div className="Identification">
     <form onSubmit={handleSubmit} className="form">
-      <Field name="document" component={Uploader} />
+      <Field
+        name="document"
+        label={t('verification.document.fields.uploader')}
+        component={Uploader}
+      />
       <div className="buttons clear">
         <button
           type="submit"
@@ -23,7 +29,7 @@ const Document = ({ setStage, submitting, handleSubmit }) => (
           disabled={submitting}
           className="button bordered"
         >
-          Previous Step
+          {t('verification.document.goBack')}
         </button>
       </div>
     </form>
@@ -31,6 +37,7 @@ const Document = ({ setStage, submitting, handleSubmit }) => (
 )
 
 Document.propTypes = {
+  t: PropTypes.func.isRequired,
   setStage: PropTypes.func.isRequired,
   submitting: PropTypes.bool.isRequired,
   handleSubmit: PropTypes.func.isRequired,
@@ -45,6 +52,7 @@ const mapDispatchToProps = {
 }
 
 export default compose(
+  translate(),
   connect(
     mapStateToProps,
     mapDispatchToProps,
@@ -52,8 +60,8 @@ export default compose(
   reduxForm({
     onSubmit: ({ document }, dispatch) =>
       dispatch(actions.auth.verify.uploadDocument(document.url, document.type)),
-    validate: ({ document: { url, type } = {} }) => !url || !type
-      ? { document: 'Upload document scan in order to verify your identity' }
+    validate: ({ document: { url, type } = {} }, { t }) => !url || !type
+      ? { document: t('verification.document.errors.uploader.isRequired') }
       : {},
     initialValues: {
       document: {
