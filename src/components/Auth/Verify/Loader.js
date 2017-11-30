@@ -1,18 +1,12 @@
 import React from 'react'
 import cx from 'classnames'
-import { get } from 'lodash/fp'
+import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { Link } from 'react-router-dom'
+import { compose } from 'lodash/fp'
+import { translate } from 'react-i18next'
 
-const MESSAGES = {
-  // eslint-disable-next-line max-len
-  Pending: 'We are currently processing your application.\nPlease note, we may request that you submit additional identity verification in the future',
-  Approved: 'Your identity has been verified \n and your application has been approved',
-  Declined: "We currently can't verify your identity",
-}
-
-const Loader = ({ verifyStatus }) => (
+const Loader = ({ t, verifyStatus }) => (
   <div className="Loader">
     <div className="loader-content">
       <div className="loader">
@@ -23,22 +17,40 @@ const Loader = ({ verifyStatus }) => (
       </div>
     </div>
     <div className="status">
-      <div className="item item-1">Uploading document to KYC servers</div>
-      <div className="item item-2">Scanning document for key information</div>
-      <div className="item item-3">Checking document validity</div>
-      <div className="item item-4">Processing and cleaning information</div>
-      <div className="item item-5">Checking OFAC, sanction and watch lists</div>
-      <div className="item item-6">Final decision-making</div>
+      <div className="item item-1">
+        {t('verification.loader.stages.uploading')}
+      </div>
+      <div className="item item-2">
+        {t('verification.loader.stages.scanning')}
+      </div>
+      <div className="item item-3">
+        {t('verification.loader.stages.validity')}
+      </div>
+      <div className="item item-4">
+        {t('verification.loader.stages.processing')}
+      </div>
+      <div className="item item-5">
+        {t('verification.loader.stages.revise')}
+      </div>
+      <div className="item item-6">
+        {t('verification.loader.stages.decision')}
+      </div>
     </div>
     <div className={cx('message', verifyStatus.toLowerCase())}>
       <div className="img" />
-      <p>{get(verifyStatus, MESSAGES)}</p>
-      <Link to="/account" className="button bordered">Go to dashboard</Link>
+      <p>{t(`verification.loader.results.${verifyStatus.toLowerCase()}`)}</p>
+      <Link
+        to="/account"
+        className="button bordered"
+      >
+        {t('verification.loader.close')}
+      </Link>
     </div>
   </div>
 )
 
 Loader.propTypes = {
+  t: PropTypes.func.isRequired,
   verifyStatus: PropTypes.string,
 }
 
@@ -50,4 +62,7 @@ const mapStateToProps = (state) => ({
   verifyStatus: state.auth.verifyStatus,
 })
 
-export default connect(mapStateToProps)(Loader)
+export default compose(
+  translate(),
+  connect(mapStateToProps)
+)(Loader)
