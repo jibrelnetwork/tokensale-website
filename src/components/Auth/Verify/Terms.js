@@ -3,39 +3,37 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { Field, reduxForm } from 'redux-form'
 import { set, compose, identity } from 'lodash/fp'
-import * as actions from '../../../actions'
+import { translate, Interpolate } from 'react-i18next'
+
 import { Input } from '../../common'
+import * as actions from '../../../actions'
 
-/* eslint-disable max-len */
-const POLICY = ', Privacy Policy and Jibrel Network White Paper, and accept all terms, conditions, obligations, affirmations, representations and warranties outlined in these documents and agree to adhere to them and be legally bound by them'
-const CITIZENSHIP = 'I confirm that I am not citizen, permanent resident, or granted indefinite leave to remain in the United States or any jurisdiction in which the purchase of Jibrel Network Token (JNT) is explicitly prohibited or outlawed.'
-/* eslint-enable */
-
-const Terms = ({ submitting, handleSubmit }) => (
+const Terms = ({ t, submitting, handleSubmit }) => (
   <div className="Terms">
     <form onSubmit={handleSubmit} className="form">
       <Field
         name="policyConfirm"
         type="checkbox"
-        label={(
-          <span>
-            I have read the
-            <a
-              className="terms-link"
-              href="/static/T&Cs - Jibrel Network Token Sale.pdf"
-              target="_blank"
-            >
-              Token Sale Terms & Conditions
-            </a>
-            {POLICY}
-          </span>
-        )}
+        label={
+          <Interpolate
+            i18nKey="verification.terms.fields.policyConfirm"
+            link={(
+              <a
+                href={t('verification.terms.link.source')}
+                target="_blank"
+                className="terms-link"
+              >
+                {t('verification.terms.link.text')}
+              </a>
+            )}
+          />
+        }
         component={Input}
       />
       <Field
         name="citizenshipConfirm"
         type="checkbox"
-        label={CITIZENSHIP}
+        label={t('verification.terms.fields.citizenshipConfirm')}
         component={Input}
       />
       <div className="buttons clear">
@@ -44,7 +42,7 @@ const Terms = ({ submitting, handleSubmit }) => (
           disabled={submitting}
           className="button bordered pull-right"
         >
-          {!submitting && 'Next Step'}
+          {!submitting && t('verification.terms.submit')}
         </button>
       </div>
     </form>
@@ -52,6 +50,7 @@ const Terms = ({ submitting, handleSubmit }) => (
 )
 
 Terms.propTypes = {
+  t: PropTypes.func.isRequired,
   submitting: PropTypes.bool.isRequired,
   handleSubmit: PropTypes.func.isRequired,
 }
@@ -61,12 +60,17 @@ const mapStateToProps = (state) => ({
 })
 
 export default compose(
+  translate(),
   connect(mapStateToProps),
   reduxForm({
     onSubmit: (_, dispatch) => dispatch(actions.auth.verify.confirmTerms()),
-    validate: (values) => compose(
-      !values.policyConfirm ? set('policyConfirm', 'Policy agreement confirm is required') : identity,
-      !values.citizenshipConfirm ? set('citizenshipConfirm', 'Citizenship confirmation is required') : identity,
+    validate: (values, props) => compose(
+      !values.policyConfirm
+        ? set('policyConfirm', props.t('verification.terms.errors.policyConfirm.isRequired'))
+        : identity,
+      !values.citizenshipConfirm
+        ? set('citizenshipConfirm', props.t('verification.terms.errors.citizenshipConfirm.isRequired'))
+        : identity,
     )({}),
     destroyOnUnmount: false,
   })
