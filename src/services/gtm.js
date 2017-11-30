@@ -1,3 +1,5 @@
+import storage from './storage'
+
 function push(data) {
   const dataLayer = window.dataLayer || [] // eslint-disable-line more/no-window
   dataLayer.push(data) // eslint-disable-line fp/no-mutating-methods
@@ -78,6 +80,17 @@ function pushPageView(pathname) {
   })
 }
 
+function pushNewTransaction() {
+  const isNewTransactionEventSended = (storage.getNewTransaction() === '1')
+
+  if (isNewTransactionEventSended) {
+    return
+  }
+
+  push({ event: 'NewTransaction' })
+  storage.setNewTransaction('1')
+}
+
 export default {
   pushAuthSuccess,
   pushRegistrationEmail,
@@ -87,4 +100,5 @@ export default {
   pushProfileRequestWithdraw,
   pushProfileSendRequest,
   pushPageView,
+  pushNewTransaction,
 }

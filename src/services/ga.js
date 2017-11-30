@@ -1,4 +1,4 @@
-/* eslint-disable more/no-window */
+import storage from './storage'
 
 function generateNInt(length) {
   return Array.from({ length }, () => Math.floor(Math.random() * 9)).join('')
@@ -10,21 +10,11 @@ function generateGaId() {
 
 function getGaId() {
   try {
-    const id = window.localStorage.getItem('gaId')
-
-    return id || window.ga.getAll()[0].get('clientId')
+    return storage.getGaId() || window.ga.getAll()[0].get('clientId')
   } catch (err) {
     console.error(err)
 
     return generateGaId()
-  }
-}
-
-function setGaId(id) {
-  try {
-    window.localStorage.setItem('gaId', id)
-  } catch (err) {
-    console.error(err)
   }
 }
 
@@ -42,7 +32,7 @@ function parseUtmParams() {
 
 function getUtmParams() {
   try {
-    const data = window.localStorage.getItem('utmData')
+    const data = storage.getUtmData()
 
     if (!data) {
       return null
@@ -63,16 +53,11 @@ function getUtmParams() {
 }
 
 function setUtmParams(data) {
-  try {
-    window.localStorage.setItem('utmData', JSON.stringify(data))
-  } catch (err) {
-    console.error(err)
-  }
+  storage.setUtmData(JSON.stringify(data))
 }
 
 function init() {
-  const id = getGaId()
-  setGaId(id)
+  storage.setGaId(getGaId())
 
   const newUtmData = parseUtmParams()
   const utmData = getUtmParams()
@@ -87,5 +72,3 @@ function get() {
 }
 
 export default { init, get }
-
-/* eslint-enable more/no-window */
