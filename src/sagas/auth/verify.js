@@ -1,13 +1,14 @@
 import moment from 'moment'
 import { delay } from 'redux-saga'
+import { replace } from 'react-router-redux'
 import { put, call, take, select } from 'redux-saga/effects'
 import { startSubmit, stopSubmit } from 'redux-form'
 
-import gtm from '../../services/gtm'
-import * as VERIFY from '../../constants/auth/verify'
 import * as actions from '../../actions'
-import request from '../request'
+import * as VERIFY from '../../constants/auth/verify'
 import { SERVER } from '../.'
+import request from '../request'
+import gtm from '../../services/gtm'
 
 const getForm = (state) => `account-${state.auth.token}`
 
@@ -17,10 +18,12 @@ export function* getStatus(periodically = false) {
   function* makeRequest() {
     const response = yield call(request, `${SERVER}/api/account/`, null, 'get')
     if (response.success) {
-      const status = response.data.identity_verification_status
+      const status = response.data.is_document_skipped
+        ? 'WithoutDocument'
+        : response.data.identity_verification_status || 'Pending'
       const isVerified = response.data.is_identity_verified
       if (isVerified) { gtm.pushRegistrationSuccess() }
-      yield put(actions.auth.verify.setStatus(status || 'Pending')) // ?
+      yield put(actions.auth.verify.setStatus(status))
     } else {
       yield put(actions.auth.verify.setStatus('Pending'))
       console.log('Verification request error')
@@ -114,6 +117,24 @@ export function* uploadDocument() {
       yield put(stopSubmit(form, errors))
     } else {
       yield put(stopSubmit(form))
+    }
+  }
+}
+
+export function* skipDocument() {
+  while (true) { // eslint-disable-line fp/no-loops
+    yield take(VERIFY.SKIP_DOCUMENT)
+    const form = yield select(getForm)
+    const data = { is_document_skipped: true }
+    yield put(startSubmit(form))
+    const response = yield call(request, `${SERVER}/api/account/`, data, 'put')
+    if (response.success) {
+      gtm.pushVerificationNextStep('SkipPassportScan')
+      yield put(stopSubmit(form))
+      yield put(actions.auth.verify.setStatus('WithoutDocument'))
+      yield put(replace('/account'))
+    } else {
+      yield put(stopSubmit(form, { document: 'Internal server error' }))
     }
   }
 }
