@@ -1,8 +1,9 @@
 import React from 'react'
 import cx from 'classnames'
 import PropTypes from 'prop-types'
+import { translate } from 'react-i18next'
 
-const Progress = ({ stage }) => (
+const Progress = ({ t, stage }) => (
   <div className="Progress">
     <div className="steps">
       <div
@@ -12,7 +13,7 @@ const Progress = ({ stage }) => (
         })}
       >
         <div className="img" />
-        <div className="title">Terms & Conditions</div>
+        <div className="title">{t('verification.stages.terms')}</div>
       </div>
       <div
         className={cx('item', {
@@ -21,7 +22,7 @@ const Progress = ({ stage }) => (
         })}
       >
         <div className="img" />
-        <div className="title">Basic Information</div>
+        <div className="title">{t('verification.stages.userInfo')}</div>
       </div>
       <div
         className={cx('item', {
@@ -30,14 +31,15 @@ const Progress = ({ stage }) => (
         })}
       >
         <div className="img" />
-        <div className="title">Identity Image</div>
+        <div className="title">{t('verification.stages.document')}</div>
       </div>
     </div>
   </div>
 )
 
 Progress.propTypes = {
+  t: PropTypes.func.isRequired,
   stage: PropTypes.oneOf(['terms', 'user-info', 'document', 'loader']).isRequired,
 }
 
-export default Progress
+export default translate()(Progress)
