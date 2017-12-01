@@ -25,7 +25,7 @@ const Controls = ({
         <li key="1" className="bordered"><button onClick={logout}>Logout</button></li>,
       ]) : ([
         <li key="0"><Link to="/verify">Complete verification</Link></li>,
-        <li key="1"className="bordered"><button onClick={logout}>Logout</button></li>,
+        <li key="1" className="bordered"><button onClick={logout}>Logout</button></li>,
       ]) : ([
         <li key="0">
           <a href="https://jibrel.network" target={`${isTouchDevice() ? '_self' : '_blank'}`}>

@@ -4,6 +4,7 @@ import { put, call, take } from 'redux-saga/effects'
 import { startSubmit, stopSubmit } from 'redux-form'
 import LogRocket from 'logrocket'
 
+import * as ACCOUNT from '../../constants/account'
 import * as AUTH from '../../constants/auth'
 import * as actions from '../../actions'
 import { computeStatus } from './verify'
@@ -12,6 +13,14 @@ import request from '../request'
 import gtm from '../../services/gtm'
 
 const FORM = 'login'
+
+function getAccountData(responseData) {
+  return {
+    firstName: responseData.first_name,
+    lastName: responseData.last_name,
+    email: responseData.username,
+  }
+}
 
 function* getUserData(token) {
   const response = yield call(request, `${SERVER}/api/account/`, null, 'get', { token })
@@ -29,6 +38,8 @@ function* getUserData(token) {
         !!response.data.residency,
       isDocumentUploaded: !!response.data.document_url,
     }
+    const accountData = getAccountData(response.data)
+    yield put({ type: ACCOUNT.DASHBOARD.SET_DATA, payload: { accountData } })
     yield put(actions.auth.verify.setStatus(data.verifyStatus))
     if (!data.isTermsConfirmed) {
       yield put(actions.auth.verify.setStage('terms'))

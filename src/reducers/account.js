@@ -2,17 +2,21 @@ import { set, compose } from 'lodash/fp'
 import * as ACCOUNT from '../constants/account'
 
 const defaultState = {
-  address: undefined,
-  balance: 0,
   modals: {
     setAddress: 'close',
     setPassword: 'close',
     withdraw: 'close',
     kycStatus: 'close',
   },
+  dashboard: {
+    accountData: {},
+    isOpen: false,
+  },
+  transactions: [],
+  balance: 0,
   btcAddress: undefined,
   ethAddress: undefined,
-  transactions: [],
+  address: undefined,
 }
 
 const accountReducer = (state = defaultState, action) => {
@@ -34,6 +38,15 @@ const accountReducer = (state = defaultState, action) => {
     case ACCOUNT.BALANCE.REQUEST_SUCCESS: {
       const { balance } = action.payload
       return set('balance', balance, state)
+    }
+
+    case ACCOUNT.DASHBOARD.TOGGLE: {
+      return set(['dashboard', 'isOpen'], !state.dashboard.isOpen, state)
+    }
+
+    case ACCOUNT.DASHBOARD.SET_DATA: {
+      const { accountData } = action.payload
+      return set(['dashboard', 'accountData'], accountData, state)
     }
 
     case ACCOUNT.MODALS.SET_STATE: {
