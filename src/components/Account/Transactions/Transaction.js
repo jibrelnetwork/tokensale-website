@@ -1,8 +1,8 @@
-import React from 'react'
 import cx from 'classnames'
+import React from 'react'
 import numeral from 'numeral'
-import { renameProps } from 'recompose'
 import PropTypes from 'prop-types'
+import { renameProps } from 'recompose'
 
 const Transaction = ({
   jnt,
@@ -12,19 +12,22 @@ const Transaction = ({
   TXtype,
   status,
   usdAmount,
+  isPresale,
   cryptoAmount,
 }) => (
   <div className="Transaction">
-    <div className={cx('item', type, status, 'clear')}>
+    <div className={cx('item', type, status, isPresale && 'presale', 'clear')}>
       <div className="type" />
       <div className="jnt">
         {`${{ incoming: '+', outgoing: '-' }[type]} ${numeral(jnt).format('0 0')}`} JNT
       </div>
       <div className="amount">
         <div className="title">Amount</div>
-        {/* eslint-disable camelcase */}
         <div className="value">
-          {(type === 'outgoing') ? '–' : `${cryptoAmount} ${TXtype} / ${usdAmount} USD`}
+          {type === 'outgoing' || isPresale
+            ? '–'
+            : `${cryptoAmount} ${TXtype} / ${usdAmount} USD`
+          }
         </div>
       </div>
       <div className="date">
@@ -32,20 +35,25 @@ const Transaction = ({
         <div className="value">{date}</div>
       </div>
       <div className="hash">
-        <div className="title">TX hash</div>
+        <div className="title">{isPresale ? 'Comment' : 'TX hash'}</div>
         <div className="value">
-          {(status === 'waiting') ? '–' : (
-            <a
-              href={{
-                ETH: `https://etherscan.io/tx/${TXhash}`,
-                BTC: `https://blockchain.info/tx/${TXhash}`,
-              }[TXtype]}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              {TXhash ? `${TXhash.substr(0, 13)}...` : null}
-            </a>
-          )}
+          {isPresale
+            ? TXhash
+            : status === 'waiting'
+              ? '–'
+              : (
+                <a
+                  href={{
+                    ETH: `https://etherscan.io/tx/${TXhash}`,
+                    BTC: `https://blockchain.info/tx/${TXhash}`,
+                  }[TXtype]}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {TXhash ? `${TXhash.substr(0, 13)}...` : null}
+                </a>
+              )
+          }
         </div>
       </div>
     </div>
@@ -60,15 +68,18 @@ Transaction.propTypes = {
   TXtype: PropTypes.oneOf(['BTC', 'ETH']).isRequired,
   status: PropTypes.oneOf(['complete', 'waiting']).isRequired,
   usdAmount: PropTypes.number,
+  isPresale: PropTypes.bool,
   cryptoAmount: PropTypes.number,
 }
 
 Transaction.defaultProps = {
   usdAmount: undefined,
+  isPresale: false,
   cryptoAmount: undefined,
 }
 
 const enhance = renameProps({
+  is_presale: 'isPresale',
   amount_usd: 'usdAmount',
   amount_cryptocurrency: 'cryptoAmount',
 })

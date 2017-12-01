@@ -188,6 +188,10 @@
         &.waiting .type {
           background-image: url("/static/icons/incoming-2.svg");
         }
+
+        &.presale .type {
+          background-image: url("/static/icons/incoming-presale.svg");
+        }
       }
 
       &.outgoing {

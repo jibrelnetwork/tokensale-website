@@ -24,7 +24,8 @@ const Transactions = ({ list, filter, setFilter }) => (
     </div>
     <div className="transactions">
       {!isEmpty(list) ? (
-        list.map((transaction) => <Transaction key={transaction.TXhash} {...transaction} />)
+        // eslint-disable-next-line react/no-array-index-key
+        list.map((transaction, index) => <Transaction key={index} {...transaction} />)
       ) : (
         <div className="empty">
           <div className="icon" />
