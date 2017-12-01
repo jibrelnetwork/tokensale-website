@@ -32,9 +32,9 @@ const KYCStatus = ({ handleSubmit, kycStatus, submitting }) => (
     <form onSubmit={handleSubmit} className="form">
       <div className="info-block">
         <div className={cx('icon kyc-status', kycStatus.toLowerCase())} />
-        <p className="info-text">
+        <div className="info-text">
           {get(kycStatus, MESSAGES)}
-        </p>
+        </div>
       </div>
       <div className="text-center">
         <button type="submit" className="bordered button" disabled={submitting}>
