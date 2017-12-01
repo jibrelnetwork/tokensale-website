@@ -5,19 +5,21 @@ import { compose } from 'lodash/fp'
 import { connect } from 'react-redux'
 import { lifecycle, withState } from 'recompose'
 import { Link } from 'react-router-dom'
+
+import Dashboard from '../common/Dashboard'
+import gtm from '../../services/gtm'
 import * as actions from '../../actions'
 
 // TODO: Split to subcomponents
 
 const Header = ({
-  logout,
-  address,
-  isMenuOpen,
   toggleMenu,
-  verifyStatus,
   openSetAddressModal,
-  openKYCStatusModal,
-  openSetPasswordModal,
+  pushSendRequestEvent,
+  openDashboard,
+  address,
+  email,
+  isMenuOpen,
 }) => (
   <div className="Header">
     <div className="header clear">
@@ -28,8 +30,8 @@ const Header = ({
         <li>
           <div className="address">
             {address && <div className="title">Your address</div>}
-            <div className="value">
-              <div onClick={openSetAddressModal}>
+            <div className="value" onClick={openSetAddressModal}>
+              <div>
                 {address ? `${address.substr(0, 20)}...` : (
                   <div className="add">
                     <div className="icon">+</div>
@@ -43,37 +45,11 @@ const Header = ({
             </div>
           </div>
         </li>
-        {['WithoutDocument', 'Declined'].includes(verifyStatus) && (
-          <li style={{ marginLeft: 10 }}>
-            <Link
-              to="/verify"
-              className="round"
-            >
-              Upload document
-            </Link>
-          </li>
-        )}
-        <li style={{ marginRight: 'auto' }}>
-          <div className="kyc-status">
-            <div className="title">KYC status</div>
-            <div className="value" onClick={openKYCStatusModal}>
-              <p>
-                {verifyStatus === 'WithoutDocument'
-                  ? 'Pending'
-                  : verifyStatus === 'Pending'
-                    ? 'Preliminarily Approved'
-                    : verifyStatus
-                }
-              </p>
-              <div className="show-hint" />
-            </div>
-          </div>
-        </li>
-        <li>
-          <button className="button clean" onClick={openSetPasswordModal}>Change password</button>
+        <li className="support-link">
+          <a href="mailto:sale@jibrel.network" onClick={pushSendRequestEvent}>Support</a>
         </li>
         <li className="bordered">
-          <button onClick={logout}>Logout</button>
+          <button onClick={openDashboard} className="button arrow">{email}</button>
         </li>
       </ul>
       <button
@@ -82,17 +58,17 @@ const Header = ({
       >
         <span>Menu</span>
       </button>
+      <Dashboard />
     </div>
   </div>
 )
 
 Header.propTypes = {
-  logout: PropTypes.func.isRequired,
   toggleMenu: PropTypes.func.isRequired,
   openSetAddressModal: PropTypes.func.isRequired,
-  openKYCStatusModal: PropTypes.func.isRequired,
-  openSetPasswordModal: PropTypes.func.isRequired,
-  verifyStatus: PropTypes.string.isRequired,
+  pushSendRequestEvent: PropTypes.func.isRequired,
+  openDashboard: PropTypes.func.isRequired,
+  email: PropTypes.string.isRequired,
   isMenuOpen: PropTypes.bool.isRequired,
   /* optional */
   address: PropTypes.string,
@@ -104,17 +80,14 @@ Header.defaultProps = {
 
 const mapStateToProps = (state) => ({
   address: state.account.address,
-  verifyStatus: state.auth.verifyStatus,
+  email: state.account.dashboard.accountData.email,
 })
 
 const mapDispatchToProps = {
-  logout: actions.auth.logout,
   getAddress: actions.account.address.get,
-  verifyStatusRequestStart: actions.auth.verify.statusRequest,
-  verifyStatusRequestCancel: actions.auth.verify.statusRequestCancel,
   openSetAddressModal: () => actions.account.modals.changeState('setAddress', 'open'),
-  openKYCStatusModal: () => actions.account.modals.changeState('kycStatus', 'open'),
-  openSetPasswordModal: () => actions.account.modals.changeState('setPassword', 'open'),
+  pushSendRequestEvent: gtm.pushProfileSendRequest,
+  openDashboard: actions.account.dashboard.toggle,
 }
 
 export default compose(
@@ -128,13 +101,6 @@ export default compose(
     false,
   ),
   lifecycle({
-    /* eslint-disable fp/no-this */
-    componentDidMount() {
-      const { getAddress, verifyStatusRequestStart } = this.props
-      getAddress()
-      verifyStatusRequestStart()
-    },
-    componentWillUnmount() { this.props.verifyStatusRequestCancel() },
-    /* eslint-enable */
+    componentDidMount() { this.props.getAddress() }, // eslint-disable-line fp/no-this
   }),
 )(Header)

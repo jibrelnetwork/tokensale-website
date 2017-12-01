@@ -7,6 +7,7 @@
   @import 'bitcoinSuisse';
   @import 'button';
   @import 'content';
+  @import 'dashboard';
   @import 'emailVerification';
   @import 'form';
   @import 'grid';
@@ -98,7 +99,12 @@
   .menu-button,
   .whitepaper a:before,
   .footer a:before,
-  .pull-right:before {
+  .pull-right:before,
+  .dashboard,
+  .dashboard .title,
+  .dashboard .title:after,
+  .dashboard .nested-items,
+  .dashboard .status-info {
     transition: all 0.3s ease 0s;
   }
 

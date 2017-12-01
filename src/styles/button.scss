@@ -55,6 +55,32 @@
       opacity: 0.5;
     }
   }
+
+  &.arrow {
+    position: relative;
+    max-width: 190px;
+    height: auto;
+    padding: 10px 50px 10px 30px !important;
+    line-height: initial;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+    &:after {
+      position: absolute;
+      top: 50%;
+      right: 30px;
+      display: block;
+      width: 10px;
+      height: 10px;
+      margin-top: -5px;
+      background-image: $arrow-button-icon;
+      background-position: 100%;
+      background-size: cover;
+      background-repeat: no-repeat;
+      content: "";
+    }
+  }
 }
 
 .menu-button {

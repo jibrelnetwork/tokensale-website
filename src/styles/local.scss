@@ -141,10 +141,10 @@
       float: none;
       display: flex;
       flex-direction: row;
-    }
 
-    .menu.pull-right li:first-child {
-      margin-left: 0;
+      li:first-child {
+        margin-left: 0;
+      }
     }
 
     a.round {
@@ -219,7 +219,7 @@
         align-items: center;
 
         .icon {
-          border: 1px solid #ffffff40;
+          border: 1px solid $white;
           padding: 2px 7px;
           font-size: 25px;
           border-radius: 30px;
@@ -229,6 +229,12 @@
           margin-left: 10px;
         }
       }
+    }
+
+    .support-link {
+      display: flex;
+      align-items: center;
+      margin-left: auto;
     }
   }
 }
