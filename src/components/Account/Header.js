@@ -47,14 +47,7 @@ const Header = ({
           <div className="kyc-status">
             <div className="title">KYC status</div>
             <div className="value" onClick={openKYCStatusModal}>
-              <p>
-                {verifyStatus === 'WithoutDocument'
-                  ? 'Pending'
-                  : verifyStatus === 'Pending'
-                    ? 'Preliminarily Approved'
-                    : verifyStatus
-                }
-              </p>
+              <p>{verifyStatus === 'Pending' ? 'Preliminarily Approved' : verifyStatus}</p>
               <div className="show-hint" />
             </div>
           </div>
