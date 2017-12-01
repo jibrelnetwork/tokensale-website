@@ -32,6 +32,10 @@
     &.kyc-status.declined {
       background-image: url("/static/icons/kyc-status-3.svg");
     }
+
+    &.kyc-status.withoutdocument {
+      background-image: url("/static/icons/kyc-status-3.svg");
+    }
   }
 
   p {
