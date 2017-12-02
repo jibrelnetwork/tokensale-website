@@ -14,7 +14,7 @@ const Document = ({ setStage, submitting, handleSubmit, isTimeLeft, invalid }) =
       <Field name="document" component={Uploader} />
       {isTimeLeft && invalid && (
         <div className="info">
-          It seems you are having trouble uploading your KYC documentation.
+          Having trouble uploading your KYC documentation?
           Verification is required to withdraw your JNT.
           You can complete this step at a later stage.
         </div>
@@ -65,7 +65,7 @@ export default compose(
   withState(
     'timer',
     'updateTimer',
-    30,
+    8,
   ),
   lifecycle({
     componentWillMount() {
