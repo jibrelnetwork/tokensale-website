@@ -9,6 +9,18 @@ import compose from 'lodash/fp/compose'
 import { account } from '../../../../actions'
 
 const MESSAGES = {
+  WithoutDocument: (
+    <div>
+      You have yet to submit KYC documentation.
+      Verify your documentation by
+      <a
+        style={{ margin: '0 5px' }}
+        href="mailto:sale@jibrel.network"
+      >
+        Contacting Support
+      </a>
+    </div>
+  ),
   Approved: 'Your KYC documentation and identity have been verified. Your submission is complete.',
   Pending: 'Your KYC submission was preliminarily approved but requires manual verification.',
   Declined: 'Your KYC documentation was declined. We’ve sent you an email explaining why. Please ' +
@@ -20,9 +32,9 @@ const KYCStatus = ({ handleSubmit, kycStatus, submitting }) => (
     <form onSubmit={handleSubmit} className="form">
       <div className="info-block">
         <div className={cx('icon kyc-status', kycStatus.toLowerCase())} />
-        <p className="info-text">
-          {`${get(kycStatus, MESSAGES)}`}
-        </p>
+        <div className="info-text">
+          {get(kycStatus, MESSAGES)}
+        </div>
       </div>
       <div className="text-center">
         <button type="submit" className="bordered button" disabled={submitting}>

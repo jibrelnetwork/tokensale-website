@@ -14,9 +14,13 @@ const FORM = 'login'
 function* getUserData(token) {
   const response = yield call(request, `${SERVER}/api/account/`, null, 'get', token)
   if (response.success) {
+    const isDocumentSkipped = response.data.is_document_skipped
+    const verifyStatus = isDocumentSkipped
+      ? 'WithoutDocument'
+      : response.data.identity_verification_status || 'Pending'
     const data = {
       isVerified: response.data.is_identity_verified,
-      verifyStatus: response.data.identity_verification_status || 'Pending', // ?
+      verifyStatus,
       isTermsConfirmed: response.data.terms_confirmed,
       isUserInfoFilled:
         !!response.data.first_name &&
@@ -24,7 +28,7 @@ function* getUserData(token) {
         !!response.data.date_of_birth &&
         !!response.data.citizenship &&
         !!response.data.residency,
-      isDocumentUploaded: !!response.data.document_url,
+      isDocumentUploaded: !!response.data.document_url || isDocumentSkipped,
     }
     if (data.isVerified) {
       yield put(actions.auth.verify.setStatus(data.verifyStatus))
