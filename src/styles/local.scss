@@ -494,6 +494,7 @@ h3 {
       .button {
         width: unset;
         padding: 0 15px;
+        margin-bottom: 10px;
       }
 
       .button[type="submit"] {
@@ -653,6 +654,35 @@ $light-blue: #00c1ff;
           padding: 0 !important;
           font-size: 12px !important;
         }
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 440px) {
+  .Identification {
+    .form .buttons {
+      display: flex;
+      flex-direction: column;
+
+      .button {
+        margin-bottom: 10px;
+      }
+    }
+
+    .button[type="submit"] {
+      min-width: 125px;
+    }
+  }
+}
+
+.Modal {
+  > .modal {
+    > .modal-content {
+      > .modal-body {
+        font-size: 15px;
+        margin-top: 40px;
+        line-height: 1.5;
       }
     }
   }
