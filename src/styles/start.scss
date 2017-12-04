@@ -10,6 +10,10 @@
 
   &.home {
     min-height: auto;
+
+    .header {
+      padding-bottom: 140px;
+    }
   }
 
   .bg-1 {
