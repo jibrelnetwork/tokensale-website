@@ -2,6 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import createSagaMiddleware from 'redux-saga'
 import { createStore, applyMiddleware } from 'redux'
+import { get, set, compose, update, curry } from 'lodash/fp'
 import { ConnectedRouter, routerReducer, routerMiddleware } from 'react-router-redux'
 import { persistStore, persistCombineReducers } from 'redux-persist'
 import { Route, Redirect, Switch } from 'react-router-dom'
@@ -10,7 +11,7 @@ import { PersistGate } from 'redux-persist/es/integration/react'
 import createHistory from 'history/createHashHistory'
 import { Provider } from 'react-redux'
 import storage from 'redux-persist/es/storage'
-// import LogRocket from 'logrocket'
+import LogRocket from 'logrocket'
 
 import './styles/core.scss'
 import sagas from './sagas'
@@ -20,13 +21,52 @@ import { ProtectedRoute } from './routes'
 import { Auth, Welcome, Account } from './components'
 import ga from './services/ga'
 
-// LogRocket.init('pnojyg/jibrel')
+const clean = curry((path, object) => get(path, object) ? set(path, null, object) : object)
+
+LogRocket.init('pnojyg/jibrel-sale', {
+  network: {
+    responseSanitizer: compose(
+      clean(['body', 'key']),
+      update('body', JSON.parse),
+    ),
+    requestSanitizer: compose(
+      clean(['body', 'password']),
+      clean(['body', 'old_password']),
+      clean(['body', 'new_password1']),
+      clean(['body', 'new_password2']),
+      clean(['body', 'password_confirm']),
+      clean(['headers', 'Authorization']),
+      update('body', JSON.parse),
+    ),
+  },
+})
 
 const history = createHistory()
 const persistReducer = { key: 'root', storage }
 const routeMiddleware = routerMiddleware(history)
 const sagaMiddleware = createSagaMiddleware()
-// const logRocketMiddleware = LogRocket.reduxMiddleware()
+const logRocketMiddleware = LogRocket.reduxMiddleware({
+  actionSanitizer: (action) => action.type.match('@@redux-form')
+    ? null
+    : compose(
+      clean(['payload', 'token']),
+      clean(['payload', 'password']),
+      clean(['payload', 'newPassword']),
+      clean(['payload', 'passwordConfirm']),
+      clean(['payload', 'newPasswordConfirm']),
+    )(action),
+  stateSanitizer: compose(
+    clean(['auth', 'token']),
+    clean(['form', 'login', 'values', 'password']),
+    clean(['form', 'register', 'values', 'password']),
+    clean(['form', 'register', 'values', 'passwordConfirm']),
+    clean(['form', 'set-password', 'values', 'password']),
+    clean(['form', 'set-password', 'values', 'newPassword']),
+    clean(['form', 'set-password', 'values', 'newPasswordConfirm']),
+    clean(['form', 'change-password', 'values', 'newPassword']),
+    clean(['form', 'change-password', 'values', 'newPasswordConfirm']),
+  ),
+})
 
 const persistedReducers = persistCombineReducers(
   persistReducer, {
@@ -47,7 +87,7 @@ const store = createStore(
     ...middlewares,
     sagaMiddleware,
     routeMiddleware,
-    // logRocketMiddleware,
+    logRocketMiddleware,
   )
 )
 

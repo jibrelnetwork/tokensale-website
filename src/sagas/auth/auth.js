@@ -1,7 +1,7 @@
 import { push } from 'react-router-redux'
 import { put, call, take } from 'redux-saga/effects'
 import { startSubmit, stopSubmit } from 'redux-form'
-// import LogRocket from 'logrocket'
+import LogRocket from 'logrocket'
 
 import gtm from '../../services/gtm'
 import * as actions from '../../actions'
@@ -59,7 +59,7 @@ export function* login() {
     const response = yield call(request, `${SERVER}/auth/login/`, data, 'post')
     if (response.success) {
       const token = response.data.key
-      // LogRocket.identify(data.email)
+      LogRocket.identify(data.email)
       if (token) {
         yield call(getUserData, token)
       }
