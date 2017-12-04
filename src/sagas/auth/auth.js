@@ -19,6 +19,7 @@ function getAccountData(responseData) {
     firstName: responseData.first_name,
     lastName: responseData.last_name,
     email: responseData.username,
+    isVerified: !!responseData.identity_verification_status,
   }
 }
 

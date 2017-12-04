@@ -1,10 +1,11 @@
 import React from 'react'
+
 import Header from './Header'
 import Tokens from '../Welcome/Tokens'
 import Benefits from '../Welcome/Benefits'
 import Addresses from './Addresses'
 import Transactions from './Transactions'
-import Modals from './Modals'
+import Modals from '../common/Modals'
 
 const { KYCStatusModal, SetAddressModal, SetPasswordModal, WithdrawModal } = Modals
 

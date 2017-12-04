@@ -11,7 +11,9 @@ import Benefits from './Benefits'
 import BitcoinSuisse from './BitcoinSuisse'
 import Social from './Social'
 import * as Auth from '../Auth'
+import Modals from '../common/Modals'
 
+const { KYCStatusModal, SetPasswordModal, WithdrawModal } = Modals
 const HOME_PAGE_PATHNAME = '/welcome'
 
 function isHomePage(pathname) {
@@ -41,6 +43,9 @@ const Welcome = ({ isAuthorized, location: { pathname } }) => (
         <Redirect from="/welcome/:not_found" to="/welcome" />
       </Switch>
     </div>
+    <KYCStatusModal />
+    <SetPasswordModal />
+    <WithdrawModal />
     {isHomePage(pathname) && (
       <div>
         <Tokens />
