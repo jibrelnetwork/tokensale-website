@@ -8,6 +8,7 @@ import Header from './Header'
 import Content from './Content'
 import Tokens from './Tokens'
 import Benefits from './Benefits'
+import BitcoinSuisse from './BitcoinSuisse'
 import Social from './Social'
 import * as Auth from '../Auth'
 
@@ -44,6 +45,7 @@ const Welcome = ({ isAuthorized, location: { pathname } }) => (
       <div>
         <Tokens />
         <Benefits />
+        <BitcoinSuisse />
         <Social />
       </div>
     )}
