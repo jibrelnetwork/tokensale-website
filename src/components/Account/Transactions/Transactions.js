@@ -30,8 +30,8 @@ const Transactions = ({ list, filter, setFilter }) => (
         <div className="empty">
           <div className="icon" />
           <div className="text">
-            {'Your ETH / BTC contributions will be displayed here. Transactions can take up to 90' +
-              'minutes to appear'}
+            {'Your ETH / BTC contributions will be displayed here. Transactions can take up to ' +
+              '90 minutes to appear'}
           </div>
         </div>
       )}
