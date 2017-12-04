@@ -150,6 +150,11 @@
   color: $black;
 }
 
+select:-moz-focusring {
+  color: transparent;
+  text-shadow: 0 0 0 $black;
+}
+
 .field.error input {
   color: $red;
   border-bottom: 1px solid $red;
