@@ -30,7 +30,7 @@ const Transactions = ({ list, filter, setFilter }) => (
         <div className="empty">
           <div className="icon" />
           <div className="text">
-            The jWallet makes it easy and safe to store and transfer value of any tokens
+            Your ETH / BTC contributions will be displayed here<br />Transactions can take up to 90 minutes to appear
           </div>
         </div>
       )}
