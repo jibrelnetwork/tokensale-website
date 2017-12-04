@@ -2,9 +2,11 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
+
+import Dashboard from '../../common/Dashboard'
 import * as actions from '../../../actions'
 
-const Header = ({ logout }) => (
+const Header = ({ openDashboard, email }) => (
   <div className="Header">
     <div className="header clear">
       <Link to="/welcome" className="logo pull-left">
@@ -12,22 +14,28 @@ const Header = ({ logout }) => (
       </Link>
       <ul className="menu pull-right">
         <li className="bordered">
-          <button onClick={logout}>Logout</button>
+          <button onClick={openDashboard} className="button arrow">{email}</button>
         </li>
       </ul>
+      <Dashboard />
     </div>
   </div>
 )
 
 Header.propTypes = {
-  logout: PropTypes.func.isRequired,
+  openDashboard: PropTypes.func.isRequired,
+  email: PropTypes.string.isRequired,
 }
 
 const mapDispatchToProps = {
-  logout: actions.auth.logout,
+  openDashboard: actions.account.dashboard.toggle,
 }
 
+const mapStateToProps = (state) => ({
+  email: state.account.dashboard.accountData.email,
+})
+
 export default connect(
-  undefined,
+  mapStateToProps,
   mapDispatchToProps,
 )(Header)

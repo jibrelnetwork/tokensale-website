@@ -5,6 +5,8 @@ import PropTypes from 'prop-types'
 import { compose } from 'lodash/fp'
 import { connect } from 'react-redux'
 import { withState } from 'recompose'
+
+import Dashboard from '../../common/Dashboard'
 import * as actions from '../../../actions'
 
 function isTouchDevice() {
@@ -12,8 +14,9 @@ function isTouchDevice() {
 }
 
 const Controls = ({
-  logout,
+  openDashboard,
   toggleMenu,
+  email,
   isMenuOpen,
   isVerified,
   isAuthorized,
@@ -22,10 +25,14 @@ const Controls = ({
     <ul className={cx('menu pull-right', isMenuOpen && 'menu-active')}>
       {isAuthorized ? isVerified ? ([
         <li key="0"><Link to="/account">Go to dashboard</Link></li>,
-        <li key="1" className="bordered"><button onClick={logout}>Logout</button></li>,
+        <li key="1" className="bordered">
+          <button onClick={openDashboard} className="button arrow">{email}</button>
+        </li>,
       ]) : ([
         <li key="0"><Link to="/verify">Complete verification</Link></li>,
-        <li key="1" className="bordered"><button onClick={logout}>Logout</button></li>,
+        <li key="1" className="bordered">
+          <button onClick={openDashboard} className="button arrow">{email}</button>
+        </li>,
       ]) : ([
         <li key="0">
           <a href="https://jibrel.network" target={`${isTouchDevice() ? '_self' : '_blank'}`}>
@@ -42,24 +49,27 @@ const Controls = ({
     >
       <span>Menu</span>
     </button>
+    {isAuthorized && <Dashboard isHomePage />}
   </div>
 )
 
 Controls.propTypes = {
-  logout: PropTypes.func.isRequired,
-  isMenuOpen: PropTypes.bool.isRequired,
+  openDashboard: PropTypes.func.isRequired,
   toggleMenu: PropTypes.func.isRequired,
+  email: PropTypes.string.isRequired,
+  isMenuOpen: PropTypes.bool.isRequired,
   isVerified: PropTypes.bool.isRequired,
   isAuthorized: PropTypes.bool.isRequired,
 }
 
 const mapStateToProps = (state) => ({
+  email: state.account.dashboard.accountData.email,
   isVerified: !!state.auth.verifyStatus,
   isAuthorized: !!state.auth.token,
 })
 
 const mapDispatchToProps = {
-  logout: actions.auth.logout,
+  openDashboard: actions.account.dashboard.toggle,
 }
 
 export default compose(

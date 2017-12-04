@@ -9,7 +9,12 @@ const defaultState = {
     kycStatus: 'close',
   },
   dashboard: {
-    accountData: {},
+    accountData: {
+      firstName: '',
+      lastName: '',
+      email: '',
+      isVerified: false,
+    },
     isOpen: false,
   },
   transactions: [],

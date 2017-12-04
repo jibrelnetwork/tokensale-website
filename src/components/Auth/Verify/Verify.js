@@ -8,6 +8,9 @@ import Loader from './Loader'
 import UserInfo from './UserInfo'
 import Document from './Document'
 import Progress from './Progress'
+import Modals from '../../common/Modals'
+
+const { KYCStatusModal, SetPasswordModal, WithdrawModal } = Modals
 
 const Verify = ({ stage, token }) => (
   <div className="Verify inner-page">
@@ -25,6 +28,9 @@ const Verify = ({ stage, token }) => (
         {stage === 'user-info' && <UserInfo id={token} />}
       </div>
     </div>
+    <KYCStatusModal />
+    <SetPasswordModal />
+    <WithdrawModal />
   </div>
 )
 

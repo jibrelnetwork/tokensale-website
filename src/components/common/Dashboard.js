@@ -25,22 +25,28 @@ const Dashboard = ({
   verifyStatus,
   isOpen,
   isLanguageDropdownOpen,
-  isAuthorized,
+  isHomePage,
 }) => (
   <div className={cx('dashboard', { open: isOpen })}>
     <div onClick={closeDashboard} className="overlay" />
     <div className="content">
-      <div className="head">
-        <div className="name">{`${accountData.firstName || ''} ${accountData.lastName || ''}`}</div>
-        <div className="status">
-          {`KYC Status - ${(verifyStatus === 'Pending') ? 'Preliminarily Approved' : verifyStatus}`}
+      {accountData.isVerified && (
+        <div className="head">
+          <div className="name">{`${accountData.firstName || ''} ${accountData.lastName || ''}`}</div>
+          <div className="status">
+            {`KYC Status - ${(verifyStatus === 'Pending') ? 'Preliminarily Approved' : verifyStatus}`}
+          </div>
+          <div onClick={openKYCStatusModal} className="status-info" />
         </div>
-        <div onClick={openKYCStatusModal} className="status-info" />
-      </div>
+      )}
       <div className="body">
-        {isAuthorized && (
+        {isHomePage && (
           <div onClick={closeDashboard} className="item">
-            <a href="https://jibrel.network" target={`${isTouchDevice() ? '_self' : '_blank'}`}>
+            <a
+              className="title"
+              href="https://jibrel.network"
+              target={`${isTouchDevice() ? '_self' : '_blank'}`}
+            >
               About Jibrel Network
             </a>
           </div>
@@ -90,18 +96,19 @@ Dashboard.propTypes = {
   logout: PropTypes.func.isRequired,
   toggleLanguageDropdown: PropTypes.func.isRequired,
   accountData: PropTypes.shape({
-    firstName: PropTypes.string,
-    lastName: PropTypes.string,
+    firstName: PropTypes.string.isRequired,
+    lastName: PropTypes.string.isRequired,
+    isVerified: PropTypes.bool.isRequired,
   }).isRequired,
   verifyStatus: PropTypes.string.isRequired,
   isOpen: PropTypes.bool.isRequired,
   isLanguageDropdownOpen: PropTypes.bool.isRequired,
   /* optional */
-  isAuthorized: PropTypes.bool,
+  isHomePage: PropTypes.bool,
 }
 
 Dashboard.defaultProps = {
-  isAuthorized: false,
+  isHomePage: false,
 }
 
 const mapStateToProps = (state) => ({
