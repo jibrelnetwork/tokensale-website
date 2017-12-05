@@ -43,6 +43,16 @@ const Header = ({
             </div>
           </div>
         </li>
+        {['WithoutDocument', 'Declined'].includes(verifyStatus) && (
+          <li style={{ marginLeft: 10 }}>
+            <Link
+              to="/verify"
+              className="round"
+            >
+              Upload document
+            </Link>
+          </li>
+        )}
         <li style={{ marginRight: 'auto' }}>
           <div className="kyc-status">
             <div className="title">KYC status</div>
