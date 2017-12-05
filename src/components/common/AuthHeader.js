@@ -3,7 +3,7 @@ import cx from 'classnames'
 import PropTypes from 'prop-types'
 import { compose } from 'lodash/fp'
 import { connect } from 'react-redux'
-import { lifecycle, withState } from 'recompose'
+import { lifecycle, withHandlers, withState } from 'recompose'
 import { Link } from 'react-router-dom'
 
 import Dashboard from '../common/Dashboard'
@@ -13,48 +13,51 @@ import * as actions from '../../actions'
 // TODO: Split to subcomponents
 
 const Header = ({
-  toggleMenu,
   openSetAddressModal,
   pushSendRequestEvent,
-  openDashboard,
+  toggleDashboard,
+  onMenuButtonClick,
   address,
   email,
   isMenuOpen,
+  isAccountPage,
 }) => (
   <div className="Header">
     <div className="header clear">
       <Link to="/welcome" className="logo pull-left">
         <img src="/static/logo.svg" alt="" />
       </Link>
-      <ul className={cx('menu pull-right clear', isMenuOpen && 'menu-active')}>
-        <li>
-          <div className="address">
-            {address && <div className="title">Your address</div>}
-            <div className="value" onClick={openSetAddressModal}>
-              <div>
-                {address ? `${address.substr(0, 20)}...` : (
-                  <div className="add">
-                    <div className="icon">+</div>
-                    <div className="text">
-                      Add ETH Address
+      <ul className={cx('menu pull-right clear', { 'menu-active': isMenuOpen })}>
+        {isAccountPage && (
+          <li>
+            <div className="address">
+              {address && <div className="title">Your address</div>}
+              <div className="value" onClick={openSetAddressModal}>
+                <div>
+                  {address ? `${address.substr(0, 20)}...` : (
+                    <div className="add">
+                      <div className="icon">+</div>
+                      <div className="text">
+                        Add ETH Address
+                      </div>
                     </div>
-                  </div>
-                )}
+                  )}
+                </div>
+                {address && <div className="edit" />}
               </div>
-              {address && <div className="edit" />}
             </div>
-          </div>
-        </li>
+          </li>
+        )}
         <li className="support-link">
           <a href="mailto:sale@jibrel.network" onClick={pushSendRequestEvent}>Support</a>
         </li>
         <li className="bordered">
-          <button onClick={openDashboard} className="button arrow">{email}</button>
+          <button onClick={toggleDashboard} className="button arrow">{email}</button>
         </li>
       </ul>
       <button
-        onClick={() => toggleMenu(!isMenuOpen)}
-        className={cx('menu-button', 'pull-right', isMenuOpen && 'active')}
+        onClick={onMenuButtonClick}
+        className={cx('menu-button', 'pull-right', { active: isMenuOpen })}
       >
         <span>Menu</span>
       </button>
@@ -64,18 +67,20 @@ const Header = ({
 )
 
 Header.propTypes = {
-  toggleMenu: PropTypes.func.isRequired,
   openSetAddressModal: PropTypes.func.isRequired,
   pushSendRequestEvent: PropTypes.func.isRequired,
-  openDashboard: PropTypes.func.isRequired,
+  toggleDashboard: PropTypes.func.isRequired,
+  onMenuButtonClick: PropTypes.func.isRequired,
   email: PropTypes.string.isRequired,
   isMenuOpen: PropTypes.bool.isRequired,
   /* optional */
   address: PropTypes.string,
+  isAccountPage: PropTypes.bool,
 }
 
 Header.defaultProps = {
   address: undefined,
+  isAccountPage: false,
 }
 
 const mapStateToProps = (state) => ({
@@ -87,7 +92,7 @@ const mapDispatchToProps = {
   getAddress: actions.account.address.get,
   openSetAddressModal: () => actions.account.modals.changeState('setAddress', 'open'),
   pushSendRequestEvent: gtm.pushProfileSendRequest,
-  openDashboard: actions.account.dashboard.toggle,
+  toggleDashboard: actions.account.dashboard.toggle,
 }
 
 export default compose(
@@ -100,6 +105,14 @@ export default compose(
     'toggleMenu',
     false,
   ),
+  withHandlers({
+    onMenuButtonClick: (props) => () => {
+      const { toggleDashboard, toggleMenu, isMenuOpen } = props
+
+      toggleDashboard()
+      toggleMenu(!isMenuOpen)
+    },
+  }),
   lifecycle({
     componentDidMount() { this.props.getAddress() }, // eslint-disable-line fp/no-this
   }),
