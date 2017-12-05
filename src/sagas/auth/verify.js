@@ -14,16 +14,32 @@ const getForm = (state) => `account-${state.auth.token}`
 
 const DELAY = 30000
 
+export const computeStatus = (data) => {
+  const documentUrl = data.document_url
+  const isDocumentSkipped = data.is_document_skipped
+  return !documentUrl && isDocumentSkipped
+    ? 'WithoutDocument'
+    : data.identity_verification_status || (((
+      data.first_name &&
+      data.last_name &&
+      data.date_of_birth &&
+      data.citizenship &&
+      data.residency &&
+      data.terms_confirmed &&
+      documentUrl
+    ) || data.is_identity_verified) ? 'Pending' : undefined)
+    // Server can return null in identity_verification_status
+    // when all verification step was completed and data sended
+}
+
 export function* getStatus(periodically = false) {
   function* makeRequest() {
     const response = yield call(request, `${SERVER}/api/account/`, null, 'get')
     if (response.success) {
-      const status = response.data.is_document_skipped
-        ? 'WithoutDocument'
-        : response.data.identity_verification_status || 'Pending'
+      const verifyStatus = computeStatus(response.data)
       const isVerified = response.data.is_identity_verified
       if (isVerified) { gtm.pushRegistrationSuccess() }
-      yield put(actions.auth.verify.setStatus(status))
+      yield put(actions.auth.verify.setStatus(verifyStatus))
     } else {
       yield put(actions.auth.verify.setStatus('Pending'))
       console.log('Verification request error')

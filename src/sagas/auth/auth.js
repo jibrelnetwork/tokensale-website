@@ -3,21 +3,19 @@ import { put, call, take } from 'redux-saga/effects'
 import { startSubmit, stopSubmit } from 'redux-form'
 import LogRocket from 'logrocket'
 
-import gtm from '../../services/gtm'
-import * as actions from '../../actions'
 import * as AUTH from '../../constants/auth'
-import request from '../request'
+import * as actions from '../../actions'
+import { computeStatus } from './verify'
 import { SERVER } from '../.'
+import request from '../request'
+import gtm from '../../services/gtm'
 
 const FORM = 'login'
 
 function* getUserData(token) {
   const response = yield call(request, `${SERVER}/api/account/`, null, 'get', token)
   if (response.success) {
-    const isDocumentSkipped = response.data.is_document_skipped
-    const verifyStatus = isDocumentSkipped
-      ? 'WithoutDocument'
-      : response.data.identity_verification_status || 'Pending'
+    const verifyStatus = computeStatus(response.data)
     const data = {
       isVerified: response.data.is_identity_verified,
       verifyStatus,
@@ -28,18 +26,15 @@ function* getUserData(token) {
         !!response.data.date_of_birth &&
         !!response.data.citizenship &&
         !!response.data.residency,
-      isDocumentUploaded: !!response.data.document_url || isDocumentSkipped,
+      isDocumentUploaded: !!response.data.document_url,
     }
-    if (data.isVerified) {
-      yield put(actions.auth.verify.setStatus(data.verifyStatus))
-    } else if (!data.isTermsConfirmed) {
+    yield put(actions.auth.verify.setStatus(data.verifyStatus))
+    if (!data.isTermsConfirmed) {
       yield put(actions.auth.verify.setStage('terms'))
     } else if (!data.isUserInfoFilled) {
       yield put(actions.auth.verify.setStage('user-info'))
-    } else if (!data.isDocumentUploaded) {
+    } else if (!data.isDocumentUploaded || verifyStatus === 'Declined') {
       yield put(actions.auth.verify.setStage('document'))
-    } else {
-      yield put(actions.auth.verify.setStatus(data.verifyStatus))
     }
     yield put(stopSubmit(FORM))
     yield put(actions.auth.setToken(token))
