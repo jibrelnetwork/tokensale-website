@@ -1,5 +1,6 @@
-import React from 'react'
 import cx from 'classnames'
+import React from 'react'
+import numeral from 'numeral'
 import PropTypes from 'prop-types'
 import { compose } from 'lodash/fp'
 import { connect } from 'react-redux'
@@ -15,7 +16,7 @@ const Balance = ({ openWithdrawModal, balance /* , address */ }) => (
     >
       Withdraw
     </div>
-    <div className="balance pull-right">{`Balance – ${balance} JNT`}</div>
+    <div className="balance pull-right">{`Balance – ${numeral(balance).format('0.00')} JNT`}</div>
   </div>
 )
 
