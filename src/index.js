@@ -19,7 +19,7 @@ import reducers from './reducers'
 import middlewares from './middlewares'
 import { ProtectedRoute } from './routes'
 import { Auth, Welcome, Account } from './components'
-import ga from './services/ga'
+import tracking from './services/tracking'
 
 const clean = curry((path, object) => get(path, object) ? set(path, null, object) : object)
 
@@ -123,4 +123,4 @@ ReactDOM.render(
 )
 
 // Initialize google analytics data: id & utm parameters
-ga.init()
+tracking.init()

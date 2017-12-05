@@ -3,11 +3,11 @@ import { put, call, take } from 'redux-saga/effects'
 import { startSubmit, stopSubmit } from 'redux-form'
 import LogRocket from 'logrocket'
 
-import ga from '../../services/ga'
-import gtm from '../../services/gtm'
 import * as REGISTER from '../../constants/auth/register'
-import request from '../request'
 import { SERVER } from '../.'
+import request from '../request'
+import gtm from '../../services/gtm'
+import tracking from '../../services/tracking'
 
 const FORM = 'register'
 
@@ -16,12 +16,12 @@ export function* createAccount() {
     const {
       payload: { email, password, passwordConfirm, captcha },
     } = yield take(REGISTER.CREATE_ACCOUNT)
-    const tracking = ga.get()
+    const trackingData = tracking.get()
     const data = {
       email: email.toLowerCase(),
       captcha,
-      tracking,
       password,
+      tracking: trackingData,
       password_confirm: passwordConfirm,
     }
     yield put(startSubmit(FORM))

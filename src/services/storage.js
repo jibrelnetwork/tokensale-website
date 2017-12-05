@@ -1,8 +1,9 @@
-/* eslint-disable fp/no-mutation */
+/* eslint-disable fp/no-mutation, no-use-before-define */
 
 const storageKeys = {
   gaId: 'gaId',
   utmData: 'utmData',
+  affiliateNetworks: 'affiliateNetworks',
   newTransaction: 'newTransaction',
 }
 

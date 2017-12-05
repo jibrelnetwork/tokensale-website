@@ -1,5 +1,5 @@
-import ga from './ga'
 import gtm from './gtm'
 import storage from './storage'
+import tracking from './tracking'
 
-export { ga, gtm, storage }
+export { gtm, storage, tracking }
