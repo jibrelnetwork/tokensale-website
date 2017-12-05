@@ -1,0 +1,62 @@
+.start .steps {
+  padding-bottom: 50px;
+  text-align: center;
+  color: $white;
+
+  .item {
+    display: inline-block;
+    width: 200px;
+    opacity: 0.5;
+
+    &.active {
+      opacity: 1;
+    }
+
+    &.checked .img {
+      background-image: url("/static/icons/checkbox-2.svg");
+      background-size: 20px 20px;
+    }
+
+    &:last-child .img:after {
+      display: none;
+    }
+
+    .img {
+      width: 20px;
+      height: 20px;
+      border-radius: 10px;
+      background-color: #fff;
+      margin: 0 auto;
+      position: relative;
+      z-index: 10;
+
+      &:after {
+        width: 166px;
+        height: 1px;
+        background-color: #fff;
+        position: absolute;
+        content: '';
+        left: 26px;
+        top: 10px;
+      }
+    }
+
+    .title {
+      margin-top: 15px;
+    }
+  }
+
+  @media only screen and (max-width: 700px) {
+    .item {
+      width: 150px;
+    }
+
+    .img:after {
+      width: 116px !important;
+    }
+  }
+
+  @media only screen and (max-width: 600px) {
+    display: none;
+  }
+}

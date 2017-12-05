@@ -37,16 +37,6 @@
   }
 }
 
-.Verify {
-  .Header {
-    @media only screen and (max-width: 600px) {
-      .menu.pull-right {
-        display: block;
-      }
-    }
-  }
-}
-
 .Captcha {
   display: flex;
   padding-top: 15px;
@@ -153,7 +143,41 @@
       border-radius: 25px;
     }
 
-    @media only screen and (max-width: 1100px) {
+    .address {
+      .add {
+        display: flex;
+        align-items: center;
+
+        .icon {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 30px;
+          height: 30px;
+          border: 1px solid $white;
+          border-radius: 50%;
+          font-size: 25px;
+        }
+
+        .text {
+          margin-left: 10px;
+        }
+      }
+    }
+
+    .support-link {
+      display: flex;
+      align-items: center;
+      margin-left: auto;
+    }
+
+    @media only screen and (max-width: 800px) {
+      .address {
+        display: none;
+      }
+    }
+
+    @media only screen and (max-width: 600px) {
       .menu.menu-active li {
         display: block;
         margin: 0 0 30px 0 !important;
@@ -171,70 +195,9 @@
         display: none;
       }
 
-      .menu.pull-right.menu-active {
-        display: flex;
-        flex-direction: column;
-
-        .address {
-          padding: 0;
-          display: block;
-          margin-left: 0;
-        }
-
-        .address::before {
-          display: none;
-        }
-
-        .kyc-status {
-          display: block;
-          margin-left: 0;
-          padding: 0;
-        }
-
-        .clean {
-          height: initial;
-          line-height: initial;
-        }
-      }
-
-      .menu.menu-active {
-        top: 100px;
-        left: 0;
-        width: 100%;
-        padding: 35px 30px;
-        display: block;
-        z-index: 25;
-        position: absolute;
-        background-color: #002db6;
-      }
-
       .menu-button {
         display: block;
       }
-    }
-
-    .address {
-      .add {
-        display: flex;
-        align-items: center;
-
-        .icon {
-          border: 1px solid $white;
-          padding: 2px 7px;
-          font-size: 25px;
-          border-radius: 30px;
-        }
-
-        .text {
-          margin-left: 10px;
-        }
-      }
-    }
-
-    .support-link {
-      display: flex;
-      align-items: center;
-      margin-left: auto;
     }
   }
 }

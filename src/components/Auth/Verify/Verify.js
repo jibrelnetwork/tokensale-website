@@ -3,12 +3,12 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
 import Terms from './Terms'
-import Header from './Header'
 import Loader from './Loader'
 import UserInfo from './UserInfo'
 import Document from './Document'
 import Progress from './Progress'
 import Modals from '../../common/Modals'
+import AuthHeader from '../../common/AuthHeader'
 
 const { KYCStatusModal, SetPasswordModal, WithdrawModal } = Modals
 
@@ -16,7 +16,7 @@ const Verify = ({ stage, token }) => (
   <div className="Verify inner-page">
     <div className="section start">
       <div className="inner">
-        <Header />
+        <AuthHeader />
         <Progress stage={stage} />
       </div>
     </div>

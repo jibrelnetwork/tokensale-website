@@ -4,8 +4,10 @@ import PropTypes from 'prop-types'
 import { compose } from 'lodash/fp'
 import { connect } from 'react-redux'
 import { lifecycle, withState } from 'recompose'
+import { Link } from 'react-router-dom'
 
 import * as actions from '../../actions'
+import gtm from '../../services/gtm'
 
 function toggleDropdown(handler, isOpen) {
   return () => handler(!isOpen)
@@ -17,8 +19,10 @@ function isTouchDevice() {
 
 const Dashboard = ({
   closeDashboard,
+  openSetAddressModal,
   openKYCStatusModal,
   openSetPasswordModal,
+  pushSendRequestEvent,
   logout,
   toggleLanguageDropdown,
   accountData,
@@ -78,6 +82,18 @@ const Dashboard = ({
             </div>
           </div>
         </div>
+        <div onClick={closeDashboard} className="item support">
+          <a
+            onClick={pushSendRequestEvent}
+            className="title"
+            href="mailto:sale@jibrel.network"
+          >
+            Support
+          </a>
+        </div>
+        <div onClick={closeDashboard} className="item set-address">
+          <div onClick={openSetAddressModal} className="title">Change ETH address</div>
+        </div>
         <div onClick={closeDashboard} className="item">
           <div onClick={openSetPasswordModal} className="title">Change password</div>
         </div>
@@ -91,8 +107,10 @@ const Dashboard = ({
 
 Dashboard.propTypes = {
   closeDashboard: PropTypes.func.isRequired,
+  openSetAddressModal: PropTypes.func.isRequired,
   openKYCStatusModal: PropTypes.func.isRequired,
   openSetPasswordModal: PropTypes.func.isRequired,
+  pushSendRequestEvent: PropTypes.func.isRequired,
   logout: PropTypes.func.isRequired,
   toggleLanguageDropdown: PropTypes.func.isRequired,
   accountData: PropTypes.shape({
@@ -118,8 +136,10 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = {
   closeDashboard: actions.account.dashboard.toggle,
+  openSetAddressModal: () => actions.account.modals.changeState('setAddress', 'open'),
   openKYCStatusModal: () => actions.account.modals.changeState('kycStatus', 'open'),
   openSetPasswordModal: () => actions.account.modals.changeState('setPassword', 'open'),
+  pushSendRequestEvent: gtm.pushProfileSendRequest,
   verifyStatusRequestStart: actions.auth.verify.statusRequest,
   verifyStatusRequestCancel: actions.auth.verify.statusRequestCancel,
   logout: actions.auth.logout,
