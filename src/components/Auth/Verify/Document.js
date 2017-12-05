@@ -49,7 +49,7 @@ const Document = ({
           disabled={submitting}
           className="button bordered pull-right"
         >
-          Next Step
+          {!submitting && 'Next Step'}
         </button>
         <button
           style={{ marginRight: 5 }}
@@ -119,6 +119,6 @@ export default compose(
         type: undefined,
       },
     },
-    destroyOnUnmount: true,
+    destroyOnUnmount: false,
   })
 )(Document)
