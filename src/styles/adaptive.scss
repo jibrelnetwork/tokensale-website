@@ -152,8 +152,8 @@
     }
 
     .start .header {
-      padding-top: 30px;
-      padding-bottom: 80px;
+      padding-top: $mobile-header-padding-top;
+      padding-bottom: $mobile-header-padding-bottom;
     }
 
     .start .menu {

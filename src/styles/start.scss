@@ -9,13 +9,11 @@
   transition: height 0.3s ease 0s;
 
   &.home {
-    min-height: auto;
-
     .header {
-      padding-bottom: 140px;
+      padding-bottom: $header-padding-bottom;
 
       @media only screen and (max-width: 600px) {
-        padding-bottom: 80px;
+        padding-bottom: $mobile-header-padding-bottom;
       }
     }
   }
@@ -54,7 +52,7 @@
 
     img {
       display: block;
-      height: 44px;
+      height: $header-height;
       width: 127px;
     }
   }

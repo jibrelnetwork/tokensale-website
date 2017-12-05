@@ -8,3 +8,26 @@ $bitcoin-suisse-icon: url('../../static/icons/suisse.svg');
  * Font
  */
 $font: 'Open Sans', Arial, sans-serif;
+
+/**
+ * Header sizes
+ */
+$header-height: 44px;
+$header-padding-top: 50px;
+$header-padding-bottom: 140px;
+$mobile-header-padding-top: 30px;
+$mobile-header-padding-bottom: 80px;
+
+$header-full-height: $header-height + $header-padding-top + $header-padding-bottom;
+
+$mobile-header-full-height: (
+  $header-height +
+  $mobile-header-padding-top +
+  $mobile-header-padding-bottom
+);
+
+/**
+ * Content sizes
+ */
+$content-min-height: calc(100vh - #{$header-full-height});
+$mobile-content-min-height: calc(100vh - #{$mobile-header-full-height});

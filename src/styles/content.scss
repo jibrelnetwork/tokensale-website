@@ -208,3 +208,14 @@
     }
   }
 }
+
+.Content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: $content-min-height;
+
+  @media only screen and (max-width: 600px) {
+    min-height: $mobile-content-min-height;
+  }
+}
