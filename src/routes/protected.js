@@ -4,24 +4,22 @@ import { Route, Redirect } from 'react-router-dom'
 
 const ProtectedRoute = ({ component: Component, path, store, ...restProps }) => {
   const isAuthorized = !!store.getState().auth.token
-  const isVerified = !!store.getState().auth.verifyStatus
+  const isVerified = ['Approved', 'Pending'].includes(store.getState().auth.verifyStatus)
+  const notVerified = ['Declined', 'WithoutDocument'].includes(store.getState().auth.verifyStatus)
+  const withoutVerification = !store.getState().auth.verifyStatus
   return (
     <Route
       render={(props) => (
         path === '/verify'
-          ? isAuthorized && !isVerified
+          ? isAuthorized && (notVerified || withoutVerification)
             ? <Component {...props} />
             : isAuthorized && isVerified
               ? <Redirect to="/account" />
               : <Redirect to="/welcome/login" />
           : path === '/account'
-            ? isAuthorized && isVerified
+            ? isAuthorized && (isVerified || notVerified)
               ? <Component {...props} />
-              : isAuthorized && !isVerified
-                ? <Redirect to="/verify" />
-                : !isAuthorized && isVerified
-                  ? <Redirect to="/welcome/login" />
-                  : <Redirect to="/welcome/login" />
+              : <Redirect to="/welcome/login" />
             : <Redirect to="/welcome" />
       )}
       {...restProps}
