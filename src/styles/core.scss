@@ -40,6 +40,11 @@
     font-size: 13px;
     line-height: 1;
     color: $black2;
+
+    /* some script of analytics insert image into the body and it breaks down the layout */
+    > img {
+      display: none;
+    }
   }
 
   .section {
