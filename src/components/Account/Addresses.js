@@ -15,12 +15,12 @@ const Addresses = ({
   btcAddress,
   ethAddress,
 }) => (
-  <div className="Wallets">
+  <div className="Addresses">
     {verifyStatus === 'Declined' ? (
       <div className="addresses declined clear">
         <div className="info-block">
           <div className="icon status-declined" />
-          <p>
+          <div>
             It seems we were unable to verify your identity.
             <br />
             Please contact the
@@ -34,7 +34,7 @@ const Addresses = ({
             and a representative
             <br />
             will assist in manually processing your application.
-          </p>
+          </div>
         </div>
       </div>
     ) : isICOStarted ? (
