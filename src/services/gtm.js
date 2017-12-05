@@ -1,7 +1,7 @@
-import storage from './storage'
+// import storage from './storage'
 
 function push(data) {
-  const dataLayer = window.dataLayer || [] // eslint-disable-line more/no-window
+  const dataLayer = window.dataLayer || []
   dataLayer.push(data) // eslint-disable-line fp/no-mutating-methods
 }
 
@@ -81,14 +81,17 @@ function pushPageView(pathname) {
 }
 
 function pushNewTransaction() {
+  /*
   const isNewTransactionEventSended = (storage.getNewTransaction() === '1')
 
   if (isNewTransactionEventSended) {
     return
   }
 
-  push({ event: 'NewTransaction' })
   storage.setNewTransaction('1')
+  */
+
+  push({ event: 'NewTransaction' })
 }
 
 export default {
