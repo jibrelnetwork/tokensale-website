@@ -4,7 +4,8 @@ const storageKeys = {
   gaId: 'gaId',
   utmData: 'utmData',
   affiliateNetworks: 'affiliateNetworks',
-  newTransaction: 'newTransaction',
+  newTransactionEventSended: 'newTransactionEventSended',
+  registrationSuccessEventSended: 'registrationSuccessEventSended',
 }
 
 const storageMethods = {}

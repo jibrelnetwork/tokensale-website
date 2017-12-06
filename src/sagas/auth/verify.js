@@ -7,12 +7,12 @@ import { startSubmit, stopSubmit } from 'redux-form'
 import * as actions from '../../actions'
 import * as VERIFY from '../../constants/auth/verify'
 import { SERVER } from '../.'
+import { gtm, storage } from '../../services'
 import request from '../request'
-import gtm from '../../services/gtm'
 
 const getForm = (state) => `account-${state.auth.token}`
 
-const DELAY = 30000
+const GET_ACCOUNT_DELAY = 30000
 
 export const computeStatus = (data) => {
   const documentUrl = data.document_url
@@ -32,23 +32,37 @@ export const computeStatus = (data) => {
     // when all verification step was completed and data sended
 }
 
+function pushRegistrationSuccessEvent(isVerified) {
+  const isRegistrationSuccessEventSended = (storage.getRegistrationSuccessEventSended() === '1')
+
+  if (isRegistrationSuccessEventSended || !isVerified) {
+    return
+  }
+
+  gtm.pushRegistrationSuccess()
+  storage.setRegistrationSuccessEventSended('1')
+}
+
+function* onAccountResponse({ success, data }) {
+  if (success) {
+    const verifyStatus = computeStatus(data)
+    yield pushRegistrationSuccessEvent(data.is_identity_verified)
+    yield put(actions.auth.verify.setStatus(verifyStatus))
+  } else {
+    yield put(actions.auth.verify.setStatus('Pending'))
+    console.log('Verification request error')
+  }
+}
+
 export function* getStatus(periodically = false) {
   function* makeRequest() {
     const response = yield call(request, `${SERVER}/api/account/`, null, 'get')
-    if (response.success) {
-      const verifyStatus = computeStatus(response.data)
-      const isVerified = response.data.is_identity_verified
-      if (isVerified) { gtm.pushRegistrationSuccess() }
-      yield put(actions.auth.verify.setStatus(verifyStatus))
-    } else {
-      yield put(actions.auth.verify.setStatus('Pending'))
-      console.log('Verification request error')
-    }
+    yield onAccountResponse(response)
   }
   if (periodically) {
     while (true) { // eslint-disable-line fp/no-loops
       yield call(makeRequest)
-      yield call(delay, DELAY)
+      yield delay(GET_ACCOUNT_DELAY)
     }
   } else {
     yield call(makeRequest)

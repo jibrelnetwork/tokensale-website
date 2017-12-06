@@ -1,17 +1,22 @@
 import { delay } from 'redux-saga'
 import { put, call } from 'redux-saga/effects'
 
-import gtm from '../../services/gtm'
 import * as actions from '../../actions'
 import { SERVER } from '../.'
+import { gtm, storage } from '../../services'
 import request from '../request'
 
 const DELAY = 60000
 
 function pushNewTransactionEvent(transactions) {
-  if (transactions && (transactions.length > 0)) {
-    gtm.pushNewTransaction()
+  const isNewTransactionEventSended = (storage.getNewTransactionEventSended() === '1')
+
+  if (isNewTransactionEventSended || (transactions && (transactions.length === 0))) {
+    return
   }
+
+  gtm.pushNewTransaction()
+  storage.setNewTransactionEventSended('1')
 }
 
 function* onGetResponse({ success, data }) {

@@ -1,5 +1,3 @@
-// import storage from './storage'
-
 function push(data) {
   const dataLayer = window.dataLayer || []
   dataLayer.push(data) // eslint-disable-line fp/no-mutating-methods
@@ -25,7 +23,7 @@ function pushRegistrationEmail() {
 }
 
 /**
- * eventLabel value is one of ConfirmAgreement/BasicInfo/PassportScan
+ * eventLabel value is one of ConfirmAgreement/BasicInfo/PassportScan/SkipPassportScan
  */
 function pushVerificationNextStep(eventLabel) {
   push({
@@ -81,16 +79,6 @@ function pushPageView(pathname) {
 }
 
 function pushNewTransaction() {
-  /*
-  const isNewTransactionEventSended = (storage.getNewTransaction() === '1')
-
-  if (isNewTransactionEventSended) {
-    return
-  }
-
-  storage.setNewTransaction('1')
-  */
-
   push({ event: 'NewTransaction' })
 }
 
