@@ -1,5 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import { ToastContainer } from 'react-toastify'
 import createSagaMiddleware from 'redux-saga'
 import { createStore, applyMiddleware } from 'redux'
 import { get, set, compose, update, curry } from 'lodash/fp'
@@ -27,7 +28,7 @@ LogRocket.init('pnojyg/jibrel-sale', {
   network: {
     responseSanitizer: compose(
       clean(['body', 'key']),
-      update('body', JSON.parse),
+      update('body', (body = {}) => JSON.parse(body)),
     ),
     requestSanitizer: compose(
       clean(['body', 'password']),
@@ -117,6 +118,16 @@ ReactDOM.render(
           </Switch>
         </div>
       </ConnectedRouter>
+      <ToastContainer
+        type="error"
+        position="top-center"
+        autoClose={2500}
+        newestOnTop
+        closeButton={false}
+        closeOnClick
+        pauseOnHover
+        hideProgressBar
+      />
     </PersistGate>
   </Provider>,
   document.getElementById('container')
