@@ -1,18 +1,20 @@
 import axios from 'axios'
 import { push } from 'react-router-redux'
-import { put, call, select } from 'redux-saga/effects'
+import { toast } from 'react-toastify'
 import { constant } from 'lodash/fp'
+import { put, call, select } from 'redux-saga/effects'
 import * as actions from '../actions'
 
-export default function* request(url, data, method, token) {
-  const authToken = token || (yield select((state) => state.auth.token))
+export default function* request(url, data, method, options = {}) {
+  const authToken = options.token || (yield select((state) => state.auth.token))
+  const silentMode = options.silent
   try {
     const response = yield call(axios, {
       url,
       data,
       method,
       headers: authToken ? { Authorization: `Token ${authToken}` } : undefined,
-      timeout: 10000,
+      timeout: 30000,
       validateStatus: constant(true), // resolve all
     })
     if (response.status >= 200 && response.status < 300) {
@@ -24,17 +26,18 @@ export default function* request(url, data, method, token) {
       yield put(push('/login'))
       return {}
     } else if (response.status === 404) {
-      console.log('Network error') // ?
+      if (!silentMode) { toast.error('Network error') }
       return {}
     } else if (response.status === 500) {
-      console.log('Internal server error') // ?
+      if (!silentMode) { toast.error('Internal server error') }
       return {}
     } else {
-      console.log(`Undefined error: ${response.statusText}`) // ?
+      if (!silentMode) { toast.error(`Undefined error: ${response.statusText}`) }
       return {}
     }
   } catch (error) {
-    console.log(error)
+    if (!silentMode) { toast.error('Check your connection and try again') }
+    console.error(error)
     return {}
   }
 }

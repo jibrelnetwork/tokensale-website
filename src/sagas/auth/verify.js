@@ -54,9 +54,9 @@ function* onAccountResponse({ success, data }) {
   }
 }
 
-export function* getStatus(periodically = false) {
+export function* getStatus(periodically = false, silent = false) {
   function* makeRequest() {
-    const response = yield call(request, `${SERVER}/api/account/`, null, 'get')
+    const response = yield call(request, `${SERVER}/api/account/`, null, 'get', { silent })
     yield onAccountResponse(response)
   }
   if (periodically) {

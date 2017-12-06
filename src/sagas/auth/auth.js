@@ -1,4 +1,5 @@
 import { push } from 'react-router-redux'
+import { toast } from 'react-toastify'
 import { put, call, take } from 'redux-saga/effects'
 import { startSubmit, stopSubmit } from 'redux-form'
 import LogRocket from 'logrocket'
@@ -13,7 +14,7 @@ import gtm from '../../services/gtm'
 const FORM = 'login'
 
 function* getUserData(token) {
-  const response = yield call(request, `${SERVER}/api/account/`, null, 'get', token)
+  const response = yield call(request, `${SERVER}/api/account/`, null, 'get', { token })
   if (response.success) {
     const verifyStatus = computeStatus(response.data)
     const data = {
@@ -42,7 +43,7 @@ function* getUserData(token) {
     gtm.pushAuthSuccess(data.isVerified)
   } else {
     yield put(stopSubmit(FORM))
-    alert('Account info request error')
+    toast.error('Account info request error')
   }
 }
 
@@ -61,7 +62,7 @@ export function* login() {
     } else if (response.error) {
       yield put(stopSubmit(FORM, { password: response.data.non_field_errors }))
     } else {
-      yield put(stopSubmit(FORM, { email: 'Internal server error' }))
+      yield put(stopSubmit(FORM))
     }
   }
 }

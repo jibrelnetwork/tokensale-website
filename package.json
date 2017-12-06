@@ -46,6 +46,7 @@
     "react-redux": "5.0.6",
     "react-router-dom": "4.2.2",
     "react-router-redux": "next",
+    "react-toastify": "3.0.0",
     "recompose": "0.26.0",
     "redux": "3.7.2",
     "redux-form": "7.1.2",

@@ -31,7 +31,13 @@ function* onGetResponse({ success, data }) {
 // sync
 export function* get() {
   while (true) { // eslint-disable-line fp/no-loops
-    const response = yield call(request, `${SERVER}/api/transactions/`, null, 'get')
+    const response = yield call(
+      request,
+      `${SERVER}/api/transactions/`,
+      null,
+      'get',
+      { silent: true }
+    )
     yield onGetResponse(response)
     yield call(delay, DELAY)
   }
