@@ -32,9 +32,15 @@ export const computeStatus = (data) => {
     // when all verification step was completed and data sended
 }
 
-export function* getStatus(periodically = false) {
+export function* getStatus(periodically = false, silent = false) {
   function* makeRequest() {
-    const response = yield call(request, `${SERVER}/api/account/`, null, 'get')
+    const response = yield call(
+      request,
+      `${SERVER}/api/account/`,
+      null,
+      'get',
+      { silent }
+    )
     if (response.success) {
       const verifyStatus = computeStatus(response.data)
       const isVerified = response.data.is_identity_verified

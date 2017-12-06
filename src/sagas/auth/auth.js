@@ -14,7 +14,7 @@ import gtm from '../../services/gtm'
 const FORM = 'login'
 
 function* getUserData(token) {
-  const response = yield call(request, `${SERVER}/api/account/`, null, 'get', token)
+  const response = yield call(request, `${SERVER}/api/account/`, null, 'get', { token })
   if (response.success) {
     const verifyStatus = computeStatus(response.data)
     const data = {
@@ -62,7 +62,7 @@ export function* login() {
     } else if (response.error) {
       yield put(stopSubmit(FORM, { password: response.data.non_field_errors }))
     } else {
-      yield put(stopSubmit(FORM, { email: 'Internal server error' }))
+      yield put(stopSubmit(FORM))
     }
   }
 }

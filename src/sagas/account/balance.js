@@ -12,8 +12,13 @@ const FORM = 'withdraw'
 const DELAY = 60000
 
 function* requestBalance() {
-  const response = yield call(request, `${SERVER}/api/account/`, null, 'get')
-
+  const response = yield call(
+    request,
+    `${SERVER}/api/account/`,
+    null,
+    'get',
+    { silent: true }
+  )
   if (response.success) {
     const balance = response.data.jnt_balance
     yield put(actions.account.balance.requestSuccess(balance))

@@ -5,8 +5,9 @@ import { constant } from 'lodash/fp'
 import { put, call, select } from 'redux-saga/effects'
 import * as actions from '../actions'
 
-export default function* request(url, data, method, token) {
-  const authToken = token || (yield select((state) => state.auth.token))
+export default function* request(url, data, method, options = {}) {
+  const authToken = options.token || (yield select((state) => state.auth.token))
+  const silentMode = options.silent
   try {
     const response = yield call(axios, {
       url,
@@ -25,17 +26,17 @@ export default function* request(url, data, method, token) {
       yield put(push('/login'))
       return {}
     } else if (response.status === 404) {
-      toast.error('Network error')
+      if (!silentMode) { toast.error('Network error') }
       return {}
     } else if (response.status === 500) {
-      toast.error('Internal server error')
+      if (!silentMode) { toast.error('Internal server error') }
       return {}
     } else {
-      toast.error(`Undefined error: ${response.statusText}`)
+      if (!silentMode) { toast.error(`Undefined error: ${response.statusText}`) }
       return {}
     }
   } catch (error) {
-    toast.error('Check your connection and try again')
+    if (!silentMode) { toast.error('Check your connection and try again') }
     console.error(error)
     return {}
   }

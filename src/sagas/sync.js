@@ -36,7 +36,7 @@ export function* userTransactions() {
 
 export function* accountVerifyStatus() {
   while (yield take(VERIFY.STATUS_REQUEST)) {
-    const task = yield fork(verify.getStatus, true)
+    const task = yield fork(verify.getStatus, true, true)
     yield take(VERIFY.STATUS_REQUEST_CANCEL)
     yield cancel(task)
   }
