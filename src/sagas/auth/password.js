@@ -1,3 +1,4 @@
+import { toast } from 'react-toastify'
 import { replace } from 'react-router-redux'
 import { put, call, take } from 'redux-saga/effects'
 import { startSubmit, stopSubmit } from 'redux-form'
@@ -36,9 +37,9 @@ function* onChangeResponse(response) {
   if (response.success) {
     yield put(replace('/welcome/login'))
   } else if (response.data.token) {
-    alert('Please try to recover your password again, your recovery link is expired ')
+    toast.error('Please try to recover your password again, your recovery link is expired ')
   } else {
-    alert("We can't reset your password, please contact us via email")
+    toast.error("We can't reset your password, please contact us via email")
   }
 }
 

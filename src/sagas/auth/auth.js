@@ -1,4 +1,5 @@
 import { push } from 'react-router-redux'
+import { toast } from 'react-toastify'
 import { put, call, take } from 'redux-saga/effects'
 import { startSubmit, stopSubmit } from 'redux-form'
 import LogRocket from 'logrocket'
@@ -42,7 +43,7 @@ function* getUserData(token) {
     gtm.pushAuthSuccess(data.isVerified)
   } else {
     yield put(stopSubmit(FORM))
-    alert('Account info request error')
+    toast.error('Account info request error')
   }
 }
 

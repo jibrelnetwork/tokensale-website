@@ -1,3 +1,4 @@
+import { toast } from 'react-toastify'
 import { replace } from 'react-router-redux'
 import { put, call, take } from 'redux-saga/effects'
 import * as EMAIL from '../../constants/auth/email'
@@ -25,7 +26,7 @@ export function* resend() {
     if (response.success) {
       yield put(replace('/welcome/email/sended'))
     } else {
-      alert('Error on email verification resend')
+      toast.error('Error on email verification resend')
     }
   }
 }
