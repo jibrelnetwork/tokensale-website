@@ -197,7 +197,10 @@
     display: none;
 
     a {
+      height: 50px;
+      line-height: 48px;
       border: 1px solid rgba($white, 0.25);
+      border-radius: 25px;
       font-size: 13px;
       color: $white;
     }
