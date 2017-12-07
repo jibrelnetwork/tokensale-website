@@ -7,7 +7,6 @@ import { lifecycle, withState } from 'recompose'
 import { Link } from 'react-router-dom'
 
 import * as actions from '../../actions'
-import gtm from '../../services/gtm'
 
 function toggleDropdown(handler, isOpen) {
   return () => handler(!isOpen)
@@ -22,7 +21,6 @@ const Dashboard = ({
   openSetAddressModal,
   openKYCStatusModal,
   openSetPasswordModal,
-  pushSendRequestEvent,
   logout,
   toggleLanguageDropdown,
   accountData,
@@ -30,9 +28,10 @@ const Dashboard = ({
   isOpen,
   isLanguageDropdownOpen,
   isHomePage,
+  isAccountPage,
 }) => (
-  <div className={cx('dashboard', { open: isOpen })}>
-    <div onClick={closeDashboard} className="overlay" />
+  <div onClick={closeDashboard} className={cx('dashboard', { open: isOpen })}>
+    <div className="overlay" />
     <div className="content">
       {accountData.isVerified && (
         <div className="head">
@@ -45,7 +44,7 @@ const Dashboard = ({
       )}
       <div className="body">
         {isHomePage && (
-          <div onClick={closeDashboard} className="item">
+          <div className="item">
             <a
               className="title"
               href="https://jibrel.network"
@@ -55,12 +54,17 @@ const Dashboard = ({
             </a>
           </div>
         )}
-        {['WithoutDocument', 'Declined'].includes(verifyStatus) && (
-          <div onClick={closeDashboard} className="item">
+        {isHomePage && (
+          <div className="item go-to-dashboard">
+            <Link to="/account" className="title">Go to dashboard</Link>
+          </div>
+        )}
+        {(['WithoutDocument', 'Declined'].includes(verifyStatus) && isAccountPage) && (
+          <div className="item">
             <Link to="/verify" className="title">Upload document</Link>
           </div>
         )}
-        <div onClick={closeDashboard} style={{ display: 'none' }} className="item">
+        <div style={{ display: 'none' }} className="item">
           <div onClick={console.log} className="title">Change email address</div>
         </div>
         <div
@@ -82,22 +86,25 @@ const Dashboard = ({
             </div>
           </div>
         </div>
-        <div onClick={closeDashboard} className="item support">
+        <div className="item support">
           <a
-            onClick={pushSendRequestEvent}
             className="title"
-            href="mailto:sale@jibrel.network"
+            target="_blank"
+            rel="noopener noreferrer"
+            href="https://jibrelnetwork.freshdesk.com/support/tickets/new"
           >
             Support
           </a>
         </div>
-        <div onClick={closeDashboard} className="item set-address">
-          <div onClick={openSetAddressModal} className="title">Change ETH address</div>
-        </div>
-        <div onClick={closeDashboard} className="item">
+        {accountData.isVerified && (
+          <div className="item set-address">
+            <div onClick={openSetAddressModal} className="title">Change ETH address</div>
+          </div>
+        )}
+        <div className="item">
           <div onClick={openSetPasswordModal} className="title">Change password</div>
         </div>
-        <div onClick={closeDashboard} className="item">
+        <div className="item">
           <div onClick={logout} className="title">Logout</div>
         </div>
       </div>
@@ -110,7 +117,6 @@ Dashboard.propTypes = {
   openSetAddressModal: PropTypes.func.isRequired,
   openKYCStatusModal: PropTypes.func.isRequired,
   openSetPasswordModal: PropTypes.func.isRequired,
-  pushSendRequestEvent: PropTypes.func.isRequired,
   logout: PropTypes.func.isRequired,
   toggleLanguageDropdown: PropTypes.func.isRequired,
   accountData: PropTypes.shape({
@@ -123,10 +129,12 @@ Dashboard.propTypes = {
   isLanguageDropdownOpen: PropTypes.bool.isRequired,
   /* optional */
   isHomePage: PropTypes.bool,
+  isAccountPage: PropTypes.bool,
 }
 
 Dashboard.defaultProps = {
   isHomePage: false,
+  isAccountPage: false,
 }
 
 const mapStateToProps = (state) => ({
@@ -139,7 +147,6 @@ const mapDispatchToProps = {
   openSetAddressModal: () => actions.account.modals.changeState('setAddress', 'open'),
   openKYCStatusModal: () => actions.account.modals.changeState('kycStatus', 'open'),
   openSetPasswordModal: () => actions.account.modals.changeState('setPassword', 'open'),
-  pushSendRequestEvent: gtm.pushProfileSendRequest,
   verifyStatusRequestStart: actions.auth.verify.statusRequest,
   verifyStatusRequestCancel: actions.auth.verify.statusRequestCancel,
   logout: actions.auth.logout,

@@ -13,7 +13,7 @@ import Social from './Social'
 import * as Auth from '../Auth'
 import Modals from '../common/Modals'
 
-const { KYCStatusModal, SetPasswordModal, WithdrawModal } = Modals
+const { KYCStatusModal, SetAddressModal, SetPasswordModal } = Modals
 const HOME_PAGE_PATHNAME = '/welcome'
 
 function isHomePage(pathname) {
@@ -44,8 +44,8 @@ const Welcome = ({ isAuthorized, location: { pathname } }) => (
       </Switch>
     </div>
     <KYCStatusModal />
+    <SetAddressModal />
     <SetPasswordModal />
-    <WithdrawModal />
     {isHomePage(pathname) && (
       <div>
         <Tokens />

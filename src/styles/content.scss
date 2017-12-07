@@ -216,6 +216,7 @@
   min-height: $content-min-height;
 
   @media only screen and (max-width: 600px) {
-    min-height: $mobile-content-min-height;
+    min-height: 100vh;
+    padding-top: 150px;
   }
 }
