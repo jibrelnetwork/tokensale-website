@@ -46,6 +46,13 @@
     border-bottom: 1px solid rgba($black2, 0.1);
   }
 
+  .name,
+  .status {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
   .name {
     max-width: 100%;
     height: 22px;
@@ -53,9 +60,6 @@
     margin-bottom: 5px;
     font-size: 16px;
     font-weight: 600;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
     color: rgba($black2, 0.7);
   }
 
