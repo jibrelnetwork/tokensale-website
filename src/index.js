@@ -10,6 +10,7 @@ import { Route, Redirect, Switch } from 'react-router-dom'
 import { reducer as formReducer } from 'redux-form'
 import { PersistGate } from 'redux-persist/es/integration/react'
 import createHistory from 'history/createHashHistory'
+import Promise from 'promise-polyfill'
 import { Provider } from 'react-redux'
 import storage from 'redux-persist/es/storage'
 import LogRocket from 'logrocket'
@@ -21,6 +22,10 @@ import middlewares from './middlewares'
 import { ProtectedRoute } from './routes'
 import { Auth, Welcome, Account } from './components'
 import tracking from './services/tracking'
+
+if (!window.Promise) {
+  window.Promise = Promise // eslint-disable-line fp/no-mutation
+}
 
 const clean = curry((path, object) => get(path, object) ? set(path, null, object) : object)
 
