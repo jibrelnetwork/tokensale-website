@@ -12,7 +12,7 @@ const defaultState = {
     accountData: {
       firstName: '',
       lastName: '',
-      email: '',
+      email: '...',
       isVerified: false,
     },
     isOpen: false,
