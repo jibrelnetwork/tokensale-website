@@ -120,6 +120,7 @@
     .title {
       position: relative;
       color: $blue;
+      white-space: nowrap;
       cursor: pointer;
 
       &:hover {
