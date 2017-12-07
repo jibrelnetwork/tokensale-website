@@ -2549,7 +2549,11 @@ filename-regex@^2.0.0:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/filename-regex/-/filename-regex-2.0.1.tgz#c1c4b9bee3e09725ddb106b75c1e301fe2f18b26"
 
-filestack-js@0.9.12, filestack-js@^0.9.1:
+filestack-js@0.10.0:
+  version "0.10.0"
+  resolved "https://registry.yarnpkg.com/filestack-js/-/filestack-js-0.10.0.tgz#b20208fec8ae947ee4411b2a91c3c654d6275ec8"
+
+filestack-js@^0.9.1:
   version "0.9.12"
   resolved "https://registry.yarnpkg.com/filestack-js/-/filestack-js-0.9.12.tgz#d265de0ff43351003505d4d9c2ce6108f6ca8702"
 
