@@ -10,7 +10,7 @@ import Progress from './Progress'
 import Modals from '../../common/Modals'
 import AuthHeader from '../../common/AuthHeader'
 
-const { KYCStatusModal, SetPasswordModal, WithdrawModal } = Modals
+const { KYCStatusModal, SetPasswordModal } = Modals
 
 const Verify = ({ stage, token }) => (
   <div className="Verify inner-page">
@@ -30,7 +30,6 @@ const Verify = ({ stage, token }) => (
     </div>
     <KYCStatusModal />
     <SetPasswordModal />
-    <WithdrawModal />
   </div>
 )
 

@@ -13,7 +13,13 @@
       padding-bottom: $header-padding-bottom;
 
       @media only screen and (max-width: 600px) {
-        padding-bottom: $mobile-header-padding-bottom;
+        z-index: 1000;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        padding: $mobile-header-padding;
+        background-image: linear-gradient(to top left, $blue, $blue4);
       }
     }
   }

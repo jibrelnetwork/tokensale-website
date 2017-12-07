@@ -34,4 +34,19 @@
       border: none;
     }
   }
+
+  @media only screen and (max-width: 600px) {
+    .start {
+      z-index: 1000;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+    }
+
+    > .content,
+    > .form {
+      padding-top: $mobile-header-full-height;
+    }
+  }
 }

@@ -146,7 +146,8 @@
     }
   }
 
-  .support {
+  .support,
+  .go-to-dashboard {
     display: none;
 
     @media only screen and (max-width: 600px) {
@@ -167,19 +168,20 @@
   }
 
   @media only screen and (max-width: 600px) {
-    top: 100px;
+    position: fixed;
+    top: $mobile-header-full-height;
     left: 0;
     right: 0;
     width: 0;
+    min-height: calc(100vh - 100px);
+    padding: 35px 30px;
 
     &.open {
-      top: 100px;
+      top: $mobile-header-full-height;
       width: 100%;
       width: 100vw;
       max-width: 100%;
       max-width: 100vw;
-      min-height: calc(100vh - 100px);
-      padding: 35px 30px;
       background-color: $blue4;
 
       .overlay {

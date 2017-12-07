@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import { compose } from 'lodash/fp'
 import { connect } from 'react-redux'
-import { withState } from 'recompose'
+import { withHandlers, withState } from 'recompose'
 
 import Dashboard from '../../common/Dashboard'
 import * as actions from '../../../actions'
@@ -15,14 +15,15 @@ function isTouchDevice() {
 
 const Controls = ({
   openDashboard,
-  toggleMenu,
+  toggleMenuOrDashboard,
   email,
   isMenuOpen,
   isVerified,
   isAuthorized,
+  isDashboardOpen,
 }) => (
   <div className="Controls">
-    <ul className={cx('menu pull-right', isMenuOpen && 'menu-active')}>
+    <ul className={cx('menu pull-right', { 'menu-active': isMenuOpen })}>
       {isAuthorized ? isVerified ? ([
         <li key="0"><Link to="/account">Go to dashboard</Link></li>,
         <li key="1" className="bordered">
@@ -44,8 +45,8 @@ const Controls = ({
       ])}
     </ul>
     <button
-      onClick={() => toggleMenu(!isMenuOpen)}
-      className={cx('menu-button', 'pull-right', isMenuOpen && 'active')}
+      onClick={toggleMenuOrDashboard}
+      className={cx('menu-button', 'pull-right', { active: isMenuOpen || isDashboardOpen })}
     >
       <span>Menu</span>
     </button>
@@ -55,17 +56,19 @@ const Controls = ({
 
 Controls.propTypes = {
   openDashboard: PropTypes.func.isRequired,
-  toggleMenu: PropTypes.func.isRequired,
+  toggleMenuOrDashboard: PropTypes.func.isRequired,
   email: PropTypes.string.isRequired,
   isMenuOpen: PropTypes.bool.isRequired,
   isVerified: PropTypes.bool.isRequired,
   isAuthorized: PropTypes.bool.isRequired,
+  isDashboardOpen: PropTypes.bool.isRequired,
 }
 
 const mapStateToProps = (state) => ({
   email: state.account.dashboard.accountData.email,
   isVerified: !!state.auth.verifyStatus,
   isAuthorized: !!state.auth.token,
+  isDashboardOpen: state.account.dashboard.isOpen,
 })
 
 const mapDispatchToProps = {
@@ -81,5 +84,13 @@ export default compose(
     'isMenuOpen',
     'toggleMenu',
     false,
-  )
+  ),
+  withHandlers({
+    toggleMenuOrDashboard: ({
+      toggleMenu,
+      openDashboard,
+      isMenuOpen,
+      isAuthorized,
+    }) => () => isAuthorized ? openDashboard() : toggleMenu(!isMenuOpen),
+  })
 )(Controls)
