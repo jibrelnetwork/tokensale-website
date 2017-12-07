@@ -186,13 +186,32 @@
 .start .link {
   padding-bottom: 200px;
   text-align: center;
-}
 
-.start .link a {
-  font-size: 15px;
-  font-weight: normal;
-  padding-left: 70px;
-  padding-right: 70px;
+  a {
+    width: 260px;
+    font-size: 15px;
+    font-weight: normal;
+  }
+
+  &.about-jibrel {
+    display: none;
+
+    a {
+      border: 1px solid rgba($white, 0.25);
+      font-size: 13px;
+      color: $white;
+    }
+  }
+
+  @media only screen and (max-width: 600px) {
+    padding-bottom: 0;
+    margin-bottom: 20px;
+
+    &.about-jibrel {
+      display: block;
+      padding-bottom: 140px;
+    }
+  }
 }
 
 .start .address {

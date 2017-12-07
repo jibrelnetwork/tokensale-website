@@ -20,6 +20,11 @@ const Content = ({ isAuthorized }) => (
         Get Tokens
       </Link>
     </div>
+    <div className="link about-jibrel">
+      <a href="https://jibrel.network" className="button bordered">
+        About Jibrel Network
+      </a>
+    </div>
   </div>
 )
 
