@@ -1,6 +1,9 @@
 import cx from 'classnames'
 import React from 'react'
+import axios from 'axios'
+import LogRocket from 'logrocket'
 import PropTypes from 'prop-types'
+import { lifecycle } from 'recompose'
 import ReactFilestack from 'filestack-react'
 import { head, map, last, compose } from 'lodash/fp'
 
@@ -57,4 +60,15 @@ Uploader.propTypes = {
   }).isRequired,
 }
 
-export default Uploader
+const enhance = lifecycle({
+  async componentDidMount() {
+    try {
+      await axios.get(`https://cloud.filestackapi.com/prefetc?apikey=${FILESTACK_API_KEY}`)
+      LogRocket.track('[Success] FileStack API request')
+    } catch (error) {
+      LogRocket.track('[Error] FileStack API request')
+    }
+  },
+})
+
+export default enhance(Uploader)

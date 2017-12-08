@@ -33,7 +33,7 @@ LogRocket.init('pnojyg/jibrel-sale', {
   network: {
     responseSanitizer: compose(
       clean(['body', 'key']),
-      update('body', (body = {}) => JSON.parse(body)),
+      update('body', (body) => body ? JSON.parse(body) : {}),
     ),
     requestSanitizer: compose(
       clean(['body', 'password']),
