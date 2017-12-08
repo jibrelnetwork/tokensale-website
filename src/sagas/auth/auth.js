@@ -12,7 +12,7 @@ import gtm from '../../services/gtm'
 
 const FORM = 'login'
 
-function* getUserData(token) {
+export function* getUserData(token) {
   const response = yield call(request, `${SERVER}/api/account/`, null, 'get', { token })
   if (response.success) {
     const verifyStatus = response.data.identity_verification_status

@@ -57,11 +57,16 @@ const Controls = ({
 Controls.propTypes = {
   openDashboard: PropTypes.func.isRequired,
   toggleMenuOrDashboard: PropTypes.func.isRequired,
-  email: PropTypes.string.isRequired,
   isMenuOpen: PropTypes.bool.isRequired,
   isVerified: PropTypes.bool.isRequired,
   isAuthorized: PropTypes.bool.isRequired,
   isDashboardOpen: PropTypes.bool.isRequired,
+  /* optional */
+  email: PropTypes.string,
+}
+
+Controls.defaultProps = {
+  email: '...',
 }
 
 const mapStateToProps = (state) => ({

@@ -122,8 +122,8 @@ Dashboard.propTypes = {
   logout: PropTypes.func.isRequired,
   toggleLanguageDropdown: PropTypes.func.isRequired,
   accountData: PropTypes.shape({
-    firstName: PropTypes.string.isRequired,
-    lastName: PropTypes.string.isRequired,
+    firstName: PropTypes.string,
+    lastName: PropTypes.string,
   }).isRequired,
   isOpen: PropTypes.bool.isRequired,
   isLanguageDropdownOpen: PropTypes.bool.isRequired,

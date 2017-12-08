@@ -28,15 +28,21 @@ function* sendSuccess(address) {
   gtm.pushProfileAddedEth()
 }
 
-function* onSendResponse(address, response) {
-  if (response.success) {
+function* onSendResponse(address, { success, fail, data, statusText }) {
+  if (success) {
     yield sendSuccess(address)
-  } else if (response.fail) {
-    yield put(stopSubmit(FORM, { address: response.fail }))
-  } else if (response.data.address && (response.data.address.length > 0)) {
-    yield put(stopSubmit(FORM, { address: response.data.address[0] }))
+  } else if (fail) {
+    yield put(stopSubmit(FORM, { address: fail }))
+  } else if (data) {
+    if (data.address && (data.address.length > 0)) {
+      yield put(stopSubmit(FORM, { address: data.address[0] }))
+    } else if (data.detail) {
+      yield put(stopSubmit(FORM, { address: data.detail }))
+    } else {
+      yield put(stopSubmit(FORM, { address: 'Internal server error' }))
+    }
   } else {
-    yield put(stopSubmit(FORM, { address: response.statusText }))
+    yield put(stopSubmit(FORM, { address: statusText }))
   }
 }
 
