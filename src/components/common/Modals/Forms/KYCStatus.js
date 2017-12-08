@@ -9,22 +9,17 @@ import compose from 'lodash/fp/compose'
 import { account } from '../../../../actions'
 
 const MESSAGES = {
-  WithoutDocument: (
+  Pending: (
     <div>
-      You have yet to submit KYC documentation.
-      Verify your documentation by
-      <a
-        style={{ margin: '0 5px' }}
-        href="mailto:sale@jibrel.network"
-      >
-        Contacting Support
-      </a>
+      You have yet to submit KYC documentation. Verify your documentation by
+      <a style={{ margin: '0 5px' }} href="mailto:sale@jibrel.network">Contacting Support</a>
     </div>
   ),
-  Approved: 'Your KYC documentation and identity have been verified. Your submission is complete.',
-  Pending: 'Your KYC submission was preliminarily approved but requires manual verification.',
+  'Preliminarily Approved': 'Your KYC submission was preliminarily approved but requires manual ' +
+    'verification.',
   Declined: 'Your KYC documentation was declined. We’ve sent you an email explaining why. Please ' +
-      'contact the sales team for further assistance.',
+    'contact the sales team for further assistance.',
+  Approved: 'Your KYC documentation and identity have been verified. Your submission is complete.',
 }
 
 const KYCStatus = ({ handleSubmit, kycStatus, submitting }) => (

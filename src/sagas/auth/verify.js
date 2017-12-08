@@ -5,6 +5,7 @@ import { put, call, take, select } from 'redux-saga/effects'
 import { startSubmit, stopSubmit } from 'redux-form'
 
 import * as actions from '../../actions'
+import * as ACCOUNT from '../../constants/account'
 import * as VERIFY from '../../constants/auth/verify'
 import { SERVER } from '../.'
 import { gtm, storage } from '../../services'
@@ -13,24 +14,6 @@ import request from '../request'
 const getForm = (state) => `account-${state.auth.token}`
 
 const GET_ACCOUNT_DELAY = 30000
-
-export const computeStatus = (data) => {
-  const documentUrl = data.document_url
-  const isDocumentSkipped = data.is_document_skipped
-  return !documentUrl && isDocumentSkipped
-    ? 'WithoutDocument'
-    : data.identity_verification_status || (((
-      data.first_name &&
-      data.last_name &&
-      data.date_of_birth &&
-      data.citizenship &&
-      data.residency &&
-      data.terms_confirmed &&
-      documentUrl
-    ) || data.is_identity_verified) ? 'Pending' : undefined)
-    // Server can return null in identity_verification_status
-    // when all verification step was completed and data sended
-}
 
 function pushRegistrationSuccessEvent(isVerified) {
   const isRegistrationSuccessEventSended = (storage.getRegistrationSuccessEventSended() === '1')
@@ -43,13 +26,22 @@ function pushRegistrationSuccessEvent(isVerified) {
   storage.setRegistrationSuccessEventSended('1')
 }
 
+function getAccountData(responseData) {
+  return {
+    firstName: responseData.first_name,
+    lastName: responseData.last_name,
+    email: responseData.username,
+  }
+}
+
 function* onAccountResponse({ success, data }) {
   if (success) {
-    const verifyStatus = computeStatus(data)
-    yield pushRegistrationSuccessEvent(data.is_identity_verified)
+    const verifyStatus = data.identity_verification_status
+    yield pushRegistrationSuccessEvent(verifyStatus === 'Approved')
     yield put(actions.auth.verify.setStatus(verifyStatus))
+    yield put({ type: ACCOUNT.DASHBOARD.SET_DATA, payload: { accountData: getAccountData(data) } })
   } else {
-    yield put(actions.auth.verify.setStatus('Pending'))
+    yield put(actions.auth.verify.setStatus(null))
     console.log('Verification request error')
   }
 }
@@ -94,9 +86,9 @@ export function* updateUserInfo() {
     const form = yield select(getForm)
     const data = {
       residency,
+      citizenship,
       last_name: lastName,
       first_name: firstName,
-      citizenship,
       date_of_birth: moment(birthday).format('YYYY-MM-DD'),
     }
     yield put(startSubmit(form))
@@ -138,7 +130,7 @@ export function* uploadDocument() {
     if (response.success) {
       gtm.pushVerificationNextStep('PassportScan')
       yield put(stopSubmit(form))
-      yield put(actions.auth.verify.setStatus('Pending'))
+      yield put(actions.auth.verify.setStatus('Preliminarily Approved'))
       yield put(actions.auth.verify.setStage('loader'))
       yield delay(25000)
       yield call(getStatus)
@@ -161,7 +153,7 @@ export function* skipDocument() {
     if (response.success) {
       gtm.pushVerificationNextStep('SkipPassportScan')
       yield put(stopSubmit(form))
-      yield put(actions.auth.verify.setStatus('WithoutDocument'))
+      yield put(actions.auth.verify.setStatus('Pending'))
       yield put(replace('/account'))
     } else {
       yield put(stopSubmit(form, { document: 'Internal server error' }))

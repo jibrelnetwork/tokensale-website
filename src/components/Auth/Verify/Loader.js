@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom'
 
 const MESSAGES = {
   // eslint-disable-next-line max-len
-  Pending: 'We are currently processing your application.\nPlease note, we may request that you submit additional identity verification in the future',
+  'Preliminarily Approved': 'We are currently processing your application.\nPlease note, we may request that you submit additional identity verification in the future',
   Approved: 'Your identity has been verified \n and your application has been approved',
   Declined: "We currently can't verify your identity",
 }
@@ -43,7 +43,7 @@ Loader.propTypes = {
 }
 
 Loader.defaultProps = {
-  verifyStatus: 'Pending',
+  verifyStatus: 'Preliminarily Approved',
 }
 
 const mapStateToProps = (state) => ({

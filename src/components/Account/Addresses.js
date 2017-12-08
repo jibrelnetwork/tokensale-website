@@ -67,8 +67,9 @@ const Addresses = ({
 
 Addresses.propTypes = {
   pushSendRequestEvent: PropTypes.func.isRequired,
-  verifyStatus: PropTypes.string.isRequired,
   isICOStarted: PropTypes.bool.isRequired,
+  /* optional */
+  verifyStatus: PropTypes.string,
   ethAddress: PropTypes.string,
   btcAddress: PropTypes.string,
 }
@@ -76,6 +77,7 @@ Addresses.propTypes = {
 Addresses.defaultProps = {
   ethAddress: undefined,
   btcAddress: undefined,
+  verifyStatus: null,
 }
 
 const mapStateToProps = (state) => ({

@@ -33,12 +33,12 @@ const Dashboard = ({
   <div onClick={closeDashboard} className={cx('dashboard', { open: isOpen })}>
     <div className="overlay" />
     <div className="content">
-      {accountData.isVerified && (
+      {!!verifyStatus && (
         <div className="head">
-          <div className="name">{`${accountData.firstName || ''} ${accountData.lastName || ''}`}</div>
-          <div className="status">
-            {`KYC Status - ${(verifyStatus === 'Pending') ? 'Preliminarily Approved' : verifyStatus}`}
+          <div className="name">
+            {`${accountData.firstName || '...'} ${accountData.lastName || '...'}`}
           </div>
+          <div className="status">{`KYC Status - ${verifyStatus}`}</div>
           <div onClick={openKYCStatusModal} className="status-info" />
         </div>
       )}
@@ -56,10 +56,12 @@ const Dashboard = ({
         )}
         {isHomePage && (
           <div className="item go-to-dashboard">
-            <Link to="/account" className="title">Go to dashboard</Link>
+            <Link to={verifyStatus ? '/account' : '/verify'} className="title">
+              {verifyStatus ? 'Go to dashboard' : 'Complete verification'}
+            </Link>
           </div>
         )}
-        {(['WithoutDocument', 'Declined'].includes(verifyStatus) && isAccountPage) && (
+        {(['Pending', 'Declined'].includes(verifyStatus) && isAccountPage) && (
           <div className="item">
             <Link to="/verify" className="title">Upload document</Link>
           </div>
@@ -96,7 +98,7 @@ const Dashboard = ({
             Support
           </a>
         </div>
-        {accountData.isVerified && (
+        {(verifyStatus === 'Approved') && (
           <div className="item set-address">
             <div onClick={openSetAddressModal} className="title">Change ETH address</div>
           </div>
@@ -122,12 +124,11 @@ Dashboard.propTypes = {
   accountData: PropTypes.shape({
     firstName: PropTypes.string.isRequired,
     lastName: PropTypes.string.isRequired,
-    isVerified: PropTypes.bool.isRequired,
   }).isRequired,
-  verifyStatus: PropTypes.string.isRequired,
   isOpen: PropTypes.bool.isRequired,
   isLanguageDropdownOpen: PropTypes.bool.isRequired,
   /* optional */
+  verifyStatus: PropTypes.string,
   isHomePage: PropTypes.bool,
   isAccountPage: PropTypes.bool,
 }
@@ -135,6 +136,7 @@ Dashboard.propTypes = {
 Dashboard.defaultProps = {
   isHomePage: false,
   isAccountPage: false,
+  verifyStatus: null,
 }
 
 const mapStateToProps = (state) => ({

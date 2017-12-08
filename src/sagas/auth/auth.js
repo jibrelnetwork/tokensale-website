@@ -4,32 +4,19 @@ import { put, call, take } from 'redux-saga/effects'
 import { startSubmit, stopSubmit } from 'redux-form'
 import LogRocket from 'logrocket'
 
-import * as ACCOUNT from '../../constants/account'
 import * as AUTH from '../../constants/auth'
 import * as actions from '../../actions'
-import { computeStatus } from './verify'
 import { SERVER } from '../.'
 import request from '../request'
 import gtm from '../../services/gtm'
 
 const FORM = 'login'
 
-function getAccountData(responseData) {
-  return {
-    firstName: responseData.first_name,
-    lastName: responseData.last_name,
-    email: responseData.username,
-    isVerified: !!responseData.identity_verification_status,
-  }
-}
-
 function* getUserData(token) {
   const response = yield call(request, `${SERVER}/api/account/`, null, 'get', { token })
   if (response.success) {
-    const verifyStatus = computeStatus(response.data)
+    const verifyStatus = response.data.identity_verification_status
     const data = {
-      isVerified: response.data.is_identity_verified,
-      verifyStatus,
       isTermsConfirmed: response.data.terms_confirmed,
       isUserInfoFilled:
         !!response.data.first_name &&
@@ -39,20 +26,18 @@ function* getUserData(token) {
         !!response.data.residency,
       isDocumentUploaded: !!response.data.document_url,
     }
-    const accountData = getAccountData(response.data)
-    yield put({ type: ACCOUNT.DASHBOARD.SET_DATA, payload: { accountData } })
-    yield put(actions.auth.verify.setStatus(data.verifyStatus))
+    yield put(actions.auth.verify.setStatus(verifyStatus))
     if (!data.isTermsConfirmed) {
       yield put(actions.auth.verify.setStage('terms'))
     } else if (!data.isUserInfoFilled) {
       yield put(actions.auth.verify.setStage('user-info'))
-    } else if (!data.isDocumentUploaded || verifyStatus === 'Declined') {
+    } else if (!data.isDocumentUploaded || (verifyStatus === 'Declined')) {
       yield put(actions.auth.verify.setStage('document'))
     }
     yield put(stopSubmit(FORM))
     yield put(actions.auth.setToken(token))
-    yield put(data.verifyStatus ? push('/account') : push('/verify'))
-    gtm.pushAuthSuccess(data.isVerified)
+    yield put(verifyStatus ? push('/account') : push('/verify'))
+    gtm.pushAuthSuccess(verifyStatus === 'Approved')
   } else {
     yield put(stopSubmit(FORM))
     toast.error('Account info request error')

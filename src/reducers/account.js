@@ -10,10 +10,9 @@ const defaultState = {
   },
   dashboard: {
     accountData: {
-      firstName: '',
-      lastName: '',
+      firstName: '...',
+      lastName: '...',
       email: '...',
-      isVerified: false,
     },
     isOpen: false,
   },
