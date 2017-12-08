@@ -63,10 +63,16 @@ Uploader.propTypes = {
 const enhance = lifecycle({
   async componentDidMount() {
     try {
-      await axios.get(`https://cloud.filestackapi.com/prefetc?apikey=${FILESTACK_API_KEY}`)
-      LogRocket.track('[Success] FileStack API request')
+      await axios.get(`https://cloud.filestackapi.com/prefetch?apikey=${FILESTACK_API_KEY}`)
+      LogRocket.track('FileStack|Key|Success')
     } catch (error) {
-      LogRocket.track('[Error] FileStack API request')
+      LogRocket.track('FileStack|Key|Error')
+    }
+    try {
+      await axios.post(`https://www.filestackapi.com/api/store/s3?key=${FILESTACK_API_KEY}`)
+      LogRocket.track('FileStack|Upload|Success')
+    } catch (error) {
+      LogRocket.track('FileStack|Upload|Error')
     }
   },
 })
