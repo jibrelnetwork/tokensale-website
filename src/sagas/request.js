@@ -19,7 +19,7 @@ export default function* request(url, data, method, options = {}) {
     })
     if (response.status >= 200 && response.status < 300) {
       return { success: true, ...response }
-    } else if (response.status === 400) {
+    } else if ((response.status === 400) || (response.status === 403)) {
       return { error: true, ...response }
     } else if (response.status === 401) {
       yield put(actions.auth.logout())

@@ -5,6 +5,7 @@ import LogRocket from 'logrocket'
 
 import * as REGISTER from '../../constants/auth/register'
 import { SERVER } from '../.'
+import { getUserData } from './auth'
 import request from '../request'
 import gtm from '../../services/gtm'
 import tracking from '../../services/tracking'
@@ -27,7 +28,11 @@ export function* createAccount() {
     yield put(startSubmit(FORM))
     const response = yield call(request, `${SERVER}/auth/registration/`, data, 'post')
     if (response.success) {
+      const token = response.data.key
       LogRocket.identify(data.email)
+      if (token) {
+        yield getUserData(token)
+      }
       gtm.pushRegistrationEmail()
       yield put(stopSubmit(FORM))
       yield put(push('/welcome/email/sended'))
