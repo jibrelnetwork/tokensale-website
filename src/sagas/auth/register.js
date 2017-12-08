@@ -18,10 +18,10 @@ export function* createAccount() {
     } = yield take(REGISTER.CREATE_ACCOUNT)
     const trackingData = tracking.get()
     const data = {
-      email: email.toLowerCase(),
       captcha,
       password,
       tracking: trackingData,
+      email: email.toLowerCase(),
       password_confirm: passwordConfirm,
     }
     yield put(startSubmit(FORM))

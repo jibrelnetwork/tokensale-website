@@ -25,7 +25,7 @@
       background-image: url("/static/icons/kyc-status-1.svg");
     }
 
-    &.kyc-status.pending {
+    &.kyc-status.preliminarily.approved {
       background-image: url("/static/icons/kyc-status-2.svg");
     }
 
@@ -33,7 +33,7 @@
       background-image: url("/static/icons/kyc-status-3.svg");
     }
 
-    &.kyc-status.withoutdocument {
+    &.kyc-status.pending {
       background-image: url("/static/icons/kyc-status-3.svg");
     }
   }
