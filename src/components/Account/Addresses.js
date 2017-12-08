@@ -54,11 +54,11 @@ const Addresses = ({
       <div className="addresses declined clear">
         <div className="info-block">
           <div className="icon ico-waiting" />
-          <p>
+          <div>
             Jibrel Network Token Sale starts on 27 November 2017 - 12:00 UTC.
             <br />
             Your dedicated BTC and ETH contribution addresses will be shown here once the token sale starts.
-          </p>
+          </div>
         </div>
       </div>
     )}

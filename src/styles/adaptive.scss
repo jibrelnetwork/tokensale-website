@@ -422,7 +422,7 @@
 @media only screen and (max-width: 380px) {
   body {
     .info-block .info-text {
-      max-width: 180px;
+      max-width: 260px;
     }
 
     .inner-page .content .transactions {
@@ -433,26 +433,10 @@
 }
 
 @media only screen and (max-width: 360px) {
-  $mobile360-modal-padding: 15px;
-
   body {
-    .info-block .info-text {
-      /* font-size: 10px; */
-    }
-
     .modal {
       .modal-content {
         margin: 10px;
-        padding: $mobile360-modal-padding;
-      }
-
-      .modal-title {
-        margin-bottom: $mobile360-modal-padding;
-      }
-
-      .modal-close {
-        top: $mobile360-modal-padding;
-        right: $mobile360-modal-padding;
       }
     }
   }
