@@ -13,3 +13,8 @@ export const setToken = (token) => ({
   type: AUTH.SET_TOKEN,
   payload: { token },
 })
+
+export const showSupportLink = (isShow = true) => ({
+  type: AUTH.SHOW_SUPPORT_LINK,
+  payload: { isShow },
+})

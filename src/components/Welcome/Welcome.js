@@ -28,13 +28,13 @@ function getPageName(pathname) {
   }
 }
 
-const Welcome = ({ isAuthorized, location: { pathname } }) => (
+const Welcome = ({ location: { pathname }, isAuthorized, isSupportLinkShown }) => (
   <div className="Welcome">
     <div className={cx('section', 'start', getPageName(pathname))}>
       <div className="bg-1" />
       <div className="bg-2" />
       <div className="inner">
-        <Header />
+        <Header isSupportLinkShown={isSupportLinkShown} />
         <Route path="/welcome" exact component={Content} />
       </div>
       <Switch>
@@ -70,10 +70,12 @@ Welcome.propTypes = {
     pathname: PropTypes.string.isRequired,
   }).isRequired,
   isAuthorized: PropTypes.bool.isRequired,
+  isSupportLinkShown: PropTypes.bool.isRequired,
 }
 
 const mapStateToProps = (state) => ({
   isAuthorized: !!state.auth.token,
+  isSupportLinkShown: state.auth.isSupportLinkShown,
 })
 
 export default connect(

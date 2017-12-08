@@ -1,13 +1,13 @@
-import cx from 'classnames'
 import React from 'react'
-import { Link } from 'react-router-dom'
+import cx from 'classnames'
 import PropTypes from 'prop-types'
+import { Link } from 'react-router-dom'
 import { compose } from 'lodash/fp'
 import { connect } from 'react-redux'
 import { withHandlers, withState } from 'recompose'
 
-import Dashboard from '../../common/Dashboard'
 import * as actions from '../../../actions'
+import Dashboard from '../../common/Dashboard'
 
 function isTouchDevice() {
   return ('ontouchstart' in window) || navigator.maxTouchPoints

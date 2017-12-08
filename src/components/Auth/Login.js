@@ -2,8 +2,10 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import { lifecycle } from 'recompose'
 import { set, get, compose, identity } from 'lodash/fp'
 import { Field, reduxForm, getFormSubmitErrors, getFormValues } from 'redux-form'
+
 import * as actions from '../../actions'
 import { Input } from '../common'
 
@@ -86,6 +88,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = {
   resendEmail: actions.auth.email.resend,
+  showSupportLink: actions.auth.showSupportLink,
 }
 
 export default compose(
@@ -109,5 +112,13 @@ export default compose(
           : identity,
     )({}),
     destroyOnUnmount: true,
+  }),
+  lifecycle({
+    componentWillReceiveProps(props) {
+      if (props.submitFailed) {
+        props.showSupportLink()
+      }
+    },
+    componentWillUnmount() { this.props.showSupportLink(false) }, // eslint-disable-line fp/no-this
   }),
 )(Login)
