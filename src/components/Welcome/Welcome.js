@@ -15,14 +15,22 @@ import Modals from '../common/Modals'
 
 const { KYCStatusModal, SetAddressModal, SetPasswordModal } = Modals
 const HOME_PAGE_PATHNAME = '/welcome'
+const EMAIL_SENDED_PAGE_PATHNAME = '/welcome/email/sended'
 
-function isHomePage(pathname) {
-  return (pathname === HOME_PAGE_PATHNAME)
+function getPageName(pathname) {
+  switch (pathname) {
+    case HOME_PAGE_PATHNAME:
+      return 'home'
+    case EMAIL_SENDED_PAGE_PATHNAME:
+      return 'email-sended'
+    default:
+      return ''
+  }
 }
 
 const Welcome = ({ isAuthorized, location: { pathname } }) => (
   <div className="Welcome">
-    <div className={cx('section', 'start', { home: isHomePage(pathname) })}>
+    <div className={cx('section', 'start', getPageName(pathname))}>
       <div className="bg-1" />
       <div className="bg-2" />
       <div className="inner">
@@ -46,7 +54,7 @@ const Welcome = ({ isAuthorized, location: { pathname } }) => (
     <KYCStatusModal />
     <SetAddressModal />
     <SetPasswordModal />
-    {isHomePage(pathname) && (
+    {(getPageName(pathname) === 'home') && (
       <div>
         <Tokens />
         <Benefits />
