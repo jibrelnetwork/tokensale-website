@@ -108,17 +108,11 @@ export default compose(
     mapDispatchToProps,
   ),
   reduxForm({
-    onSubmit: ({ document: { url, type } }, dispatch) =>
-      dispatch(actions.auth.verify.uploadDocument(url, type)),
-    validate: ({ document: { url, type } = {} }) => !url || !type
+    onSubmit: ({ document }, dispatch) =>
+      dispatch(actions.auth.verify.uploadDocument(document)),
+    validate: ({ document }) => !document || !document.name
       ? { document: 'Upload document scan in order to verify your identity' }
       : {},
-    initialValues: {
-      document: {
-        url: undefined,
-        type: undefined,
-      },
-    },
     destroyOnUnmount: false,
   })
 )(Document)
