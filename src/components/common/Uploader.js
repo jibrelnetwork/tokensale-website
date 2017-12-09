@@ -24,13 +24,13 @@ const Uploader = ({
       multiple={false}
       className={cx('area', file.preview && file.type && 'with-file')}
     >
-      {file.preview && file.type && (
+      {file.preview && file.type ? (
         file.type.match('image')
           ? <img src={file.preview} alt="Document" className="image" />
           : file.type === 'application/pdf'
             ? <div>{file.name}</div>
             : undefined
-      )}
+      ) : <div className="hint">Upload your passport</div>}
     </Dropzone>
     {touched && error && <div className="error-text">{error}</div>}
   </div>

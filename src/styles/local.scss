@@ -231,6 +231,10 @@
     font-family: $font;
     transition: all 0.3s ease;
 
+    > .hint {
+      text-align: center;
+    }
+
     &:hover {
       border-color: $blue2;
       background-color: $light-blue;
