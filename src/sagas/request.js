@@ -8,14 +8,18 @@ import * as actions from '../actions'
 export default function* request(url, data, method, options = {}) {
   const authToken = options.token || (yield select((state) => state.auth.token))
   const silentMode = options.silent
+  const isCustomContentType = !!options.contentType
   try {
     const response = yield call(axios, {
       url,
       data,
       method,
-      headers: authToken ? { Authorization: `Token ${authToken}` } : undefined,
       timeout: 30000,
       validateStatus: constant(true), // resolve all
+      headers: !authToken ? undefined : {
+        Authorization: `Token ${authToken}`,
+        'Content-Type': isCustomContentType ? options.contentType : 'application/json',
+      },
     })
     if (response.status >= 200 && response.status < 300) {
       return { success: true, ...response }

@@ -33,7 +33,7 @@ export const skipDocument = () => ({
   type: VERIFY.SKIP_DOCUMENT,
 })
 
-export const uploadDocument = (documentUrl, documentType) => ({
+export const uploadDocument = (document) => ({
   type: VERIFY.UPLOAD_DOCUMENT,
-  payload: { documentUrl, documentType },
+  payload: { document },
 })

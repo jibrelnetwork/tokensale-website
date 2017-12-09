@@ -112,34 +112,36 @@ export function* updateUserInfo() {
   }
 }
 
+function* onUploadDocumentResponse({ success, error }, form) {
+  if (success) {
+    gtm.pushVerificationNextStep('PassportScan')
+    yield put(stopSubmit(form))
+    yield put(actions.auth.verify.setStatus('Preliminarily Approved'))
+    yield put(actions.auth.verify.setStage('loader'))
+    yield delay(25000)
+    yield call(getStatus)
+  } else if (error) {
+    yield put(stopSubmit(form, { document: error }))
+  } else {
+    yield put(stopSubmit(form))
+  }
+}
+
 export function* uploadDocument() {
   while (true) { // eslint-disable-line fp/no-loops
-    const {
-      payload: {
-        documentUrl,
-        documentType,
-      },
-    } = yield take(VERIFY.UPLOAD_DOCUMENT)
+    const { payload } = yield take(VERIFY.UPLOAD_DOCUMENT)
     const form = yield select(getForm)
-    const data = {
-      document_url: documentUrl,
-      document_type: documentType,
-    }
+    const data = new FormData()
+    data.append('image', payload.document)
     yield put(startSubmit(form))
-    const response = yield call(request, `${SERVER}/api/account/`, data, 'put')
-    if (response.success) {
-      gtm.pushVerificationNextStep('PassportScan')
-      yield put(stopSubmit(form))
-      yield put(actions.auth.verify.setStatus('Preliminarily Approved'))
-      yield put(actions.auth.verify.setStage('loader'))
-      yield delay(25000)
-      yield call(getStatus)
-    } else if (response.error) {
-      const errors = { document: response.data.document_url || response.data.document_type }
-      yield put(stopSubmit(form, errors))
-    } else {
-      yield put(stopSubmit(form))
-    }
+    const response = yield call(
+      request,
+      `${SERVER}/api/document/`,
+      data,
+      'post',
+      { contentType: 'multipart/form-data' }
+    )
+    yield onUploadDocumentResponse(response, form)
   }
 }
 
