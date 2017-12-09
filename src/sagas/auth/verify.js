@@ -1,5 +1,6 @@
 import moment from 'moment'
 import { delay } from 'redux-saga'
+import LogRocket from 'logrocket'
 import { replace } from 'react-router-redux'
 import { put, call, take, select } from 'redux-saga/effects'
 import { startSubmit, stopSubmit } from 'redux-form'
@@ -114,20 +115,14 @@ export function* updateUserInfo() {
 
 export function* uploadDocument() {
   while (true) { // eslint-disable-line fp/no-loops
-    const {
-      payload: {
-        documentUrl,
-        documentType,
-      },
-    } = yield take(VERIFY.UPLOAD_DOCUMENT)
+    const { payload: { document } } = yield take(VERIFY.UPLOAD_DOCUMENT)
     const form = yield select(getForm)
-    const data = {
-      document_url: documentUrl,
-      document_type: documentType,
-    }
     yield put(startSubmit(form))
-    const response = yield call(request, `${SERVER}/api/account/`, data, 'put')
+    const formData = new FormData()
+    formData.append('image', document, document.name)
+    const response = yield call(request, `${SERVER}/api/document/`, formData, 'post', { isFileUpload: true })
     if (response.success) {
+      LogRocket.track('Document upload success')
       gtm.pushVerificationNextStep('PassportScan')
       yield put(stopSubmit(form))
       yield put(actions.auth.verify.setStatus('Preliminarily Approved'))
@@ -135,9 +130,11 @@ export function* uploadDocument() {
       yield delay(25000)
       yield call(getStatus)
     } else if (response.error) {
-      const errors = { document: response.data.document_url || response.data.document_type }
+      LogRocket.track('Document upload error')
+      const errors = { document: response.data.error }
       yield put(stopSubmit(form, errors))
     } else {
+      LogRocket.track('Document upload error')
       yield put(stopSubmit(form))
     }
   }
