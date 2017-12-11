@@ -9,23 +9,12 @@ import * as actions from '../../actions'
 import * as ACCOUNT from '../../constants/account'
 import * as VERIFY from '../../constants/auth/verify'
 import { SERVER } from '../.'
-import { gtm, storage } from '../../services'
+import gtm from '../../services/gtm'
 import request from '../request'
 
 const getForm = (state) => `account-${state.auth.token}`
 
 const GET_ACCOUNT_DELAY = 30000
-
-function pushRegistrationSuccessEvent(isVerified) {
-  const isRegistrationSuccessEventSended = (storage.getRegistrationSuccessEventSended() === '1')
-
-  if (isRegistrationSuccessEventSended || !isVerified) {
-    return
-  }
-
-  gtm.pushRegistrationSuccess()
-  storage.setRegistrationSuccessEventSended('1')
-}
 
 function getAccountData(responseData) {
   return {
@@ -38,7 +27,6 @@ function getAccountData(responseData) {
 function* onAccountResponse({ success, data }) {
   if (success) {
     const verifyStatus = data.identity_verification_status
-    yield pushRegistrationSuccessEvent(verifyStatus === 'Approved')
     yield put(actions.auth.verify.setStatus(verifyStatus))
     yield put({ type: ACCOUNT.DASHBOARD.SET_DATA, payload: { accountData: getAccountData(data) } })
   } else {
@@ -129,6 +117,7 @@ export function* uploadDocument() {
       yield put(actions.auth.verify.setStage('loader'))
       yield delay(25000)
       yield call(getStatus)
+      gtm.pushRegistrationSuccess()
     } else if (response.error) {
       LogRocket.track('Document upload error')
       const errors = { document: response.data.error }
@@ -152,6 +141,7 @@ export function* skipDocument() {
       yield put(stopSubmit(form))
       yield put(actions.auth.verify.setStatus('Pending'))
       yield put(replace('/account'))
+      gtm.pushRegistrationSuccess()
     } else {
       yield put(stopSubmit(form, { document: 'Internal server error' }))
     }

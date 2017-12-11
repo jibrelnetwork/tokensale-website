@@ -5,7 +5,6 @@ const storageKeys = {
   utmData: 'utmData',
   affiliateNetworks: 'affiliateNetworks',
   newTransactionEventSended: 'newTransactionEventSended',
-  registrationSuccessEventSended: 'registrationSuccessEventSended',
 }
 
 const storageMethods = {}
