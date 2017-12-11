@@ -30,7 +30,7 @@ module.exports = { // eslint-disable-line fp/no-mutation
       use: [cacheLoader, 'style-loader', 'css-loader', 'sass-loader'],
       test: /\.(css|scss)$/,
     }, {
-      use: [cacheLoader, 'file-loader'],
+      use: 'file-loader',
       test: /\.(eot|otf|svg|ttf|woff|woff2|jpg|jpeg|png|gif)$/,
     }],
   },
