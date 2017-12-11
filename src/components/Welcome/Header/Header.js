@@ -1,11 +1,9 @@
 import React from 'react'
-import cx from 'classnames'
-import PropTypes from 'prop-types'
 import { Link, Route } from 'react-router-dom'
 
 import Controls from './Controls'
 
-const Header = ({ isSupportLinkShown }) => (
+const Header = () => (
   <div className="header clear">
     <Link to="/welcome" className="logo pull-left scroll">
       <img src="/static/logo.svg" alt="" />
@@ -20,7 +18,7 @@ const Header = ({ isSupportLinkShown }) => (
       render={() => (
         <div className="header-links pull-right">
           <a
-            className={cx('support-link', { show: isSupportLinkShown })}
+            className="support-link show"
             target="_blank"
             rel="noopener noreferrer"
             href="https://jibrelnetwork.freshdesk.com/support/tickets/new"
@@ -33,9 +31,5 @@ const Header = ({ isSupportLinkShown }) => (
     />
   </div>
 )
-
-Header.propTypes = {
-  isSupportLinkShown: PropTypes.bool.isRequired,
-}
 
 export default Header
