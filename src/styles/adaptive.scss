@@ -164,7 +164,7 @@
       display: block;
       width: 0;
       min-height: calc(100vh - 100px);
-      padding: 35px 30px;
+      padding: 35px 0;
       background: $blue4;
       overflow: hidden;
       opacity: 0;
@@ -186,6 +186,7 @@
 
       &.menu-active {
         width: 100%;
+        padding: 35px 30px;
         opacity: 1;
       }
 
