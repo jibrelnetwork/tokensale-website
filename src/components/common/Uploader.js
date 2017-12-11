@@ -1,8 +1,11 @@
 import cx from 'classnames'
 import React from 'react'
-import Dropzone from 'react-dropzone'
-import PropTypes from 'prop-types'
 import { last } from 'lodash/fp'
+import Dropzone from 'react-dropzone'
+import { toast } from 'react-toastify'
+import PropTypes from 'prop-types'
+
+const MAX_FILE_SIZE = 10000000
 
 const Uploader = ({
   input: {
@@ -19,8 +22,18 @@ const Uploader = ({
     <Dropzone
       name={name}
       accept="image/jpg, image/png, image/jpeg, application/pdf"
-      onDrop={(files) => onChange(last(files))}
-      maxSize={10000000}
+      onDrop={(acceptedFiles, rejectedFiles) => {
+        const rejectedFile = last(rejectedFiles)
+        if (rejectedFile) {
+          if (rejectedFile.size > MAX_FILE_SIZE) {
+            toast.warn(`File ${rejectedFile.name} is too big. The accepted file size is less than 10MB`)
+          } else {
+            toast.warn(`File ${rejectedFile.name} is not an accepted file type. The accepted file types are jpg, jpeg, png, pdf`)
+          }
+        }
+        return onChange(last(acceptedFiles))
+      }}
+      maxSize={MAX_FILE_SIZE}
       multiple={false}
       className={cx('area', file.preview && file.type && 'with-file')}
     >
