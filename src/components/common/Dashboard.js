@@ -47,7 +47,7 @@ const Dashboard = ({
           <div className="item">
             <a
               className="title"
-              href="https://jibrel.network"
+              href="https://jibrel.network?from-sale=1"
               target={`${isTouchDevice() ? '_self' : '_blank'}`}
             >
               About Jibrel Network

@@ -21,7 +21,7 @@ const Content = ({ isAuthorized }) => (
       </Link>
     </div>
     <div className="link about-jibrel">
-      <a href="https://jibrel.network" className="button bordered">
+      <a href="https://jibrel.network?from-sale=1" className="button bordered">
         About Jibrel Network
       </a>
     </div>

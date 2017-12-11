@@ -36,7 +36,10 @@ const Controls = ({
         </li>,
       ]) : ([
         <li key="0">
-          <a href="https://jibrel.network" target={`${isTouchDevice() ? '_self' : '_blank'}`}>
+          <a
+            href="https://jibrel.network?from-sale=1"
+            target={`${isTouchDevice() ? '_self' : '_blank'}`}
+          >
             About Jibrel Network
           </a>
         </li>,
