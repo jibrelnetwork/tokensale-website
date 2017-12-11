@@ -169,6 +169,11 @@ select:-moz-focusring {
   top: 60px;
 }
 
+.field.field-checkbox.error .error-text {
+  top: initial;
+  bottom: -20px;
+}
+
 .form .inner {
   padding: 80px 0;
   background-color: $white;
