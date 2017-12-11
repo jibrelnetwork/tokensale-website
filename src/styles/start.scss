@@ -138,16 +138,22 @@
     margin-right: 50px;
     color: $white;
     visibility: hidden;
-    opacity: 0;
 
     &.show {
       visibility: visible;
-      opacity: 1;
       transition: opacity 0.3s ease;
+
+      a {
+        opacity: 1;
+      }
     }
 
-    &:hover {
-      opacity: 0.5;
+    a {
+      opacity: 0;
+
+      &:hover {
+        opacity: 0.5;
+      }
     }
 
     @media only screen and (max-width: 375px) {

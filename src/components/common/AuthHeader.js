@@ -45,7 +45,7 @@ const Header = ({
             </div>
           </li>
         )}
-        <li className="support-link">
+        <li className="support-link show">
           <a
             target="_blank"
             rel="noopener noreferrer"
