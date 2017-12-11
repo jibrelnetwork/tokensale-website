@@ -2,7 +2,7 @@
 
 import storage from './storage'
 
-const AFFILIATE_NETWORKS = ['clicksureclickid', 'track_id', 'actionpay']
+const AFFILIATE_NETWORKS = ['clicksureclickid', 'track_id', 'actionpay', 'adpump']
 
 function init() {
   initGaId()
