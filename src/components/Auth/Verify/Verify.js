@@ -2,13 +2,12 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
+import { Modals, AuthHeader } from '../../common'
 import Terms from './Terms'
 import Loader from './Loader'
 import UserInfo from './UserInfo'
 import Document from './Document'
 import Progress from './Progress'
-import Modals from '../../common/Modals'
-import AuthHeader from '../../common/AuthHeader'
 
 const { KYCStatusModal, SetPasswordModal } = Modals
 

@@ -3,4 +3,4 @@ import SetAddressModal from './SetAddress'
 import SetPasswordModal from './SetPassword'
 import WithdrawModal from './Withdraw'
 
-export default { KYCStatusModal, SetAddressModal, SetPasswordModal, WithdrawModal }
+export { KYCStatusModal, SetAddressModal, SetPasswordModal, WithdrawModal }

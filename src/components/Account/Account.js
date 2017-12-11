@@ -1,11 +1,10 @@
 import React from 'react'
 
+import { Modals, AuthHeader, BitcoinSuisse, Social } from '../common'
 import Tokens from '../Welcome/Tokens'
 import Benefits from '../Welcome/Benefits'
 import Addresses from './Addresses'
 import Transactions from './Transactions'
-import Modals from '../common/Modals'
-import AuthHeader from '../common/AuthHeader'
 
 const { KYCStatusModal, SetAddressModal, SetPasswordModal, WithdrawModal } = Modals
 
@@ -24,6 +23,8 @@ const Account = () => (
       </div>
     </div>
     <Benefits />
+    <BitcoinSuisse />
+    <Social />
     <KYCStatusModal />
     <SetAddressModal />
     <SetPasswordModal />

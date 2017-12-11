@@ -4,14 +4,12 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { Route, Switch, Redirect } from 'react-router-dom'
 
+import * as Auth from '../Auth'
+import { Modals, BitcoinSuisse, Social } from '../common'
 import Header from './Header'
 import Content from './Content'
 import Tokens from './Tokens'
 import Benefits from './Benefits'
-import BitcoinSuisse from './BitcoinSuisse'
-import Social from './Social'
-import * as Auth from '../Auth'
-import Modals from '../common/Modals'
 
 const { KYCStatusModal, SetAddressModal, SetPasswordModal } = Modals
 const HOME_PAGE_PATHNAME = '/welcome'
