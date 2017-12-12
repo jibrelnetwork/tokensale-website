@@ -12,7 +12,7 @@ export const SERVER =
 export default function* sagas() {
   yield [
     account.address.get(),
-    account.address.send(),
+    account.address.requestChange(),
     account.addresses.get(),
     account.address.changeConfirm(),
     account.balance.withdraw(),

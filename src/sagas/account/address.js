@@ -1,3 +1,5 @@
+/* eslint-disable fp/no-loops */
+
 import { replace } from 'react-router-redux'
 import { call, put, take } from 'redux-saga/effects'
 import { startSubmit, stopSubmit, reset } from 'redux-form'
@@ -13,17 +15,17 @@ function* set(address) {
   yield put({ type: ADDRESS.SET, payload: { address } })
 }
 
-function* sendSuccess(address) {
-  yield set(address)
-  yield put(stopSubmit(FORM))
+function* requestChangeSuccess() {
   yield put({ type: ADDRESS.CHANGE_REQUESTED, payload: { isAddressChangeRequested: true } })
+  yield put(stopSubmit(FORM))
   yield put(reset(FORM))
+
   gtm.pushProfileAddedEth()
 }
 
-function* onSendResponse(address, { success, fail, data, statusText }) {
+function* onRequestChangeResponse({ success, fail, data, statusText }) {
   if (success) {
-    yield sendSuccess(address)
+    yield requestChangeSuccess()
   } else if (fail) {
     yield put(stopSubmit(FORM, { address: fail }))
   } else if (data) {
@@ -40,29 +42,33 @@ function* onSendResponse(address, { success, fail, data, statusText }) {
 }
 
 export function* get() {
-  while (true) { // eslint-disable-line fp/no-loops
+  while (true) {
     yield take(ADDRESS.GET)
     const response = yield call(request, `${SERVER}/api/withdraw-address/`, null, 'get')
+
     if (response.success) {
       yield set(response.data.address)
     }
   }
 }
 
-export function* send() {
-  while (true) { // eslint-disable-line fp/no-loops
-    const { payload: { address } } = yield take(ADDRESS.SEND)
+export function* requestChange() {
+  while (true) {
+    const { payload: { address } } = yield take(ADDRESS.REQUEST_CHANGE)
+
     yield put(startSubmit(FORM))
+
     const response = yield call(request, `${SERVER}/api/withdraw-address/`, { address }, 'put')
-    yield onSendResponse(address, response)
+    yield onRequestChangeResponse(response)
   }
 }
 
 export function* changeConfirm() {
-  while (true) { // eslint-disable-line fp/no-loops
+  while (true) {
     const { payload: { operationId, token } } = yield take(ADDRESS.CHANGE_CONFIRM)
     const data = { operation_id: operationId, token }
     const response = yield call(request, `${SERVER}/api/withdraw-address/confirm/`, data, 'post')
+
     if (response.success) {
       yield put(replace('/welcome/change-address-confirm/success'))
     } else if (response.error) {
@@ -75,3 +81,5 @@ export function* changeConfirm() {
     }
   }
 }
+
+/* eslint-enable fp/no-loops */
