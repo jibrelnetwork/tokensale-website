@@ -1,3 +1,5 @@
+/* eslint-disable fp/no-loops */
+
 import { delay } from 'redux-saga'
 import { replace } from 'react-router-redux'
 import { put, call, take } from 'redux-saga/effects'
@@ -26,34 +28,37 @@ function* requestBalance() {
   yield onBalanceResponse(response)
 }
 
+function* onRequestWithdrawResponse({ success }) {
+  if (success) {
+    yield requestBalance()
+    yield put({ type: BALANCE.WITHDRAW_REQUESTED, payload: { isWithdrawRequested: true } })
+    yield put(stopSubmit(FORM))
+
+    gtm.pushProfileRequestWithdraw()
+  } else {
+    yield put(stopSubmit(FORM))
+  }
+}
+
 export function* get() {
-  while (true) { // eslint-disable-line fp/no-loops
+  while (true) {
     yield requestBalance()
     yield delay(DELAY)
   }
 }
 
-export function* withdraw() {
-  while (true) { // eslint-disable-line fp/no-loops
-    yield take(BALANCE.WITHDRAW)
+export function* requestWithdraw() {
+  while (true) {
+    yield take(BALANCE.REQUEST_WITHDRAW)
     yield put(startSubmit(FORM))
 
     const response = yield call(request, `${SERVER}/api/withdraw-jnt/`, null, 'post')
-
-    if (response.success) {
-      yield requestBalance()
-      yield put({ type: BALANCE.WITHDRAW_REQUESTED, payload: { isWithdrawRequested: true } })
-      yield put(stopSubmit(FORM))
-
-      gtm.pushProfileRequestWithdraw()
-    } else {
-      yield put(stopSubmit(FORM))
-    }
+    yield onRequestWithdrawResponse(response)
   }
 }
 
 export function* changeConfirm() {
-  while (true) { // eslint-disable-line fp/no-loops
+  while (true) {
     const { payload: { operationId, token } } = yield take(BALANCE.WITHDRAW_CONFIRM)
     const data = { operation_id: operationId, token }
     const response = yield call(request, `${SERVER}/api/withdraw-jnt/confirm/`, data, 'post')
@@ -70,3 +75,5 @@ export function* changeConfirm() {
     }
   }
 }
+
+/* eslint-enable fp/no-loops */
