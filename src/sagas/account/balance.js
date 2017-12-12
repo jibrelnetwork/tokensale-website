@@ -42,6 +42,7 @@ export function* withdraw() {
 
     if (response.success) {
       yield requestBalance()
+      yield put({ type: BALANCE.WITHDRAW_REQUESTED, payload: { isWithdrawRequested: true } })
       yield put(stopSubmit(FORM))
 
       gtm.pushProfileRequestWithdraw()

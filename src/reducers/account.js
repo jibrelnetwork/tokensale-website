@@ -22,6 +22,7 @@ const defaultState = {
   ethAddress: undefined,
   address: undefined,
   isAddressChangeRequested: false,
+  isWithdrawRequested: false,
 }
 
 const accountReducer = (state = defaultState, action) => {
@@ -48,6 +49,11 @@ const accountReducer = (state = defaultState, action) => {
     case ACCOUNT.BALANCE.REQUEST_SUCCESS: {
       const { balance } = action.payload
       return set('balance', balance, state)
+    }
+
+    case ACCOUNT.BALANCE.WITHDRAW_REQUESTED: {
+      const { isWithdrawRequested } = action.payload
+      return set('isWithdrawRequested', isWithdrawRequested, state)
     }
 
     case ACCOUNT.DASHBOARD.TOGGLE: {
