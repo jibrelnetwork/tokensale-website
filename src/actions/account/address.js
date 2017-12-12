@@ -5,6 +5,11 @@ export const send = (address) => ({
   payload: { address },
 })
 
+export const changeRequested = (isAddressChangeRequested) => ({
+  type: ADDRESS.CHANGE_REQUESTED,
+  payload: { isAddressChangeRequested },
+})
+
 export const get = () => ({
   type: ADDRESS.GET,
 })

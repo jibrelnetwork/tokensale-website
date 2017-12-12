@@ -2,19 +2,12 @@ import { replace } from 'react-router-redux'
 import { call, put, take } from 'redux-saga/effects'
 import { startSubmit, stopSubmit, reset } from 'redux-form'
 
-import gtm from '../../services/gtm'
-import { ADDRESS, MODALS } from '../../constants/account'
-import request from '../request'
 import { SERVER } from '../.'
+import { ADDRESS } from '../../constants/account'
+import request from '../request'
+import gtm from '../../services/gtm'
 
 const FORM = 'set-address'
-
-function* closeSetAddressModal() {
-  yield put({
-    type: MODALS.CHANGE_STATE,
-    payload: { modalName: 'setAddress', modalState: 'close' },
-  })
-}
 
 function* set(address) {
   yield put({ type: ADDRESS.SET, payload: { address } })
@@ -23,7 +16,7 @@ function* set(address) {
 function* sendSuccess(address) {
   yield set(address)
   yield put(stopSubmit(FORM))
-  yield closeSetAddressModal()
+  yield put({ type: ADDRESS.CHANGE_REQUESTED, payload: { isAddressChangeRequested: true } })
   yield put(reset(FORM))
   gtm.pushProfileAddedEth()
 }

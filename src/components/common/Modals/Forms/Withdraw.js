@@ -146,8 +146,8 @@ export default compose(
       if (!!messageType || isWithdrawConfirmed) {
         closeWithdrawModal()
       } else {
-        confirmWithdraw(true)
         requestWithdraw()
+        confirmWithdraw(true)
       }
     },
   }),
