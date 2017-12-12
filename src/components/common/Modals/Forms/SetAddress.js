@@ -50,10 +50,10 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = {
+  setAddressChangeRequested: account.address.changeRequested,
+  requestAddressChange: (address) => account.address.requestChange(address),
   shakeSetAddressModal: () => account.modals.changeState('setAddress', 'shake'),
   closeSetAddressModal: () => account.modals.changeState('setAddress', 'close'),
-  requestAddressChanging: (address) => account.address.send(address),
-  setAddressChangeRequested: account.address.changeRequested,
 }
 
 export default compose(
@@ -70,7 +70,7 @@ export default compose(
   withHandlers({
     submitAddressChanging: (props) => ({ address }) => {
       const {
-        requestAddressChanging,
+        requestAddressChange,
         setAddressChangeRequested,
         closeSetAddressModal,
         isAddressChangeRequested,
@@ -80,7 +80,7 @@ export default compose(
         closeSetAddressModal()
         setTimeout(() => setAddressChangeRequested(false), 200)
       } else {
-        requestAddressChanging(address)
+        requestAddressChange(address)
       }
     },
   }),
