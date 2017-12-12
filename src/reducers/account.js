@@ -21,10 +21,16 @@ const defaultState = {
   btcAddress: undefined,
   ethAddress: undefined,
   address: undefined,
+  isAddressChangeRequested: false,
 }
 
 const accountReducer = (state = defaultState, action) => {
   switch (action.type) {
+
+    case ACCOUNT.ADDRESS.CHANGE_REQUESTED: {
+      const { isAddressChangeRequested } = action.payload
+      return set('isAddressChangeRequested', isAddressChangeRequested, state)
+    }
 
     case ACCOUNT.ADDRESS.SET: {
       const { address } = action.payload
