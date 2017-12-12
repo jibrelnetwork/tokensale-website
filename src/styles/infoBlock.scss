@@ -36,6 +36,14 @@
     &.kyc-status.pending {
       background-image: url("/static/icons/kyc-status-3.svg");
     }
+
+    &.eth {
+      background-image: url("/static/icons/eth.svg");
+    }
+
+    &.email {
+      background-image: url("/static/icons/email-sended-w.svg");
+    }
   }
 
   div {
@@ -49,7 +57,26 @@
     margin: 30px auto 0 auto;
     font-size: 15px;
 
-    /* font-size: 13px; */
+    &.withdraw-text {
+      max-width: 320px;
+
+      div {
+        font-size: 13px;
+
+        @media only screen and (max-width: 450px) {
+          font-size: 11px;
+        }
+
+        @media only screen and (max-width: 370px) {
+          font-size: 10px;
+
+          .withdraw-balance,
+          .withdraw-address {
+            font-weight: 400;
+          }
+        }
+      }
+    }
   }
 }
 
@@ -65,7 +92,10 @@
 .withdraw-address {
   display: block;
   max-width: 100%;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+
+  @media only screen and (min-width: 340px) {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
 }
