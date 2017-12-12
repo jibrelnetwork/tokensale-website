@@ -58,7 +58,7 @@ const Withdraw = ({
           {(get(messageType, MESSAGES) || {}).text || (
             <div>
               You are sending
-              <span className="withdraw-balance">{`${balance} JNT`}</span>
+              <span className="withdraw-balance">{`${balance.toFixed(2)} JNT`}</span>
               to your account address
               <span className="withdraw-address">{address}</span>
             </div>
