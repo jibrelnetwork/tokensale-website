@@ -78,7 +78,7 @@ export default compose(
 
       if (isAddressChangeRequested) {
         closeSetAddressModal()
-        setAddressChangeRequested(false)
+        setTimeout(() => setAddressChangeRequested(false), 200)
       } else {
         requestAddressChanging(address)
       }

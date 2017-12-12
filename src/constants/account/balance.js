@@ -4,3 +4,4 @@ export const REQUEST_SUCCESS = '@account/balance/Request success'
 
 export const WITHDRAW = '@account/balance/Withdraw'
 export const WITHDRAW_CONFIRM = '@account/withdraw/Confirm withdraw'
+export const WITHDRAW_REQUESTED = '@account/balance/Withdraw Requested'
