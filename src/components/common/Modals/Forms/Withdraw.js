@@ -105,7 +105,7 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = {
-  requestWithdraw: account.balance.withdraw,
+  requestWithdraw: account.balance.requestWithdraw,
   setWithdrawRequested: account.balance.withdrawRequested,
   closeWithdrawModal: () => account.modals.changeState('withdraw', 'close'),
 }

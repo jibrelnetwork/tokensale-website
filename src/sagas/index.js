@@ -15,7 +15,7 @@ export default function* sagas() {
     account.address.requestChange(),
     account.addresses.get(),
     account.address.changeConfirm(),
-    account.balance.withdraw(),
+    account.balance.requestWithdraw(),
     account.balance.changeConfirm(),
     account.modals.setState(),
     account.password.set(),
