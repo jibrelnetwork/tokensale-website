@@ -72,9 +72,13 @@ export function* changeConfirm() {
     const response = yield call(request, `${SERVER}/api/withdraw-address/confirm/`, data, 'post')
     if (response.success) {
       yield put(replace('/welcome/change-address-confirm/success'))
+    } else if (response.error) {
+      yield put(replace({
+        state: { message: get(['data', 'detail'], response) },
+        pathname: '/welcome/change-address-confirm/fail',
+      }))
     } else {
       yield put(replace('/welcome/change-address-confirm/fail'))
-      console.error(response)
     }
   }
 }
