@@ -1,12 +1,13 @@
-import { put, call, take } from 'redux-saga/effects'
 import { delay } from 'redux-saga'
+import { replace } from 'react-router-redux'
+import { put, call, take } from 'redux-saga/effects'
 import { startSubmit, stopSubmit } from 'redux-form'
 
 import gtm from '../../services/gtm'
-import * as actions from '../../actions'
-import { BALANCE, MODALS } from '../../constants/account'
 import request from '../request'
 import { SERVER } from '../.'
+import * as actions from '../../actions'
+import { BALANCE, MODALS } from '../../constants/account'
 
 const FORM = 'withdraw'
 const DELAY = 60000
@@ -45,17 +46,28 @@ export function* withdraw() {
   while (true) { // eslint-disable-line fp/no-loops
     yield take(BALANCE.WITHDRAW)
     yield put(startSubmit(FORM))
-
     const response = yield call(request, `${SERVER}/api/withdraw-jnt/`, null, 'post')
-
     if (response.success) {
       yield requestBalance()
       yield put(stopSubmit(FORM))
       yield closeWithdrawModal()
-
       gtm.pushProfileRequestWithdraw()
     } else {
       yield put(stopSubmit(FORM))
+    }
+  }
+}
+
+export function* changeConfirm() {
+  while (true) { // eslint-disable-line fp/no-loops
+    const { payload: { operationId, token } } = yield take(BALANCE.WITHDRAW_CONFIRM)
+    const data = { operation_id: operationId, token }
+    const response = yield call(request, `${SERVER}/api/withdraw-jnt/confirm/`, data, 'post')
+    if (response.success) {
+      yield put(replace('/welcome/change-address-confirm/success'))
+    } else {
+      yield put(replace('/welcome/change-address-confirm/fail'))
+      console.error(response)
     }
   }
 }
