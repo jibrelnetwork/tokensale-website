@@ -65,9 +65,13 @@ export function* changeConfirm() {
     const response = yield call(request, `${SERVER}/api/withdraw-jnt/confirm/`, data, 'post')
     if (response.success) {
       yield put(replace('/welcome/withdraw-confirm/success'))
+    } else if (response.error) {
+      yield put(replace({
+        state: { message: get(['data', 'detail'], response) },
+        pathname: '/welcome/withdraw-confirm/fail',
+      }))
     } else {
       yield put(replace('/welcome/withdraw-confirm/fail'))
-      console.error(response)
     }
   }
 }

@@ -5,7 +5,7 @@ const Success = () => (
   <div className="withdraw-confirm">
     <div className="img success" />
     <p>Your JNT withdraw confirmed successfully!</p>
-    <Link to="/account" className="button">Go to dashboard</Link>
+    <Link to="/account" replace className="button">Go to dashboard</Link>
   </div>
 )
 
