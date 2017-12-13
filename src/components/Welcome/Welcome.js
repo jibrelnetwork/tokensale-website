@@ -10,6 +10,8 @@ import Header from './Header'
 import Content from './Content'
 import Tokens from './Tokens'
 import Benefits from './Benefits'
+import ConfirmWithdraw from './ConfirmWithdraw'
+import ConfirmAddressChange from './ConfirmAddressChange'
 
 const { KYCStatusModal, SetAddressModal, SetPasswordModal } = Modals
 const HOME_PAGE_PATHNAME = '/welcome'
@@ -46,6 +48,14 @@ const Welcome = ({ location: { pathname }, isAuthorized, isSupportLinkShown }) =
         }
         <Route path="/welcome/email/" component={Auth.Email} />
         <Route path="/welcome/password/" component={Auth.Password} />
+        <Route
+          component={ConfirmWithdraw}
+          path="/welcome/withdraw-confirm/"
+        />
+        <Route
+          component={ConfirmAddressChange}
+          path="/welcome/change-address-confirm/"
+        />
         <Redirect from="/welcome/:not_found" to="/welcome" />
       </Switch>
     </div>
