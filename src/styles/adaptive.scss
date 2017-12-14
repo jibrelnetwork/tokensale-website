@@ -343,8 +343,7 @@
           }
 
           &.outgoing {
-            .amount,
-            &.waiting .hash {
+            .amount {
               display: none;
             }
           }

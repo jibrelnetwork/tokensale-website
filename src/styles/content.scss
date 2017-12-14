@@ -185,7 +185,7 @@
           color: #0050db;
         }
 
-        &.waiting .type {
+        &.pending .type {
           background-image: url("/static/icons/incoming-2.svg");
         }
 
@@ -199,7 +199,7 @@
           background-image: url("/static/icons/outgoing.svg");
         }
 
-        &.waiting {
+        &.pending {
           .type {
             background-image: url("/static/icons/outgoing-2.svg");
           }
