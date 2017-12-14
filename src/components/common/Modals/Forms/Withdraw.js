@@ -38,7 +38,7 @@ const MESSAGES = {
   },
 }
 
-const START_WITHDRAW_TIME = new Date(Date.UTC(2017, 11, 15, 12, 0, 0, 0))
+// const START_WITHDRAW_TIME = new Date(Date.UTC(2017, 11, 15, 12, 0, 0, 0))
 
 const Withdraw = ({
   submitWithdraw,
@@ -98,8 +98,8 @@ const mapStateToProps = (state) => {
     ? 'withdrawRequested' : (verifyStatus !== 'Approved')
       ? 'notApproved' : (balance === 0)
         ? 'emptyBalance' : !address
-          ? 'emptyAddress' : (Date.now() < START_WITHDRAW_TIME)
-            ? 'notAvailable' : null
+          ? 'emptyAddress' : /* (Date.now() < START_WITHDRAW_TIME)
+            ? 'notAvailable' : */ null
 
   return { address, balance, messageType, isWithdrawRequested }
 }
