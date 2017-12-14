@@ -1,3 +1,4 @@
+import { replace } from 'react-router-redux'
 import { call, put, take } from 'redux-saga/effects'
 import { startSubmit, stopSubmit, reset } from 'redux-form'
 
@@ -24,7 +25,6 @@ function* sendSuccess(address) {
   yield put(stopSubmit(FORM))
   yield closeSetAddressModal()
   yield put(reset(FORM))
-
   gtm.pushProfileAddedEth()
 }
 
@@ -49,9 +49,7 @@ function* onSendResponse(address, { success, fail, data, statusText }) {
 export function* get() {
   while (true) { // eslint-disable-line fp/no-loops
     yield take(ADDRESS.GET)
-
     const response = yield call(request, `${SERVER}/api/withdraw-address/`, null, 'get')
-
     if (response.success) {
       yield set(response.data.address)
     }
@@ -61,10 +59,26 @@ export function* get() {
 export function* send() {
   while (true) { // eslint-disable-line fp/no-loops
     const { payload: { address } } = yield take(ADDRESS.SEND)
-
     yield put(startSubmit(FORM))
-
     const response = yield call(request, `${SERVER}/api/withdraw-address/`, { address }, 'put')
     yield onSendResponse(address, response)
+  }
+}
+
+export function* changeConfirm() {
+  while (true) { // eslint-disable-line fp/no-loops
+    const { payload: { operationId, token } } = yield take(ADDRESS.CHANGE_CONFIRM)
+    const data = { operation_id: operationId, token }
+    const response = yield call(request, `${SERVER}/api/withdraw-address/confirm/`, data, 'post')
+    if (response.success) {
+      yield put(replace('/welcome/change-address-confirm/success'))
+    } else if (response.error) {
+      yield put(replace({
+        state: { message: get(['data', 'detail'], response) },
+        pathname: '/welcome/change-address-confirm/fail',
+      }))
+    } else {
+      yield put(replace('/welcome/change-address-confirm/fail'))
+    }
   }
 }

@@ -385,7 +385,9 @@ h3 {
 }
 
 .email-verification,
-.password-reset {
+.password-reset,
+.address-change-confirm,
+.withdraw-confirm {
   display: block;
   max-width: 460px;
   text-align: center;
@@ -399,9 +401,15 @@ h3 {
   }
 
   p {
-    margin: 30px 20px 40px 20px;
-    font-size: 15px;
+    color: #fff;
+    margin: 30px 0;
+    opacity: 0.7;
+    font-size: 14px;
     line-height: 24px;
+  }
+
+  .button {
+    font-weight: 600;
   }
 
   a {
@@ -432,6 +440,27 @@ h3 {
 
 .email-verification .img.declined {
   background-image: url("/static/icons/email-declined.svg");
+}
+
+.address-change-confirm,
+.withdraw-confirm {
+  > .img.success {
+    background-image: url("/static/icons/done.svg");
+  }
+}
+
+.address-change-confirm,
+.withdraw-confirm {
+  > .img.loading {
+    background-image: url("/static/icons/loader.svg");
+  }
+}
+
+.address-change-confirm,
+.withdraw-confirm {
+  > .img.fail {
+    background-image: url("/static/icons/error.svg");
+  }
 }
 
 .button[type="submit"] {
