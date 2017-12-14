@@ -57,7 +57,7 @@ const Login = ({
               to="/welcome/password/reset"
               className="pull-right"
             >
-              Forgotten password?
+              Forgot password?
             </Link>
           )}
         </div>
