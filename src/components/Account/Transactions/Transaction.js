@@ -39,9 +39,8 @@ const Transaction = ({
         <div className="value">
           {isPresale
             ? TXhash
-            : (status !== 'complete')
-              ? '–'
-              : (
+            : ((status === 'success') || (status === 'pending'))
+              ? (
                 <a
                   href={{
                     ETH: `https://etherscan.io/tx/${TXhash}`,
@@ -52,7 +51,11 @@ const Transaction = ({
                 >
                   {TXhash ? `${TXhash.substr(0, 13)}...` : null}
                 </a>
-              )
+              ) : {
+                not_confirmed: 'NOT CONFIRMED',
+                confirmed: 'CONFIRMED',
+                fail: 'FAILED',
+              }[status]
           }
         </div>
       </div>
@@ -66,15 +69,14 @@ Transaction.propTypes = {
   date: PropTypes.string.isRequired, // ?
   TXhash: PropTypes.string.isRequired,
   TXtype: PropTypes.oneOf(['BTC', 'ETH']).isRequired,
+  status: PropTypes.oneOf(['not_confirmed', 'confirmed', 'pending', 'success', 'fail']).isRequired,
   /* optional */
-  status: PropTypes.oneOf(['complete', 'waiting', 'not_confirmed']),
   usdAmount: PropTypes.number,
   isPresale: PropTypes.bool,
   cryptoAmount: PropTypes.number,
 }
 
 Transaction.defaultProps = {
-  status: 'waiting',
   usdAmount: undefined,
   isPresale: false,
   cryptoAmount: undefined,
