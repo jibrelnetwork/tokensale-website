@@ -59,7 +59,7 @@ const Withdraw = ({
             <div>
               You are sending
               <span className="withdraw-balance">{`${balance.toFixed(2)} JNT`}</span>
-              to your account address
+              to the address
               <span className="withdraw-address">{address}</span>
             </div>
           )}
