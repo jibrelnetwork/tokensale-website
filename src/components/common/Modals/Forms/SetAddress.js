@@ -69,22 +69,15 @@ export default compose(
   }),
   withHandlers({
     submitAddressChanging: (props) => ({ address }) => {
-      const {
-        requestAddressChange,
-        setAddressChangeRequested,
-        closeSetAddressModal,
-        isAddressChangeRequested,
-      } = props
+      const { requestAddressChange, closeSetAddressModal, isAddressChangeRequested } = props
 
-      if (isAddressChangeRequested) {
-        closeSetAddressModal()
-        setTimeout(() => setAddressChangeRequested(false), 200)
-      } else {
-        requestAddressChange(address)
-      }
+      return isAddressChangeRequested ? closeSetAddressModal() : requestAddressChange(address)
     },
   }),
   lifecycle({
+    componentWillMount() {
+      this.props.setAddressChangeRequested(false)
+    },
     componentWillReceiveProps(nextProps) {
       if (!this.props.submitFailed && nextProps.submitFailed) {
         this.props.shakeSetAddressModal()

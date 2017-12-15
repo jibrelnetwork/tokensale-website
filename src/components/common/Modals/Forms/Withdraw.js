@@ -1,7 +1,9 @@
+/* eslint-disable fp/no-this */
+
 import React from 'react'
 import cx from 'classnames'
 import PropTypes from 'prop-types'
-import withHandlers from 'recompose/withHandlers'
+import { lifecycle, withHandlers } from 'recompose'
 import { connect } from 'react-redux'
 import { reduxForm } from 'redux-form'
 import { get, compose } from 'lodash/fp'
@@ -115,21 +117,18 @@ export default compose(
   reduxForm({
     form: 'withdraw',
   }),
+  lifecycle({
+    componentWillMount() {
+      this.props.setWithdrawRequested(false)
+    },
+  }),
   withHandlers({
     submitWithdraw: (props) => () => {
-      const {
-        setWithdrawRequested,
-        requestWithdraw,
-        closeWithdrawModal,
-        messageType,
-      } = props
+      const { requestWithdraw, closeWithdrawModal, messageType } = props
 
-      if (messageType) {
-        closeWithdrawModal()
-        setTimeout(() => setWithdrawRequested(false), 200)
-      } else {
-        requestWithdraw()
-      }
+      return messageType ? closeWithdrawModal() : requestWithdraw()
     },
   }),
 )(Withdraw)
+
+/* eslint-enable */
