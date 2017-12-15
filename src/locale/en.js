@@ -2,10 +2,10 @@
 const EN = {
   auth: {
     emailVerification: {
-      error: 'Unfortunately, we were unable to validate your email. \n Try again later or contact us via {{email}}',
-      success: 'Your email has been verified \n and your can login now!',
-      inProgress: 'Validating your email...',
-      linkSended: 'An email has been sent to your email address. \n It can take a few minutes before you have it in your inbox. Click the activation link to verify your account!',
+      error: 'Unfortunately, we were unable to verify your email. \n Please verify your email address or contact us via {{email}}',
+      success: 'Your email has been verified. \n You can now login to your token sale dashboard',
+      inProgress: 'Verifying your email...',
+      linkSended: 'An email has been sent to your email address. \n It can take a few minutes before it arrives in your inbox. Click the activation link in your email to verify your account!',
     },
     resetPasswordLinkSended: 'An email has been sent to your email address. \n It can take a few minutes before you have it in your inbox. \n Click the recovery link to change your password!',
     sendResetPasswordEmail: {
@@ -23,7 +23,7 @@ const EN = {
     resetPassword: {
       fields: {
         newPassword: 'New password',
-        newPasswordConfirm: 'New password confirmation',
+        newPasswordConfirm: 'Confirm new password',
       },
       errors: {
         newPassword: {
@@ -31,8 +31,8 @@ const EN = {
           isTooShort: 'Password is too short',
         },
         newPasswordConfirm: {
-          notMatch: 'Password does not match the confirm password',
-          isRequired: 'Password confirmation is required',
+          notMatch: 'Password and password confirmation should match',
+          isRequired: 'Please confirm your password',
         },
       },
       submit: 'Change password',
@@ -54,7 +54,7 @@ const EN = {
       },
       links: {
         resendEmail: "Didn't receive email?",
-        resetPassword: 'Forgotten password?',
+        resetPassword: 'Forgot password?',
       },
       submit: 'Login',
     },
@@ -62,7 +62,7 @@ const EN = {
       fields: {
         email: 'Email',
         password: 'Password',
-        passwordConfirm: 'Password Confirmation',
+        passwordConfirm: 'Confirm password',
       },
       errors: {
         email: {
@@ -70,19 +70,19 @@ const EN = {
           isInvalid: 'Invalid email address',
         },
         captcha: {
-          isRequired: 'Click on captcha checkbox',
+          isRequired: 'Please complete captcha',
         },
         password: {
           isRequired: 'Password is required',
           isTooShort: 'Password is too short',
         },
         newPasswordConfirm: {
-          notMatch: 'Password does not match the confirm password',
-          isRequired: 'Password confirmation is required',
+          notMatch: 'Password and password confirmation should match',
+          isRequired: 'Please confirm your password',
         },
       },
       links: {
-        registration: 'Have an account?',
+        registration: 'Already have an account?',
       },
       submit: 'Register',
     },
@@ -92,7 +92,7 @@ const EN = {
     KYCStatus: {
       label: 'KYC status',
       variants: {
-        pending: 'Pending',
+        pending: 'Preliminarily Approved',
         approved: 'Approved',
         declined: 'Declined',
       },
@@ -106,11 +106,11 @@ const EN = {
       btc: 'Your BTC Contribution Address',
     },
     transactions: {
-      empty: 'The jWallet makes it easy and safe to store and transfer value of any tokens',
+      empty: 'You have yet to make any ETH/BTC contributions or JNT withdrawals. Your contribution and withdrawal transactions will appear here',
       filters: {
         all: 'All transactions',
         incoming: 'Incoming transactions',
-        outgoing: 'JNT transfers',
+        outgoing: 'Outgoing JNT transfers',
       },
       transaction: {
         date: 'Date',
@@ -134,7 +134,7 @@ const EN = {
     },
     withdrawTokens: {
       info: {
-        available: 'You are sending {{tokensAmount}} JNT to your account address {{ethAddress}}',
+        available: 'You are about to withdraw {{tokensAmount}} JNT into address {{ethAddress}}',
         unavailable: 'JNT withdrawals will be available starting from 12:00 PM 15th Dec 2017',
       },
       submit: 'Got it!',
@@ -176,17 +176,17 @@ const EN = {
       },
       fields: {
         policyConfirm: 'I have read the {{link}}, Privacy Policy and Jibrel Network White Paper, and accept all terms, conditions, obligations, affirmations, representations and warranties outlined in these documents and agree to adhere to them and be legally bound by them',
-        citizenshipConfirm: 'I confirm that I am not citizen, permanent resident, or granted indefinite leave to remain in the US, Singapore or China - or any jurisdiction in which the purchase of Jibrel Network Token (JNT) is explicitly prohibited or outlawed.',
+        citizenshipConfirm: 'I confirm that I am not a citizen, permanent resident, or granted indefinite leave to remain in the United States or any US territories - as well as any jurisdiction in which the purchase of Jibrel Network Token (JNT) is explicitly prohibited or outlawed.',
       },
       errors: {
         policyConfirm: {
           isRequired: 'Policy agreement confirm is required',
         },
         citizenshipConfirm: {
-          isRequired: 'Citizenship confirmation is required',
+          isRequired: 'Citizenship field is required',
         },
       },
-      submit: 'Next Step',
+      submit: 'Next',
     },
     userInfo: {
       fields: {
@@ -213,7 +213,7 @@ const EN = {
           isRequired: 'Citizenship is required',
         },
       },
-      submit: 'Next Step',
+      submit: 'Next',
     },
     document: {
       fields: {
@@ -236,9 +236,9 @@ const EN = {
         decision: 'Final decision-making',
       },
       results: {
-        pending: 'We are currently processing your application. \n Please note, we may request that you submit additional identity verification in the future',
+        pending: 'You have been preliminarily approved. \n Please note, we may request that you submit additional identity verification in the future',
         approved: 'Your identity has been verified \n and your application has been approved',
-        declined: "We currently can't verify your identity",
+        declined: 'We could not verify your identity',
       },
       close: 'Go to dashboard',
     },
@@ -246,10 +246,10 @@ const EN = {
   index: {
     header: {
       about: 'About Jibrel Network',
-      login: 'Sing In',
+      login: 'Sign In',
       logout: 'Logout',
       account: 'Go to dashboard',
-      registration: 'Sing Up',
+      registration: 'Sign Up',
       verification: 'Complete verification',
     },
     info: {
