@@ -11,8 +11,14 @@ import { account } from '../../../../actions'
 const MESSAGES = {
   Pending: (
     <div>
-      You have yet to submit KYC documentation. Verify your documentation by
-      <a style={{ margin: '0 5px' }} href="mailto:sale@jibrel.network">Contacting Support</a>
+      {'You have yet to submit your KYC documentation. Upload Documents or verify your ' +
+        'documentation by'}
+      <a
+        style={{ marginLeft: '4px' }}
+        href="https://jibrelnetwork.freshdesk.com/support/tickets/new"
+      >
+        Contacting Support Team
+      </a>
     </div>
   ),
   'Preliminarily Approved': 'Your KYC submission was preliminarily approved but requires manual ' +
