@@ -7,7 +7,7 @@ import { set, get, compose, identity } from 'lodash/fp'
 import { Field, reduxForm, getFormSubmitErrors, getFormValues } from 'redux-form'
 
 import * as actions from '../../actions'
-import { Input } from '../common'
+import { Input, Captcha } from '../common'
 
 const VALIDATE_EMAIL_REGEXP = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/ // eslint-disable-line max-len
 
@@ -36,6 +36,7 @@ const Login = ({
           label="Password"
           component={Input}
         />
+        <Field name="captcha" component={Captcha} />
         <div className="buttons clear">
           <button
             type="submit"
@@ -98,7 +99,7 @@ export default compose(
   ),
   reduxForm({
     form: 'login',
-    onSubmit: ({ email, password }, dispatch) => dispatch(actions.auth.login(email, password)),
+    onSubmit: ({ email, password, captcha }, dispatch) => dispatch(actions.auth.login(email, password, captcha)),
     validate: (values) => compose(
       !values.email
         ? set('email', 'Email address is required')
@@ -110,6 +111,7 @@ export default compose(
         : values.password.length < 8
           ? set('password', 'Password is too short')
           : identity,
+      !values.captcha ? set('captcha', 'Please complete captcha') : identity,
     )({}),
     destroyOnUnmount: true,
   }),

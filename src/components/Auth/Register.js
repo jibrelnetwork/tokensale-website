@@ -73,7 +73,7 @@ export default compose(
       values.passwordConfirm && values.password !== values.passwordConfirm
         ? set('password', 'Password does not match the confirm password')
         : identity,
-      !values.captcha ? set('captcha', 'Click on captcha checkbox') : identity,
+      !values.captcha ? set('captcha', 'Please complete captcha') : identity,
     )({}),
   }),
   lifecycle({

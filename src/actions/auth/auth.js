@@ -1,8 +1,8 @@
 import * as AUTH from '../../constants/auth'
 
-export const login = (email, password) => ({
+export const login = (email, password, captcha) => ({
   type: AUTH.LOGIN,
-  payload: { email, password },
+  payload: { email, password, captcha },
 })
 
 export const logout = () => ({
