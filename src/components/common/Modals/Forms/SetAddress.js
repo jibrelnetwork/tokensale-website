@@ -66,6 +66,7 @@ export default compose(
         ? { address: 'Invalid Ethereum address' }
         : {},
     destroyOnUnmount: true,
+    touchOnBlur: false,
   }),
   withHandlers({
     submitAddressChanging: (props) => ({ address }) => {
