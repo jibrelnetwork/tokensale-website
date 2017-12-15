@@ -29,7 +29,11 @@ export const updateUserInfo = (firstName, lastName, birthday, residency, citizen
   payload: { firstName, lastName, birthday, residency, citizenship },
 })
 
-export const uploadDocument = (documentUrl, documentType) => ({
+export const skipDocument = () => ({
+  type: VERIFY.SKIP_DOCUMENT,
+})
+
+export const uploadDocument = (document) => ({
   type: VERIFY.UPLOAD_DOCUMENT,
-  payload: { documentUrl, documentType },
+  payload: { document },
 })

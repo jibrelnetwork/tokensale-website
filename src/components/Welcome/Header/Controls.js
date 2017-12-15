@@ -1,60 +1,88 @@
-import cx from 'classnames'
 import React from 'react'
-import { Link } from 'react-router-dom'
+import cx from 'classnames'
 import PropTypes from 'prop-types'
+import { Link } from 'react-router-dom'
 import { compose } from 'lodash/fp'
 import { connect } from 'react-redux'
-import { withState } from 'recompose'
 import { translate } from 'react-i18next'
+import { withHandlers, withState } from 'recompose'
+
 import * as actions from '../../../actions'
+import Dashboard from '../../common/Dashboard'
+
+function isTouchDevice() {
+  return ('ontouchstart' in window) || navigator.maxTouchPoints
+}
 
 const Controls = ({
   t,
-  logout,
-  toggleMenu,
+  email,
   isMenuOpen,
   isVerified,
   isAuthorized,
+  openDashboard,
+  isDashboardOpen,
+  toggleMenuOrDashboard,
 }) => (
   <div className="Controls">
-    <ul className={cx('menu pull-right', isMenuOpen && 'menu-active')}>
+    <ul className={cx('menu pull-right', { 'menu-active': isMenuOpen })}>
       {isAuthorized ? isVerified ? ([
         <li key="0"><Link to="/account">{t('index.header.account')}</Link></li>,
-        <li key="1" className="bordered"><button onClick={logout}>{t('index.header.logout')}</button></li>,
+        <li key="1" className="bordered">
+          <button onClick={openDashboard} className="button arrow">{email}</button>
+        </li>,
       ]) : ([
         <li key="0"><Link to="/verify">{t('index.header.verification')}</Link></li>,
-        <li key="1"className="bordered"><button onClick={logout}>{t('index.header.logout')}</button></li>,
+        <li key="1" className="bordered">
+          <button onClick={openDashboard} className="button arrow">{email}</button>
+        </li>,
       ]) : ([
-        <li key="0"><a href="https://jibrel.network/#about">{t('index.header.about')}</a></li>,
+        <li key="0">
+          <a
+            href="https://jibrel.network?from-sale=1"
+            target={`${isTouchDevice() ? '_self' : '_blank'}`}
+          >
+            {t('index.header.about')}
+          </a>
+        </li>,
         <li key="1"><Link to="/welcome/register">{t('index.header.registration')}</Link></li>,
         <li key="2" className="bordered"><Link to="/welcome/login">{t('index.header.login')}</Link></li>,
       ])}
     </ul>
     <button
-      onClick={() => toggleMenu(!isMenuOpen)}
-      className={cx('menu-button', isMenuOpen && 'active')}
+      onClick={toggleMenuOrDashboard}
+      className={cx('menu-button', 'pull-right', { active: isMenuOpen || isDashboardOpen })}
     >
       <span>Menu</span>
     </button>
+    {isAuthorized && <Dashboard isHomePage />}
   </div>
 )
 
 Controls.propTypes = {
   t: PropTypes.func.isRequired,
-  logout: PropTypes.func.isRequired,
+  email: PropTypes.string,
   isMenuOpen: PropTypes.bool.isRequired,
-  toggleMenu: PropTypes.func.isRequired,
   isVerified: PropTypes.bool.isRequired,
   isAuthorized: PropTypes.bool.isRequired,
+  openDashboard: PropTypes.func.isRequired,
+  isDashboardOpen: PropTypes.bool.isRequired,
+  toggleMenuOrDashboard: PropTypes.func.isRequired,
+}
+
+Controls.defaultProps = {
+  email: '...',
 }
 
 const mapStateToProps = (state) => ({
+  email: state.account.dashboard.accountData.email,
   isVerified: !!state.auth.verifyStatus,
   isAuthorized: !!state.auth.token,
+  isDashboardOpen: state.account.dashboard.isOpen,
 })
 
 const mapDispatchToProps = {
-  logout: actions.auth.logout,
+  openDashboard: actions.account.dashboard.toggle,
 }
 
 export default compose(
@@ -67,5 +95,13 @@ export default compose(
     'isMenuOpen',
     'toggleMenu',
     false,
-  )
+  ),
+  withHandlers({
+    toggleMenuOrDashboard: ({
+      toggleMenu,
+      openDashboard,
+      isMenuOpen,
+      isAuthorized,
+    }) => () => isAuthorized ? openDashboard() : toggleMenu(!isMenuOpen),
+  })
 )(Controls)

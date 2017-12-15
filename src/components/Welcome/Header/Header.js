@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link, Route } from 'react-router-dom'
+
 import Controls from './Controls'
 
 const Header = () => (
@@ -14,7 +15,19 @@ const Header = () => (
     />
     <Route
       path="/welcome/:modal"
-      render={() => <Link to="/welcome" className="close" />}
+      render={() => (
+        <div className="header-links pull-right">
+          <a
+            className="support-link show"
+            target="_blank"
+            rel="noopener noreferrer"
+            href="https://jibrelnetwork.freshdesk.com/support/tickets/new"
+          >
+            Support
+          </a>
+          <Link to="/welcome" className="close" />
+        </div>
+      )}
     />
   </div>
 )

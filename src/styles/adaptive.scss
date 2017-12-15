@@ -105,12 +105,6 @@
       padding-right: 30px;
     }
 
-    .inner-page .content .progress .wrap {
-      margin-left: 30px;
-      margin-right: 30px;
-      position: relative;
-    }
-
     .content {
       .transactions {
         .item {
@@ -158,44 +152,47 @@
     }
 
     .start .header {
-      padding-top: 30px;
+      padding-top: $mobile-header-padding;
       padding-bottom: 80px;
     }
 
     .start .menu {
-      display: none;
-    }
-
-    .start .menu.menu-active {
-      display: block;
-      position: absolute;
-      width: 100%;
-      left: 0;
-      top: 100px;
-      background-color: #002db6;
       z-index: 10;
-      padding: 35px 30px;
-    }
-
-    .start .menu.menu-active li {
+      position: fixed;
+      top: $mobile-header-full-height;
+      left: 0;
       display: block;
-      margin: 0 0 20px 0;
-    }
+      width: 0;
+      min-height: calc(100vh - 100px);
+      padding: 35px 0;
+      background: $blue4;
+      overflow: hidden;
+      opacity: 0;
 
-    .start .menu.menu-active li a {
-      display: inline-block;
-    }
+      li {
+        display: block;
+        margin: 0 0 30px 0;
 
-    .start .menu.menu-active li.bordered a {
-      display: block;
-    }
+        a {
+          display: inline-block;
+          font-weight: 600;
+          white-space: nowrap;
+        }
 
-    .start .menu.menu-active li:last-child {
-      margin-bottom: 0;
-    }
+        &.bordered a {
+          display: block;
+        }
+      }
 
-    .start .link {
-      padding-bottom: 140px;
+      &.menu-active {
+        width: 100%;
+        padding: 35px 30px;
+        opacity: 1;
+      }
+
+      &.menu li:last-child {
+        margin-bottom: 0;
+      }
     }
 
     .start .text h1 {
@@ -223,10 +220,6 @@
     }
 
     .start .counter .col-3:after {
-      display: none;
-    }
-
-    .start .steps {
       display: none;
     }
 
@@ -350,8 +343,7 @@
           }
 
           &.outgoing {
-            .amount,
-            &.waiting .hash {
+            .amount {
               display: none;
             }
           }
@@ -360,24 +352,26 @@
     }
 
     .auth {
-      width: 260px;
-      margin-left: -130px;
-      margin-top: 120px;
-      top: 0%;
-      z-index: 20;
-    }
+      padding: 0 0 50px 0;
 
-    .auth .buttons .button {
-      float: none;
-      width: auto;
-      margin-bottom: 20px;
-      display: block;
-    }
+      .form-block {
+        width: 260px;
+      }
 
-    .auth .buttons .pull-right {
-      display: block;
-      float: none;
-      text-align: center;
+      .buttons {
+        .button {
+          float: none;
+          width: auto;
+          margin-bottom: 20px;
+          display: block;
+        }
+
+        .pull-right {
+          display: block;
+          float: none;
+          text-align: center;
+        }
+      }
     }
 
     .close {
@@ -417,43 +411,24 @@
   }
 }
 
-@media only screen and (max-width: 450px) {
-  body {
-    .info-block .info-text {
-      /* font-size: 11px; */
-    }
-  }
-}
-
 @media only screen and (max-width: 380px) {
   body {
     .info-block .info-text {
-      max-width: 180px;
+      max-width: 260px;
+    }
+
+    .inner-page .content .transactions {
+      padding-left: 20px;
+      padding-right: 20px;
     }
   }
 }
 
 @media only screen and (max-width: 360px) {
-  $mobile360-modal-padding: 15px;
-
   body {
-    .info-block .info-text {
-      /* font-size: 10px; */
-    }
-
     .modal {
       .modal-content {
         margin: 10px;
-        padding: $mobile360-modal-padding;
-      }
-
-      .modal-title {
-        margin-bottom: $mobile360-modal-padding;
-      }
-
-      .modal-close {
-        top: $mobile360-modal-padding;
-        right: $mobile360-modal-padding;
       }
     }
   }

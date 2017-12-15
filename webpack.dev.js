@@ -5,9 +5,16 @@ const packages = require('./package.json')
 const AutoDllPlugin = require('autodll-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
+const cacheLoader = {
+  loader: 'cache-loader',
+  options: {
+    cacheDirectory: path.join(__dirname, 'node_modules', '.cache-loader'),
+  },
+}
+
 module.exports = { // eslint-disable-line fp/no-mutation
   entry: { app: ['babel-polyfill', './src/index.js'] },
-  devtool: 'source-map',
+  devtool: 'eval-source-map',
   output: {
     path: path.join(__dirname, 'build'),
     filename: 'bundle.js',
@@ -15,12 +22,12 @@ module.exports = { // eslint-disable-line fp/no-mutation
   },
   module: {
     rules: [{
-      use: 'babel-loader?cacheDirectory=true',
+      use: [cacheLoader, 'babel-loader?cacheDirectory=true'],
       test: /\.js$/,
       exclude: /node_modules/,
       include: path.join(__dirname, 'src'),
     }, {
-      use: ['style-loader', 'css-loader', 'sass-loader'],
+      use: [cacheLoader, 'style-loader', 'css-loader', 'sass-loader'],
       test: /\.(css|scss)$/,
     }, {
       use: 'file-loader',

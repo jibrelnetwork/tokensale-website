@@ -185,8 +185,12 @@
           color: #0050db;
         }
 
-        &.waiting .type {
+        &.pending .type {
           background-image: url("/static/icons/incoming-2.svg");
+        }
+
+        &.presale .type {
+          background-image: url("/static/icons/incoming-presale.svg");
         }
       }
 
@@ -195,12 +199,24 @@
           background-image: url("/static/icons/outgoing.svg");
         }
 
-        &.waiting {
+        &.pending {
           .type {
             background-image: url("/static/icons/outgoing-2.svg");
           }
         }
       }
     }
+  }
+}
+
+.Content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: $content-min-height;
+
+  @media only screen and (max-width: 600px) {
+    min-height: 100vh;
+    padding-top: 150px;
   }
 }

@@ -18,6 +18,7 @@ const DateInput = ({
   <div className={cx(
     'field',
     'field-input',
+    'field-date',
     { error: error && touched })}
   >
     <input

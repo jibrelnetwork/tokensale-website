@@ -5,8 +5,17 @@
 }
 
 .inner-page {
-  .start .header {
-    padding-bottom: 50px;
+  .start {
+    min-height: initial;
+
+    .header {
+      padding-bottom: 50px;
+
+      .support-link {
+        line-height: 1;
+        margin-right: 0;
+      }
+    }
   }
 
   .progress {
@@ -28,6 +37,21 @@
     .point {
       box-shadow: none;
       border: none;
+    }
+  }
+
+  @media only screen and (max-width: 600px) {
+    .start {
+      z-index: 1000;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+    }
+
+    > .content,
+    > .form {
+      padding-top: $mobile-header-full-height;
     }
   }
 }

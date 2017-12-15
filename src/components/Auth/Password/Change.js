@@ -6,34 +6,30 @@ import * as actions from '../../../actions'
 import { Input } from '../../common'
 
 const Change = ({ submitting, handleSubmit }) => (
-  <div className="Change">
-    <div className="auth">
-      <div className="form-block">
-        <form onSubmit={handleSubmit} className="form">
-          <Field
-            name="newPassword"
-            type="password"
-            label="New password"
-            component={Input}
-          />
-          <Field
-            name="newPasswordConfirm"
-            type="password"
-            label="New password confirmation"
-            component={Input}
-          />
-          <div className="buttons clear">
-            <button
-              type="submit"
-              disabled={submitting}
-              className="button pull-left"
-            >
-              {!submitting && 'Change password'}
-            </button>
-          </div>
-        </form>
+  <div className="form-block">
+    <form onSubmit={handleSubmit} className="form">
+      <Field
+        name="newPassword"
+        type="password"
+        label="New password"
+        component={Input}
+      />
+      <Field
+        name="newPasswordConfirm"
+        type="password"
+        label="New password confirmation"
+        component={Input}
+      />
+      <div className="buttons clear">
+        <button
+          type="submit"
+          disabled={submitting}
+          className="button pull-left"
+        >
+          {!submitting && 'Change password'}
+        </button>
       </div>
-    </div>
+    </form>
   </div>
 )
 
@@ -57,9 +53,11 @@ export default reduxForm({
       : newPassword.length < 8
         ? set('newPassword', 'Password is too short')
         : identity,
-    !newPasswordConfirm ? set('newPasswordConfirm', 'Password confirmation is required') : identity,
+    !newPasswordConfirm
+      ? set('newPasswordConfirm', 'Password confirmation is required')
+      : identity,
     newPasswordConfirm && newPassword !== newPasswordConfirm
-      ? set('newPassword', 'Password does not match the confirm password')
+      ? set('newPasswordConfirm', 'Password does not match the confirm password')
       : identity,
   )({}),
 })(Change)

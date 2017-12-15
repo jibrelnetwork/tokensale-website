@@ -16,7 +16,7 @@ const verifyReducer = (state = defaultState, action) => {
     }
 
     case AUTH.LOGOUT: {
-      return set('stage', defaultState.stage, state)
+      return set('stage', undefined, state)
     }
 
     default: return state

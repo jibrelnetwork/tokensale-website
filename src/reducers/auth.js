@@ -3,10 +3,11 @@ import * as AUTH from '../constants/auth'
 
 const defaultState = {
   token: undefined,
-  /* Verification statuses, one of "Pending", "Approved", "Declined"
-     all statuses means that user completed all steps of verification
-     and waits server response with results */
+  /**
+   * Verification statuses, one of null, "Preliminarily Approved", "Pending", "Approved", "Declined"
+   */
   verifyStatus: undefined,
+  isSupportLinkShown: false,
 }
 
 const authReducer = (state = defaultState, action) => {
@@ -27,6 +28,11 @@ const authReducer = (state = defaultState, action) => {
     case AUTH.VERIFY.SET_STATUS: {
       const { status } = action.payload
       return set('verifyStatus', status, state)
+    }
+
+    case AUTH.SHOW_SUPPORT_LINK: {
+      const { isShow } = action.payload
+      return set('isSupportLinkShown', isShow, state)
     }
 
     default: return state

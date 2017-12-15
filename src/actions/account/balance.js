@@ -13,6 +13,16 @@ export const requestSuccess = (balance) => ({
   payload: { balance },
 })
 
-export const withdraw = () => ({
-  type: BALANCE.WITHDRAW,
+export const requestWithdraw = () => ({
+  type: BALANCE.REQUEST_WITHDRAW,
+})
+
+export const withdrawConfirm = (operationId, token) => ({
+  type: BALANCE.WITHDRAW_CONFIRM,
+  payload: { token, operationId },
+})
+
+export const withdrawRequested = (isWithdrawRequested) => ({
+  type: BALANCE.WITHDRAW_REQUESTED,
+  payload: { isWithdrawRequested },
 })

@@ -1,61 +1,64 @@
 import cx from 'classnames'
 import React from 'react'
+import { last } from 'lodash/fp'
+import Dropzone from 'react-dropzone'
+import { toast } from 'react-toastify'
 import PropTypes from 'prop-types'
-import ReactFilestack from 'filestack-react'
-import { head, map, last, compose } from 'lodash/fp'
 
-const getFileType = (file) => last(file.split('.'))
-const FILESTACK_API_KEY = 'AnARH4cA6SiuvN5hCQvdCz'
+const MAX_FILE_SIZE = 10000000
 
-const Uploader = ({ input: { onChange, value }, meta: { error, touched }, label }) => (
+const Uploader = ({
+  input: {
+    name,
+    onChange,
+    value: file,
+  },
+  meta: {
+    error,
+    touched,
+  },
+}) => (
   <div className="Uploader">
-    <ReactFilestack
-      apikey={FILESTACK_API_KEY}
-      options={{
-        accept: ['jpg', 'jpeg', 'pdf', 'png'],
-        maxSize: 10000000,
-        fromSources: ['local_file_system', 'webcam'],
-        transformations: { crop: true, rotate: true },
+    <Dropzone
+      name={name}
+      accept="image/jpg, image/png, image/jpeg, application/pdf"
+      onDrop={(acceptedFiles, rejectedFiles) => {
+        const rejectedFile = last(rejectedFiles)
+        if (rejectedFile) {
+          if (rejectedFile.size > MAX_FILE_SIZE) {
+            toast.warn(`File ${rejectedFile.name} is too big. The accepted file size is less than 10MB`)
+          } else {
+            toast.warn(`File ${rejectedFile.name} is not an accepted file type. The accepted file types are jpg, jpeg, png, pdf`)
+          }
+        }
+        return onChange(last(acceptedFiles))
       }}
-      buttonText={
-        value.url
-          ? value.type === 'pdf'
-            ? (
-              <iframe
-                src={`https://docs.google.com/viewer?url=${value.url}&embedded=true`}
-                title="pdf"
-                width="100%"
-                className="pdf"
-              />
-            )
-            : <img src={value.url} alt="Document" className="image" />
-          : label
-      }
-      buttonClass={cx('area', value.url && 'with-file')}
-      onSuccess={(files) => onChange(
-        compose(
-          head,
-          map(({ url, filename }) => ({ url, type: getFileType(filename) }))
-        )(files.filesUploaded)
-      )}
-    />
+      maxSize={MAX_FILE_SIZE}
+      multiple={false}
+      className={cx('area', file.preview && file.type && 'with-file')}
+    >
+      {file.preview && file.type ? (
+        file.type.match('image')
+          ? <img src={file.preview} alt="Document" className="image" />
+          : file.type === 'application/pdf'
+            ? <div>{file.name}</div>
+            : undefined
+      ) : <div className="hint">Upload your passport</div>}
+    </Dropzone>
     {touched && error && <div className="error-text">{error}</div>}
   </div>
 )
 
 Uploader.propTypes = {
-  input: PropTypes.shape({
-    value: PropTypes.shape({
-      url: PropTypes.string,
-      type: PropTypes.string,
-    }).isRequired,
+  input: PropTypes.shape({ // redux-form injected props
+    name: PropTypes.string.isRequired,
+    value: PropTypes.object.isRequired,
     onChange: PropTypes.func.isRequired,
-  }).isRequired, // redux-form injected props
+  }).isRequired,
   meta: PropTypes.shape({ // redux-form injected props
     error: PropTypes.oneOfType([PropTypes.array, PropTypes.string]),
     touched: PropTypes.bool,
   }).isRequired,
-  label: PropTypes.string.isRequired,
 }
 
 export default Uploader

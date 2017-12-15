@@ -3,25 +3,25 @@ import PropTypes from 'prop-types'
 import { Route, Redirect } from 'react-router-dom'
 
 const ProtectedRoute = ({ component: Component, path, store, ...restProps }) => {
-  const isAuthorized = !!store.getState().auth.token
-  const isVerified = !!store.getState().auth.verifyStatus
+  const { token, verifyStatus } = store.getState().auth
+  const isAuthorized = !!token
+  const withoutVerification = !verifyStatus
+  const isVerified = ['Approved', 'Preliminarily Approved'].includes(verifyStatus)
   return (
     <Route
       render={(props) => (
         path === '/verify'
-          ? isAuthorized && !isVerified
+          ? isAuthorized && (!isVerified || withoutVerification)
             ? <Component {...props} />
             : isAuthorized && isVerified
               ? <Redirect to="/account" />
               : <Redirect to="/welcome/login" />
           : path === '/account'
-            ? isAuthorized && isVerified
-              ? <Component {...props} />
-              : isAuthorized && !isVerified
+            ? isAuthorized
+              ? withoutVerification
                 ? <Redirect to="/verify" />
-                : !isAuthorized && isVerified
-                  ? <Redirect to="/welcome/login" />
-                  : <Redirect to="/welcome/login" />
+                : <Component {...props} />
+              : <Redirect to="/welcome/login" />
             : <Redirect to="/welcome" />
       )}
       {...restProps}

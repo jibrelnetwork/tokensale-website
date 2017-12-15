@@ -4,12 +4,45 @@ import { connect } from 'react-redux'
 import { compose } from 'lodash/fp'
 import { translate } from 'react-i18next'
 import { Field, reduxForm } from 'redux-form'
+import { withState, withHandlers } from 'recompose'
 
-import { Uploader } from '../../common'
 import * as actions from '../../../actions'
+import { Uploader, Modal } from '../../common'
 
-const Document = ({ t, setStage, submitting, handleSubmit }) => (
+const Document = ({
+  t,
+  skip,
+  setStage,
+  submitting,
+  handleSubmit,
+  openSkipModal,
+  closeSkipModal,
+  isSkipModalOpen,
+}) => (
   <div className="Identification">
+    <Modal
+      isOpen={isSkipModalOpen}
+      onClose={closeSkipModal}
+    >
+      <div>
+        Verification is required to withdraw your JNT. You can complete this step at a later stage.
+      </div>
+      <div className="buttons clear">
+        <button
+          onClick={skip}
+          className="button bordered pull-right"
+        >
+          Upload later
+        </button>
+        <button
+          onClick={closeSkipModal}
+          disabled={submitting}
+          className="button bordered"
+        >
+          Upload now
+        </button>
+      </div>
+    </Modal>
     <form onSubmit={handleSubmit} className="form">
       <Field
         name="document"
@@ -25,6 +58,13 @@ const Document = ({ t, setStage, submitting, handleSubmit }) => (
           {!submitting && 'Next Step'}
         </button>
         <button
+          style={{ marginRight: 5 }}
+          onClick={openSkipModal}
+          className="button bordered pull-right"
+        >
+          Skip for now
+        </button>
+        <button
           onClick={() => setStage('user-info')}
           disabled={submitting}
           className="button bordered"
@@ -38,9 +78,13 @@ const Document = ({ t, setStage, submitting, handleSubmit }) => (
 
 Document.propTypes = {
   t: PropTypes.func.isRequired,
+  skip: PropTypes.func.isRequired,
   setStage: PropTypes.func.isRequired,
   submitting: PropTypes.bool.isRequired,
   handleSubmit: PropTypes.func.isRequired,
+  openSkipModal: PropTypes.func.isRequired,
+  closeSkipModal: PropTypes.func.isRequired,
+  isSkipModalOpen: PropTypes.bool.isRequired,
 }
 
 const mapStateToProps = (state) => ({
@@ -48,27 +92,35 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = {
+  skip: actions.auth.verify.skipDocument,
   setStage: actions.auth.verify.setStage,
 }
 
+/* eslint-disable fp/no-this */
+
 export default compose(
   translate(),
+  withState(
+    'isSkipModalOpen',
+    'toggleSkipModal',
+    false,
+  ),
+  withHandlers({
+    openSkipModal: (props) =>
+      () => props.toggleSkipModal(true),
+    closeSkipModal: (props) =>
+      () => props.toggleSkipModal(false),
+  }),
   connect(
     mapStateToProps,
     mapDispatchToProps,
   ),
   reduxForm({
     onSubmit: ({ document }, dispatch) =>
-      dispatch(actions.auth.verify.uploadDocument(document.url, document.type)),
-    validate: ({ document: { url, type } = {} }, { t }) => !url || !type
+      dispatch(actions.auth.verify.uploadDocument(document)),
+    validate: ({ document }, { t }) => !document || !document.name
       ? { document: t('verification.document.errors.uploader.isRequired') }
       : {},
-    initialValues: {
-      document: {
-        url: undefined,
-        type: undefined,
-      },
-    },
     destroyOnUnmount: false,
   })
 )(Document)

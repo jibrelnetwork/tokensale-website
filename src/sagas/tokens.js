@@ -9,7 +9,13 @@ const DELAY = 300000
 // synced
 export function* getRaised() {
   while (true) { // eslint-disable-line fp/no-loops
-    const response = yield call(request, `${SERVER}/api/raised-tokens/`, null, 'get')
+    const response = yield call(
+      request,
+      `${SERVER}/api/raised-tokens/`,
+      null,
+      'get',
+      { silent: true }
+    )
     if (response.success) {
       const tokens = response.data.raised_tokens
       yield put(actions.tokens.raisedRequestSuccess(tokens))

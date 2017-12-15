@@ -2,18 +2,20 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
+import { Modals, AuthHeader } from '../../common'
 import Terms from './Terms'
-import Header from './Header'
 import Loader from './Loader'
 import UserInfo from './UserInfo'
 import Document from './Document'
 import Progress from './Progress'
 
+const { KYCStatusModal, SetPasswordModal } = Modals
+
 const Verify = ({ stage, token }) => (
   <div className="Verify inner-page">
     <div className="section start">
       <div className="inner">
-        <Header />
+        <AuthHeader />
         <Progress stage={stage} />
       </div>
     </div>
@@ -25,6 +27,8 @@ const Verify = ({ stage, token }) => (
         {stage === 'user-info' && <UserInfo id={token} />}
       </div>
     </div>
+    <KYCStatusModal />
+    <SetPasswordModal />
   </div>
 )
 

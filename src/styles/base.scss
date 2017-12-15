@@ -2,3 +2,30 @@
  * Icons
  */
 $modal-close-icon: url('../../static/icons/modal-close.svg');
+$bitcoin-suisse-icon: url('../../static/icons/suisse.svg');
+$arrow-button-icon: url('../../static/icons/arrow.svg');
+$arrow-button-blue-icon: url('../../static/icons/arrow-blue.svg');
+$arrow-button-blue-hover-icon: url('../../static/icons/arrow-blue-hover.svg');
+$question-blue-icon: url('../../static/icons/question-blue.svg');
+$question-white-icon: url('../../static/icons/question-white.svg');
+
+/**
+ * Font
+ */
+$font: 'Open Sans', Arial, sans-serif;
+
+/**
+ * Header sizes
+ */
+$header-height: 44px;
+$header-padding-top: 50px;
+$header-padding-bottom: 140px;
+$mobile-header-padding: 30px;
+
+$header-full-height: $header-height + $header-padding-top + $header-padding-bottom;
+$mobile-header-full-height: $header-height + (2 * $mobile-header-padding);
+
+/**
+ * Content sizes
+ */
+$content-min-height: calc(100vh - #{$header-full-height});

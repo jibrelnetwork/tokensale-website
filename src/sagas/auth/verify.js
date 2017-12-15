@@ -1,35 +1,49 @@
 import moment from 'moment'
 import { delay } from 'redux-saga'
+import LogRocket from 'logrocket'
+import { replace } from 'react-router-redux'
 import { put, call, take, select } from 'redux-saga/effects'
 import { startSubmit, stopSubmit } from 'redux-form'
 
-import gtm from '../../services/gtm'
-import * as VERIFY from '../../constants/auth/verify'
 import * as actions from '../../actions'
-import request from '../request'
+import * as ACCOUNT from '../../constants/account'
+import * as VERIFY from '../../constants/auth/verify'
 import { SERVER } from '../.'
+import gtm from '../../services/gtm'
+import request from '../request'
 
 const getForm = (state) => `account-${state.auth.token}`
 
-const DELAY = 30000
+const GET_ACCOUNT_DELAY = 30000
 
-export function* getStatus(periodically = false) {
+function getAccountData(responseData) {
+  return {
+    firstName: responseData.first_name,
+    lastName: responseData.last_name,
+    email: responseData.username,
+  }
+}
+
+function* onAccountResponse({ success, data }) {
+  if (success) {
+    const verifyStatus = data.identity_verification_status
+    yield put(actions.auth.verify.setStatus(verifyStatus))
+    yield put({ type: ACCOUNT.DASHBOARD.SET_DATA, payload: { accountData: getAccountData(data) } })
+  } else {
+    yield put(actions.auth.verify.setStatus(null))
+    console.log('Verification request error')
+  }
+}
+
+export function* getStatus(periodically = false, silent = false) {
   function* makeRequest() {
-    const response = yield call(request, `${SERVER}/api/account/`, null, 'get')
-    if (response.success) {
-      const status = response.data.identity_verification_status
-      const isVerified = response.data.is_identity_verified
-      if (isVerified) { gtm.pushRegistrationSuccess() }
-      yield put(actions.auth.verify.setStatus(status || 'Pending')) // ?
-    } else {
-      yield put(actions.auth.verify.setStatus('Pending'))
-      console.log('Verification request error')
-    }
+    const response = yield call(request, `${SERVER}/api/account/`, null, 'get', { silent })
+    yield onAccountResponse(response)
   }
   if (periodically) {
     while (true) { // eslint-disable-line fp/no-loops
       yield call(makeRequest)
-      yield call(delay, DELAY)
+      yield delay(GET_ACCOUNT_DELAY)
     }
   } else {
     yield call(makeRequest)
@@ -61,9 +75,9 @@ export function* updateUserInfo() {
     const form = yield select(getForm)
     const data = {
       residency,
+      citizenship,
       last_name: lastName,
       first_name: firstName,
-      citizenship,
       date_of_birth: moment(birthday).format('YYYY-MM-DD'),
     }
     yield put(startSubmit(form))
@@ -89,31 +103,47 @@ export function* updateUserInfo() {
 
 export function* uploadDocument() {
   while (true) { // eslint-disable-line fp/no-loops
-    const {
-      payload: {
-        documentUrl,
-        documentType,
-      },
-    } = yield take(VERIFY.UPLOAD_DOCUMENT)
+    const { payload: { document } } = yield take(VERIFY.UPLOAD_DOCUMENT)
     const form = yield select(getForm)
-    const data = {
-      document_url: documentUrl,
-      document_type: documentType,
-    }
     yield put(startSubmit(form))
-    const response = yield call(request, `${SERVER}/api/account/`, data, 'put')
+    const formData = new FormData()
+    formData.append('image', document, document.name)
+    const response = yield call(request, `${SERVER}/api/document/`, formData, 'post', { isFileUpload: true })
     if (response.success) {
+      LogRocket.track('Document upload success')
       gtm.pushVerificationNextStep('PassportScan')
       yield put(stopSubmit(form))
-      yield put(actions.auth.verify.setStatus('Pending'))
+      yield put(actions.auth.verify.setStatus('Preliminarily Approved'))
       yield put(actions.auth.verify.setStage('loader'))
       yield delay(25000)
       yield call(getStatus)
+      gtm.pushRegistrationSuccess()
     } else if (response.error) {
-      const errors = { document: response.data.document_url || response.data.document_type }
+      LogRocket.track('Document upload error')
+      const errors = { document: response.data.error }
       yield put(stopSubmit(form, errors))
     } else {
+      LogRocket.track('Document upload error')
       yield put(stopSubmit(form))
+    }
+  }
+}
+
+export function* skipDocument() {
+  while (true) { // eslint-disable-line fp/no-loops
+    yield take(VERIFY.SKIP_DOCUMENT)
+    const form = yield select(getForm)
+    const data = { is_document_skipped: true }
+    yield put(startSubmit(form))
+    const response = yield call(request, `${SERVER}/api/account/`, data, 'put')
+    if (response.success) {
+      gtm.pushVerificationNextStep('SkipPassportScan')
+      yield put(stopSubmit(form))
+      yield put(actions.auth.verify.setStatus('Pending'))
+      yield put(replace('/account'))
+      gtm.pushRegistrationSuccess()
+    } else {
+      yield put(stopSubmit(form, { document: 'Internal server error' }))
     }
   }
 }

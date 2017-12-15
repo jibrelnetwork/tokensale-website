@@ -9,8 +9,8 @@ export function* get() {
     yield take(ADDRESSES.REQUEST)
     const response = yield call(request, `${SERVER}/api/account/`, null, 'get')
     if (response.success) {
-      const ethAddress = response.data.addresses.ETH
-      const btcAddress = response.data.addresses.BTC
+      const ethAddress = response.data.eth_address
+      const btcAddress = response.data.btc_address
       yield put(actions.account.addresses.requestSuccess(ethAddress, btcAddress))
     } else { console.log('Addresses request error') }
   }

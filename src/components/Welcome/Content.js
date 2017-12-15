@@ -6,7 +6,6 @@ import { connect } from 'react-redux'
 import { translate } from 'react-i18next'
 
 import Timer from './Timer'
-import Tokens from './Tokens'
 import * as actions from '../../actions'
 
 const Content = ({ t, isAuthorized }) => (
@@ -17,14 +16,15 @@ const Content = ({ t, isAuthorized }) => (
     </div>
     <Timer />
     <div className="link">
-      <Link
-        className="button big"
-        to={isAuthorized ? '/account' : '/welcome/register'}
-      >
+      <Link to={isAuthorized ? '/account' : '/welcome/register'} className="button big">
         {t('index.button')}
       </Link>
     </div>
-    <Tokens />
+    <div className="link about-jibrel">
+      <a href="https://jibrel.network?from-sale=1" className="button bordered">
+        {t('index.header.about')}
+      </a>
+    </div>
   </div>
 )
 

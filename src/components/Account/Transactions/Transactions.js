@@ -24,12 +24,14 @@ const Transactions = ({ list, filter, setFilter }) => (
     </div>
     <div className="transactions">
       {!isEmpty(list) ? (
-        list.map((transaction) => <Transaction key={transaction.TXhash} {...transaction} />)
+        // eslint-disable-next-line react/no-array-index-key
+        list.map((transaction, index) => <Transaction key={index} {...transaction} />)
       ) : (
         <div className="empty">
           <div className="icon" />
           <div className="text">
-            The jWallet makes it easy and safe to store and transfer value of any tokens
+            {'Your ETH / BTC contributions will be displayed here. Transactions can take up to ' +
+              '90 minutes to appear'}
           </div>
         </div>
       )}

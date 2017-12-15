@@ -1,0 +1,222 @@
+.dashboard {
+  z-index: 1000;
+  position: absolute;
+  top: 0;
+  right: 0;
+  min-width: 190px;
+  max-width: 350px;
+  visibility: hidden;
+  opacity: 0;
+
+  &.open {
+    top: 33px;
+    visibility: visible;
+    opacity: 1;
+
+    .overlay {
+      display: block;
+    }
+  }
+
+  .overlay {
+    z-index: 1001;
+    position: fixed;
+    top: -1000px;
+    right: -1000px;
+    bottom: -1000px;
+    left: -1000px;
+    display: none;
+    background: transparent;
+    opacity: 0;
+  }
+
+  .content {
+    z-index: 1002;
+    position: relative;
+    padding: 30px;
+    background-color: $white;
+    border: 1px solid $gray4;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.05);
+  }
+
+  .head {
+    position: relative;
+    margin-bottom: 30px;
+    padding: 0 50px 30px 0;
+    border-bottom: 1px solid rgba($black2, 0.1);
+  }
+
+  .name,
+  .status {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .name {
+    max-width: 100%;
+    height: 22px;
+    line-height: 22px;
+    margin-bottom: 5px;
+    font-size: 16px;
+    font-weight: 600;
+    color: rgba($black2, 0.7);
+  }
+
+  .status {
+    height: 18px;
+    line-height: 18px;
+    font-size: 13px;
+    text-align: left;
+    color: rgba($black2, 0.5);
+  }
+
+  .status-info {
+    position: absolute;
+    top: 6px;
+    right: 0;
+    display: block;
+    width: 32px;
+    height: 32px;
+    padding: 16px;
+    background-image: $question-blue-icon;
+    background-position: 100%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    border: 1px solid $gray4;
+    border-radius: 50%;
+    cursor: pointer;
+
+    &:hover {
+      opacity: 0.5;
+    }
+  }
+
+  .body {
+    font-weight: 600;
+    font-size: 13px;
+  }
+
+  .item {
+    width: 100%;
+    margin-bottom: 30px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    &.dropdown > .title:after {
+      position: absolute;
+      top: 50%;
+      right: 0;
+      display: block;
+      width: 10px;
+      height: 10px;
+      margin-top: -5px;
+      background-image: $arrow-button-blue-icon;
+      background-position: 100%;
+      background-size: cover;
+      background-repeat: no-repeat;
+      content: "";
+      cursor: pointer;
+    }
+
+    .title {
+      position: relative;
+      color: $blue;
+      white-space: nowrap;
+      cursor: pointer;
+
+      &:hover {
+        color: $blue2;
+
+        &:after {
+          background-image: $arrow-button-blue-hover-icon;
+        }
+      }
+    }
+  }
+
+  .nested-items {
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+  }
+
+  .dropdown.open {
+    .nested-items {
+      max-height: 300px;
+      margin-top: 30px;
+      opacity: 1;
+    }
+  }
+
+  .support,
+  .go-to-dashboard {
+    display: none;
+
+    @media only screen and (max-width: 600px) {
+      display: block;
+    }
+  }
+
+  .set-address {
+    display: none;
+
+    @media only screen and (max-width: 800px) {
+      display: block;
+    }
+  }
+
+  @media only screen and (max-width: 1100px) {
+    right: 30px;
+  }
+
+  @media only screen and (max-width: 600px) {
+    position: fixed;
+    top: $mobile-header-full-height;
+    left: 0;
+    right: 0;
+    width: 0;
+    min-height: calc(100vh - 100px);
+    padding: 35px 30px;
+
+    &.open {
+      top: $mobile-header-full-height;
+      width: 100%;
+      width: 100vw;
+      max-width: 100%;
+      max-width: 100vw;
+      background-color: $blue4;
+
+      .overlay {
+        display: none;
+      }
+    }
+
+    .content {
+      padding: 0;
+      background: transparent;
+      border: none;
+      box-shadow: none;
+    }
+
+    .head {
+      border-color: rgba($white, 0.2);
+    }
+
+    .status {
+      color: rgba($white, 0.5);
+    }
+
+    .status-info {
+      background-image: $question-white-icon;
+      border: 1px solid rgba($white, 0.2);
+    }
+
+    .name,
+    .item .title {
+      color: $white;
+    }
+  }
+}

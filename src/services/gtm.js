@@ -1,5 +1,5 @@
 function push(data) {
-  const dataLayer = window.dataLayer || [] // eslint-disable-line more/no-window
+  const dataLayer = window.dataLayer || []
   dataLayer.push(data) // eslint-disable-line fp/no-mutating-methods
 }
 
@@ -23,7 +23,7 @@ function pushRegistrationEmail() {
 }
 
 /**
- * eventLabel value is one of ConfirmAgreement/BasicInfo/PassportScan
+ * eventLabel value is one of ConfirmAgreement/BasicInfo/PassportScan/SkipPassportScan
  */
 function pushVerificationNextStep(eventLabel) {
   push({
@@ -78,6 +78,10 @@ function pushPageView(pathname) {
   })
 }
 
+function pushNewTransaction() {
+  push({ event: 'NewTransaction' })
+}
+
 export default {
   pushAuthSuccess,
   pushRegistrationEmail,
@@ -87,4 +91,5 @@ export default {
   pushProfileRequestWithdraw,
   pushProfileSendRequest,
   pushPageView,
+  pushNewTransaction,
 }

@@ -1,10 +1,10 @@
 import React from 'react'
-import Header from './Header'
+
+import { Modals, AuthHeader, BitcoinSuisse, Social } from '../common'
 import Tokens from '../Welcome/Tokens'
 import Benefits from '../Welcome/Benefits'
 import Addresses from './Addresses'
 import Transactions from './Transactions'
-import Modals from './Modals'
 
 const { KYCStatusModal, SetAddressModal, SetPasswordModal, WithdrawModal } = Modals
 
@@ -12,7 +12,7 @@ const Account = () => (
   <div className="Account inner-page">
     <div className="section start">
       <div className="inner">
-        <Header />
+        <AuthHeader isAccountPage />
       </div>
     </div>
     <div className="section content">
@@ -23,6 +23,8 @@ const Account = () => (
       </div>
     </div>
     <Benefits />
+    <BitcoinSuisse />
+    <Social />
     <KYCStatusModal />
     <SetAddressModal />
     <SetPasswordModal />

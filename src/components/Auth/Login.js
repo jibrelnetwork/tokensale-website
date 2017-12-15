@@ -2,8 +2,10 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import { lifecycle } from 'recompose'
 import { set, get, compose, identity } from 'lodash/fp'
 import { Field, reduxForm, getFormSubmitErrors, getFormValues } from 'redux-form'
+
 import * as actions from '../../actions'
 import { Input } from '../common'
 
@@ -16,52 +18,50 @@ const Login = ({
   handleSubmit,
   isEmailNotVerified,
 }) => (
-  <div className="Login">
-    <div className="auth">
-      <div className="form-block">
-        <form
-          onSubmit={handleSubmit}
-          className="form"
-        >
-          <Field
-            name="email"
-            type="text"
-            label="Email"
-            component={Input}
-          />
-          <Field
-            name="password"
-            type="password"
-            label="Password"
-            component={Input}
-          />
-          <div className="buttons clear">
-            <button
-              type="submit"
-              disabled={submitting}
-              className="button pull-left"
+  <div className="auth">
+    <div className="form-block">
+      <form
+        onSubmit={handleSubmit}
+        className="form"
+      >
+        <Field
+          name="email"
+          type="text"
+          label="Email"
+          component={Input}
+        />
+        <Field
+          name="password"
+          type="password"
+          label="Password"
+          component={Input}
+        />
+        <div className="buttons clear">
+          <button
+            type="submit"
+            disabled={submitting}
+            className="button pull-left"
+          >
+            {!submitting && 'Login'}
+          </button>
+          {isEmailNotVerified ? (
+            <div
+              style={{ padding: 0 }}
+              onClick={() => resendEmail(email)}
+              className="button clean pull-right"
             >
-              {!submitting && 'Login'}
-            </button>
-            {isEmailNotVerified ? (
-              <div
-                style={{ padding: 0 }}
-                onClick={() => resendEmail(email)}
-                className="button clean pull-right"
-              >
-                {"Didn't receive email?"}
-              </div>
-            ) : (
-              <Link
-                to="/welcome/password/reset"
-                className="pull-right"
-              >
-                Forgotten password?
-              </Link>
-            )}
-          </div>
-        </form>
-      </div>
+              {"Didn't receive email?"}
+            </div>
+          ) : (
+            <Link
+              to="/welcome/password/reset"
+              className="pull-right"
+            >
+              Forgot password?
+            </Link>
+          )}
+        </div>
+      </form>
     </div>
   </div>
 )
@@ -88,6 +88,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = {
   resendEmail: actions.auth.email.resend,
+  showSupportLink: actions.auth.showSupportLink,
 }
 
 export default compose(
@@ -111,5 +112,13 @@ export default compose(
           : identity,
     )({}),
     destroyOnUnmount: true,
+  }),
+  lifecycle({
+    componentWillReceiveProps(props) {
+      if (props.submitFailed) {
+        props.showSupportLink()
+      }
+    },
+    componentWillUnmount() { this.props.showSupportLink(false) }, // eslint-disable-line fp/no-this
   }),
 )(Login)

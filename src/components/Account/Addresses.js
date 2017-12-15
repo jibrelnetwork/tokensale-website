@@ -15,12 +15,12 @@ const Addresses = ({
   btcAddress,
   ethAddress,
 }) => (
-  <div className="Wallets">
+  <div className="Addresses">
     {verifyStatus === 'Declined' ? (
       <div className="addresses declined clear">
         <div className="info-block">
           <div className="icon status-declined" />
-          <p>
+          <div>
             It seems we were unable to verify your identity.
             <br />
             Please contact the
@@ -34,7 +34,7 @@ const Addresses = ({
             and a representative
             <br />
             will assist in manually processing your application.
-          </p>
+          </div>
         </div>
       </div>
     ) : isICOStarted ? (
@@ -54,11 +54,11 @@ const Addresses = ({
       <div className="addresses declined clear">
         <div className="info-block">
           <div className="icon ico-waiting" />
-          <p>
+          <div>
             Jibrel Network Token Sale starts on 27 November 2017 - 12:00 UTC.
             <br />
             Your dedicated BTC and ETH contribution addresses will be shown here once the token sale starts.
-          </p>
+          </div>
         </div>
       </div>
     )}
@@ -67,8 +67,9 @@ const Addresses = ({
 
 Addresses.propTypes = {
   pushSendRequestEvent: PropTypes.func.isRequired,
-  verifyStatus: PropTypes.string.isRequired,
   isICOStarted: PropTypes.bool.isRequired,
+  /* optional */
+  verifyStatus: PropTypes.string,
   ethAddress: PropTypes.string,
   btcAddress: PropTypes.string,
 }
@@ -76,6 +77,7 @@ Addresses.propTypes = {
 Addresses.defaultProps = {
   ethAddress: undefined,
   btcAddress: undefined,
+  verifyStatus: null,
 }
 
 const mapStateToProps = (state) => ({

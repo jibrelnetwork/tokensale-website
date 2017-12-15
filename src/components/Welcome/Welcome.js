@@ -1,20 +1,40 @@
 import React from 'react'
+import cx from 'classnames'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { Route, Switch, Redirect } from 'react-router-dom'
-import Benefits from './Benefits'
-import Content from './Content'
-import Social from './Social'
-import Header from './Header'
-import * as Auth from '../Auth'
 
-const Welcome = ({ isAuthorized }) => (
+import * as Auth from '../Auth'
+import { Modals, BitcoinSuisse, Social } from '../common'
+import Header from './Header'
+import Content from './Content'
+import Tokens from './Tokens'
+import Benefits from './Benefits'
+import ConfirmWithdraw from './ConfirmWithdraw'
+import ConfirmAddressChange from './ConfirmAddressChange'
+
+const { KYCStatusModal, SetAddressModal, SetPasswordModal } = Modals
+const HOME_PAGE_PATHNAME = '/welcome'
+const EMAIL_SENDED_PAGE_PATHNAME = '/welcome/email/sended'
+
+function getPageName(pathname) {
+  switch (pathname) {
+    case HOME_PAGE_PATHNAME:
+      return 'home'
+    case EMAIL_SENDED_PAGE_PATHNAME:
+      return 'email-sended'
+    default:
+      return ''
+  }
+}
+
+const Welcome = ({ location: { pathname }, isAuthorized, isSupportLinkShown }) => (
   <div className="Welcome">
-    <div className="section start">
+    <div className={cx('section', 'start', getPageName(pathname))}>
       <div className="bg-1" />
       <div className="bg-2" />
       <div className="inner">
-        <Header />
+        <Header isSupportLinkShown={isSupportLinkShown} />
         <Route path="/welcome" exact component={Content} />
       </div>
       <Switch>
@@ -28,20 +48,42 @@ const Welcome = ({ isAuthorized }) => (
         }
         <Route path="/welcome/email/" component={Auth.Email} />
         <Route path="/welcome/password/" component={Auth.Password} />
+        <Route
+          component={ConfirmWithdraw}
+          path="/welcome/withdraw-confirm/"
+        />
+        <Route
+          component={ConfirmAddressChange}
+          path="/welcome/change-address-confirm/"
+        />
         <Redirect from="/welcome/:not_found" to="/welcome" />
       </Switch>
     </div>
-    <Benefits />
-    <Social />
+    <KYCStatusModal />
+    <SetAddressModal />
+    <SetPasswordModal />
+    {(getPageName(pathname) === 'home') && (
+      <div>
+        <Tokens />
+        <Benefits />
+        <BitcoinSuisse />
+        <Social />
+      </div>
+    )}
   </div>
 )
 
 Welcome.propTypes = {
+  location: PropTypes.shape({
+    pathname: PropTypes.string.isRequired,
+  }).isRequired,
   isAuthorized: PropTypes.bool.isRequired,
+  isSupportLinkShown: PropTypes.bool.isRequired,
 }
 
 const mapStateToProps = (state) => ({
   isAuthorized: !!state.auth.token,
+  isSupportLinkShown: state.auth.isSupportLinkShown,
 })
 
 export default connect(
