@@ -26,7 +26,7 @@ const Addresses = ({
             Please contact the
             <a
               style={{ margin: '0 5px' }}
-              href="mailto:sale@jibrel.network"
+              href="mailto:support@jibrel.network"
               onClick={pushSendRequestEvent}
             >
               support team
