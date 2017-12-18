@@ -12,35 +12,35 @@ const RU = {
       continue: 'Продолжить',
       complete: 'Войти',
     },
-    resetPasswordLinkSended: 'An email has been sent to your email address. \n It can take a few minutes before you have it in your inbox. \n Click the recovery link to change your password!',
+    resetPasswordLinkSended: 'На вашу электронную почту отправлено письмо с подтверждением. \n Может пройти несколько минут, прежде чем вы его получите. \n Перейдите по ссылке в письме для сброса пароля.',
     sendResetPasswordEmail: {
       fields: {
-        email: 'Your email',
+        email: 'Ваш email',
       },
       errors: {
         email: {
-          isRequired: 'Email address is required',
-          invalidFormat: 'Invalid email address',
+          isRequired: 'Необходимо указать email',
+          invalidFormat: 'Неправильный email',
         },
       },
-      submit: 'Change password',
+      submit: 'Изменить пароль',
     },
     resetPassword: {
       fields: {
-        newPassword: 'New password',
-        newPasswordConfirm: 'New password confirmation',
+        newPassword: 'Новый пароль',
+        newPasswordConfirm: 'Повтор нового пароля',
       },
       errors: {
         newPassword: {
-          isRequired: 'Password is required',
-          isTooShort: 'Password is too short',
+          isRequired: 'Необходимо указать пароль',
+          isTooShort: 'Пароль слишком короткий',
         },
         newPasswordConfirm: {
-          notMatch: 'Password does not match the confirm password',
-          isRequired: 'Password confirmation is required',
+          notMatch: 'Пароли не совпадают',
+          isRequired: 'Необходимо повторно указать пароль',
         },
       },
-      submit: 'Change password',
+      submit: 'Изменить пароль',
     },
     login: {
       fields: {

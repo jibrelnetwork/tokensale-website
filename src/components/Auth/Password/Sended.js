@@ -1,13 +1,16 @@
 import React from 'react'
+import PropTypes from 'prop-types'
+import { translate } from 'react-i18next'
 
-const Sended = () => (
+const Sended = ({ t }) => (
   <div className="password-reset">
     <div className="img sended" />
-    <p>
-      {'An email has been sent to your email address. It can take a few minutes before you have ' +
-        'it in your inbox. Click the recovery link to change your password!'}
-    </p>
+    <p>{t('auth.resetPasswordLinkSended')}</p>
   </div>
 )
 
-export default Sended
+Sended.propTypes = {
+  t: PropTypes.func.isRequired,
+}
+
+export default translate()(Sended)
