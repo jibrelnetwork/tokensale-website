@@ -1,7 +1,11 @@
+/* eslint-disable fp/no-this */
+
 import React from 'react'
 import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
 import { Field, reduxForm } from 'redux-form'
 import { set, compose, identity } from 'lodash/fp'
+import lifecycle from 'recompose/lifecycle'
 
 import { Input } from '../../../common'
 import { account } from '../../../../actions'
@@ -26,23 +30,38 @@ SetPassword.propTypes = {
   submitting: PropTypes.bool.isRequired,
 }
 
-export default reduxForm({
-  form: 'set-password',
-  onSubmit: ({ password, newPassword }, dispatch) => dispatch(
-    account.password.set(password, newPassword)
-  ),
-  validate: ({ password, newPassword, newPasswordConfirm }) => compose(
-    !password
-      ? set('password', 'Password is required')
-      : identity,
-    !newPassword
-      ? set('newPassword', 'New Password is required')
-      : newPassword.length < 8
-        ? set('newPassword', 'New Password is too short')
+const mapDispatchToProps = {
+  shakeSetPasswordModal: () => account.modals.changeState('setPassword', 'shake'),
+}
+
+export default compose(
+  connect(null, mapDispatchToProps),
+  reduxForm({
+    form: 'set-password',
+    onSubmit: ({ password, newPassword }, dispatch) => dispatch(
+      account.password.set(password, newPassword)
+    ),
+    validate: ({ password, newPassword, newPasswordConfirm }) => compose(
+      !password
+        ? set('password', 'Password is required')
         : identity,
-    !(newPassword === newPasswordConfirm)
-      ? set('newPasswordConfirm', 'Password should match')
-      : identity,
-  )({}),
-  destroyOnUnmount: true,
-})(SetPassword)
+      !newPassword
+        ? set('newPassword', 'New Password is required')
+        : newPassword.length < 8
+          ? set('newPassword', 'New Password is too short')
+          : identity,
+      !(newPassword === newPasswordConfirm)
+        ? set('newPasswordConfirm', 'Password should match')
+        : identity,
+    )({}),
+    destroyOnUnmount: true,
+    touchOnBlur: false,
+  }),
+  lifecycle({
+    componentWillReceiveProps(nextProps) {
+      if (!this.props.submitFailed && nextProps.submitFailed) {
+        this.props.shakeSetPasswordModal()
+      }
+    },
+  }),
+)(SetPassword)

@@ -52,6 +52,9 @@ const RU = {
           isRequired: 'Необходимо указать email',
           isInvalid: 'Неправильный email',
         },
+        captcha: {
+          isRequired: 'Необходимо заполнить капчу',
+        },
         password: {
           isRequired: 'Необходимо указать пароль',
           isTooShort: 'Пароль слишком короткий',

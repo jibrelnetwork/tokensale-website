@@ -46,8 +46,8 @@ export function* getUserData(token) {
 
 export function* login() {
   while (true) { // eslint-disable-line fp/no-loops
-    const { payload: { email, password } } = yield take(AUTH.LOGIN)
-    const data = { email: email.toLowerCase(), password }
+    const { payload: { email, password, captcha } } = yield take(AUTH.LOGIN)
+    const data = { email: email.toLowerCase(), password, captcha }
     yield put(startSubmit(FORM))
     const response = yield call(request, `${SERVER}/auth/login/`, data, 'post')
     if (response.success) {
@@ -57,7 +57,14 @@ export function* login() {
         yield call(getUserData, token)
       }
     } else if (response.error) {
-      yield put(stopSubmit(FORM, { password: response.data.non_field_errors }))
+      const errors = {
+        captcha: response.data.captcha,
+        password: response.data.non_field_errors,
+      }
+      if (errors.captcha) {
+        window.grecaptcha.reset() // eslint-disable-line more/no-window
+      }
+      yield put(stopSubmit(FORM, errors))
     } else {
       yield put(stopSubmit(FORM))
     }

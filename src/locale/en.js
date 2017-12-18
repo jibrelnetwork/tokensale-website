@@ -52,6 +52,9 @@ const EN = {
           isRequired: 'Email address is required',
           isInvalid: 'Invalid email address',
         },
+        captcha: {
+          isRequired: 'Please complete captcha',
+        },
         password: {
           isRequired: 'Password is required',
           isTooShort: 'Password is too short',
