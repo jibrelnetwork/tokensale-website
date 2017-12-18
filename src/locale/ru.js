@@ -252,9 +252,9 @@ const RU = {
         decision: 'Принятие решения',
       },
       results: {
-        pending: 'We are currently processing your application. \n Please note, we may request that you submit additional identity verification in the future',
-        approved: 'Your identity has been verified \n and your application has been approved',
-        declined: "We currently can't verify your identity",
+        pending: 'Ваша заявка на верификацию принята и находится на рассмотрении. \n Возможно нам понадобится дополнительная информация для завершения процедуры верификации',
+        approved: 'Процедура верификации успешно завершена',
+        declined: 'В данный момент нам не удалось выполнить верификацию вашего аккаунта',
       },
       close: 'Go to dashboard',
     },
