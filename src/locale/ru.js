@@ -196,30 +196,30 @@ const RU = {
     },
     userInfo: {
       fields: {
-        firstName: 'First Name',
-        lastName: 'Last Name',
-        birthday: 'Birthday',
-        residency: 'Residency',
-        citizenship: 'Citizenship',
+        firstName: 'Имя',
+        lastName: 'Фамилия',
+        birthday: 'Дата рождения',
+        residency: 'Место жительства',
+        citizenship: 'Гражданство',
       },
       errors: {
         firstName: {
-          isRequired: 'First name is required',
+          isRequired: 'Укажите ваше имя',
         },
         lastName: {
-          isRequired: 'Last name is required',
+          isRequired: 'Укажите вашу фамилию',
         },
         birthday: {
-          isRequired: 'Birthday is required',
+          isRequired: 'Укажите дату рождения',
         },
         residency: {
-          isRequired: 'Residency is required',
+          isRequired: 'Укажите ваше место жительства',
         },
         citizenship: {
-          isRequired: 'Citizenship is required',
+          isRequired: 'Укажите ваше гражданство',
         },
       },
-      submit: 'Next Step',
+      submit: 'Далее',
     },
     document: {
       fields: {
