@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { lifecycle } from 'recompose'
+import { translate } from 'react-i18next'
 import { Field, reduxForm } from 'redux-form'
 import { set, compose, identity } from 'lodash/fp'
 
@@ -11,24 +12,46 @@ import { Input, Captcha } from '../common'
 
 const VALIDATE_EMAIL_REGEXP = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/ // eslint-disable-line max-len
 
-const Register = ({ submitting, handleSubmit }) => (
+const Register = ({ submitting, handleSubmit, t }) => (
   <div className="auth">
     <div className="form-block">
       <form onSubmit={handleSubmit} className="form">
-        <Field name="email" type="text" component={Input} label="Email" />
-        <Field name="password" type="password" component={Input} label="Password" />
+        <Field
+          name="email"
+          type="text"
+          label={t('auth.registration.fields.email')}
+          component={Input}
+        />
+        <Field
+          name="password"
+          type="password"
+          label={t('auth.registration.fields.password')}
+          component={Input}
+        />
         <Field
           name="passwordConfirm"
           type="password"
+          label={t('auth.registration.fields.passwordConfirm')}
           component={Input}
-          label="Password Confirmation"
         />
-        <Field name="captcha" component={Captcha} />
+        <Field
+          name="captcha"
+          component={Captcha}
+        />
         <div className="buttons clear">
-          <button type="submit" disabled={submitting} className="button pull-left">
-            {!submitting && 'Register'}
+          <button
+            type="submit"
+            disabled={submitting}
+            className="button pull-left"
+          >
+            {!submitting && t('auth.registration.submit')}
           </button>
-          <Link to="/welcome/login" className="pull-right">Have an account?</Link>
+          <Link
+            to="/welcome/login"
+            className="pull-right"
+          >
+            {t('auth.registration.links.login')}
+          </Link>
         </div>
       </form>
     </div>
@@ -36,6 +59,7 @@ const Register = ({ submitting, handleSubmit }) => (
 )
 
 Register.propTypes = {
+  t: PropTypes.func.isRequired,
   submitting: PropTypes.bool.isRequired,
   handleSubmit: PropTypes.func.isRequired,
 }
@@ -45,35 +69,37 @@ const mapDispatchToProps = {
 }
 
 export default compose(
+  translate(),
   connect(
     null,
     mapDispatchToProps,
   ),
   reduxForm({
     form: 'register',
-    onSubmit: ({ email, password, passwordConfirm, captcha }, dispatch) => dispatch(
-      actions.auth.register.createAccount(email, password, passwordConfirm, captcha)
-    ),
-    validate: (values) => compose(
-      !values.email
-        ? set('email', 'Email address is required')
-        : !VALIDATE_EMAIL_REGEXP.test(values.email)
-          ? set('email', 'Invalid email address')
-          : values.email.match('@hanmail.net')
-            ? set('email', 'Issues reported with hanmail.net - please provide a different email address')
+    onSubmit: ({ email, password, passwordConfirm, captcha }, dispatch) =>
+      dispatch(actions.auth.register.createAccount(email, password, passwordConfirm, captcha)),
+    validate: ({ email, password, passwordConfirm, captcha }, { t }) => compose(
+      !email
+        ? set('email', t('auth.registration.errors.email.isRequired'))
+        : !VALIDATE_EMAIL_REGEXP.test(email)
+          ? set('email', t('auth.registration.errors.email.isInvalid'))
+          : email.match('@hanmail.net')
+            ? set('email', t('auth.registration.errors.email.isForbidden'))
             : identity,
-      !values.password
-        ? set('password', 'Password is required')
-        : values.password.length < 8
-          ? set('password', 'Password is too short')
+      !password
+        ? set('password', t('auth.registration.errors.password.isRequired'))
+        : password.length < 8
+          ? set('password', t('auth.registration.errors.password.isTooShort'))
           : identity,
-      !values.passwordConfirm
-        ? set('passwordConfirm', 'Password confirmation is required')
+      !passwordConfirm
+        ? set('passwordConfirm', t('auth.registration.errors.passwordConfirm.isRequired'))
         : identity,
-      values.passwordConfirm && values.password !== values.passwordConfirm
-        ? set('password', 'Password does not match the confirm password')
+      passwordConfirm && password !== passwordConfirm
+        ? set('passwordConfirm', t('auth.registration.errors.passwordConfirm.notMatch'))
         : identity,
-      !values.captcha ? set('captcha', 'Click on captcha checkbox') : identity,
+      !captcha
+        ? set('captcha', t('auth.registration.errors.captcha.isRequired'))
+        : identity,
     )({}),
   }),
   lifecycle({
@@ -82,6 +108,8 @@ export default compose(
         props.showSupportLink()
       }
     },
-    componentWillUnmount() { this.props.showSupportLink(false) }, // eslint-disable-line fp/no-this
+    componentWillUnmount() {
+      this.props.showSupportLink(false) // eslint-disable-line fp/no-this
+    },
   }),
 )(Register)

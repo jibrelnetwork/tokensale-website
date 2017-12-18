@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { lifecycle } from 'recompose'
+import { translate } from 'react-i18next'
 import { set, get, compose, identity } from 'lodash/fp'
 import { Field, reduxForm, getFormSubmitErrors, getFormValues } from 'redux-form'
 
@@ -94,6 +95,7 @@ const mapDispatchToProps = {
 }
 
 export default compose(
+  translate(),
   connect(
     mapStateToProps,
     mapDispatchToProps,

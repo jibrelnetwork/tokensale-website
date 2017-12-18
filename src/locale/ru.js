@@ -66,30 +66,31 @@ const RU = {
     registration: {
       fields: {
         email: 'Email',
-        password: 'Password',
-        passwordConfirm: 'Password Confirmation',
+        password: 'Пароль',
+        passwordConfirm: 'Повтор пароля',
       },
       errors: {
         email: {
-          isRequired: 'Email address is required',
-          isInvalid: 'Invalid email address',
+          isInvalid: 'Неправильный email',
+          isRequired: 'Необходимо указать email',
+          isForbidden: 'Электронная почта на hanmail.net не может быть использована',
         },
         captcha: {
-          isRequired: 'Click on captcha checkbox',
+          isRequired: 'Необходимо заполнить капчу',
         },
         password: {
-          isRequired: 'Password is required',
-          isTooShort: 'Password is too short',
+          isRequired: 'Необходимо указать пароль',
+          isTooShort: 'Пароль слишком короткий',
         },
-        newPasswordConfirm: {
-          notMatch: 'Password does not match the confirm password',
-          isRequired: 'Password confirmation is required',
+        passwordConfirm: {
+          notMatch: 'Пароли не совпадают',
+          isRequired: 'Необходимо повторно указать пароль',
         },
       },
       links: {
-        registration: 'Have an account?',
+        login: 'Уже есть аккаунт?',
       },
-      submit: 'Register',
+      submit: 'Зарегистрироваться',
     },
   },
   account: {

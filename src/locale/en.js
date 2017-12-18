@@ -71,8 +71,9 @@ const EN = {
       },
       errors: {
         email: {
-          isRequired: 'Email address is required',
           isInvalid: 'Invalid email address',
+          isRequired: 'Email address is required',
+          isForbidden: 'Issues reported with hanmail.net - please provide a different email address',
         },
         captcha: {
           isRequired: 'Please complete captcha',
@@ -81,13 +82,13 @@ const EN = {
           isRequired: 'Password is required',
           isTooShort: 'Password is too short',
         },
-        newPasswordConfirm: {
+        passwordConfirm: {
           notMatch: 'Password and password confirmation should match',
           isRequired: 'Please confirm your password',
         },
       },
       links: {
-        registration: 'Already have an account?',
+        login: 'Already have an account?',
       },
       submit: 'Register',
     },
