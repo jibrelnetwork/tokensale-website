@@ -47,7 +47,7 @@ export default compose(
     validate: ({ email }, { t }) => !email
       ? { email: t('auth.sendResetPasswordEmail.errors.email.isRequired') }
       : !VALIDATE_EMAIL_REGEXP.test(email)
-        ? { email: t('auth.sendResetPasswordEmail.errors.email.invalidFormat') }
+        ? { email: t('auth.sendResetPasswordEmail.errors.email.isInvalid') }
         : {},
   })
 )(Reset)

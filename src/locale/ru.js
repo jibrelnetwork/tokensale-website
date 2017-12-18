@@ -20,7 +20,7 @@ const RU = {
       errors: {
         email: {
           isRequired: 'Необходимо указать email',
-          invalidFormat: 'Неправильный email',
+          isInvalid: 'Неправильный email',
         },
       },
       submit: 'Изменить пароль',
@@ -45,23 +45,23 @@ const RU = {
     login: {
       fields: {
         email: 'Email',
-        password: 'Password',
+        password: 'Пароль',
       },
       errors: {
         email: {
-          isRequired: 'Email address is required',
-          isInvalid: 'Invalid email address',
+          isRequired: 'Необходимо указать email',
+          isInvalid: 'Неправильный email',
         },
         password: {
-          isRequired: 'Password is required',
-          isTooShort: 'Password is too short',
+          isRequired: 'Необходимо указать пароль',
+          isTooShort: 'Пароль слишком короткий',
         },
       },
       links: {
-        resendEmail: "Didn't receive email?",
-        resetPassword: 'Forgotten password?',
+        resendEmail: 'Не получили письмо в подтверждением?',
+        resetPassword: 'Забыли пароль?',
       },
-      submit: 'Login',
+      submit: 'Войти',
     },
     registration: {
       fields: {
