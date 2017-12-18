@@ -2,10 +2,15 @@
 const RU = {
   auth: {
     emailVerification: {
-      error: 'Unfortunately, we were unable to validate your email. \n Try again later or contact us via {{email}}',
-      success: 'Your email has been verified \n and your can login now!',
-      inProgress: 'Validating your email...',
-      linkSended: 'An email has been sent to your email address. \n It can take a few minutes before you have it in your inbox. Click the activation link to verify your account!',
+      error: {
+        message: 'К сожалению, мы не смогли верифицировать ваш email. \n Попробуйте еще раз или свяжитесь с нами по {{email}}',
+        email: 'электронной почте',
+      },
+      success: 'Ваш адрес электронной почты подтвержден!',
+      inProgress: 'Подтверждение электронной почты...',
+      linkSended: 'На вашу электронную почту отправлено письмо с подтверждением. \n Может пройти несколько минут, прежде чем вы его получите. \n Перейдите по ссылке в письме для подтверждения вашей электронной почты.',
+      continue: 'Продолжить',
+      complete: 'Войти',
     },
     resetPasswordLinkSended: 'An email has been sent to your email address. \n It can take a few minutes before you have it in your inbox. \n Click the recovery link to change your password!',
     sendResetPasswordEmail: {
@@ -180,7 +185,7 @@ const RU = {
       },
       errors: {
         policyConfirm: {
-          isRequired: 'Необходимо приниять политуку конфиденциальности',
+          isRequired: 'Необходимо принять политику конфиденциальности',
         },
         citizenshipConfirm: {
           isRequired: 'Необходимо подтвердить гражданство',

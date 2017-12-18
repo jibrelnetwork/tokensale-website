@@ -2,10 +2,15 @@
 const EN = {
   auth: {
     emailVerification: {
-      error: 'Unfortunately, we were unable to verify your email. \n Please verify your email address or contact us via {{email}}',
+      error: {
+        message: 'Unfortunately, we were unable to verify your email. \n Please verify your email address or contact us via {{email}}',
+        email: 'email',
+      },
       success: 'Your email has been verified. \n You can now login to your token sale dashboard',
       inProgress: 'Verifying your email...',
       linkSended: 'An email has been sent to your email address. \n It can take a few minutes before it arrives in your inbox. Click the activation link in your email to verify your account!',
+      continue: 'Continue',
+      complete: 'Login',
     },
     resetPasswordLinkSended: 'An email has been sent to your email address. \n It can take a few minutes before you have it in your inbox. \n Click the recovery link to change your password!',
     sendResetPasswordEmail: {
