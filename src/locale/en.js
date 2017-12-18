@@ -222,6 +222,11 @@ const EN = {
       submit: 'Next',
     },
     document: {
+      modal: {
+        close: 'Upload now',
+        message: 'Verification is required to withdraw your JNT. You can complete this step at a later stage.',
+        skipUpload: 'Upload later',
+      },
       fields: {
         uploader: 'Upload your passport',
       },
@@ -230,7 +235,9 @@ const EN = {
           isRequired: 'Upload document scan in order to verify your identity',
         },
       },
+      skip: 'Skip for now',
       goBack: 'Previous Step',
+      submit: 'Next',
     },
     loader: {
       stages: {

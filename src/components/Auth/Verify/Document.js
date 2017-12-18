@@ -25,21 +25,21 @@ const Document = ({
       onClose={closeSkipModal}
     >
       <div>
-        Verification is required to withdraw your JNT. You can complete this step at a later stage.
+        {t('verification.document.modal.message')}
       </div>
       <div className="buttons clear">
         <button
           onClick={skip}
           className="button bordered pull-right"
         >
-          Upload later
+          {t('verification.document.modal.skipUpload')}
         </button>
         <button
           onClick={closeSkipModal}
           disabled={submitting}
           className="button bordered"
         >
-          Upload now
+          {t('verification.document.modal.close')}
         </button>
       </div>
     </Modal>
@@ -55,14 +55,14 @@ const Document = ({
           disabled={submitting}
           className="button bordered pull-right"
         >
-          {!submitting && 'Next Step'}
+          {!submitting && t('verification.document.submit')}
         </button>
         <button
           style={{ marginRight: 5 }}
           onClick={openSkipModal}
           className="button bordered pull-right"
         >
-          Skip for now
+          {t('verification.document.skip')}
         </button>
         <button
           onClick={() => setStage('user-info')}

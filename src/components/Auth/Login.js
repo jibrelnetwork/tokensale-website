@@ -44,7 +44,7 @@ const Login = ({
             disabled={submitting}
             className="button pull-left"
           >
-            {!submitting && 'Login'}
+            {!submitting && t('auth.login.submit')}
           </button>
           {isEmailNotVerified ? (
             <div
