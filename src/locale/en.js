@@ -109,17 +109,24 @@ const EN = {
     },
   },
   account: {
+    menu: 'Menu',
     logout: 'Logout',
     balance: 'Balance - {{amount}}',
+    support: 'Support',
     KYCStatus: {
-      label: 'KYC status',
+      label: 'KYC status - {{status}}',
       variants: {
         pending: 'Preliminarily Approved',
         approved: 'Approved',
         declined: 'Declined',
       },
     },
-    verificationDeclined: 'It seems we were unable to verify your identity. \n Please contact the support team {{email}} and a representative \n will assist in manually processing your application.',
+    uploadDocument: 'Upload document',
+    changeETHAddress: 'Change ETH address',
+    verificationDeclined: {
+      message: 'It seems we were unable to verify your identity. \n Please contact the {{support}} and a representative \n will assist in manually processing your application.',
+      support: 'support team',
+    },
     ethAddress: 'Your address',
     icoAddresses: {
       eth: 'Your ETH Contribution Address',

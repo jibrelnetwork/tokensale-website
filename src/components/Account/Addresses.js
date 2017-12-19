@@ -22,14 +22,14 @@ const Addresses = ({
           <div className="icon status-declined" />
           <div>
             <Interpolate
-              i18nKey="account.verificationDeclined"
+              i18nKey="account.verificationDeclined.message"
               support={(
                 <a
                   style={{ margin: '0 5px' }}
                   href="mailto:support@jibrel.network"
                   onClick={pushSendRequestEvent}
                 >
-                  {t('account.support')}
+                  {t('account.verificationDeclined.support')}
                 </a>
               )}
             />
