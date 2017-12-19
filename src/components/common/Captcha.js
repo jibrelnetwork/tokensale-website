@@ -2,6 +2,9 @@ import React from 'react'
 import cx from 'classnames'
 import PropTypes from 'prop-types'
 import Recaptcha from 'react-grecaptcha'
+import lifecycle from 'recompose/lifecycle'
+
+import grecaptcha from '../../services/grecaptcha'
 
 const RECAPTCHA_SITE_KEY = '6Lcd-DgUAAAAAJj89dm3aR43OMwW5_OS3Q4tg9MO'
 
@@ -11,7 +14,7 @@ const Captcha = ({ input: { onChange }, meta: { error, touched } }) => (
       <Recaptcha
         sitekey={RECAPTCHA_SITE_KEY}
         callback={onChange}
-        expiredCallback={() => window.grecaptcha.reset()} // eslint-disable-line more/no-window
+        expiredCallback={() => window.grecaptcha.reset()}
       />
       {touched && error && <div className="error-text">{error}</div>}
     </div>
@@ -28,4 +31,8 @@ Captcha.propTypes = {
   }).isRequired,
 }
 
-export default Captcha
+export default lifecycle({
+  componentWillMount() {
+    grecaptcha.trackScriptLoad()
+  },
+})(Captcha)

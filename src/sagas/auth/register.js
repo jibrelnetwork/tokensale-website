@@ -1,14 +1,13 @@
+import LogRocket from 'logrocket'
 import { push } from 'react-router-redux'
 import { put, call, take } from 'redux-saga/effects'
 import { startSubmit, stopSubmit } from 'redux-form'
-import LogRocket from 'logrocket'
 
+import request from '../request'
 import * as REGISTER from '../../constants/auth/register'
 import { SERVER } from '../.'
 import { getUserData } from './auth'
-import request from '../request'
-import gtm from '../../services/gtm'
-import tracking from '../../services/tracking'
+import { grecaptcha, gtm, tracking } from '../../services'
 
 const FORM = 'register'
 
@@ -17,23 +16,29 @@ export function* createAccount() {
     const {
       payload: { email, password, passwordConfirm, captcha },
     } = yield take(REGISTER.CREATE_ACCOUNT)
-    const trackingData = tracking.get()
+
     const data = {
       captcha,
       password,
-      tracking: trackingData,
+      tracking: tracking.get(),
       email: email.toLowerCase(),
       password_confirm: passwordConfirm,
     }
+
     yield put(startSubmit(FORM))
+
     const response = yield call(request, `${SERVER}/auth/registration/`, data, 'post')
+
     if (response.success) {
       const token = response.data.key
       LogRocket.identify(data.email)
+
       if (token) {
         yield getUserData(token)
       }
+
       gtm.pushRegistrationEmail()
+
       yield put(stopSubmit(FORM))
       yield put(push('/welcome/email/sended'))
     } else if (response.error) {
@@ -43,9 +48,12 @@ export function* createAccount() {
         password: response.data.password,
         passwordConfirm: response.data.password_confirm,
       }
+
       if (errors.captcha) {
-        window.grecaptcha.reset() // eslint-disable-line more/no-window
+        grecaptcha.trackRegisterError()
+        window.grecaptcha.reset()
       }
+
       yield put(stopSubmit(FORM, errors))
     } else {
       yield put(stopSubmit(FORM))

@@ -1,14 +1,14 @@
+import LogRocket from 'logrocket'
 import { push } from 'react-router-redux'
 import { toast } from 'react-toastify'
 import { put, call, take } from 'redux-saga/effects'
 import { startSubmit, stopSubmit } from 'redux-form'
-import LogRocket from 'logrocket'
 
+import request from '../request'
 import * as AUTH from '../../constants/auth'
 import * as actions from '../../actions'
 import { SERVER } from '../.'
-import request from '../request'
-import gtm from '../../services/gtm'
+import { grecaptcha, gtm } from '../../services'
 
 const FORM = 'login'
 
@@ -62,7 +62,8 @@ export function* login() {
         password: response.data.non_field_errors,
       }
       if (errors.captcha) {
-        window.grecaptcha.reset() // eslint-disable-line more/no-window
+        grecaptcha.trackLoginError()
+        window.grecaptcha.reset()
       }
       yield put(stopSubmit(FORM, errors))
     } else {
