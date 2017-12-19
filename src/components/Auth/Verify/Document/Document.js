@@ -5,8 +5,8 @@ import { compose } from 'lodash/fp'
 import { withState, withHandlers } from 'recompose'
 import { Field, reduxForm } from 'redux-form'
 
-import * as actions from '../../../actions'
-import { Uploader, Modal } from '../../common'
+import * as actions from '../../../../actions'
+import { Uploader, Modal } from '../../../common'
 
 const Document = ({
   skip,
@@ -17,7 +17,7 @@ const Document = ({
   closeSkipModal,
   isSkipModalOpen,
 }) => (
-  <div className="Identification">
+  <div className="Document">
     <Modal
       isOpen={isSkipModalOpen}
       onClose={closeSkipModal}
@@ -54,13 +54,13 @@ const Document = ({
         <div
           style={{ marginRight: 5 }}
           onClick={openSkipModal}
-          className="button bordered pull-right"
+          className="link pull-right"
         >
           Skip for now
         </div>
         <div
           onClick={() => setStage('user-info')}
-          className="button bordered"
+          className="link gray"
         >
           Previous Step
         </div>

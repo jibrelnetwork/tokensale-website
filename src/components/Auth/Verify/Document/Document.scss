@@ -1,0 +1,63 @@
+.Document {
+  > form {
+    > .info {
+      margin: 20px 0;
+      line-height: 1.5;
+    }
+
+    > .buttons {
+      > .link {
+        color: #0050db;
+        height: 40px;
+        cursor: pointer;
+        padding: 0 30px;
+        display: inline-block;
+        font-size: 13px;
+        text-align: center;
+        font-weight: 600;
+        line-height: 38px;
+        border-radius: 20px;
+
+        &.gray {
+          color: #9fa7b4;
+          padding: 0;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .Document {
+    > .buttons {
+      > .button {
+        width: unset;
+        padding: 0 15px;
+        margin-bottom: 10px;
+
+        &[type="submit"] {
+          min-width: 125px;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 440px) {
+  .Document {
+    > form {
+      > .buttons {
+        display: flex;
+        flex-direction: column;
+
+        .button {
+          margin-bottom: 10px;
+
+          &[type="submit"] {
+            min-width: 125px;
+          }
+        }
+      }
+    }
+  }
+}

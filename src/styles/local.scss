@@ -202,15 +202,6 @@
   }
 }
 
-.Identification {
-  > form {
-    > .info {
-      margin: 20px 0;
-      line-height: 1.5;
-    }
-  }
-}
-
 .Uploader {
   margin-bottom: 30px;
 
@@ -508,18 +499,6 @@ h3 {
     .Email {
       margin-top: 100px;
     }
-
-    .Identification {
-      .button {
-        width: unset;
-        padding: 0 15px;
-        margin-bottom: 10px;
-      }
-
-      .button[type="submit"] {
-        min-width: 125px;
-      }
-    }
   }
 }
 
@@ -677,21 +656,3 @@ $light-blue: #00c1ff;
     }
   }
 }
-
-@media only screen and (max-width: 440px) {
-  .Identification {
-    .form .buttons {
-      display: flex;
-      flex-direction: column;
-
-      .button {
-        margin-bottom: 10px;
-      }
-    }
-
-    .button[type="submit"] {
-      min-width: 125px;
-    }
-  }
-}
-
