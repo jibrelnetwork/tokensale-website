@@ -128,6 +128,26 @@ const EN = {
     },
     withdraw: {
       button: 'Withdraw',
+      confirm: {
+        text: 'You are sending {{amount}} to the address {{address}}',
+        button: 'Confirm',
+      },
+      notApproved: {
+        text: "Your KYC status still isn't approved. Please, wait while your identity will be \n verified, or pass KYC check again if it was declined.",
+        button: 'Got it!',
+      },
+      emptyBalance: {
+        text: "You don't have any JNT to withdraw.",
+        button: 'Ok',
+      },
+      emptyAddress: {
+        text: 'Please, specify ETH address to withdraw your JNT.',
+        button: 'Ok',
+      },
+      withdrawRequested: {
+        text: 'An email has been sent to your email address. Click the confirmation link to withdraw \n your funds!',
+        button: 'Got it!',
+      },
     },
     transactions: {
       empty: 'Your ETH / BTC contributions will be displayed here. Transactions can take up to 90 minutes to appear',

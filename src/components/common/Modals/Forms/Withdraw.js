@@ -1,75 +1,49 @@
-/* eslint-disable fp/no-this */
-
 import React from 'react'
 import cx from 'classnames'
 import PropTypes from 'prop-types'
-import { lifecycle, withHandlers } from 'recompose'
+import { compose } from 'lodash/fp'
 import { connect } from 'react-redux'
 import { reduxForm } from 'redux-form'
-import { get, compose } from 'lodash/fp'
+import { translate, Interpolate } from 'react-i18next'
+import { lifecycle, withHandlers } from 'recompose'
 
 import { account } from '../../../../actions'
 
-const MESSAGES = {
-  notApproved: {
-    text: 'Your KYC status still isn\'t approved. Please, wait while your identity will be ' +
-      'verified, or pass KYC check again if it was declined.',
-    icon: 'status-declined',
-    button: 'Got it!',
-  },
-  emptyBalance: {
-    text: 'You don\'t have any JNT to withdraw.',
-    icon: 'ico-waiting',
-    button: 'Ok',
-  },
-  emptyAddress: {
-    text: 'Please, specify ETH address to withdraw your JNT.',
-    icon: 'eth',
-    button: 'Ok',
-  },
-  notAvailable: {
-    text: 'JNT withdrawals will be available starting from 12:00 PM 15th Dec 2017.',
-    icon: 'ico-waiting',
-    button: 'Got it!',
-  },
-  withdrawRequested: {
-    text: 'An email has been sent to your email address. Click the confirmation link to withdraw ' +
-      'your funds!',
-    icon: 'email',
-    button: 'Got it!',
-  },
+const ICONS = {
+  confirm: 'withdraw-tokens',
+  notApproved: 'status-declined',
+  emptyBalance: 'ico-waiting',
+  emptyAddress: 'eth',
+  notAvailable: 'ico-waiting',
+  withdrawRequested: 'email',
 }
 
-const START_WITHDRAW_TIME = new Date(Date.UTC(2017, 11, 15, 12, 0, 0, 0))
-
 const Withdraw = ({
-  submitWithdraw,
-  handleSubmit,
+  t,
   address,
-  messageType,
   balance,
   submitting,
+  messageType,
+  handleSubmit,
+  submitWithdraw,
 }) => (
   <div className="form-block">
     <form onSubmit={handleSubmit(submitWithdraw)} className="form">
       <div className="info-block">
-        <div
-          className={cx('icon', ((get(messageType, MESSAGES) || {}).icon || 'withdraw-tokens'))}
-        />
-        <div className={cx('info-text', { 'withdraw-text': !messageType })}>
-          {(get(messageType, MESSAGES) || {}).text || (
-            <div>
-              You are sending
-              <span className="withdraw-balance">{`${balance.toFixed(2)} JNT`}</span>
-              to the address
-              <span className="withdraw-address">{address}</span>
-            </div>
-          )}
+        <div className={cx('icon', ICONS[messageType])} />
+        <div className={cx('info-text', { 'withdraw-text': messageType === 'confirm' })}>
+          {messageType === 'confirm' ? (
+            <Interpolate
+              i18nKey="account.withdraw.confirm.text"
+              amount={<span className="withdraw-balance">{`${balance.toFixed(2)} JNT`}</span>}
+              address={<span className="withdraw-address">{address}</span>}
+            />
+          ) : t(`account.withdraw.${messageType}.text`)}
         </div>
       </div>
       <div className="text-center">
         <button type="submit" className="bordered button" disabled={submitting}>
-          {!submitting && ((get(messageType, MESSAGES) || {}).button || 'Confirm')}
+          {!submitting && t(`account.withdraw.${messageType}.button`)}
         </button>
       </div>
     </form>
@@ -77,57 +51,65 @@ const Withdraw = ({
 )
 
 Withdraw.propTypes = {
-  submitWithdraw: PropTypes.func.isRequired,
-  handleSubmit: PropTypes.func.isRequired,
-  submitting: PropTypes.bool.isRequired,
-  /* optional */
+  t: PropTypes.func.isRequired,
   address: PropTypes.string,
-  messageType: PropTypes.string,
   balance: PropTypes.number,
+  submitting: PropTypes.bool.isRequired,
+  messageType: PropTypes.string,
+  handleSubmit: PropTypes.func.isRequired,
+  submitWithdraw: PropTypes.func.isRequired,
 }
 
 Withdraw.defaultProps = {
+  balance: 0,
   address: null,
   messageType: null,
-  balance: 0,
 }
 
 const mapStateToProps = (state) => {
-  const { address, balance, isWithdrawRequested } = state.account
   const { verifyStatus } = state.auth
-
+  const { address, balance, isWithdrawRequested } = state.account
   const messageType = isWithdrawRequested
-    ? 'withdrawRequested' : (verifyStatus !== 'Approved')
-      ? 'notApproved' : (balance === 0)
-        ? 'emptyBalance' : !address
-          ? 'emptyAddress' : (Date.now() < START_WITHDRAW_TIME)
-            ? 'notAvailable' : null
-
+    ? 'withdrawRequested'
+    : verifyStatus !== 'Approved'
+      ? 'notApproved'
+      : balance === 0
+        ? 'emptyBalance'
+        : !address
+          ? 'emptyAddress'
+          : 'confirm'
   return { address, balance, messageType, isWithdrawRequested }
 }
 
 const mapDispatchToProps = {
   requestWithdraw: account.balance.requestWithdraw,
+  changeModalState: account.modals.changeState,
   setWithdrawRequested: account.balance.withdrawRequested,
-  closeWithdrawModal: () => account.modals.changeState('withdraw', 'close'),
 }
 
+/* eslint-disable fp/no-this */
+
 export default compose(
-  connect(mapStateToProps, mapDispatchToProps),
-  reduxForm({
-    form: 'withdraw',
-  }),
+  translate(),
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  ),
+  reduxForm({ form: 'withdraw' }),
   lifecycle({
     componentWillMount() {
       this.props.setWithdrawRequested(false)
     },
   }),
   withHandlers({
-    submitWithdraw: (props) => () => {
-      const { requestWithdraw, closeWithdrawModal, messageType } = props
-
-      return messageType ? closeWithdrawModal() : requestWithdraw()
-    },
+    closeWithdrawModal: (props) => () =>
+      props.changeModalState('withdraw', 'close'),
+  }),
+  withHandlers({
+    submitWithdraw: (props) => () =>
+      props.messageType
+        ? props.closeWithdrawModal()
+        : props.requestWithdraw(),
   }),
 )(Withdraw)
 
