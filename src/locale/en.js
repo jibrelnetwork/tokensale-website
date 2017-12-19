@@ -252,9 +252,9 @@ const EN = {
         decision: 'Final decision-making',
       },
       results: {
-        pending: 'You have been preliminarily approved. \n Please note, we may request that you submit additional identity verification in the future',
         approved: 'Your identity has been verified \n and your application has been approved',
         declined: 'We could not verify your identity',
+        'preliminarily approved': 'You have been preliminarily approved. \n Please note, we may request that you submit additional identity verification in the future',
       },
       close: 'Go to dashboard',
     },
