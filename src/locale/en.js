@@ -149,6 +149,16 @@ const EN = {
         button: 'Got it!',
       },
     },
+    KYC: {
+      close: 'Got It!',
+      support: 'Contacting Support Team',
+      statuses: {
+        pending: 'You have yet to submit your KYC documentation. \n Upload Documents or verify your documentation by {{support}}',
+        approved: 'Your KYC documentation and identity have been verified. \n Your submission is complete.',
+        declined: 'Your KYC documentation was declined. We’ve sent you an email explaining why. \n Please contact the sales team for further assistance.',
+        'preliminarily approved': 'Your KYC submission was preliminarily approved but requires manual verification.',
+      },
+    },
     transactions: {
       empty: 'Your ETH / BTC contributions will be displayed here. Transactions can take up to 90 minutes to appear',
       filters: {
