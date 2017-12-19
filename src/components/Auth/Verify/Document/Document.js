@@ -5,8 +5,8 @@ import { compose } from 'lodash/fp'
 import { withState, withHandlers } from 'recompose'
 import { Field, reduxForm } from 'redux-form'
 
-import * as actions from '../../../actions'
-import { Uploader, Modal } from '../../common'
+import * as actions from '../../../../actions'
+import { Uploader, Modal } from '../../../common'
 
 const Document = ({
   skip,
@@ -17,7 +17,7 @@ const Document = ({
   closeSkipModal,
   isSkipModalOpen,
 }) => (
-  <div className="Identification">
+  <div className="Document">
     <Modal
       isOpen={isSkipModalOpen}
       onClose={closeSkipModal}
@@ -51,20 +51,19 @@ const Document = ({
         >
           {!submitting && 'Next Step'}
         </button>
-        <button
+        <div
           style={{ marginRight: 5 }}
           onClick={openSkipModal}
-          className="button bordered pull-right"
+          className="link pull-right"
         >
           Skip for now
-        </button>
-        <button
+        </div>
+        <div
           onClick={() => setStage('user-info')}
-          disabled={submitting}
-          className="button bordered"
+          className="link gray"
         >
           Previous Step
-        </button>
+        </div>
       </div>
     </form>
   </div>
@@ -113,6 +112,9 @@ export default compose(
     validate: ({ document }) => !document || !document.name
       ? { document: 'Upload document scan in order to verify your identity' }
       : {},
+    initialValues: {
+      document: {},
+    },
     destroyOnUnmount: false,
   })
 )(Document)
