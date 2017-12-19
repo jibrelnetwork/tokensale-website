@@ -1,16 +1,19 @@
 import React from 'react'
 import { get } from 'lodash/fp'
 import { Link } from 'react-router-dom'
+import PropTypes from 'prop-types'
+import { translate } from 'react-i18next'
 
 const Fail = (props) => (
   <div className="address-change-confirm">
     <div className="img fail" />
-    <p>
-      {get(['location', 'state', 'message'], props) ||
-      "We can't confirm your ETH address change, please try again later or contact us via email"}
-    </p>
-    <Link to="/account" replace className="button">Go to dashboard</Link>
+    <p>{get(['location', 'state', 'message'], props) || props.t('confirmations.changeAddress.fail')}</p>
+    <Link to="/account" replace className="button">{props.t('index.header.account')}</Link>
   </div>
 )
 
-export default Fail
+Fail.propTypes = {
+  t: PropTypes.func.isRequired,
+}
+
+export default translate()(Fail)
