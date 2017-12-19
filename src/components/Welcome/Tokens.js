@@ -23,7 +23,7 @@ const Tokens = ({ t, raised, raisedPercent }) => (
           </div>
         </div>
         <div className="item total">
-          <div className="title">Total Supply</div>
+          <div className="title">{t('index.tokens.total')}</div>
           <div className="value">{numeral(AVAILABLE).format('0,0')}</div>
           <div className="point" />
         </div>
