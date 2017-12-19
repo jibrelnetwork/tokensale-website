@@ -2,9 +2,12 @@ import cx from 'classnames'
 import React from 'react'
 import numeral from 'numeral'
 import PropTypes from 'prop-types'
+import { compose } from 'lodash/fp'
+import { translate } from 'react-i18next'
 import { renameProps } from 'recompose'
 
 const Transaction = ({
+  t,
   jnt,
   type,
   date,
@@ -22,7 +25,7 @@ const Transaction = ({
         {`${{ incoming: '+', outgoing: '-' }[type]} ${numeral(jnt).format('0 0')}`} JNT
       </div>
       <div className="amount">
-        <div className="title">Amount</div>
+        <div className="title">{t('account.transactions.transaction.amount')}</div>
         <div className="value">
           {type === 'outgoing' || isPresale
             ? '–'
@@ -31,15 +34,20 @@ const Transaction = ({
         </div>
       </div>
       <div className="date">
-        <div className="title">Date</div>
+        <div className="title">{t('account.transactions.transaction.date')}</div>
         <div className="value">{date}</div>
       </div>
       <div className="hash">
-        <div className="title">{isPresale ? 'Comment' : 'TX hash'}</div>
+        <div className="title">
+          {isPresale
+            ? t('account.transactions.transaction.comment')
+            : t('account.transactions.transaction.amount')
+          }
+        </div>
         <div className="value">
           {isPresale
             ? TXhash
-            : ((status === 'success') || (status === 'pending'))
+            : status === 'success' || status === 'pending'
               ? (
                 <a
                   href={{
@@ -64,6 +72,7 @@ const Transaction = ({
 )
 
 Transaction.propTypes = {
+  t: PropTypes.func.isRequired,
   jnt: PropTypes.number.isRequired,
   type: PropTypes.oneOf(['incoming', 'outgoing']).isRequired,
   date: PropTypes.string.isRequired, // ?
@@ -82,10 +91,11 @@ Transaction.defaultProps = {
   cryptoAmount: undefined,
 }
 
-const enhance = renameProps({
-  is_presale: 'isPresale',
-  amount_usd: 'usdAmount',
-  amount_cryptocurrency: 'cryptoAmount',
-})
-
-export default enhance(Transaction)
+export default compose(
+  translate(),
+  renameProps({
+    is_presale: 'isPresale',
+    amount_usd: 'usdAmount',
+    amount_cryptocurrency: 'cryptoAmount',
+  })
+)(Transaction)

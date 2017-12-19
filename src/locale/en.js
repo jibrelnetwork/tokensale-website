@@ -98,6 +98,7 @@ const EN = {
   },
   account: {
     logout: 'Logout',
+    balance: 'Balance - {{amount}}',
     KYCStatus: {
       label: 'KYC status',
       variants: {
@@ -106,16 +107,18 @@ const EN = {
         declined: 'Declined',
       },
     },
-    icoNotStartedYet: 'Jibrel Network Token Sale starts on 27 November 2017 - 12:00 UTC.\n Your dedicated BTC and ETH contribution addresses will be shown here once the token sale starts.',
     verificationDeclined: 'It seems we were unable to verify your identity. \n Please contact the support team {{email}} and a representative \n will assist in manually processing your application.',
     ethAddress: 'Your address',
-    addEthAddress: '',
     icoAddresses: {
       eth: 'Your ETH Contribution Address',
       btc: 'Your BTC Contribution Address',
+      notAvailable: 'Not available',
+    },
+    withdraw: {
+      button: 'Withdraw',
     },
     transactions: {
-      empty: 'You have yet to make any ETH/BTC contributions or JNT withdrawals. Your contribution and withdrawal transactions will appear here',
+      empty: 'Your ETH / BTC contributions will be displayed here. Transactions can take up to 90 minutes to appear',
       filters: {
         all: 'All transactions',
         incoming: 'Incoming transactions',
@@ -125,6 +128,7 @@ const EN = {
         date: 'Date',
         amount: 'Amount',
         TXHash: 'TX hash',
+        comment: 'Comment',
       },
     },
     setETHAddress: {
