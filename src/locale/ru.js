@@ -121,7 +121,6 @@ const RU = {
     },
     verificationDeclined: 'Мы не смогли верифицировать ваш аккаунт. \n Пожалуйста свяжитесь с {{support}} чтобы мы смогли выполнить верификацию \n в ручном режиме.',
     support: 'командой поддержки',
-    ethAddress: 'Ваш ETH адрес',
     icoAddresses: {
       eth: 'Адрес ETH для участия в ICO',
       btc: 'Адрес BTC для участия в ICO',
@@ -177,15 +176,17 @@ const RU = {
     setETHAddress: {
       button: 'Добавить ETH адрес',
       title: 'Установка ETH адреса',
+      confirm: 'Вам на почту было отправлено письмо. \n Пожалуйста перейдите по ссылке для подтверждения изменения ETH адреса',
       fields: {
         address: 'ETH адрес',
       },
       errors: {
         address: {
           isRequired: 'Необходимо указать ETH адрес',
-          invalid: 'Неправильный ETH адрес',
+          isInvalid: 'Неправильный ETH адрес',
         },
       },
+      close: 'Закрыть',
       submit: 'Установить',
     },
     withdrawTokens: {

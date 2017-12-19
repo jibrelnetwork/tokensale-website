@@ -1,9 +1,8 @@
-/* eslint-disable fp/no-this */
-
 import React from 'react'
 import PropTypes from 'prop-types'
 import compose from 'lodash/fp/compose'
 import { connect } from 'react-redux'
+import { translate } from 'react-i18next'
 import { Field, reduxForm } from 'redux-form'
 import { lifecycle, withHandlers } from 'recompose'
 
@@ -11,9 +10,10 @@ import { Input } from '../../../common'
 import { account } from '../../../../actions'
 
 const SetAddress = ({
-  submitAddressChanging,
-  handleSubmit,
+  t,
   submitting,
+  handleSubmit,
+  submitAddressChanging,
   isAddressChangeRequested,
 }) => (
   <div className="form-block">
@@ -23,15 +23,28 @@ const SetAddress = ({
           <div className="info-block">
             <div className="icon email" />
             <div className="info-text">
-              An email has been sent to your email address. Click the confirmation link to update
-              your withdrawal ETH address!
+              {t('account.setETHAddress.confirm')}
             </div>
           </div>
-        ) : <Field name="address" type="text" component={Input} label="Address" />
+        ) : (
+          <Field
+            name="address"
+            type="text"
+            label={t('account.setETHAddress.fields.address')}
+            component={Input}
+          />
+        )
       }
       <div className="clear">
-        <button type="submit" className="bordered button pull-right" disabled={submitting}>
-          {!submitting && (isAddressChangeRequested ? 'Ok' : 'Confirm')}
+        <button
+          type="submit"
+          disabled={submitting}
+          className="bordered button pull-right"
+        >
+          {!submitting && isAddressChangeRequested
+            ? t('account.setETHAddress.close')
+            : t('account.setETHAddress.submit')
+          }
         </button>
       </div>
     </form>
@@ -39,9 +52,10 @@ const SetAddress = ({
 )
 
 SetAddress.propTypes = {
-  submitAddressChanging: PropTypes.func.isRequired,
-  handleSubmit: PropTypes.func.isRequired,
+  t: PropTypes.func.isRequired,
   submitting: PropTypes.bool.isRequired,
+  handleSubmit: PropTypes.func.isRequired,
+  submitAddressChanging: PropTypes.func.isRequired,
   isAddressChangeRequested: PropTypes.bool.isRequired,
 }
 
@@ -57,13 +71,17 @@ const mapDispatchToProps = {
 }
 
 export default compose(
-  connect(mapStateToProps, mapDispatchToProps),
+  translate(),
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  ),
   reduxForm({
     form: 'set-address',
-    validate: ({ address }) => !address
-      ? { address: 'Address is required' }
+    validate: ({ address }, { t }) => !address
+      ? { address: t('account.setETHAddress.errors.address.isRequired') }
       : !/^(0x)?[0-9a-f]{40}$/i.test(address)
-        ? { address: 'Invalid Ethereum address' }
+        ? { address: t('account.setETHAddress.errors.address.isInvalid') }
         : {},
     destroyOnUnmount: true,
     touchOnBlur: false,
@@ -75,6 +93,7 @@ export default compose(
       return isAddressChangeRequested ? closeSetAddressModal() : requestAddressChange(address)
     },
   }),
+  /* eslint-disable fp/no-this */
   lifecycle({
     componentWillMount() {
       this.props.setAddressChangeRequested(false)
@@ -85,6 +104,6 @@ export default compose(
       }
     },
   }),
+  /* eslint-enable */
 )(SetAddress)
 
-/* eslint-enable */

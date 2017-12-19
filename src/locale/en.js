@@ -174,8 +174,9 @@ const EN = {
       },
     },
     setETHAddress: {
+      title: 'Set ETH Address',
       button: 'Add ETH Address',
-      title: 'Set Address',
+      confirm: 'An email has been sent to your email address. \n Click the confirmation link to update your withdrawal ETH address!',
       fields: {
         address: 'Address',
       },
@@ -185,6 +186,7 @@ const EN = {
           invalid: 'Invalid address',
         },
       },
+      close: 'Ok',
       submit: 'Confirm',
     },
     withdrawTokens: {
