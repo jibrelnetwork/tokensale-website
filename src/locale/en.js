@@ -96,6 +96,18 @@ const EN = {
       submit: 'Register',
     },
   },
+  confirmations: {
+    withdraw: {
+      fail: "We can't confirm your JNT withdraw, please try again later or contact us via email",
+      success: 'Your JNT withdraw confirmed successfully!',
+      request: 'Withdraw confirmation...',
+    },
+    changeAddress: {
+      fail: "We can't confirm your ETH address change, please try again later or contact us via email",
+      success: 'Your ETH address changed successfully!',
+      request: 'ETH address change confirmation...',
+    },
+  },
   account: {
     logout: 'Logout',
     balance: 'Balance - {{amount}}',
