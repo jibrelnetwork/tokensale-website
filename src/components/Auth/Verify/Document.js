@@ -51,20 +51,19 @@ const Document = ({
         >
           {!submitting && 'Next Step'}
         </button>
-        <button
+        <div
           style={{ marginRight: 5 }}
           onClick={openSkipModal}
           className="button bordered pull-right"
         >
           Skip for now
-        </button>
-        <button
+        </div>
+        <div
           onClick={() => setStage('user-info')}
-          disabled={submitting}
           className="button bordered"
         >
           Previous Step
-        </button>
+        </div>
       </div>
     </form>
   </div>
@@ -113,6 +112,9 @@ export default compose(
     validate: ({ document }) => !document || !document.name
       ? { document: 'Upload document scan in order to verify your identity' }
       : {},
+    initialValues: {
+      document: {},
+    },
     destroyOnUnmount: false,
   })
 )(Document)
