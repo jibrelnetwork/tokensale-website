@@ -1,17 +1,17 @@
-import LanguageDetector from 'i18next-browser-languagedetector'
 import i18next from 'i18next'
+
 import EN from './en'
 import RU from './ru'
 
-i18next.use(LanguageDetector).init({
-  // debug: true,
+i18next.init({
+  lng: 'en',
   fallbackLng: 'en',
-  interpolation: { escapeValue: false },
+  interpolation: {
+    escapeValue: false,
+  },
   react: {
     wait: false,
     nsMode: 'default',
-    // bindI18n: 'languageChanged loaded',
-    // bindStore: 'added removed',
   },
   resources: {
     en: { translation: EN },

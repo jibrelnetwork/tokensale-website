@@ -116,7 +116,7 @@ const EN = {
     KYCStatus: {
       label: 'KYC status - {{status}}',
       variants: {
-        pending: 'Preliminarily Approved',
+        pending: 'Pending',
         approved: 'Approved',
         declined: 'Declined',
         'preliminarily approved': 'Preliminarily Approved',
