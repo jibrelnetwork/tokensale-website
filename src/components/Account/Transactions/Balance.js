@@ -5,24 +5,31 @@ import PropTypes from 'prop-types'
 import { compose } from 'lodash/fp'
 import { connect } from 'react-redux'
 import { lifecycle } from 'recompose'
+import { translate, Interpolate } from 'react-i18next'
 
 import * as actions from '../../../actions'
 
-const Balance = ({ openWithdrawModal, balance /* , address */ }) => (
+const Balance = ({ openWithdrawModal, balance, t /* , address */ }) => (
   <div className="Balance">
     <div
       className={cx('button bordered pull-right', { disabled: false /* !(address && balance) */})}
       onClick={openWithdrawModal /* (address && balance) ? openWithdrawModal : null */}
     >
-      Withdraw
+      {t('account.withdraw.button')}
     </div>
-    <div className="balance pull-right">{`Balance – ${numeral(balance).format('0.00')} JNT`}</div>
+    <div className="balance pull-right">
+      <Interpolate
+        i18nKey="account.balance"
+        amount={numeral(balance).format('0.00')}
+      />
+    </div>
   </div>
 )
 
 Balance.propTypes = {
-  openWithdrawModal: PropTypes.func.isRequired,
+  t: PropTypes.func.isRequired,
   balance: PropTypes.number.isRequired,
+  openWithdrawModal: PropTypes.func.isRequired,
   /* optional */
   // address: PropTypes.string,
 }
@@ -43,6 +50,7 @@ const mapDispatchToProps = {
 }
 
 const enhance = compose(
+  translate(),
   connect(
     mapStateToProps,
     mapDispatchToProps,

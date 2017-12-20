@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 import { compose } from 'lodash/fp'
 import { connect } from 'react-redux'
+import { translate } from 'react-i18next'
 import { withHandlers, withState } from 'recompose'
 
 import * as actions from '../../../actions'
@@ -14,23 +15,24 @@ function isTouchDevice() {
 }
 
 const Controls = ({
-  openDashboard,
-  toggleMenuOrDashboard,
+  t,
   email,
   isMenuOpen,
   isVerified,
   isAuthorized,
+  openDashboard,
   isDashboardOpen,
+  toggleMenuOrDashboard,
 }) => (
   <div className="Controls">
     <ul className={cx('menu pull-right', { 'menu-active': isMenuOpen })}>
       {isAuthorized ? isVerified ? ([
-        <li key="0"><Link to="/account">Go to dashboard</Link></li>,
+        <li key="0"><Link to="/account">{t('index.header.account')}</Link></li>,
         <li key="1" className="bordered">
           <button onClick={openDashboard} className="button arrow">{email}</button>
         </li>,
       ]) : ([
-        <li key="0"><Link to="/verify">Complete verification</Link></li>,
+        <li key="0"><Link to="/verify">{t('index.header.verification')}</Link></li>,
         <li key="1" className="bordered">
           <button onClick={openDashboard} className="button arrow">{email}</button>
         </li>,
@@ -40,11 +42,11 @@ const Controls = ({
             href="https://jibrel.network?from-sale=1"
             target={`${isTouchDevice() ? '_self' : '_blank'}`}
           >
-            About Jibrel Network
+            {t('index.header.about')}
           </a>
         </li>,
-        <li key="1"><Link to="/welcome/register">Sign Up</Link></li>,
-        <li key="2" className="bordered"><Link to="/welcome/login">Sign In</Link></li>,
+        <li key="1"><Link to="/welcome/register">{t('index.header.registration')}</Link></li>,
+        <li key="2" className="bordered"><Link to="/welcome/login">{t('index.header.login')}</Link></li>,
       ])}
     </ul>
     <button
@@ -58,14 +60,14 @@ const Controls = ({
 )
 
 Controls.propTypes = {
-  openDashboard: PropTypes.func.isRequired,
-  toggleMenuOrDashboard: PropTypes.func.isRequired,
+  t: PropTypes.func.isRequired,
+  email: PropTypes.string,
   isMenuOpen: PropTypes.bool.isRequired,
   isVerified: PropTypes.bool.isRequired,
   isAuthorized: PropTypes.bool.isRequired,
+  openDashboard: PropTypes.func.isRequired,
   isDashboardOpen: PropTypes.bool.isRequired,
-  /* optional */
-  email: PropTypes.string,
+  toggleMenuOrDashboard: PropTypes.func.isRequired,
 }
 
 Controls.defaultProps = {
@@ -84,6 +86,7 @@ const mapDispatchToProps = {
 }
 
 export default compose(
+  translate(),
   connect(
     mapStateToProps,
     mapDispatchToProps,

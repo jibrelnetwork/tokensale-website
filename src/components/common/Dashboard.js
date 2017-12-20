@@ -1,10 +1,11 @@
 import React from 'react'
 import cx from 'classnames'
+import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import { compose } from 'lodash/fp'
 import { connect } from 'react-redux'
+import { translate, Interpolate } from 'react-i18next'
 import { lifecycle, withState } from 'recompose'
-import { Link } from 'react-router-dom'
 
 import * as actions from '../../actions'
 
@@ -17,6 +18,7 @@ function isTouchDevice() {
 }
 
 const Dashboard = ({
+  t,
   closeDashboard,
   openSetAddressModal,
   openKYCStatusModal,
@@ -38,7 +40,12 @@ const Dashboard = ({
           <div className="name">
             {`${accountData.firstName || '...'} ${accountData.lastName || '...'}`}
           </div>
-          <div className="status">{`KYC Status - ${verifyStatus}`}</div>
+          <div className="status">
+            <Interpolate
+              i18nKey="account.KYCStatus.label"
+              status={t(`account.KYCStatus.variants.${verifyStatus.toLowerCase()}`)}
+            />
+          </div>
           <div onClick={openKYCStatusModal} className="status-info" />
         </div>
       )}
@@ -50,7 +57,7 @@ const Dashboard = ({
               href="https://jibrel.network?from-sale=1"
               target={`${isTouchDevice() ? '_self' : '_blank'}`}
             >
-              About Jibrel Network
+              {t('index.header.about')}
             </a>
           </div>
         )}
@@ -63,7 +70,7 @@ const Dashboard = ({
         )}
         {(['Pending', 'Declined'].includes(verifyStatus) && isAccountPage) && (
           <div className="item">
-            <Link to="/verify" className="title">Upload document</Link>
+            <Link to="/verify" className="title">{t('account.uploadDocument')}</Link>
           </div>
         )}
         <div style={{ display: 'none' }} className="item">
@@ -95,19 +102,34 @@ const Dashboard = ({
             rel="noopener noreferrer"
             href="https://jibrelnetwork.freshdesk.com/support/tickets/new"
           >
-            Support
+            {t('account.support')}
           </a>
         </div>
         {(verifyStatus === 'Approved') && (
           <div className="item set-address">
-            <div onClick={openSetAddressModal} className="title">Change ETH address</div>
+            <div
+              onClick={openSetAddressModal}
+              className="title"
+            >
+              {t('account.changeETHAddress')}
+            </div>
           </div>
         )}
         <div className="item">
-          <div onClick={openSetPasswordModal} className="title">Change password</div>
+          <div
+            onClick={openSetPasswordModal}
+            className="title"
+          >
+            {t('account.changePassword.button')}
+          </div>
         </div>
         <div className="item">
-          <div onClick={logout} className="title">Logout</div>
+          <div
+            onClick={logout}
+            className="title"
+          >
+            {t('index.header.logout')}
+          </div>
         </div>
       </div>
     </div>
@@ -115,6 +137,7 @@ const Dashboard = ({
 )
 
 Dashboard.propTypes = {
+  t: PropTypes.func.isRequired,
   closeDashboard: PropTypes.func.isRequired,
   openSetAddressModal: PropTypes.func.isRequired,
   openKYCStatusModal: PropTypes.func.isRequired,
@@ -155,6 +178,7 @@ const mapDispatchToProps = {
 }
 
 export default compose(
+  translate(),
   connect(
     mapStateToProps,
     mapDispatchToProps,

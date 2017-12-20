@@ -1,27 +1,54 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import { translate } from 'react-i18next'
 import { Field, reduxForm } from 'redux-form'
 import { set, identity, compose } from 'lodash/fp'
+
 import { Input, Select, DateInput } from '../../common'
 import { COUNTRIES } from '../../../data/countries'
 import * as actions from '../../../actions'
 
-const UserInfo = ({ submitting, handleSubmit }) => (
+const UserInfo = ({ submitting, handleSubmit, t }) => (
   <div className="UserInfo">
     <form onSubmit={handleSubmit} className="form">
-      <Field name="firstName" type="text" component={Input} label="First Name" />
-      <Field name="lastName" type="text" component={Input} label="Last Name" />
-      <Field name="birthday" type="date" component={DateInput} label="Birthday" />
-      <Field name="residency" options={COUNTRIES} component={Select} label="Residency" />
-      <Field name="citizenship" options={COUNTRIES} component={Select} label="Citizenship" />
+      <Field
+        name="firstName"
+        type="text"
+        label={t('verification.userInfo.fields.firstName')}
+        component={Input}
+      />
+      <Field
+        name="lastName"
+        type="text"
+        label={t('verification.userInfo.fields.lastName')}
+        component={Input}
+      />
+      <Field
+        name="birthday"
+        type="date"
+        label={t('verification.userInfo.fields.birthday')}
+        component={DateInput}
+      />
+      <Field
+        name="residency"
+        label={t('verification.userInfo.fields.residency')}
+        options={COUNTRIES}
+        component={Select}
+      />
+      <Field
+        name="citizenship"
+        label={t('verification.userInfo.fields.citizenship')}
+        options={COUNTRIES}
+        component={Select}
+      />
       <div className="buttons clear">
         <button
           type="submit"
-          className="button bordered pull-right"
           disabled={submitting}
+          className="button bordered pull-right"
         >
-          {!submitting && 'Next Step'}
+          {!submitting && t('verification.userInfo.submit')}
         </button>
       </div>
     </form>
@@ -29,6 +56,7 @@ const UserInfo = ({ submitting, handleSubmit }) => (
 )
 
 UserInfo.propTypes = {
+  t: PropTypes.func.isRequired,
   submitting: PropTypes.bool.isRequired,
   handleSubmit: PropTypes.func.isRequired,
 }
@@ -38,16 +66,27 @@ const mapStateToProps = (state) => ({
 })
 
 export default compose(
+  translate(),
   connect(mapStateToProps),
   reduxForm({
     onSubmit: ({ firstName, lastName, birthday, residency, citizenship }, dispatch) =>
       dispatch(actions.auth.verify.updateUserInfo(firstName, lastName, birthday, residency, citizenship)),
-    validate: (values) => compose(
-      !values.lastName ? set('lastName', 'Last name is required') : identity,
-      !values.birthday ? set('birthday', 'Birthday is required') : identity,
-      !values.firstName ? set('firstName', 'First name is required') : identity,
-      !values.residency ? set('residency', 'Residency is required') : identity,
-      !values.citizenship ? set('citizenship', 'Citizenship is required') : identity,
+    validate: ({ lastName, birthday, firstName, residency, citizenship }, { t }) => compose(
+      !lastName
+        ? set('lastName', t('verification.userInfo.errors.lastName.isRequired'))
+        : identity,
+      !birthday
+        ? set('birthday', t('verification.userInfo.errors.birthday.isRequired'))
+        : identity,
+      !firstName
+        ? set('firstName', t('verification.userInfo.errors.firstName.isRequired'))
+        : identity,
+      !residency
+        ? set('residency', t('verification.userInfo.errors.residency.isRequired'))
+        : identity,
+      !citizenship
+        ? set('citizenship', t('verification.userInfo.errors.citizenship.isRequired'))
+        : identity,
     )({}),
     destroyOnUnmount: false,
   })

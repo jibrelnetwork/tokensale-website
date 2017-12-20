@@ -1,23 +1,25 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import { translate } from 'react-i18next'
 import { lifecycle, withState } from 'recompose'
 import { get, compose, isEmpty } from 'lodash/fp'
-import * as actions from '../../../actions'
-import Transaction from './Transaction'
-import Balance from './Balance'
-import Filter from './Filter'
 
-const Transactions = ({ list, filter, setFilter }) => (
+import Filter from './Filter'
+import Balance from './Balance'
+import Transaction from './Transaction'
+import * as actions from '../../../actions'
+
+const Transactions = ({ t, list, filter, setFilter }) => (
   <div className="Transactions">
     <div className="tabs clear">
       <Filter
         set={setFilter}
         active={filter}
         list={[
-          { type: 'all', label: 'All transactions' },
-          { type: 'incoming', label: 'Incoming transactions' },
-          { type: 'outgoing', label: 'JNT transfers' },
+          { type: 'all', label: t('account.transactions.filters.all') },
+          { type: 'incoming', label: t('account.transactions.filters.incoming') },
+          { type: 'outgoing', label: t('account.transactions.filters.outgoing') },
         ]}
       />
       <Balance />
@@ -30,8 +32,7 @@ const Transactions = ({ list, filter, setFilter }) => (
         <div className="empty">
           <div className="icon" />
           <div className="text">
-            {'Your ETH / BTC contributions will be displayed here. Transactions can take up to ' +
-              '90 minutes to appear'}
+            {t('account.transactions.empty')}
           </div>
         </div>
       )}
@@ -40,6 +41,7 @@ const Transactions = ({ list, filter, setFilter }) => (
 )
 
 Transactions.propTypes = {
+  t: PropTypes.func.isRequired,
   list: PropTypes.array.isRequired,
   filter: PropTypes.oneOf(['all', 'incoming', 'outgoing']).isRequired,
   setFilter: PropTypes.func.isRequired,
@@ -67,6 +69,7 @@ const mapDispatchToProps = {
 }
 
 const enhance = compose(
+  translate(),
   withState(
     'filter',
     'setFilter',

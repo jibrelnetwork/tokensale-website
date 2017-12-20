@@ -1,19 +1,19 @@
 import React from 'react'
-import moment from 'moment'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { compose } from 'lodash/fp'
-import { withProps, lifecycle } from 'recompose'
+import { lifecycle } from 'recompose'
+import { translate, Interpolate } from 'react-i18next'
 
 import gtm from '../../services/gtm'
 import * as actions from '../../actions'
 
 const Addresses = ({
-  pushSendRequestEvent,
-  verifyStatus,
-  isICOStarted,
-  btcAddress,
+  t,
   ethAddress,
+  btcAddress,
+  verifyStatus,
+  pushSendRequestEvent,
 }) => (
   <div className="Addresses">
     {verifyStatus === 'Declined' ? (
@@ -21,44 +21,32 @@ const Addresses = ({
         <div className="info-block">
           <div className="icon status-declined" />
           <div>
-            It seems we were unable to verify your identity.
-            <br />
-            Please contact the
-            <a
-              style={{ margin: '0 5px' }}
-              href="mailto:support@jibrel.network"
-              onClick={pushSendRequestEvent}
-            >
-              support team
-            </a>
-            and a representative
-            <br />
-            will assist in manually processing your application.
+            <Interpolate
+              i18nKey="account.verificationDeclined.message"
+              support={(
+                <a
+                  style={{ margin: '0 5px' }}
+                  href="mailto:support@jibrel.network"
+                  onClick={pushSendRequestEvent}
+                >
+                  {t('account.verificationDeclined.support')}
+                </a>
+              )}
+            />
           </div>
-        </div>
-      </div>
-    ) : isICOStarted ? (
-      <div className="addresses clear">
-        <div className="item">
-          <div className="img eth" />
-          <div className="title">Your ETH Contribution Address</div>
-          <div className="value">{ethAddress}</div>
-        </div>
-        <div className="item">
-          <div className="img btc" />
-          <div className="title">Your BTC Contribution Address</div>
-          <div className="value">{btcAddress}</div>
         </div>
       </div>
     ) : (
-      <div className="addresses declined clear">
-        <div className="info-block">
-          <div className="icon ico-waiting" />
-          <div>
-            Jibrel Network Token Sale starts on 27 November 2017 - 12:00 UTC.
-            <br />
-            Your dedicated BTC and ETH contribution addresses will be shown here once the token sale starts.
-          </div>
+      <div className="addresses clear">
+        <div className="item">
+          <div className="img eth" />
+          <div className="title">{t('account.icoAddresses.eth')}</div>
+          <div className="value">{ethAddress || t('account.icoAddresses.notAvailable')}</div>
+        </div>
+        <div className="item">
+          <div className="img btc" />
+          <div className="title">{t('account.icoAddresses.btc')}</div>
+          <div className="value">{btcAddress || t('account.icoAddresses.notAvailable')}</div>
         </div>
       </div>
     )}
@@ -66,12 +54,11 @@ const Addresses = ({
 )
 
 Addresses.propTypes = {
-  pushSendRequestEvent: PropTypes.func.isRequired,
-  isICOStarted: PropTypes.bool.isRequired,
-  /* optional */
-  verifyStatus: PropTypes.string,
-  ethAddress: PropTypes.string,
+  t: PropTypes.func.isRequired,
   btcAddress: PropTypes.string,
+  ethAddress: PropTypes.string,
+  verifyStatus: PropTypes.string,
+  pushSendRequestEvent: PropTypes.func.isRequired,
 }
 
 Addresses.defaultProps = {
@@ -92,6 +79,7 @@ const mapDispatchToProps = {
 }
 
 const enhance = compose(
+  translate(),
   connect(
     mapStateToProps,
     mapDispatchToProps,
@@ -101,9 +89,6 @@ const enhance = compose(
     componentDidMount() { this.props.request() },
     /* eslint-enable */
   }),
-  withProps({
-    isICOStarted: moment.utc('2017-11-27T12:00') < moment.utc(),
-  })
 )
 
 export default enhance(Addresses)

@@ -17,6 +17,7 @@ const Uploader = ({
     error,
     touched,
   },
+  label,
 }) => (
   <div className="Uploader">
     <Dropzone
@@ -43,13 +44,14 @@ const Uploader = ({
           : file.type === 'application/pdf'
             ? <div>{file.name}</div>
             : undefined
-      ) : <div className="hint">Upload your passport</div>}
+      ) : <div className="hint">{label}</div>}
     </Dropzone>
     {touched && error && <div className="error-text">{error}</div>}
   </div>
 )
 
 Uploader.propTypes = {
+  label: PropTypes.string.isRequired,
   input: PropTypes.shape({ // redux-form injected props
     name: PropTypes.string.isRequired,
     value: PropTypes.object.isRequired,

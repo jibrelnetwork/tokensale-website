@@ -1,22 +1,29 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { compose } from 'lodash/fp'
 import { connect } from 'react-redux'
 import { lifecycle } from 'recompose'
+import { translate } from 'react-i18next'
 
 import * as actions from '../../../actions'
 
-const Request = () => (
+const Request = ({ t }) => (
   <div className="withdraw-confirm">
     <div className="img loading" />
-    <p>Withdraw confirmation...</p>
+    <p>{t('confirmations.withdraw.request')}</p>
   </div>
 )
+
+Request.propTypes = {
+  t: PropTypes.func.isRequired,
+}
 
 const mapDispatchToProps = {
   withdrawConfirm: actions.account.balance.withdrawConfirm,
 }
 
 const enhance = compose(
+  translate(),
   connect(
     undefined,
     mapDispatchToProps,

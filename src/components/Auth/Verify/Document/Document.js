@@ -2,13 +2,15 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { compose } from 'lodash/fp'
-import { withState, withHandlers } from 'recompose'
+import { translate } from 'react-i18next'
 import { Field, reduxForm } from 'redux-form'
+import { withState, withHandlers } from 'recompose'
 
 import * as actions from '../../../../actions'
 import { Uploader, Modal } from '../../../common'
 
 const Document = ({
+  t,
   skip,
   setStage,
   submitting,
@@ -23,46 +25,50 @@ const Document = ({
       onClose={closeSkipModal}
     >
       <div>
-        Verification is required to withdraw your JNT. You can complete this step at a later stage.
+        {t('verification.document.modal.message')}
       </div>
       <div className="buttons clear">
         <button
           onClick={skip}
           className="button bordered pull-right"
         >
-          Upload later
+          {t('verification.document.modal.skipUpload')}
         </button>
         <button
           onClick={closeSkipModal}
           disabled={submitting}
           className="button bordered"
         >
-          Upload now
+          {t('verification.document.modal.close')}
         </button>
       </div>
     </Modal>
     <form onSubmit={handleSubmit} className="form">
-      <Field name="document" component={Uploader} />
+      <Field
+        name="document"
+        label={t('verification.document.fields.uploader')}
+        component={Uploader}
+      />
       <div className="buttons clear">
         <button
           type="submit"
           disabled={submitting}
           className="button bordered pull-right"
         >
-          {!submitting && 'Next Step'}
+          {!submitting && t('verification.document.submit')}
         </button>
         <div
           style={{ marginRight: 5 }}
           onClick={openSkipModal}
           className="link pull-right"
         >
-          Skip for now
+          {t('verification.document.skip')}
         </div>
         <div
           onClick={() => setStage('user-info')}
           className="link gray"
         >
-          Previous Step
+          {t('verification.document.goBack')}
         </div>
       </div>
     </form>
@@ -70,6 +76,7 @@ const Document = ({
 )
 
 Document.propTypes = {
+  t: PropTypes.func.isRequired,
   skip: PropTypes.func.isRequired,
   setStage: PropTypes.func.isRequired,
   submitting: PropTypes.bool.isRequired,
@@ -91,6 +98,7 @@ const mapDispatchToProps = {
 /* eslint-disable fp/no-this */
 
 export default compose(
+  translate(),
   withState(
     'isSkipModalOpen',
     'toggleSkipModal',
@@ -109,8 +117,8 @@ export default compose(
   reduxForm({
     onSubmit: ({ document }, dispatch) =>
       dispatch(actions.auth.verify.uploadDocument(document)),
-    validate: ({ document }) => !document || !document.name
-      ? { document: 'Upload document scan in order to verify your identity' }
+    validate: ({ document }, { t }) => !document || !document.name
+      ? { document: t('verification.document.errors.uploader.isRequired') }
       : {},
     initialValues: {
       document: {},

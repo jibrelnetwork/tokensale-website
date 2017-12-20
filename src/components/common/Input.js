@@ -22,6 +22,7 @@ const Input = ({
       type={type}
       required={type !== 'checkbox'}
       placeholder={label}
+      autoComplete="off"
     />
     {type === 'checkbox' && <label htmlFor={label}>{label}</label>}
     {touched && error && <div className="error-text">{error}</div>}

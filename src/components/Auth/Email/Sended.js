@@ -1,15 +1,20 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import PropTypes from 'prop-types'
+import { translate } from 'react-i18next'
 
-const Sended = () => (
+const Sended = ({ t }) => (
   <div className="email-verification">
     <div className="img sended" />
-    <p>
-      {'An email has been sent to your email address. It can take a few minutes before you have ' +
-        'it in your inbox. Click the activation link to verify your account!'}
-    </p>
-    <Link to="/verify" className="button">Continue</Link>
+    <p>{t('auth.emailVerification.linkSended')}</p>
+    <Link to="/verify" className="button">
+      {t('auth.emailVerification.continue')}
+    </Link>
   </div>
 )
 
-export default Sended
+Sended.propTypes = {
+  t: PropTypes.func.isRequired,
+}
+
+export default translate()(Sended)
