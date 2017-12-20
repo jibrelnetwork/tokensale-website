@@ -119,6 +119,7 @@ const RU = {
         pending: 'Ожидание',
         approved: 'Подтверждено',
         declined: 'Отклонено',
+        'preliminarily approved': 'Ожидание',
       },
     },
     uploadDocument: 'Загрузить документ',

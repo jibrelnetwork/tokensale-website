@@ -119,6 +119,7 @@ const EN = {
         pending: 'Preliminarily Approved',
         approved: 'Approved',
         declined: 'Declined',
+        'preliminarily approved': 'Preliminarily Approved',
       },
     },
     uploadDocument: 'Upload document',
