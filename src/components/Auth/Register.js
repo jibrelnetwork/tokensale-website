@@ -59,9 +59,7 @@ export default compose(
         ? set('email', 'Email address is required')
         : !VALIDATE_EMAIL_REGEXP.test(values.email)
           ? set('email', 'Invalid email address')
-          : values.email.match('@hanmail.net')
-            ? set('email', 'Issues reported with hanmail.net - please provide a different email address')
-            : identity,
+          : identity,
       !values.password
         ? set('password', 'Password is required')
         : values.password.length < 8
