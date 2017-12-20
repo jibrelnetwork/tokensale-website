@@ -37,7 +37,6 @@
     "filestack-react": "file:./vendor/filestack-react",
     "history": "4.7.2",
     "i18next": "10.2.1",
-    "i18next-browser-languagedetector": "2.1.0",
     "lodash": "4.17.4",
     "logrocket": "0.5.6",
     "moment": "2.19.2",
