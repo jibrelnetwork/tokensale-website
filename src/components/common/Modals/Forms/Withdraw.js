@@ -107,7 +107,7 @@ export default compose(
   }),
   withHandlers({
     submitWithdraw: (props) => () =>
-      props.messageType
+      props.messageType !== 'confirm'
         ? props.closeWithdrawModal()
         : props.requestWithdraw(),
   }),
