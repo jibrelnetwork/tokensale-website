@@ -27,10 +27,10 @@ const Document = ({
       <div>
         {t('verification.document.modal.message')}
       </div>
-      <div className="buttons clear">
+      <div className="buttons">
         <button
           onClick={skip}
-          className="button bordered pull-right"
+          className="button bordered"
         >
           {t('verification.document.modal.skipUpload')}
         </button>
