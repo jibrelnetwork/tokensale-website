@@ -23,6 +23,11 @@ const defaultState = {
   address: undefined,
   isAddressChangeRequested: false,
   isWithdrawRequested: false,
+  passwordChangeConfirmModal: {
+    isOpen: false,
+    status: 'confirm',
+    message: undefined,
+  },
 }
 
 const accountReducer = (state = defaultState, action) => {
@@ -73,6 +78,33 @@ const accountReducer = (state = defaultState, action) => {
     case ACCOUNT.TRANSACTIONS.REQUEST_SUCCESS: {
       const { transactions } = action.payload
       return set('transactions', transactions, state)
+    }
+
+    case ACCOUNT.PASSWORD.OPEN_CHANGE_CONFIRM: {
+      return compose(
+        set(['passwordChangeConfirmModal', 'isOpen'], true),
+        set(['passwordChangeConfirmModal', 'status'], 'confirm'),
+      )(state)
+    }
+
+    case ACCOUNT.PASSWORD.CLOSE_CHANGE_CONFIRM: {
+      return set(['passwordChangeConfirmModal', 'isOpen'], false, state)
+    }
+
+    case ACCOUNT.PASSWORD.CHANGE_CONFIRM_REQUEST: {
+      return set(['passwordChangeConfirmModal', 'status'], 'request', state)
+    }
+
+    case ACCOUNT.PASSWORD.CHANGE_CONFIRM_SUCCESS: {
+      return set(['passwordChangeConfirmModal', 'status'], 'success', state)
+    }
+
+    case ACCOUNT.PASSWORD.CHANGE_CONFIRM_FAILURE: {
+      const { error } = action.payload
+      return compose(
+        set(['passwordChangeConfirmModal', 'status'], 'failure'),
+        set(['passwordChangeConfirmModal', 'message'], error)
+      )(state)
     }
 
     default: return state

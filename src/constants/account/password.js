@@ -1,1 +1,5 @@
-export const SET = '@account/password/Set'
+export const OPEN_CHANGE_CONFIRM = '@account/password/Change confirm open'
+export const CLOSE_CHANGE_CONFIRM = '@account/password/Change confirm close'
+export const CHANGE_CONFIRM_REQUEST = '@account/password/Change confirm request'
+export const CHANGE_CONFIRM_SUCCESS = '@account/password/Change confirm success'
+export const CHANGE_CONFIRM_FAILURE = '@account/password/Change confirm failure'
