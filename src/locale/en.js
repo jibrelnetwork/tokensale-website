@@ -204,26 +204,15 @@ const EN = {
       submit: 'Got it!',
     },
     changePassword: {
+      title: 'Change Password',
+      close: 'Close',
+      repeat: 'Repeat',
+      submit: 'Change password',
       button: 'Change password',
-      title: 'Set New Password',
-      fields: {
-        oldPassword: 'Old password',
-        newPassword: 'New password',
-        newPasswordConfirm: 'Confirm password',
-      },
-      errors: {
-        oldPassword: {
-          isRequired: 'Password is required',
-        },
-        newPassword: {
-          isRequired: 'New Password is required',
-          isTooShort: 'New Password is too short',
-        },
-        newPasswordConfirm: {
-          notMatch: 'Passwords should match',
-        },
-      },
-      submit: 'Confirm',
+      failure: "We currently can't confirm your password change, please try again later",
+      request: 'Requesting password change...',
+      success: 'An email has been sent to your address. \n Click the confirmation link to change your password',
+      confirm: 'If you want to change your password please click on button below',
     },
   },
   verification: {
