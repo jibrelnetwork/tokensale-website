@@ -97,6 +97,36 @@ $modal-header-height: 24px;
       margin-top: 40px;
       line-height: 1.5;
 
+      > .icon {
+        width: 72px;
+        height: 72px;
+        margin: 0 auto;
+        background-size: 72px 72px;
+
+        &.gear {
+          background-image: url("/static/icons/gear.svg");
+        }
+
+        &.done {
+          background-image: url("/static/icons/mail-hexagon.svg");
+        }
+
+        &.error {
+          background-image: url("/static/icons/error-blue.svg");
+        }
+
+        &.request {
+          background-image: url("/static/icons/waiting.svg");
+        }
+      }
+
+      > .text {
+        margin: 30px auto;
+        max-width: 300px;
+        font-size: 15px;
+        text-align: center;
+      }
+
       .field {
         margin-bottom: 30px;
 
@@ -105,8 +135,13 @@ $modal-header-height: 24px;
         }
       }
 
-      .button {
-        margin-top: 10px;
+      > .buttons {
+        display: flex;
+        justify-content: space-between;
+
+        &.center {
+          justify-content: center;
+        }
       }
     }
 
@@ -210,6 +245,10 @@ $modal-header-height: 24px;
             display: flex;
             align-items: center;
             flex-direction: column;
+
+            > *:first-child {
+              margin-bottom: 20px;
+            }
           }
         }
       }

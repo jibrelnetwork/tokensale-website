@@ -1,47 +1,21 @@
-import { put, call, take } from 'redux-saga/effects'
-import { startSubmit, stopSubmit, reset } from 'redux-form'
+import { put, call, take, select } from 'redux-saga/effects'
 
 import request from '../request'
 import { SERVER } from '../.'
-import { PASSWORD, MODALS } from '../../constants/account'
+import { PASSWORD } from '../../constants/account'
+import * as actions from '../../actions'
 
-const FORM = 'set-password'
-
-function* closeSetPasswordModal() {
-  yield put({
-    type: MODALS.CHANGE_STATE,
-    payload: { modalName: 'setPassword', modalState: 'close' },
-  })
-}
-
-function getSetPasswordRequestData({ password, newPassword }) {
-  return { old_password: password, new_password1: newPassword, new_password2: newPassword }
-}
-
-function* onSetResponse({ success, statusText, data }) {
-  const { old_password: password, new_password2: newPassword } = data
-
-  if (success) {
-    yield put(stopSubmit(FORM))
-    yield closeSetPasswordModal()
-    yield put(reset(FORM))
-  } else if (password) {
-    yield put(stopSubmit(FORM, { password }))
-  } else if (newPassword) {
-    yield put(stopSubmit(FORM, { newPassword }))
-  } else {
-    yield put(stopSubmit(FORM, { password: statusText }))
-  }
-}
-
-export function* set() {
+export function* changeConfirm() {
   while (true) { // eslint-disable-line fp/no-loops
-    const { payload } = yield take(PASSWORD.SET)
-    const data = getSetPasswordRequestData(payload)
-
-    yield put(startSubmit(FORM))
-
-    const response = yield call(request, `${SERVER}/auth/password/change/`, data, 'post')
-    yield onSetResponse(response)
+    yield take(PASSWORD.CHANGE_CONFIRM_REQUEST)
+    const email = yield select((state) => state.account.dashboard.accountData.email)
+    const response = yield call(request, `${SERVER}/auth/password/reset/`, { email }, 'post')
+    if (response.success) {
+      yield put(actions.account.password.changeConfirmSuccess())
+    } else if (response.error) {
+      yield put(actions.account.password.changeConfirmFailure(response.data.detail))
+    } else {
+      yield put(actions.account.password.changeConfirmFailure())
+    }
   }
 }

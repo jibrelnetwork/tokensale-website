@@ -13,7 +13,7 @@ import Benefits from './Benefits'
 import ConfirmWithdraw from './ConfirmWithdraw'
 import ConfirmAddressChange from './ConfirmAddressChange'
 
-const { KYCStatusModal, SetAddressModal, SetPasswordModal } = Modals
+const { KYCStatusModal, SetAddressModal, ChangePasswordModal } = Modals
 const HOME_PAGE_PATHNAME = '/welcome'
 const EMAIL_SENDED_PAGE_PATHNAME = '/welcome/email/sended'
 
@@ -61,7 +61,7 @@ const Welcome = ({ location: { pathname }, isAuthorized, isSupportLinkShown }) =
     </div>
     <KYCStatusModal />
     <SetAddressModal />
-    <SetPasswordModal />
+    <ChangePasswordModal />
     {(getPageName(pathname) === 'home') && (
       <div>
         <Tokens />

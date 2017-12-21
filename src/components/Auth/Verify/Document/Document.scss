@@ -48,6 +48,7 @@
     > form {
       > .buttons {
         display: flex;
+        align-items: center;
         flex-direction: column;
 
         .button {
