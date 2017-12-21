@@ -9,7 +9,7 @@ import UserInfo from './UserInfo'
 import Document from './Document'
 import Progress from './Progress'
 
-const { KYCStatusModal, SetPasswordModal } = Modals
+const { KYCStatusModal, ChangePasswordModal } = Modals
 
 const Verify = ({ stage, token }) => (
   <div className="Verify inner-page">
@@ -28,7 +28,7 @@ const Verify = ({ stage, token }) => (
       </div>
     </div>
     <KYCStatusModal />
-    <SetPasswordModal />
+    <ChangePasswordModal />
   </div>
 )
 

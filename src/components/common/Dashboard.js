@@ -22,9 +22,9 @@ const Dashboard = ({
   closeDashboard,
   openSetAddressModal,
   openKYCStatusModal,
-  openSetPasswordModal,
   logout,
   toggleLanguageDropdown,
+  openChangePasswordModal,
   accountData,
   verifyStatus,
   isOpen,
@@ -117,7 +117,7 @@ const Dashboard = ({
         )}
         <div className="item">
           <div
-            onClick={openSetPasswordModal}
+            onClick={openChangePasswordModal}
             className="title"
           >
             {t('account.changePassword.button')}
@@ -141,7 +141,7 @@ Dashboard.propTypes = {
   closeDashboard: PropTypes.func.isRequired,
   openSetAddressModal: PropTypes.func.isRequired,
   openKYCStatusModal: PropTypes.func.isRequired,
-  openSetPasswordModal: PropTypes.func.isRequired,
+  openChangePasswordModal: PropTypes.func.isRequired,
   logout: PropTypes.func.isRequired,
   toggleLanguageDropdown: PropTypes.func.isRequired,
   accountData: PropTypes.shape({
@@ -171,7 +171,7 @@ const mapDispatchToProps = {
   closeDashboard: actions.account.dashboard.toggle,
   openSetAddressModal: () => actions.account.modals.changeState('setAddress', 'open'),
   openKYCStatusModal: () => actions.account.modals.changeState('kycStatus', 'open'),
-  openSetPasswordModal: () => actions.account.modals.changeState('setPassword', 'open'),
+  openChangePasswordModal: actions.account.password.openChangeConfirm,
   verifyStatusRequestStart: actions.auth.verify.statusRequest,
   verifyStatusRequestCancel: actions.auth.verify.statusRequestCancel,
   logout: actions.auth.logout,
