@@ -22,7 +22,7 @@ const Transaction = ({
     <div className={cx('item', type, status, isPresale && 'presale', 'clear')}>
       <div className="type" />
       <div className="jnt">
-        {`${{ incoming: '+', outgoing: '-' }[type]} ${numeral(jnt).format('0 0')}`} JNT
+        {`${{ incoming: '+', outgoing: '-' }[type]} ${numeral(jnt).format('0,0')}`} JNT
       </div>
       <div className="amount">
         <div className="title">{t('account.transactions.transaction.amount')}</div>
