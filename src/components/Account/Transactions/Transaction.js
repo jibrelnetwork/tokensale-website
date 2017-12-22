@@ -41,7 +41,7 @@ const Transaction = ({
         <div className="title">
           {isPresale
             ? t('account.transactions.transaction.comment')
-            : t('account.transactions.transaction.amount')
+            : t('account.transactions.transaction.TXHash')
           }
         </div>
         <div className="value">
