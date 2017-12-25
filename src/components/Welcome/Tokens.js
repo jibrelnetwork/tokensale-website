@@ -11,19 +11,20 @@ import * as actions from '../../actions'
 const AVAILABLE = 200000000
 
 const Tokens = ({ t, raised, raisedPercent }) => (
-  <div className="progress">
-    <div className="wrap">
-      <div className="mark" style={{ left: 0 }}>150M</div>
-      <div className="mark" style={{ left: '20%' }}>160M</div>
-      <div className="mark" style={{ left: '40%' }}>170M</div>
-      <div className="mark" style={{ left: '60%' }}>180M</div>
-      <div className="mark" style={{ left: '80%' }}>190M</div>
-      <div className="mark" style={{ left: '100%' }}>200M</div>
-      <div className="line before" style={{ width: `${raisedPercent + 1}%` }} />
-      <div className="line after clear" style={{ width: `${100 - raisedPercent}%` }}>
-        <div className="item raised">
-          <div className="title">{t('index.tokens.raised')}</div>
-          <div className="value">{numeral(raised).format('0,0')}</div>
+  <div className="Progress">
+    <div className="progress">
+      <div className="wrap">
+        <div className="line before" style={{ width: `${raisedPercent + 1}%` }} />
+        <div className="line after clear" style={{ width: `${100 - raisedPercent}%` }}>
+          <div className="item raised">
+            <div className="title">{t('index.tokens.raised')}</div>
+            <div className="value">{numeral(raised).format('0,0')}</div>
+            <div className="point" />
+          </div>
+        </div>
+        <div className="item total">
+          <div className="title">{t('index.tokens.total')}</div>
+          <div className="value">{numeral(AVAILABLE).format('0,0')}</div>
           <div className="point" />
         </div>
       </div>
