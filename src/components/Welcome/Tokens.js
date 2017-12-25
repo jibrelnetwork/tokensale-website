@@ -8,20 +8,22 @@ import { translate } from 'react-i18next'
 
 import * as actions from '../../actions'
 
-const AVAILABLE = 200000000
+const AVAILABLE = 200 * 1000 * 1000
+const INITIAL = 150 * 1000 * 1000
 
 const Tokens = ({ t, raised, raisedPercent }) => (
-  <div className="progress">
-    <div className="wrap">
-      <div className="mark" style={{ left: 0 }}>150M</div>
-      <div className="mark" style={{ left: '20%' }}>160M</div>
-      <div className="mark" style={{ left: '40%' }}>170M</div>
-      <div className="mark" style={{ left: '60%' }}>180M</div>
-      <div className="mark" style={{ left: '80%' }}>190M</div>
-      <div className="mark" style={{ left: '100%' }}>200M</div>
-      <div className="line before" style={{ width: `${raisedPercent + 1}%` }} />
-      <div className="line after clear" style={{ width: `${100 - raisedPercent}%` }}>
-        <div className="item raised">
+  <div className="Progress">
+    <div className="progress">
+      <div className="wrap">
+        <div className="mark" style={{ left: 0 }}>150M</div>
+        <div className="mark" style={{ left: '20%' }}>160M</div>
+        <div className="mark" style={{ left: '40%' }}>170M</div>
+        <div className="mark" style={{ left: '60%' }}>180M</div>
+        <div className="mark" style={{ left: '80%' }}>190M</div>
+        <div className="mark" style={{ left: '100%' }}>200M</div>
+        <div className="line before" style={{ width: `${raisedPercent + 1}%` }} />
+        <div className="line after clear" style={{ width: `${100 - raisedPercent}%` }} />
+        <div className="item" style={{ left: `${raisedPercent}%` }}>
           <div className="title">{t('index.tokens.raised')}</div>
           <div className="value">{numeral(raised).format('0,0')}</div>
           <div className="point" />
@@ -37,10 +39,14 @@ Tokens.propTypes = {
   raisedPercent: PropTypes.number.isRequired,
 }
 
-const mapStateToProps = ({ tokens: { raised } }) => ({
-  raised,
-  raisedPercent: (raised / AVAILABLE) * 100,
-})
+const mapStateToProps = ({ tokens }) => {
+  const raised = process.env.PROD ? tokens.raised : (tokens.raised + (70 * 1000 * 1000))
+
+  return {
+    raised,
+    raisedPercent: ((raised - INITIAL) / (AVAILABLE - INITIAL)) * 100,
+  }
+}
 
 const mapDispatchToProps = {
   requestStart: actions.tokens.raisedRequest,

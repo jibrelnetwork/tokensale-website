@@ -274,20 +274,6 @@
   }
 }
 
-.Account {
-  .progress .wrap {
-    top: 160px;
-
-    .item.raised {
-      color: $blue2;
-    }
-
-    .item.total {
-      color: $blue;
-    }
-  }
-}
-
 .Loader {
   .message .img {
     background-image: unset;
@@ -469,10 +455,6 @@ h3 {
     background-color: $light-blue;
     border-color: transparent;
   }
-}
-
-.progress .line {
-  // width: unset;
 }
 
 .message p {

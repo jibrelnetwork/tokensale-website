@@ -18,28 +18,6 @@
     }
   }
 
-  .progress {
-    top: 160px;
-
-    .line {
-      height: 1px;
-      bottom: 0;
-    }
-
-    .item.raised {
-      color: $blue2;
-    }
-
-    .item.total {
-      color: $blue3;
-    }
-
-    .point {
-      box-shadow: none;
-      border: none;
-    }
-  }
-
   @media only screen and (max-width: 600px) {
     .start {
       z-index: 1000;
