@@ -10,7 +10,7 @@ const Timer = ({ t, timeLeft }) => (
     <div className="counter">
       <div className="row clear">
         <div className="col-3">
-          <div className="time">{timeLeft.days() + 31}</div>
+          <div className="time">{timeLeft.days()}</div>
           <div className="title">{t('index.timer.days')}</div>
         </div>
         <div className="col-3">
