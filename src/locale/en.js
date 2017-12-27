@@ -341,6 +341,7 @@ const EN = {
       seconds: 'Seconds',
     },
     button: 'Checking your balance',
+    button2: 'Adding JNT into wallets',
     tokens: {
       raised: 'Allocated Tokens',
       total: 'Total Supply',

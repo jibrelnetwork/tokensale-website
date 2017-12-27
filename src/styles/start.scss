@@ -224,8 +224,13 @@
   display: none;
 }
 
+.start .links {
+  margin: 40px auto 200px auto;
+}
+
 .start .link {
-  padding-bottom: 200px;
+  display: inline-block;
+  margin: 20px 10px;
   text-align: center;
 
   a {
@@ -234,27 +239,9 @@
     font-weight: normal;
   }
 
-  &.about-jibrel {
-    display: none;
-
-    a {
-      height: 50px;
-      line-height: 48px;
-      border: 1px solid rgba($white, 0.25);
-      border-radius: 25px;
-      font-size: 13px;
-      color: $white;
-    }
-  }
-
-  @media only screen and (max-width: 600px) {
-    padding-bottom: 0;
-    margin-bottom: 20px;
-
-    &.about-jibrel {
-      display: block;
-      padding-bottom: 140px;
-    }
+  @media only screen and (max-width: 768px) {
+    display: block;
+    margin: 20px auto;
   }
 }
 

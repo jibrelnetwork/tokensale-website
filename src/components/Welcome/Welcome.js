@@ -41,10 +41,6 @@ const Welcome = ({ location: { pathname }, isAuthorized, isSupportLinkShown }) =
           ? <Redirect from="/welcome/login" to="/welcome" />
           : <Route path="/welcome/login" component={Auth.Login} />
         }
-        {isAuthorized
-          ? <Redirect from="/welcome/register" to="/welcome" />
-          : <Route path="/welcome/register" component={Auth.Register} />
-        }
         <Route path="/welcome/email/" component={Auth.Email} />
         <Route path="/welcome/password/" component={Auth.Password} />
         <Route
