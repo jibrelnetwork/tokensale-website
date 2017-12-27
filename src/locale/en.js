@@ -332,7 +332,7 @@ const EN = {
     },
     title: {
       header: 'Tokenize Everything',
-      text: 'Jibrel provides traditional financial assets, as ERC-20 tokens, \n on the Ethereum blockchain',
+      text: 'Our token sale has ended. Thank you for your support.',
     },
     timer: {
       days: 'Days',
@@ -340,7 +340,7 @@ const EN = {
       minutes: 'Minutes',
       seconds: 'Seconds',
     },
-    button: 'Get Tokens',
+    button: 'Checking your balance',
     tokens: {
       raised: 'Allocated Tokens',
       total: 'Total Supply',

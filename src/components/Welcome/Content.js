@@ -16,7 +16,7 @@ const Content = ({ t, isAuthorized }) => (
     </div>
     <Timer />
     <div className="link">
-      <Link to={isAuthorized ? '/account' : '/welcome/register'} className="button big">
+      <Link to={isAuthorized ? '/account' : '/welcome/login'} className="button big">
         {t('index.button')}
       </Link>
     </div>

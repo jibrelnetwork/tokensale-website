@@ -45,8 +45,7 @@ const Controls = ({
             {t('index.header.about')}
           </a>
         </li>,
-        <li key="1"><Link to="/welcome/register">{t('index.header.registration')}</Link></li>,
-        <li key="2" className="bordered"><Link to="/welcome/login">{t('index.header.login')}</Link></li>,
+        <li key="1" className="bordered"><Link to="/welcome/login">{t('index.header.login')}</Link></li>,
       ])}
     </ul>
     <button

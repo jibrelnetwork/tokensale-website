@@ -1,4 +1,3 @@
-import cx from 'classnames'
 import React from 'react'
 import numeral from 'numeral'
 import PropTypes from 'prop-types'
@@ -9,14 +8,8 @@ import { translate, Interpolate } from 'react-i18next'
 
 import * as actions from '../../../actions'
 
-const Balance = ({ openWithdrawModal, balance, t /* , address */ }) => (
+const Balance = ({ balance /* , address */ }) => (
   <div className="Balance">
-    <div
-      className={cx('button bordered pull-right', { disabled: false /* !(address && balance) */})}
-      onClick={openWithdrawModal /* (address && balance) ? openWithdrawModal : null */}
-    >
-      {t('account.withdraw.button')}
-    </div>
     <div className="balance pull-right">
       <Interpolate
         i18nKey="account.balance"
@@ -27,9 +20,7 @@ const Balance = ({ openWithdrawModal, balance, t /* , address */ }) => (
 )
 
 Balance.propTypes = {
-  t: PropTypes.func.isRequired,
   balance: PropTypes.number.isRequired,
-  openWithdrawModal: PropTypes.func.isRequired,
   /* optional */
   // address: PropTypes.string,
 }
@@ -44,7 +35,6 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = {
-  openWithdrawModal: () => actions.account.modals.changeState('withdraw', 'open'),
   requestStart: actions.account.balance.request,
   requestCancel: actions.account.balance.requestCancel,
 }
