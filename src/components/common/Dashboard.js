@@ -20,6 +20,7 @@ function isTouchDevice() {
 const Dashboard = ({
   t,
   closeDashboard,
+  openSetAddressModal,
   openKYCStatusModal,
   logout,
   toggleLanguageDropdown,
@@ -104,6 +105,14 @@ const Dashboard = ({
             {t('account.support')}
           </a>
         </div>
+        <div className="item set-address">
+          <div
+            onClick={openSetAddressModal}
+            className="title"
+          >
+            {t('account.changeETHAddress')}
+          </div>
+        </div>
         <div className="item">
           <div
             onClick={openChangePasswordModal}
@@ -128,6 +137,7 @@ const Dashboard = ({
 Dashboard.propTypes = {
   t: PropTypes.func.isRequired,
   closeDashboard: PropTypes.func.isRequired,
+  openSetAddressModal: PropTypes.func.isRequired,
   openKYCStatusModal: PropTypes.func.isRequired,
   openChangePasswordModal: PropTypes.func.isRequired,
   logout: PropTypes.func.isRequired,
@@ -157,6 +167,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = {
   closeDashboard: actions.account.dashboard.toggle,
+  openSetAddressModal: () => actions.account.modals.changeState('setAddress', 'open'),
   openKYCStatusModal: () => actions.account.modals.changeState('kycStatus', 'open'),
   openChangePasswordModal: actions.account.password.openChangeConfirm,
   verifyStatusRequestStart: actions.auth.verify.statusRequest,

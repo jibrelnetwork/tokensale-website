@@ -14,6 +14,7 @@ import * as actions from '../../actions'
 
 const Header = ({
   t,
+  openSetAddressModal,
   openDashboard,
   address,
   email,
@@ -30,10 +31,18 @@ const Header = ({
           <li>
             <div className="address">
               {address && <div className="title">{t('account.ethAddress')}</div>}
-              <div className="value">
+              <div className="value" onClick={openSetAddressModal}>
                 <div>
-                  {address && `${address.substr(0, 20)}...`}
+                  {address ? `${address.substr(0, 20)}...` : (
+                    <div className="add">
+                      <div className="icon">+</div>
+                      <div className="text">
+                        {t('account.setETHAddress.button')}
+                      </div>
+                    </div>
+                  )}
                 </div>
+                {address && <div className="edit" />}
               </div>
             </div>
           </li>
@@ -64,6 +73,7 @@ const Header = ({
 
 Header.propTypes = {
   t: PropTypes.func.isRequired,
+  openSetAddressModal: PropTypes.func.isRequired,
   openDashboard: PropTypes.func.isRequired,
   email: PropTypes.string.isRequired,
   isDashboardOpen: PropTypes.bool.isRequired,
@@ -85,6 +95,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = {
   getAddress: actions.account.address.get,
+  openSetAddressModal: () => actions.account.modals.changeState('setAddress', 'open'),
   openDashboard: actions.account.dashboard.toggle,
 }
 
