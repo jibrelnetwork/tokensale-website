@@ -105,16 +105,14 @@ const Dashboard = ({
             {t('account.support')}
           </a>
         </div>
-        {(verifyStatus === 'Approved') && (
-          <div className="item set-address">
-            <div
-              onClick={openSetAddressModal}
-              className="title"
-            >
-              {t('account.changeETHAddress')}
-            </div>
+        <div className="item set-address">
+          <div
+            onClick={openSetAddressModal}
+            className="title"
+          >
+            {t('account.changeETHAddress')}
           </div>
-        )}
+        </div>
         <div className="item">
           <div
             onClick={openChangePasswordModal}
