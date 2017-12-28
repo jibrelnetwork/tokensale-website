@@ -87,7 +87,9 @@
   &.banking,
   &.wallet {
     position: relative;
+    width: 240px !important;
     padding-left: 50px;
+    font-size: 13px !important;
 
     &:before {
       position: absolute;

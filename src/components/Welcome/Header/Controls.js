@@ -38,14 +38,22 @@ const Controls = ({
         </li>,
       ]) : ([
         <li key="0">
-          <a
-            href="https://jibrel.network?from-sale=1"
-            target={`${isTouchDevice() ? '_self' : '_blank'}`}
-          >
+          <a href="https://jibrel.network" target={`${isTouchDevice() ? '_self' : '_blank'}`}>
             {t('index.header.about')}
           </a>
         </li>,
-        <li key="1" className="bordered"><Link to="/welcome/login">{t('index.header.login')}</Link></li>,
+        <li key="1">
+          <a
+            target="_blank"
+            rel="noopener noreferrer"
+            href="https://jibrelnetwork.freshdesk.com/support/tickets/new"
+          >
+            Support
+          </a>
+        </li>,
+        <li key="2" className="bordered">
+          <Link to="/welcome/login">{t('index.header.login')}</Link>
+        </li>,
       ])}
     </ul>
     <button

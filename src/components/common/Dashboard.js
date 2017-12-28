@@ -54,7 +54,7 @@ const Dashboard = ({
           <div className="item">
             <a
               className="title"
-              href="https://jibrel.network?from-sale=1"
+              href="https://jibrel.network"
               target={`${isTouchDevice() ? '_self' : '_blank'}`}
             >
               {t('index.header.about')}
