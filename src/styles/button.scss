@@ -83,6 +83,39 @@
       content: "";
     }
   }
+
+  &.banking,
+  &.wallet {
+    position: relative;
+    padding-left: 50px;
+
+    &:before {
+      position: absolute;
+      top: 50%;
+      left: 20px;
+      display: block;
+      width: 20px;
+      height: 20px;
+      margin-top: -10px;
+      background-position: 100%;
+      background-size: cover;
+      background-repeat: no-repeat;
+      opacity: 0.6;
+      content: "";
+    }
+  }
+
+  &.banking {
+    &:before {
+      background-image: $banking-icon;
+    }
+  }
+
+  &.wallet {
+    &:before {
+      background-image: $wallet-icon;
+    }
+  }
 }
 
 .menu-button {

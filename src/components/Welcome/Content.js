@@ -16,7 +16,7 @@ const Content = ({ t }) => (
       <div className="link">
         <a
           href="https://medium.com/@jibrelnetwork/checking-your-jnt-balance-on-etherscan-599ebcb4cf3f"
-          className="button big"
+          className="button big banking"
           target="_blank"
           rel="noopener noreferrer"
         >
@@ -26,7 +26,7 @@ const Content = ({ t }) => (
       <div className="link">
         <a
           href="https://medium.com/@jibrelnetwork/how-to-add-jnt-into-an-ethereum-wallet-48ebc2c52817"
-          className="button big"
+          className="button big wallet"
           target="_blank"
           rel="noopener noreferrer"
         >
