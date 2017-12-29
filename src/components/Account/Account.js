@@ -3,6 +3,7 @@ import React from 'react'
 import { Modals, AuthHeader, Social } from '../common'
 import Benefits from '../Welcome/Benefits'
 import Transactions from './Transactions'
+import Addresses from './Addresses'
 
 const { KYCStatusModal, SetAddressModal, WithdrawModal, ChangePasswordModal } = Modals
 
@@ -15,6 +16,7 @@ const Account = () => (
     </div>
     <div className="section content">
       <div className="inner">
+        <Addresses />
         <Transactions />
       </div>
     </div>

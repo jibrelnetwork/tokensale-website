@@ -8,13 +8,23 @@ import { translate, Interpolate } from 'react-i18next'
 import gtm from '../../services/gtm'
 import * as actions from '../../actions'
 
+function isAddressesAvailable(email) {
+  return [
+    'eth3316@gmail.com',
+    'gusong8087@gmail.com',
+    '609103457@qq.com',
+    'ivan.violentov@jibrel.network', // for test
+  ].includes(email)
+}
+
 const Addresses = ({
   t,
+  pushSendRequestEvent,
+  email,
   ethAddress,
   btcAddress,
   verifyStatus,
-  pushSendRequestEvent,
-}) => (
+}) => (!isAddressesAvailable(email) ? null : (
   <div className="Addresses">
     {verifyStatus === 'Declined' ? (
       <div className="addresses declined clear">
@@ -51,14 +61,16 @@ const Addresses = ({
       </div>
     )}
   </div>
-)
+))
 
 Addresses.propTypes = {
   t: PropTypes.func.isRequired,
+  pushSendRequestEvent: PropTypes.func.isRequired,
+  email: PropTypes.string.isRequired,
+  /* optional */
   btcAddress: PropTypes.string,
   ethAddress: PropTypes.string,
   verifyStatus: PropTypes.string,
-  pushSendRequestEvent: PropTypes.func.isRequired,
 }
 
 Addresses.defaultProps = {
@@ -71,6 +83,7 @@ const mapStateToProps = (state) => ({
   btcAddress: state.account.btcAddress,
   ethAddress: state.account.ethAddress,
   verifyStatus: state.auth.verifyStatus,
+  email: state.account.dashboard.accountData.email,
 })
 
 const mapDispatchToProps = {
