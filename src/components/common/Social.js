@@ -14,7 +14,7 @@ const LINKS = [{
   label: 'Bitcointalk',
 }, {
   icon: 'kakaotalk',
-  link: 'https://open.kakao.com/o/gJDnwxB',
+  link: 'https://open.kakao.com/o/ghfXgFE',
   label: 'Kakaotalk',
 }, {
   icon: 'medium',
