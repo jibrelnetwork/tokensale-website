@@ -72,7 +72,7 @@
 
           .withdraw-balance,
           .withdraw-address {
-            font-weight: 400;
+            // font-weight: 400;
           }
         }
       }
@@ -92,10 +92,12 @@
 .withdraw-address {
   display: block;
   max-width: 100%;
+  font-size: 13px;
 
-  @media only screen and (min-width: 340px) {
+  @media only screen and (max-width: 380px) {
     overflow: hidden;
-    text-overflow: ellipsis;
+    font-size: 9.5px;
     white-space: nowrap;
+    text-overflow: ellipsis;
   }
 }

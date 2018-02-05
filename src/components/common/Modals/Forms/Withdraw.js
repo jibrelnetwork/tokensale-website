@@ -33,11 +33,17 @@ const Withdraw = ({
         <div className={cx('icon', ICONS[messageType])} />
         <div className={cx('info-text', { 'withdraw-text': messageType === 'confirm' })}>
           {messageType === 'confirm' ? (
-            <Interpolate
-              i18nKey="account.withdraw.confirm.text"
-              amount={<span className="withdraw-balance">{`${balance.toFixed(2)} JNT`}</span>}
-              address={<span className="withdraw-address">{address}</span>}
-            />
+            <div>
+              <Interpolate
+                style={{ fontSize: 15, marginTop: 10 }}
+                amount={<span className="withdraw-balance">{`${balance.toFixed(2)} JNT`}</span>}
+                address={<span className="withdraw-address">{address}</span>}
+                i18nKey="account.withdraw.confirm.text"
+              />
+              <div className="warning">
+                {t('account.setETHAddress.addressWarning')}
+              </div>
+            </div>
           ) : t(`account.withdraw.${messageType}.text`)}
         </div>
       </div>
