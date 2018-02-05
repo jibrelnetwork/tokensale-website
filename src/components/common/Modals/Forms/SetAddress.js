@@ -35,6 +35,9 @@ const SetAddress = ({
           />
         )
       }
+      <div className="warning">
+        {t('account.setETHAddress.addressWarning')}
+      </div>
       <div className="clear">
         <button
           type="submit"

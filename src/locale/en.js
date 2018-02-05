@@ -195,6 +195,7 @@ const EN = {
       },
       close: 'Ok',
       submit: 'Confirm',
+      addressWarning: 'We experience difficulties with direct withdrawals of JNT to exchange addresses. Please transfer your allocation to your own address first',
     },
     withdrawTokens: {
       info: {
