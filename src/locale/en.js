@@ -190,7 +190,7 @@ const EN = {
       errors: {
         address: {
           isRequired: 'Address is required',
-          invalid: 'Invalid address',
+          isInvalid: 'Invalid address',
         },
       },
       close: 'Ok',
