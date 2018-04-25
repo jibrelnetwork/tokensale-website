@@ -2,12 +2,7 @@ import * as account from './account'
 import * as auth from './auth'
 import * as sync from './sync'
 
-export const SERVER =
-  process.env.PROD // Webpack
-    ? process.env.BACKEND === 'dev' // Heroku
-      ? 'http://37.59.55.6:8080'
-      : 'https://saleapi.jibrel.network'
-    : 'http://37.59.55.6:8080'
+export const SERVER = 'https://saleapi.jibrel.network'
 
 export default function* sagas() {
   yield [
