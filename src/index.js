@@ -1,27 +1,27 @@
 import React from 'react'
-import storage from 'redux-persist/es/storage'
-import Promise from 'promise-polyfill'
 import ReactDOM from 'react-dom'
 import LogRocket from 'logrocket'
-import { Provider } from 'react-redux'
+import Promise from 'promise-polyfill'
+import createSagaMiddleware from 'redux-saga'
+import storage from 'redux-persist/es/storage'
 import createHistory from 'history/createHashHistory'
-import { PersistGate } from 'redux-persist/es/integration/react'
+import { Provider } from 'react-redux'
 import { ToastContainer } from 'react-toastify'
 import { I18nextProvider } from 'react-i18next'
-import createSagaMiddleware from 'redux-saga'
 import { reducer as formReducer } from 'redux-form'
-import { Route, Redirect, Switch } from 'react-router-dom'
 import { createStore, applyMiddleware } from 'redux'
-import { persistStore, persistCombineReducers } from 'redux-persist'
+import { Route, Redirect, Switch } from 'react-router-dom'
+import { PersistGate } from 'redux-persist/es/integration/react'
 import { get, set, compose, update, curry, isString } from 'lodash/fp'
+import { persistStore, persistReducer, persistCombineReducers } from 'redux-persist'
 import { ConnectedRouter, routerReducer, routerMiddleware } from 'react-router-redux'
 
 import './styles/core.scss'
 import i18n from './locale'
 import sagas from './sagas'
-import tracking from './services/tracking'
 import reducers from './reducers'
 import middlewares from './middlewares'
+import tracking from './services/tracking'
 import { ProtectedRoute } from './routes'
 import { Auth, Welcome, Account } from './components'
 
@@ -49,8 +49,19 @@ LogRocket.init('pnojyg/jibrel-sale', {
   },
 })
 
+const rootPersistConfig = {
+  storage,
+  key: 'root',
+  blacklist: ['account'],
+}
+
+const accountPersistConfig = {
+  storage,
+  key: 'account',
+  blacklist: ['modals'],
+}
+
 const history = createHistory()
-const persistReducer = { key: 'root', storage }
 const routeMiddleware = routerMiddleware(history)
 const sagaMiddleware = createSagaMiddleware()
 const logRocketMiddleware = LogRocket.reduxMiddleware({
@@ -76,11 +87,16 @@ const logRocketMiddleware = LogRocket.reduxMiddleware({
   ),
 })
 
+const { auth, verify, tokens, account } = reducers
+
 const persistedReducers = persistCombineReducers(
-  persistReducer, {
-    ...reducers,
+  rootPersistConfig, {
+    auth,
+    verify,
+    tokens,
     form: formReducer,
     router: routerReducer,
+    account: persistReducer(accountPersistConfig, account),
   }
 )
 
