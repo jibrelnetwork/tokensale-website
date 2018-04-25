@@ -195,7 +195,7 @@ const EN = {
       },
       close: 'Ok',
       submit: 'Confirm',
-      addressWarning: 'We experience difficulties with direct withdrawals of JNT to exchange addresses. Please transfer your allocation to your own address first',
+      addressWarning: 'Please ensure to avoid withdrawing tokens to exchange accounts. Please use a non-exchange Ethereum address to avoid losing your tokens.',
     },
     withdrawTokens: {
       info: {
