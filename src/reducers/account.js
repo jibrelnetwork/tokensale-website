@@ -7,6 +7,8 @@ const defaultState = {
     setPassword: 'close',
     withdraw: 'close',
     kycStatus: 'close',
+    loginModal: 'close',
+    registerModal: 'close',
   },
   dashboard: {
     accountData: {

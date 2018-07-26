@@ -1,9 +1,21 @@
+// Kambio colors
+$blue: #32a8d2;
+$cucumber: #70dfc8;
+$blue-dark: #02242b;
+$blue-light: #a7dbee;
+$cucumber-light: #c7e4e4;
+$dusk: #02242b;
+
+// map to Jibrel colors
 $white: #fff;
+$bg: $white;
 $white-alpha: rgba(255, 255, 255, 0.2);
 $white-alpha2: rgba(255, 255, 255, 0.25);
 $black: #000;
-$black2: #3d4f6c;
-$blue: #0050db;
+$black2: $dusk;
+$text-color: $dusk;
+$button-text-color: $blue-light;
+
 $blue2: #00c1ff;
 $blue3: #b1e8f9;
 $blue4: #002db6;

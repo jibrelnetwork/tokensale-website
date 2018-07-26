@@ -23,6 +23,8 @@ const Controls = ({
   openDashboard,
   isDashboardOpen,
   toggleMenuOrDashboard,
+  openLoginModal,
+  openRegisterModal,
 }) => (
   <div className="Controls">
     <ul className={cx('menu pull-right', { 'menu-active': isMenuOpen })}>
@@ -43,6 +45,18 @@ const Controls = ({
           </a>
         </li>,
         <li key="1">
+          <a href="#" onClick={(e) => { openLoginModal(); e.preventDefault() }}>{t('index.header.login')}</a>
+        </li>,
+        <li key="2">
+          <a
+            href="#"
+            onClick={(e) => { openRegisterModal(); e.preventDefault() }}
+            className="button small"
+          >
+            {t('index.header.registration')}
+          </a>
+        </li>,
+        /* <li key="1">
           <a
             target="_blank"
             rel="noopener noreferrer"
@@ -53,7 +67,7 @@ const Controls = ({
         </li>,
         <li key="2" className="bordered">
           <Link to="/welcome/login">{t('index.header.login')}</Link>
-        </li>,
+        </li>, */
       ])}
     </ul>
     <button
@@ -75,6 +89,8 @@ Controls.propTypes = {
   openDashboard: PropTypes.func.isRequired,
   isDashboardOpen: PropTypes.bool.isRequired,
   toggleMenuOrDashboard: PropTypes.func.isRequired,
+  openLoginModal: PropTypes.func.isRequired,
+  openRegisterModal: PropTypes.func.isRequired,
 }
 
 Controls.defaultProps = {
@@ -90,6 +106,8 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = {
   openDashboard: actions.account.dashboard.toggle,
+  openLoginModal: () => actions.account.modals.changeState('loginModal', 'open'),
+  openRegisterModal: () => actions.account.modals.changeState('registerModal', 'open'),
 }
 
 export default compose(

@@ -4,6 +4,7 @@
   @import 'adaptive';
   @import 'auth';
   @import 'benefits';
+  @import 'suisse';
   @import 'bitcoinSuisse';
   @import 'button';
   @import 'content';
@@ -24,7 +25,7 @@
   @import 'start';
   @import 'status';
   @import 'steps';
-  @import '../components/common/Modal/Modal';
+  // @import '../components/common/Modal/Modal';
   @import '../components/Auth/Verify/Document/Document';
 
   * {

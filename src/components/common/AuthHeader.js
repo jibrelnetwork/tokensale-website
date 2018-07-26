@@ -24,7 +24,7 @@ const Header = ({
   <div className="Header">
     <div className="header clear">
       <Link to="/welcome" className="logo pull-left">
-        <img src="/static/logo.svg" alt="" />
+        <img src="/static/logo-kambio.svg" alt="" />
       </Link>
       <ul className="menu pull-right clear">
         {isAccountPage && (

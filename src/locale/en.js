@@ -97,8 +97,8 @@ const EN = {
   },
   confirmations: {
     withdraw: {
-      fail: "We can't confirm your JNT withdraw, please try again later or contact us via email",
-      success: 'Your JNT withdraw confirmed successfully!',
+      fail: "We can't confirm your KMB withdraw, please try again later or contact us via email",
+      success: 'Your KMB withdraw confirmed successfully!',
       request: 'Withdraw confirmation...',
     },
     changeAddress: {
@@ -144,11 +144,11 @@ const EN = {
         button: 'Got it!',
       },
       emptyBalance: {
-        text: "You don't have any JNT to withdraw.",
+        text: "You don't have any KMB to withdraw.",
         button: 'Ok',
       },
       emptyAddress: {
-        text: 'Please, specify ETH address to withdraw your JNT.',
+        text: 'Please, specify ETH address to withdraw your KMB.',
         button: 'Ok',
       },
       withdrawRequested: {
@@ -171,7 +171,7 @@ const EN = {
       filters: {
         all: 'All transactions',
         incoming: 'Incoming transactions',
-        outgoing: 'Outgoing JNT transfers',
+        outgoing: 'Outgoing KMB transfers',
       },
       transaction: {
         date: 'Date',
@@ -199,8 +199,8 @@ const EN = {
     },
     withdrawTokens: {
       info: {
-        available: 'You are about to withdraw {{tokensAmount}} JNT into address {{ethAddress}}',
-        unavailable: 'JNT withdrawals will be available starting from 12:00 PM 15th Dec 2017',
+        available: 'You are about to withdraw {{tokensAmount}} KMB into address {{ethAddress}}',
+        unavailable: 'KMB withdrawals will be available starting from 12:00 PM 15th Dec 2017',
       },
       submit: 'Got it!',
     },
@@ -226,11 +226,11 @@ const EN = {
     terms: {
       link: {
         text: 'Token Sale Terms & Conditions',
-        source: '/static/T&Cs - Jibrel Network Token Sale.pdf',
+        source: '/static/1.pdf',
       },
       fields: {
-        policyConfirm: 'I have read the {{link}}, Privacy Policy and Jibrel Network White Paper, and accept all terms, conditions, obligations, affirmations, representations and warranties outlined in these documents and agree to adhere to them and be legally bound by them',
-        citizenshipConfirm: 'I confirm that I am not a citizen, permanent resident, or granted indefinite leave to remain in the United States or any US territories - as well as any jurisdiction in which the purchase of Jibrel Network Token (JNT) is explicitly prohibited or outlawed.',
+        policyConfirm: 'I have read the {{link}}, Privacy Policy and Kambio Network White Paper, and accept all terms, conditions, obligations, affirmations, representations and warranties outlined in these documents and agree to adhere to them and be legally bound by them',
+        citizenshipConfirm: 'I confirm that I am not a citizen, permanent resident, or granted indefinite leave to remain in the United States or any US territories - as well as any jurisdiction in which the purchase of Kambio Network Token (KMB) is explicitly prohibited or outlawed.',
       },
       errors: {
         policyConfirm: {
@@ -272,7 +272,7 @@ const EN = {
     document: {
       modal: {
         close: 'Upload now',
-        message: 'Verification is required to withdraw your JNT. You can complete this step at a later stage.',
+        message: 'Verification is required to withdraw your KMB. You can complete this step at a later stage.',
         skipUpload: 'Upload later',
       },
       fields: {
@@ -306,7 +306,7 @@ const EN = {
   },
   index: {
     header: {
-      about: 'About Jibrel Network',
+      about: 'About Kambio Network',
       login: 'Sign In',
       logout: 'Logout',
       account: 'Go to dashboard',
@@ -324,15 +324,21 @@ const EN = {
       },
       exchange: {
         title: 'Feb 1st 2018',
-        text: 'JNT listed on exchanges',
+        text: 'KMB listed on exchanges',
       },
       jurisdictions: {
-        title: 'United States',
+        title: 'USA,China,Singapore',
         text: 'Restricted Jurisdictions',
       },
     },
     title: {
-      header: 'Tokenize Everything',
+      header: 'Liquidity Marketplace',
+      header2: 'for Startups',
+      text: 'Building a Fully-regulated \n London Exchange for Security Tokens',
+    },
+    titleSaleEnd: {
+      header: 'Liquidity Marketplace',
+      header2: 'for Startups',
       text: 'Our token sale has ended. Thank you for your support.',
     },
     timer: {
@@ -341,8 +347,9 @@ const EN = {
       minutes: 'Minutes',
       seconds: 'Seconds',
     },
+    suisse: 'Please note. Fiat contributions can be conducted through our partner Bitcoin Suisse',
     button: 'Checking your balance',
-    button2: 'Adding JNT into wallets',
+    button2: 'Adding KMB into wallets',
     tokens: {
       raised: 'Allocated Tokens',
       total: 'Total Supply',

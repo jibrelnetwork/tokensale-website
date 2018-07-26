@@ -11,8 +11,9 @@ import Content from './Content'
 import Benefits from './Benefits'
 import ConfirmWithdraw from './ConfirmWithdraw'
 import ConfirmAddressChange from './ConfirmAddressChange'
+import Suisse from './Suisse'
 
-const { KYCStatusModal, SetAddressModal, ChangePasswordModal } = Modals
+const { KYCStatusModal, SetAddressModal, ChangePasswordModal, LoginModal, RegisterModal } = Modals
 const HOME_PAGE_PATHNAME = '/welcome'
 const EMAIL_SENDED_PAGE_PATHNAME = '/welcome/email/sended'
 
@@ -41,6 +42,10 @@ const Welcome = ({ location: { pathname }, isAuthorized, isSupportLinkShown }) =
           ? <Redirect from="/welcome/login" to="/welcome" />
           : <Route path="/welcome/login" component={Auth.Login} />
         }
+        {isAuthorized
+          ? <Redirect from="/welcome/register" to="/welcome" />
+          : <Route path="/welcome/register" component={Auth.Register} />
+        }
         <Route path="/welcome/email/" component={Auth.Email} />
         <Route path="/welcome/password/" component={Auth.Password} />
         <Route
@@ -57,9 +62,12 @@ const Welcome = ({ location: { pathname }, isAuthorized, isSupportLinkShown }) =
     <KYCStatusModal />
     <SetAddressModal />
     <ChangePasswordModal />
+    <LoginModal />
+    <RegisterModal />
     {(getPageName(pathname) === 'home') && (
       <div>
         <Benefits />
+        <Suisse />
         <Social />
       </div>
     )}

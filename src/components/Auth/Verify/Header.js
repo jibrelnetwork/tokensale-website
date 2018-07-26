@@ -11,7 +11,7 @@ const Header = ({ t, logout }) => (
   <div className="Header">
     <div className="header clear">
       <Link to="/welcome" className="logo pull-left">
-        <img src="/static/logo.svg" alt="" />
+        <img src="/static/logo-kamio.svg" alt="" />
       </Link>
       <ul className="menu pull-right">
         <li className="bordered">

@@ -43,7 +43,7 @@ const Login = ({
           <button
             type="submit"
             disabled={submitting}
-            className="button pull-left"
+            className="button medium pull-left"
           >
             {!submitting && t('auth.login.submit')}
           </button>

@@ -165,7 +165,7 @@
       width: 0;
       min-height: calc(100vh - 100px);
       padding: 35px 0;
-      background: $blue4;
+      background: $white;
       overflow: hidden;
       opacity: 0;
 
@@ -177,6 +177,14 @@
           display: inline-block;
           font-weight: 600;
           white-space: nowrap;
+        }
+
+        .button.small {
+          background-color: #fff;
+          padding: 0 !important;
+          border-top-left-radius: 0;
+          border-bottom-right-radius: 0;
+          line-height: inherit;
         }
 
         &.bordered a {
@@ -426,20 +434,6 @@
     .modal {
       .modal-content {
         margin: 10px;
-      }
-    }
-  }
-}
-
-@media (-webkit-min-device-pixel-ratio: 2) {
-  body {
-    .start {
-      .bg-1 {
-        background-image: url("/static/bg-1@2x.png");
-      }
-
-      .bg-2 {
-        background-image: url("/static/bg-2@2x.png");
       }
     }
   }

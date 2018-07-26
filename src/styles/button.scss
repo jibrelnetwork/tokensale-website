@@ -1,28 +1,58 @@
 .button {
   display: inline-block;
-  border-radius: 20px;
-  height: 40px;
+  // height: 40px;
   line-height: 38px;
   padding: 0 30px;
   color: #fff;
-  background-color: #1573e9;
-  box-shadow: 0 10px 30px rgba(45, 63, 148, 0.4);
-  font-size: 13px;
-  font-weight: 600;
+  // box-shadow: 0 10px 30px rgba(45, 63, 148, 0.4);
+  // font-size: 13px;
+  // font-weight: 600;
   text-align: center;
   cursor: pointer;
   transition: background-color 0.3s ease, border-color 0.3s ease;
 
-  &:hover {
-    opacity: 1;
-    background-color: #00c1ff;
-    color: #fff;
+  &.small {
+    background-color: #a7dbee;
+    padding: 0 27px 0 18px !important;
+    border-top-left-radius: 14px;
+    border-bottom-right-radius: 50px;
+  }
+
+  &.small:hover {
+    opacity: 1 !important;
+    background-color: lighten(#a7dbee, 10%);
   }
 
   &.big {
     height: 50px;
     line-height: 50px;
-    border-radius: 25px;
+    border-top-left-radius: 16px;
+    border-bottom-right-radius: 50px;
+    background-color: $dusk;
+    color: $button-text-color;
+  }
+
+  &.big:hover {
+    opacity: 1;
+    background-color: lighten($dusk, 25%);
+    // color: $white;
+  }
+
+  &.medium {
+    height: 45px;
+    line-height: 45px;
+    border-top-left-radius: 16px;
+    border-bottom-right-radius: 50px;
+    background-color: $dusk;
+    color: $button-text-color;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  &.medium:hover {
+    opacity: 1;
+    background-color: lighten($dusk, 25%);
+    // color: $white;
   }
 
   &.bordered {
@@ -137,7 +167,8 @@
 .menu-button::before,
 .menu-button::after,
 .menu-button span {
-  background: #fff;
+  background: $text-color;
+  opacity: 0.8;
 }
 
 .menu-button::before,

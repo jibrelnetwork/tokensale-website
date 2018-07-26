@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+// import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { lifecycle } from 'recompose'
@@ -12,7 +12,7 @@ import { Input, Captcha } from '../common'
 
 const VALIDATE_EMAIL_REGEXP = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/ // eslint-disable-line max-len
 
-const Register = ({ submitting, handleSubmit, t }) => (
+const Register = ({ submitting, handleSubmit, t, openLoginModal }) => (
   <div className="auth">
     <div className="form-block">
       <form onSubmit={handleSubmit} className="form">
@@ -42,16 +42,17 @@ const Register = ({ submitting, handleSubmit, t }) => (
           <button
             type="submit"
             disabled={submitting}
-            className="button pull-left"
+            className="button medium pull-left"
           >
             {!submitting && t('auth.registration.submit')}
           </button>
-          <Link
-            to="/welcome/login"
+          <a
+            href="#"
             className="pull-right"
+            onClick={(e) => { openLoginModal(); e.preventDefault() }}
           >
             {t('auth.registration.links.login')}
-          </Link>
+          </a>
         </div>
       </form>
     </div>
@@ -62,10 +63,12 @@ Register.propTypes = {
   t: PropTypes.func.isRequired,
   submitting: PropTypes.bool.isRequired,
   handleSubmit: PropTypes.func.isRequired,
+  openLoginModal: PropTypes.func.isRequired,
 }
 
 const mapDispatchToProps = {
   showSupportLink: actions.auth.showSupportLink,
+  openLoginModal: () => actions.account.modals.changeState('loginModal', 'open'),
 }
 
 export default compose(

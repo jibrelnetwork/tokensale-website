@@ -14,14 +14,14 @@ $wallet-icon: url('../../static/icons/wallet.svg');
 /**
  * Font
  */
-$font: 'Open Sans', Arial, sans-serif;
+$font: 'Roboto Mono', monospace;
 
 /**
  * Header sizes
  */
 $header-height: 44px;
-$header-padding-top: 50px;
-$header-padding-bottom: 140px;
+$header-padding-top: 40px;
+$header-padding-bottom: 40px;
 $mobile-header-padding: 30px;
 
 $header-full-height: $header-height + $header-padding-top + $header-padding-bottom;
@@ -30,4 +30,4 @@ $mobile-header-full-height: $header-height + (2 * $mobile-header-padding);
 /**
  * Content sizes
  */
-$content-min-height: calc(100vh - #{$header-full-height});
+$content-min-height: calc(838px - #{$header-full-height});

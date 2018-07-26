@@ -517,17 +517,17 @@ button {
   font-family: $font !important;
 }
 
-$blue: #0050db;
+$social-color: #a7dbee;
 $white: #fff;
 $line-bg: rgba(0, 193, 255, 0.1);
-$light-blue: #00c1ff;
+$light-blue: lighten($social-color, 10%);
 
 .footer {
   background-color: $white;
   text-align: center;
-  padding: 100px 0;
+  padding: 10px 0;
   overflow: hidden;
-  border-top: 1px solid $line-bg;
+  // border-top: 1px solid $line-bg;
 
   .inner {
     position: relative;
@@ -541,7 +541,7 @@ $light-blue: #00c1ff;
         display: inline-block;
 
         a {
-          color: $blue;
+          color: $social-color;
           position: relative;
           padding: 0 30px;
           display: block;
@@ -553,7 +553,7 @@ $light-blue: #00c1ff;
             width: 64px;
             height: 64px;
             border-radius: 32px;
-            background-color: $blue;
+            background-color: $social-color;
             background-repeat: no-repeat;
             margin: 0 auto;
             margin-bottom: 15px;

@@ -1,7 +1,7 @@
 .benefits .inner {
-  padding: 130px 0;
+  padding: 130px 0 20px 0;
   text-align: center;
-  color: #0050db;
+  color: #70dfc8;
 }
 
 .benefits .inner .img {
@@ -23,8 +23,9 @@
 .benefits .inner p {
   opacity: 0.5;
   font-size: 14px;
+  color: $text-color;
 }
 
-.benefits .inner .benefit-4 {
-  color: #3d4f6c;
-}
+// .benefits .inner .benefit-4 {
+//   color: #3d4f6c;
+// }

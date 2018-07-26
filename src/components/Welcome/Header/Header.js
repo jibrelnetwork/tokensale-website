@@ -6,7 +6,7 @@ import Controls from './Controls'
 const Header = () => (
   <div className="header clear">
     <Link to="/welcome" className="logo pull-left scroll">
-      <img src="/static/logo.svg" alt="" />
+      <img src="/static/logo-kambio.svg" alt="" />
     </Link>
     <Route
       path="/welcome"

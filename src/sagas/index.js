@@ -2,7 +2,7 @@ import * as account from './account'
 import * as auth from './auth'
 import * as sync from './sync'
 
-export const SERVER = 'https://saleapi.jibrel.network'
+export const SERVER = 'http://localhost:8000'
 
 export default function* sagas() {
   yield [

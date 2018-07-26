@@ -38,7 +38,7 @@ Timer.propTypes = {
 const enhance = compose(
   translate(),
   lifecycle({
-    state: { timeLeft: moment.duration(moment.utc('2018-01-26T12:00') - moment.utc()) },
+    state: { timeLeft: moment.duration(moment.utc('2018-10-26T12:00') - moment.utc()) },
     /* eslint-disable fp/no-this */
     componentWillMount() {
       const { timeLeft } = this.state

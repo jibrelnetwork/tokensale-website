@@ -3,7 +3,7 @@ import AuthHeader from './AuthHeader'
 import BitcoinSuisse from './BitcoinSuisse'
 import Input from './Input'
 import Modal from './Modal'
-import Button from './Button'
+// import Button from './Button'
 import Select from './Select'
 import Captcha from './Captcha'
 import Dashboard from './Dashboard'
@@ -21,7 +21,7 @@ export {
   Captcha,
   Dashboard,
   DateInput,
-  Button,
+  // Button,
   Social,
   Uploader,
 }

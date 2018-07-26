@@ -4,10 +4,9 @@
   flex: 1;
   display: flex;
   align-items: center;
-  padding: 30px 0 100px 0;
 
   .form-block {
-    width: 340px;
+    width: 380px;
     margin: 0 auto;
   }
 
@@ -16,40 +15,39 @@
       margin-bottom: 30px;
 
       input {
-        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-        color: $white;
+        border-bottom: 1px solid $gray2;
+        color: $dusk;
       }
 
       input::-webkit-input-placeholder {
-        color: $white !important;
-        opacity: 0.5;
+        color: $dusk !important;
+        opacity: 0.7;
       }
 
       ::-moz-placeholder {
-        color: $white !important;
-        opacity: 0.5;
+        color: $dusk !important;
+        opacity: 0.7;
       }
 
       :-ms-input-placeholder {
-        color: $white !important;
-        opacity: 0.5;
+        color: $dusk !important;
+        opacity: 0.7;
       }
 
       :-moz-placeholder {
-        color: $white !important;
-        opacity: 0.5;
+        color: $dusk !important;
+        opacity: 0.7;
       }
     }
 
     &.error div.error-text {
-      color: $white;
-      opacity: 0.5;
+      opacity: 0.7;
     }
   }
 
   .captcha {
     margin-top: 15px;
-    color: $white;
+    color: $dusk;
   }
 
   .buttons {
@@ -58,8 +56,8 @@
     }
 
     .pull-right {
-      line-height: 40px;
-      color: $white;
+      line-height: 45px;
+      color: $dusk;
 
       &:hover {
         opacity: 0.5;
