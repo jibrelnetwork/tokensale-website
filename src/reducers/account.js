@@ -9,6 +9,8 @@ const defaultState = {
     kycStatus: 'close',
     loginModal: 'close',
     registerModal: 'close',
+    resetPasswordEmail: 'close',
+    resetPassword: 'close',
   },
   dashboard: {
     accountData: {

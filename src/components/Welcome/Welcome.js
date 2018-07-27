@@ -13,7 +13,15 @@ import ConfirmWithdraw from './ConfirmWithdraw'
 import ConfirmAddressChange from './ConfirmAddressChange'
 import Suisse from './Suisse'
 
-const { KYCStatusModal, SetAddressModal, ChangePasswordModal, LoginModal, RegisterModal } = Modals
+const {
+  KYCStatusModal,
+  SetAddressModal,
+  ChangePasswordModal,
+  LoginModal,
+  RegisterModal,
+  ResetPasswordEmailModal,
+} = Modals
+
 const HOME_PAGE_PATHNAME = '/welcome'
 const EMAIL_SENDED_PAGE_PATHNAME = '/welcome/email/sended'
 
@@ -64,6 +72,7 @@ const Welcome = ({ location: { pathname }, isAuthorized, isSupportLinkShown }) =
     <ChangePasswordModal />
     <LoginModal />
     <RegisterModal />
+    <ResetPasswordEmailModal />
     {(getPageName(pathname) === 'home') && (
       <div>
         <Benefits />

@@ -4,5 +4,14 @@ import WithdrawModal from './Withdraw'
 import ChangePasswordModal from './ChangePassword'
 import LoginModal from './LoginModal'
 import RegisterModal from './RegisterModal'
+import ResetPasswordEmailModal from './ResetPasswordEmail'
 
-export { KYCStatusModal, SetAddressModal, ChangePasswordModal, WithdrawModal, LoginModal, RegisterModal }
+export {
+  KYCStatusModal,
+  SetAddressModal,
+  ChangePasswordModal,
+  WithdrawModal,
+  LoginModal,
+  RegisterModal,
+  ResetPasswordEmailModal,
+}

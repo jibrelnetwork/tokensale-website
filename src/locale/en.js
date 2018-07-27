@@ -14,6 +14,7 @@ const EN = {
     },
     resetPasswordLinkSended: 'An email has been sent to your email address. \n It can take a few minutes before you have it in your inbox. \n Click the recovery link to change your password!',
     sendResetPasswordEmail: {
+      title: 'Reset password',
       fields: {
         email: 'Your email',
       },
@@ -26,6 +27,7 @@ const EN = {
       submit: 'Change password',
     },
     resetPassword: {
+      title: 'Reset password',
       fields: {
         newPassword: 'New password',
         newPasswordConfirm: 'Confirm new password',

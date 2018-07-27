@@ -22,7 +22,7 @@ const Reset = ({ submitting, handleSubmit, t }) => (
         <button
           type="submit"
           disabled={submitting}
-          className="button pull-left"
+          className="button medium pull-left"
         >
           {!submitting && t('auth.sendResetPasswordEmail.submit')}
         </button>

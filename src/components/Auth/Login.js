@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+// import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { lifecycle } from 'recompose'
@@ -19,6 +19,7 @@ const Login = ({
   resendEmail,
   handleSubmit,
   isEmailNotVerified,
+  openResetPasswordModal,
 }) => (
   <div className="auth">
     <div className="form-block">
@@ -56,12 +57,13 @@ const Login = ({
               {t('auth.login.links.resendEmail')}
             </div>
           ) : (
-            <Link
-              to="/welcome/password/reset"
+            <a
+              href="#"
               className="pull-right"
+              onClick={(e) => { openResetPasswordModal(); e.preventDefault() }}
             >
               {t('auth.login.links.resetPassword')}
-            </Link>
+            </a>
           )}
         </div>
       </form>
@@ -76,6 +78,7 @@ Login.propTypes = {
   resendEmail: PropTypes.func.isRequired,
   handleSubmit: PropTypes.func.isRequired,
   isEmailNotVerified: PropTypes.bool.isRequired,
+  openResetPasswordModal: PropTypes.func.isRequired,
 }
 
 Login.defaultProps = {
@@ -90,10 +93,14 @@ const mapStateToProps = (state) => ({
   email: get('email', getFormValues('login')(state)),
 })
 
-const mapDispatchToProps = {
-  resendEmail: actions.auth.email.resend,
-  showSupportLink: actions.auth.showSupportLink,
-}
+const mapDispatchToProps = (dispatch) => ({
+  resendEmail: (email) => dispatch(actions.auth.email.resend(email)),
+  showSupportLink: () => dispatch(actions.auth.showSupportLink()),
+  openResetPasswordModal: () => {
+    dispatch(actions.account.modals.changeState('resetPasswordEmail', 'open'))
+    dispatch(actions.account.modals.changeState('loginModal', 'close'))
+  },
+})
 
 export default compose(
   translate(),
