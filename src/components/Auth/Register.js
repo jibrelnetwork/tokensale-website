@@ -2,7 +2,7 @@ import React from 'react'
 // import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { lifecycle } from 'recompose'
+// import { lifecycle } from 'recompose'
 import { translate } from 'react-i18next'
 import { Field, reduxForm } from 'redux-form'
 import { set, compose, identity } from 'lodash/fp'
@@ -49,7 +49,7 @@ const Register = ({ submitting, handleSubmit, t, openLoginModal }) => (
           <a
             href="#"
             className="pull-right"
-            onClick={(e) => { openLoginModal(); e.preventDefault() }}
+            onClick={(e) => { openLoginModal(e); e.preventDefault() }}
           >
             {t('auth.registration.links.login')}
           </a>
@@ -66,10 +66,12 @@ Register.propTypes = {
   openLoginModal: PropTypes.func.isRequired,
 }
 
-const mapDispatchToProps = {
-  showSupportLink: actions.auth.showSupportLink,
-  openLoginModal: () => actions.account.modals.changeState('loginModal', 'open'),
-}
+const mapDispatchToProps = (dispatch) => ({
+  openLoginModal: () => {
+    dispatch(actions.account.modals.changeState('loginModal', 'open'))
+    dispatch(actions.account.modals.changeState('registerModal', 'close'))
+  },
+})
 
 export default compose(
   translate(),
@@ -103,14 +105,14 @@ export default compose(
         : identity,
     )({}),
   }),
-  lifecycle({
-    componentWillReceiveProps(props) {
-      if (props.submitFailed) {
-        props.showSupportLink()
-      }
-    },
-    componentWillUnmount() {
-      this.props.showSupportLink(false) // eslint-disable-line fp/no-this
-    },
-  }),
+  // lifecycle({
+  //   componentWillReceiveProps(props) {
+  //     if (props.submitFailed) {
+  //       props.showSupportLink()
+  //     }
+  //   },
+  //   componentWillUnmount() {
+  //     this.props.showSupportLink(false) // eslint-disable-line fp/no-this
+  //   },
+  // }),
 )(Register)

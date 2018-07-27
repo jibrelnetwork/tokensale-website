@@ -1,4 +1,4 @@
-import { put, take } from 'redux-saga/effects'
+import { put, takeEvery } from 'redux-saga/effects'
 import { delay } from 'redux-saga'
 
 import * as MODALS from '../../constants/account/modals'
@@ -35,15 +35,17 @@ function getNewModalState(modalState) {
   }
 }
 
+function* updateModals(action) {
+  const { payload: { modalName, modalState } } = action
+
+  yield setNewModalState({ modalName, modalState: getTempModalState(modalState) })
+
+  // wait while opening/closing/shake animation will finish
+  yield delay(modalChangeStateDelay)
+
+  yield setNewModalState({ modalName, modalState: getNewModalState(modalState) })
+}
+
 export function* setState() {
-  while (true) { // eslint-disable-line fp/no-loops
-    const { payload: { modalName, modalState } } = yield take(MODALS.CHANGE_STATE)
-
-    yield setNewModalState({ modalName, modalState: getTempModalState(modalState) })
-
-    // wait while opening/closing/shake animation will finish
-    yield delay(modalChangeStateDelay)
-
-    yield setNewModalState({ modalName, modalState: getNewModalState(modalState) })
-  }
+  yield takeEvery(MODALS.CHANGE_STATE, updateModals)
 }
