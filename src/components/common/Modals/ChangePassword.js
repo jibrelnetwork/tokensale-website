@@ -30,7 +30,7 @@ const ChangePasswordModal = ({
   sendRequest,
   errorMessage,
 }) => (
-  <div className="ChangePasswordModal">
+  <div className="ChangePasswordModal" style={{ display: 'none' }}>
     <Modal isOpen={isOpen} onClose={close}>
       <div className={cx('icon', ICONS[status])} />
       <div className="text">
