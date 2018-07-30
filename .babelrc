@@ -1,7 +1,8 @@
 {
   "presets": [
     ["env", { "modules": false }],
-    "react",
-    "stage-3"
-  ]
+    "react-app",
+    "flow"
+  ],
+  "retainLines": true,
 }
