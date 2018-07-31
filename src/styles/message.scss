@@ -17,7 +17,10 @@
   margin: 0 auto;
   width: 72px;
   height: 72px;
-  background-image: url("/static/icons/in-progress.svg");
+
+  /* @warn "Missing icon ../static/icons/in-progress.svg"; */
+
+  /*  background-image: url("../static/icons/in-progress.svg"); */
   background-size: 72px 72px;
 }
 
@@ -28,7 +31,7 @@
 }
 
 .message.done .img {
-  background-image: url("/static/icons/done.svg");
+  background-image: url("../static/icons/done.svg");
 }
 
 @keyframes message {

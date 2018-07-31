@@ -1,190 +1,212 @@
-.field {
-  position: relative;
-  margin-bottom: 40px;
-}
-
-.field.field-checkbox input {
-  display: none;
-}
-
-.field.field-checkbox input + label {
-  padding-left: 30px;
-  font-size: 13px;
-  font-weight: normal;
-  position: relative;
-  top: 0;
-  color: $black2;
-  left: 0;
-  display: block;
-  line-height: 24px;
-}
-
-.field.field-checkbox input + label:before {
-  top: 2px;
-  display: inline-block;
-  position: absolute;
-  left: 0;
-  border: 2px solid $gray;
-  background-color: $white;
-  width: 16px;
-  height: 16px;
-  content: '';
-  border-radius: 10px;
-}
-
-.field.field-checkbox input:checked + label:before {
-  display: block;
-  position: absolute;
-  border: 2px solid $blue;
-  width: 16px;
-  height: 16px;
-  background-color: $blue;
-  background-image: url("/static/icons/checkbox.svg");
-  background-size: 20px 20px;
-  background-repeat: no-repeat;
-  background-position: center center;
-}
-
-.field.field-checkbox input:checked + label {
-  color: $blue;
-}
-
-.field.field-input input {
-  display: block;
-  width: 100%;
-  padding: 15px 0;
-  border: none;
-  border-bottom: 1px solid $text-color;
-  font-family: $font;
-  font-size: 13px;
-  font-weight: normal;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  border-radius: 0;
-  background-color: transparent;
-
-  &:-webkit-autofill {
-    transition: all 999999s ease-in-out 0s;
+.form {
+  .inner {
+    padding: 80px 0;
+    background-color: $white;
+    margin: 0 auto;
+    width: 500px;
   }
-}
 
-.field.field-input input:invalid,
-.field.field-input input:-moz-ui-invalid {
-  color: $black;
-  box-shadow: none;
-}
+  .buttons {
+    padding-top: 20px;
+  }
 
-.field.field-input input:focus + ul {
-  display: block;
-}
+  .field {
+    position: relative;
+    margin-bottom: 40px;
 
-.field.field-input ul {
-  display: none;
-  position: absolute;
-  top: 45px;
-  left: 0;
-  width: 100%;
-  border: 1px solid $gray-alpha2;
-  background-color: $white;
-  z-index: 10;
-  padding: 5px 0;
-  max-height: 160px;
-  overflow: auto;
-}
+    &.field-checkbox {
+      input {
+        display: none;
+      }
 
-.field.field-input ul.scroll {
-  height: 136px;
-  overflow: auto;
-}
+      input + label {
+        padding-left: 30px;
+        font-size: 13px;
+        font-weight: normal;
+        position: relative;
+        top: 0;
+        color: $black2;
+        left: 0;
+        display: block;
+        line-height: 24px;
+      }
 
-.field.field-input ul a {
-  display: block;
-  line-height: 40px;
-  padding: 0 15px;
-  cursor: pointer;
-}
+      input + label:before {
+        top: 2px;
+        display: inline-block;
+        position: absolute;
+        left: 0;
+        border: 2px solid $gray;
+        background-color: $white;
+        width: 16px;
+        height: 16px;
+        content: '';
+        border-radius: 10px;
+      }
 
-.field.field-input ul a.active {
-  background-color: $black2;
-}
+      input:checked + label:before {
+        display: block;
+        position: absolute;
+        border: 2px solid $blue;
+        width: 16px;
+        height: 16px;
+        background-color: $blue;
+        background-image: url("../static/icons/checkbox.svg");
+        background-size: 20px 20px;
+        background-repeat: no-repeat;
+        background-position: center center;
+      }
 
-.field.field-input ul a:hover {
-  color: $black2;
-}
+      input:checked + label {
+        color: $blue;
+      }
+    }
 
-.field.field-input ul.active {
-  display: block;
-}
+    &.field-input {
+      input {
+        display: block;
+        width: 100%;
+        padding: 15px 0;
+        border: none;
+        border-bottom: 1px solid $text-color;
+        font-family: $font;
+        font-size: 13px;
+        font-weight: normal;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        border-radius: 0;
+        background-color: transparent;
 
-.field.field-input.field-date input {
-  height: 51px;
-}
+        &:-webkit-autofill {
+          transition: all 999999s ease-in-out 0s;
+        }
 
-.field.field-input.field-date input[type="date"] {
-  font-family: $font;
-}
+        &:invalid {
+          color: $black;
+          box-shadow: none;
+        }
+      }
 
-.field.field-input div.error-text,
-.field.field-select div.error-text {
-  display: none;
-}
+      &.error input {
+        color: $red;
+        border-bottom: 1px solid $red;
+      }
 
-.field.field-select select {
-  display: block;
-  width: 100%;
-  padding: 15px 0;
-  border: none;
-  border-bottom: 1px solid $gray-alpha;
-  background: transparent;
-  font-family: $font;
-  font-size: 13px;
-  font-weight: 600;
-  color: $gray2;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-}
+      ul {
+        display: none;
+        position: absolute;
+        top: 45px;
+        left: 0;
+        width: 100%;
+        border: 1px solid $gray-alpha2;
+        background-color: $white;
+        z-index: 10;
+        padding: 5px 0;
+        max-height: 160px;
+        overflow: auto;
 
-.field.field-select select.selected {
-  color: $black;
-}
+        &.active {
+          display: block;
+        }
 
-select:-moz-focusring {
-  color: transparent;
-  text-shadow: 0 0 0 $black;
-}
+        &.scroll {
+          height: 136px;
+          overflow: auto;
+        }
 
-.field.error input {
-  color: $red;
-  border-bottom: 1px solid $red;
-}
+        a {
+          display: block;
+          line-height: 40px;
+          padding: 0 15px;
+          cursor: pointer;
 
-.field.error div.error-text {
-  display: block;
-  color: $red;
-  text-align: right;
-  position: absolute;
-  right: 0;
-  top: 60px;
-}
+          &.active {
+            background-color: $black2;
+          }
 
-.field.field-checkbox.error .error-text {
-  top: initial;
-  bottom: -20px;
-}
+          &:hover {
+            color: $black2;
+          }
+        }
+      }
 
-.form .inner {
-  padding: 80px 0;
-  background-color: $white;
-  margin: 0 auto;
-  width: 500px;
-}
+      input:focus + ul {
+        display: block;
+      }
 
-.form .buttons {
-  padding-top: 20px;
-}
+      &.error .error-text {
+        top: initial;
+        bottom: -20px;
+      }
 
-.terms-link {
-  margin-left: 4px;
+      &.field-date input {
+        height: 51px;
+      }
+
+      &.field-date input[type="date"] {
+        font-family: $font;
+      }
+    }
+
+    &.field-select {
+      select {
+        display: block;
+        width: 100%;
+        padding: 15px 0;
+        border: none;
+        border-bottom: 1px solid $gray-alpha;
+        background: transparent;
+        font-family: $font;
+        font-size: 13px;
+        font-weight: 600;
+        color: $gray2;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+
+        &:-moz-focusring {
+          color: transparent;
+          text-shadow: 0 0 0 $black;
+        }
+
+        &.selected {
+          color: $black;
+        }
+      }
+    }
+
+    &.field-input.error,
+    &.field-select.error {
+      input {
+        color: $red;
+        border-bottom: 1px solid $red;
+      }
+
+      div.error-text {
+        display: block;
+        color: $red;
+        text-align: right;
+        position: absolute;
+        right: 0;
+        top: 60px;
+      }
+    }
+  }
+
+  /*
+  .field.field-input div.error-text,
+  .field.field-select div.error-text {
+    display: none;
+  }
+
+  .field.field-checkbox.error .error-text {
+    top: initial;
+    bottom: -20px;
+  }
+  */
+
+  .terms-link {
+    margin-left: 4px;
+  }
 }

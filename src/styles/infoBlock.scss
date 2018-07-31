@@ -10,39 +10,39 @@
     background-size: 72px 72px;
 
     &.ico-waiting {
-      background-image: url("/static/icons/waiting.svg");
+      background-image: url("../static/icons/waiting.svg");
     }
 
     &.withdraw-tokens {
-      background-image: url("/static/icons/withdraw.svg");
+      background-image: url("../static/icons/withdraw.svg");
     }
 
     &.status-declined {
-      background-image: url("/static/icons/benefit-4.svg");
+      background-image: url("../static/icons/benefit-4.svg");
     }
 
     &.kyc-status.approved {
-      background-image: url("/static/icons/kyc-status-1.svg");
+      background-image: url("../static/icons/kyc-status-1.svg");
     }
 
     &.kyc-status.preliminarily.approved {
-      background-image: url("/static/icons/kyc-status-2.svg");
+      background-image: url("../static/icons/kyc-status-2.svg");
     }
 
     &.kyc-status.declined {
-      background-image: url("/static/icons/kyc-status-3.svg");
+      background-image: url("../static/icons/kyc-status-3.svg");
     }
 
     &.kyc-status.pending {
-      background-image: url("/static/icons/kyc-status-3.svg");
+      background-image: url("../static/icons/kyc-status-3.svg");
     }
 
     &.eth {
-      background-image: url("/static/icons/eth.svg");
+      background-image: url("../static/icons/eth.svg");
     }
 
     &.email {
-      background-image: url("/static/icons/mail-hexagon.svg");
+      background-image: url("../static/icons/mail-hexagon.svg");
     }
   }
 

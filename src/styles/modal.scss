@@ -25,39 +25,6 @@ $modal-close-width: 16px;
     visibility: visible;
   }
 
-  &.opening,
-  &.closing {
-    .modal-overlay {
-      animation-duration: 0.3s;
-      animation-fill-mode: forwards;
-    }
-
-    .modal-content {
-      animation-duration: 0.3s;
-      animation-fill-mode: forwards;
-    }
-  }
-
-  &.opening {
-    .modal-overlay {
-      animation-name: modal-overlay-opening;
-    }
-
-    .modal-content {
-      animation-name: modal-content-opening;
-    }
-  }
-
-  &.closing {
-    .modal-overlay {
-      animation-name: modal-overlay-closing;
-    }
-
-    .modal-content {
-      animation-name: modal-content-closing;
-    }
-  }
-
   &.shake {
     animation: shake 0.82s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
     transform: translateX(0);
@@ -141,6 +108,39 @@ $modal-close-width: 16px;
       font-weight: normal;
       line-height: 1.4;
       -webkit-appearance: none;
+    }
+  }
+
+  &.opening,
+  &.closing {
+    .modal-overlay {
+      animation-duration: 0.3s;
+      animation-fill-mode: forwards;
+    }
+
+    .modal-content {
+      animation-duration: 0.3s;
+      animation-fill-mode: forwards;
+    }
+  }
+
+  &.opening {
+    .modal-overlay {
+      animation-name: modal-overlay-opening;
+    }
+
+    .modal-content {
+      animation-name: modal-content-opening;
+    }
+  }
+
+  &.closing {
+    .modal-overlay {
+      animation-name: modal-overlay-closing;
+    }
+
+    .modal-content {
+      animation-name: modal-content-closing;
     }
   }
 }

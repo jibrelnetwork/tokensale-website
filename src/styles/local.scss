@@ -6,7 +6,7 @@
 
       > .icon {
         height: 72px;
-        background-image: url("/static/icons/no-transactions.svg");
+        background-image: url("../static/icons/no-transactions.svg");
         background-repeat: no-repeat;
         background-position: 50% 50%;
       }
@@ -85,6 +85,26 @@
   :-moz-placeholder {
     color: #757575 !important;
   }
+
+  .pt-input {
+    color: black;
+  }
+
+  .pt-popover-target {
+    display: block;
+  }
+
+  .error-text {
+    top: 65px !important;
+  }
+
+  .pt-input-group.pt-intent-danger .pt-input {
+    box-shadow: none;
+  }
+
+  .pt-input-group.pt-intent-danger .pt-input:focus {
+    box-shadow: none;
+  }
 }
 
 .Verify {
@@ -100,28 +120,6 @@
     > div {
       display: block;
     }
-  }
-}
-
-.Datepicker {
-  .pt-input {
-    color: black;
-  }
-
-  .pt-popover-target {
-    display: block;
-  }
-
-  .error-text {
-    top: 65px !important;
-  }
-
-  .pt-input-group.pt-intent-danger .pt-input:focus {
-    box-shadow: none;
-  }
-
-  .pt-input-group.pt-intent-danger .pt-input {
-    box-shadow: none;
   }
 }
 
@@ -239,7 +237,7 @@
       width: 72px;
       height: 72px;
       margin-left: -36px;
-      background-image: url("/static/icons/id.svg");
+      background-image: url("../static/icons/id.svg");
       background-size: cover;
       background-position: 100%;
       background-repeat: no-repeat;
@@ -275,30 +273,33 @@
 }
 
 .Loader {
-  .message .img {
-    background-image: unset;
-  }
+  .message {
+    .img {
+      background-image: unset;
+    }
 
-  .message.approved .img {
-    background-image: url("/static/icons/verify-approved.svg");
-  }
+    &.approved .img {
+      background-image: url("../static/icons/verify-approved.svg");
+    }
 
-  .message.preliminarily.approved .img {
-    background-image: url("/static/icons/verify-pending.svg");
-  }
+    &.declined .img {
+      background-image: url("../static/icons/verify-declined.svg");
+    }
 
-  .message.declined .img {
-    background-image: url("/static/icons/verify-declined.svg");
+    &.preliminarily.approved .img {
+      background-image: url("../static/icons/verify-pending.svg");
+    }
   }
 }
 
+/*
 .pt-popover-content .pt-input {
   box-shadow: unset;
   border-radius: unset;
-}
 
-.pt-popover-content .pt-input:focus {
-  box-shadow: 0 0 0 1px #137cbd;
+  &:focus {
+    box-shadow: 0 0 0 1px #137cbd;
+  }
 }
 
 .pt-input-group.pt-intend-danger {
@@ -396,7 +397,7 @@ h3 {
 }
 
 .password-reset .img.sended {
-  background-image: url("/static/icons/password-sended.svg");
+  background-image: url("../static/icons/password-sended.svg");
 }
 
 .email-verification a[href^="mailto:"] {
@@ -405,39 +406,33 @@ h3 {
 }
 
 .email-verification .img.verified {
-  background-image: url("/static/icons/email-verified.svg");
+  background-image: url("../static/icons/email-verified.svg");
 }
 
 .email-verification .img.sended {
-  background-image: url("/static/icons/email-sended.svg");
+  background-image: url("../static/icons/email-sended.svg");
 }
 
 .email-verification .img.pending {
-  background-image: url("/static/icons/loader.svg");
+  background-image: url("../static/icons/loader.svg");
 }
 
 .email-verification .img.declined {
-  background-image: url("/static/icons/email-declined.svg");
+  background-image: url("../static/icons/email-declined.svg");
 }
 
 .address-change-confirm,
 .withdraw-confirm {
   > .img.success {
-    background-image: url("/static/icons/done.svg");
+    background-image: url("../static/icons/done.svg");
   }
-}
 
-.address-change-confirm,
-.withdraw-confirm {
   > .img.loading {
-    background-image: url("/static/icons/loader.svg");
+    background-image: url("../static/icons/loader.svg");
   }
-}
 
-.address-change-confirm,
-.withdraw-confirm {
   > .img.fail {
-    background-image: url("/static/icons/error.svg");
+    background-image: url("../static/icons/error.svg");
   }
 }
 
@@ -447,7 +442,7 @@ h3 {
 
 .button[type="submit"]:disabled {
   background-size: 40px 11px;
-  background-image: url("/static/icons/dots.svg");
+  background-image: url("../static/icons/dots.svg");
   background-repeat: no-repeat;
   background-position: 50% 50%;
 
@@ -517,125 +512,4 @@ button {
   font-family: $font !important;
 }
 
-$social-color: #a7dbee;
-$white: #fff;
-$line-bg: rgba(0, 193, 255, 0.1);
-$light-blue: lighten($social-color, 10%);
-
-.footer {
-  background-color: $white;
-  text-align: center;
-  padding: 10px 0;
-  overflow: hidden;
-  // border-top: 1px solid $line-bg;
-
-  .inner {
-    position: relative;
-    margin: 0 auto;
-    max-width: 1100px;
-
-    .links {
-      margin-bottom: 80px;
-
-      li {
-        display: inline-block;
-
-        a {
-          color: $social-color;
-          position: relative;
-          padding: 0 30px;
-          display: block;
-          font-size: 15px;
-
-          &:before {
-            content: '';
-            display: block;
-            width: 64px;
-            height: 64px;
-            border-radius: 32px;
-            background-color: $social-color;
-            background-repeat: no-repeat;
-            margin: 0 auto;
-            margin-bottom: 15px;
-          }
-
-          &:hover {
-            color: $light-blue;
-
-            &:before {
-              background-color: $light-blue;
-            }
-          }
-        }
-      }
-    }
-  }
-
-  p {
-    opacity: 0.7;
-    line-height: 2;
-  }
-}
-
-@media only screen and (max-width: 1100px) {
-  .footer {
-    .links {
-      li {
-        margin-bottom: 20px;
-
-        a {
-          padding: 0;
-        }
-      }
-    }
-  }
-}
-
-@media only screen and (max-width: 800px) {
-  .footer {
-    .links {
-      li {
-        margin-bottom: 20px;
-
-        a {
-          font-size: 0;
-          padding: 0;
-        }
-      }
-    }
-  }
-}
-
-@media only screen and (max-width: 768px) {
-  .footer {
-    .links {
-      li {
-        margin-bottom: 20px;
-
-        a {
-          padding: 0;
-        }
-      }
-    }
-  }
-}
-
-@media only screen and (max-width: 600px) {
-  .footer {
-    padding: 50px 0 !important;
-
-    .links {
-      margin-bottom: 20px !important;
-
-      li {
-        width: 23%;
-        margin-bottom: 30px;
-
-        a {
-          padding: 0 !important;
-          font-size: 12px !important;
-        }
-      }
-    }
-  }
-}
+*/

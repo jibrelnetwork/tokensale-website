@@ -104,19 +104,19 @@ $modal-header-height: 24px;
         background-size: 72px 72px;
 
         &.gear {
-          background-image: url("/static/icons/gear.svg");
+          background-image: url("../static/icons/gear.svg");
         }
 
         &.done {
-          background-image: url("/static/icons/mail-hexagon.svg");
+          background-image: url("../static/icons/mail-hexagon.svg");
         }
 
         &.error {
-          background-image: url("/static/icons/error-blue.svg");
+          background-image: url("../static/icons/error-blue.svg");
         }
 
         &.request {
-          background-image: url("/static/icons/waiting.svg");
+          background-image: url("../static/icons/waiting.svg");
         }
       }
 

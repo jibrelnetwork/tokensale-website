@@ -1,122 +1,120 @@
-:global {
-  @import 'base';
-  @import 'colors';
-  @import 'adaptive';
-  @import 'auth';
-  @import 'benefits';
-  @import 'suisse';
-  @import 'bitcoinSuisse';
-  @import 'button';
-  @import 'content';
-  @import 'dashboard';
-  @import 'emailVerification';
-  @import 'form';
-  @import 'grid';
-  @import 'icons';
-  @import 'infoBlock';
-  @import 'inner';
-  @import 'loader';
-  @import 'local';
-  @import 'message';
-  @import 'modal';
-  @import 'noTransactions';
-  @import 'normalize';
-  @import 'progress';
-  @import 'start';
-  @import 'status';
-  @import 'steps';
-  // @import '../components/common/Modal/Modal';
-  @import '../components/Auth/Verify/Document/Document';
+@import 'base';
+@import 'colors';
+@import 'adaptive';
+@import 'auth';
+@import 'benefits';
+@import 'suisse';
+@import 'bitcoinSuisse';
+@import 'button';
+@import 'content';
+@import 'dashboard';
+@import 'emailVerification';
+@import 'form';
+@import 'grid';
+@import 'icons';
+@import 'infoBlock';
+@import 'inner';
+@import 'loader';
+@import 'local';
+@import 'message';
+@import 'modal';
+@import 'noTransactions';
+@import 'normalize';
+@import 'progress';
+@import 'start';
+@import 'status';
+@import 'steps';
+@import 'footer';
+@import '../components/Auth/Verify/Document/Document';
 
-  * {
-    margin: 0;
-    padding: 0;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-    outline: none;
-  }
+* {
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  outline: none;
+}
 
-  body {
-    margin: 0;
-    padding: 0;
-    background-color: $white;
-    font-family: $font;
-    font-size: 13px;
-    line-height: 1;
-    color: $black2;
+body {
+  margin: 0;
+  padding: 0;
+  background-color: $white;
+  font-family: $font;
+  font-size: 13px;
+  line-height: 1;
+  color: $black2;
 
-    /* some script of analytics insert image into the body and it breaks down the layout */
-    > img {
-      display: none;
-    }
-  }
-
-  .section {
-    position: relative;
-  }
-
-  .clear:after {
-    display: block;
-    height: 0;
-    clear: both;
-    content: "";
-  }
-
-  a {
-    color: $blue;
-    text-decoration: none;
-
-    &:hover {
-      color: $blue2;
-    }
-  }
-
-  li {
-    list-style: none;
-  }
-
-  h1,
-  h2,
-  h3,
-  h4 {
-    font-weight: normal;
-  }
-
-  .pull-left {
-    float: left;
-  }
-
-  .pull-right {
-    float: right;
-  }
-
-  /* Animations */
-  a,
-  li,
-  span,
-  label,
-  input,
-  h3,
-  i,
-  .menu,
-  .menu-button,
-  .whitepaper a:before,
-  .footer a:before,
-  .pull-right:before,
-  .dashboard,
-  .dashboard .title,
-  .dashboard .title:after,
-  .dashboard .nested-items,
-  .dashboard .status-info {
-    transition: all 0.3s ease 0s;
-  }
-
-  .text-center {
-    text-align: center;
-  }
-
-  .hidden {
+  /* some script of analytics insert image into the body and it breaks down the layout */
+  > img {
     display: none;
   }
+}
+
+.section {
+  position: relative;
+}
+
+.clear:after {
+  display: block;
+  height: 0;
+  clear: both;
+  content: "";
+}
+
+a {
+  color: $blue;
+  text-decoration: none;
+  transition: all 0.3s ease 0s;
+
+  &:hover {
+    color: $blue2;
+  }
+}
+
+li {
+  list-style: none;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-weight: normal;
+}
+
+.pull-left {
+  float: left;
+}
+
+.pull-right {
+  float: right;
+}
+
+/* Animations */
+li,
+span,
+label,
+input,
+h3,
+i,
+.menu,
+.menu-button,
+.whitepaper a:before,
+.footer a:before,
+.pull-right:before,
+.dashboard,
+.dashboard .title,
+.dashboard .title:after,
+.dashboard .nested-items,
+.dashboard .status-info {
+  transition: all 0.3s ease 0s;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.hidden {
+  display: none;
 }
