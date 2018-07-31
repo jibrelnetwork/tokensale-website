@@ -1,12 +1,16 @@
+// @flow
+
 import React from 'react'
 import { Link, Route } from 'react-router-dom'
 
 import Controls from './Controls'
 
+import LogoImage from '../../../static/logo-kambio.svg'
+
 const Header = () => (
   <div className="header clear">
     <Link to="/welcome" className="logo pull-left scroll">
-      <img src="/static/logo-kambio.svg" alt="" />
+      <img src={LogoImage} alt="" />
     </Link>
     <Route
       path="/welcome"
