@@ -1,8 +1,14 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import { translate } from 'react-i18next'
+// @flow
 
-const Suisse = ({ t }) => (
+import React from 'react'
+import { translate } from 'react-i18next'
+import type { TFunction } from 'react-i18next'
+
+type Props = {
+  t: TFunction,
+}
+
+const Suisse = ({ t }: Props) => (
   <div className="section suisse">
     <div className="inner">
       <p>{t('index.suisse')}</p>
@@ -10,9 +16,5 @@ const Suisse = ({ t }) => (
     </div>
   </div>
 )
-
-Suisse.propTypes = {
-  t: PropTypes.func.isRequired,
-}
 
 export default translate()(Suisse)
