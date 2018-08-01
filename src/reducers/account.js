@@ -1,7 +1,12 @@
-import { set, compose } from 'lodash/fp'
+// @flow
+
+import { assoc, assocPath, compose } from 'ramda'
+// eslint-disable-next-line import/no-extraneous-dependencies, import/no-unresolved, import/extensions
+import type { AccountState, FSA, PopupState } from 'types'
+
 import * as ACCOUNT from '../constants/account'
 
-const defaultState = {
+const defaultState: AccountState = {
   modals: {
     setAddress: 'close',
     setPassword: 'close',
@@ -34,84 +39,97 @@ const defaultState = {
   },
 }
 
-const accountReducer = (state = defaultState, action) => {
+const accountReducer = (state: AccountState = defaultState, action: FSA): AccountState => {
   switch (action.type) {
-
     case ACCOUNT.ADDRESS.CHANGE_REQUESTED: {
-      const { isAddressChangeRequested } = action.payload
-      return set('isAddressChangeRequested', isAddressChangeRequested, state)
+      const { isAddressChangeRequested }: { isAddressChangeRequested: boolean } = action.payload
+      return {
+        ...state,
+        isAddressChangeRequested,
+      }
     }
 
     case ACCOUNT.ADDRESS.SET: {
-      const { address } = action.payload
-      return set('address', address, state)
+      const { address }: { address: string } = action.payload
+      return {
+        ...state,
+        address,
+      }
     }
 
     case ACCOUNT.ADDRESSES.REQUEST_SUCCESS: {
-      const { ethAddress, btcAddress } = action.payload
-      return compose(
-        set('ethAddress', ethAddress),
-        set('btcAddress', btcAddress),
-      )(state)
+      const { ethAddress, btcAddress }: { ethAddress: ?string, btcAddress: ?string } = action.payload
+      return {
+        ...state,
+        ethAddress,
+        btcAddress,
+      }
     }
 
     case ACCOUNT.BALANCE.REQUEST_SUCCESS: {
-      const { balance } = action.payload
-      return set('balance', balance, state)
+      const { balance }: { balance: number } = action.payload
+      return {
+        ...state,
+        balance,
+      }
     }
 
     case ACCOUNT.BALANCE.WITHDRAW_REQUESTED: {
-      const { isWithdrawRequested } = action.payload
-      return set('isWithdrawRequested', isWithdrawRequested, state)
+      const { isWithdrawRequested }: { isWithdrawRequested: boolean } = action.payload
+      return {
+        ...state,
+        isWithdrawRequested,
+      }
     }
 
     case ACCOUNT.DASHBOARD.TOGGLE: {
-      return set(['dashboard', 'isOpen'], !state.dashboard.isOpen, state)
+      return assocPath(['dashboard', 'isOpen'], !state.dashboard.isOpen)(state)
     }
 
     case ACCOUNT.DASHBOARD.SET_DATA: {
-      const { accountData } = action.payload
-      return set(['dashboard', 'accountData'], accountData, state)
+      const { accountData }: { accountData: string } = action.payload
+      return assocPath(['dashboard', 'accountData'], accountData)(state)
     }
 
     case ACCOUNT.MODALS.SET_STATE: {
-      const { modalName, modalState } = action.payload
-      return set(['modals', modalName], modalState, state)
+      const { modalName, modalState }: { modalName: string, modalState: PopupState } = action.payload
+      return assocPath(['modals', modalName], modalState)(state)
     }
 
     case ACCOUNT.TRANSACTIONS.REQUEST_SUCCESS: {
-      const { transactions } = action.payload
-      return set('transactions', transactions, state)
+      const { transactions }: { transactions: Array<any> } = action.payload
+      return assoc('transactions', transactions)(state)
     }
 
     case ACCOUNT.PASSWORD.OPEN_CHANGE_CONFIRM: {
       return compose(
-        set(['passwordChangeConfirmModal', 'isOpen'], true),
-        set(['passwordChangeConfirmModal', 'status'], 'confirm'),
+        assocPath(['passwordChangeConfirmModal', 'isOpen'], true),
+        assocPath(['passwordChangeConfirmModal', 'status'], 'confirm'),
       )(state)
     }
 
     case ACCOUNT.PASSWORD.CLOSE_CHANGE_CONFIRM: {
-      return set(['passwordChangeConfirmModal', 'isOpen'], false, state)
+      return assocPath(['passwordChangeConfirmModal', 'isOpen'], false)(state)
     }
 
     case ACCOUNT.PASSWORD.CHANGE_CONFIRM_REQUEST: {
-      return set(['passwordChangeConfirmModal', 'status'], 'request', state)
+      return assocPath(['passwordChangeConfirmModal', 'status'], 'request')(state)
     }
 
     case ACCOUNT.PASSWORD.CHANGE_CONFIRM_SUCCESS: {
-      return set(['passwordChangeConfirmModal', 'status'], 'success', state)
+      return assocPath(['passwordChangeConfirmModal', 'status'], 'success')(state)
     }
 
     case ACCOUNT.PASSWORD.CHANGE_CONFIRM_FAILURE: {
-      const { error } = action.payload
+      const { error }: { error: string } = action.payload
       return compose(
-        set(['passwordChangeConfirmModal', 'status'], 'failure'),
-        set(['passwordChangeConfirmModal', 'message'], error)
+        assocPath(['passwordChangeConfirmModal', 'status'], 'failure'),
+        assocPath(['passwordChangeConfirmModal', 'message'], error)
       )(state)
     }
 
-    default: return state
+    default:
+      return state
   }
 }
 

@@ -5,7 +5,8 @@
     "plugin:fp/recommended",
     "plugin:react/recommended",
     "plugin:unicorn/recommended",
-    "plugin:lodash-fp/recommended"
+    "plugin:ramda/recommended",
+    "plugin:flowtype/recommended"
   ],
   "env": {
     "es6": true,
@@ -13,12 +14,14 @@
     "browser": true
   },
   "plugins": [
+    "react",
+    "jsx-a11y",
+    "import",
     "fp",
     "more",
-    "react",
     "unicorn",
-    "jsx-a11y",
-    "lodash-fp"
+    "ramda",
+    "flowtype"
   ],
   "parserOptions": {
     "ecmaVersion": 8,
@@ -108,7 +111,10 @@
         { "property": "propTypes" }, 
         { "property": "defaultProps" }, 
         { "property": "contextTypes" }, 
-        { "property": "childContextTypes" }
+        { "property": "childContextTypes" },
+        { "property": "type" },
+        { "property": "href" },
+        { "property": "src" }
       ]
     }],
     "fp/no-mutating-methods": [2, {

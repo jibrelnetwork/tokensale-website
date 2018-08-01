@@ -4,5 +4,5 @@
     "react-app",
     "flow"
   ],
-  "retainLines": true,
+  "retainLines": true
 }

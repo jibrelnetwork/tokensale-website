@@ -1,22 +1,29 @@
-// move to inner auth reducer
+// @flow
 
-import { set } from 'lodash/fp'
+// eslint-disable-next-line import/no-extraneous-dependencies, import/no-unresolved, import/extensions
+import type { VerifyState, FSA } from 'types'
+
 import * as AUTH from '../constants/auth'
 
-const defaultState = {
+const defaultState: VerifyState = {
   stage: 'terms',
 }
 
-const verifyReducer = (state = defaultState, action) => {
+const verifyReducer = (state: VerifyState = defaultState, action: FSA) => {
   switch (action.type) {
 
     case AUTH.VERIFY.SET_STAGE: {
       const { stage } = action.payload
-      return set('stage', stage, state)
+      return {
+        ...state,
+        stage,
+      }
     }
 
     case AUTH.LOGOUT: {
-      return set('stage', undefined, state)
+      return {
+        stage: undefined,
+      }
     }
 
     default: return state

@@ -1,18 +1,27 @@
+// @flow
+
 import React from 'react'
-import PropTypes from 'prop-types'
-import { compose } from 'lodash/fp'
+import { compose } from 'ramda'
 import { connect } from 'react-redux'
 import { translate } from 'react-i18next'
 import { Link } from 'react-router-dom'
 
+import type { TFunction } from 'react-i18next'
+
 import Timer from './Timer'
 
-import * as actions from '../../actions'
+import { auth } from '../../actions'
 
-const Content = ({ t, isAuthorized, isSaleFinished }) => (
+type Props = {
+  t: TFunction,
+  isAuthorized: boolean,
+  isSaleFinished: boolean,
+}
+
+const Content = ({ t, isAuthorized, isSaleFinished }: Props) => (
   <div className="Content">
     { isSaleFinished &&
-    <div>
+    <React.Fragment>
       <div className="text">
         <h1>{t('index.title.header')}<br />{t('index.title.header2')}</h1>
         <p>{t('index.title.text')}</p>
@@ -39,28 +48,22 @@ const Content = ({ t, isAuthorized, isSaleFinished }) => (
           </a>
         </div>
       </div>
-    </div>}
+    </React.Fragment>}
     { !isSaleFinished &&
-      <div>
+      <React.Fragment>
         <div className="text">
           <h1>{t('index.title.header')}<br />{t('index.title.header2')}</h1>
           <p>{t('index.title.text')}</p>
         </div>
         <Timer />
-        <div className="link">
+        <div className="links">
           <Link to={isAuthorized ? '/account' : '/welcome/login'} className="button big">
             {t('index.button')}
           </Link>
         </div>
-      </div>}
+      </React.Fragment>}
   </div>
 )
-
-Content.propTypes = {
-  t: PropTypes.func.isRequired,
-  isAuthorized: PropTypes.bool.isRequired,
-  isSaleFinished: PropTypes.bool.isRequired,
-}
 
 const mapStateToProps = (state) => ({
   isAuthorized: !!state.auth.token,
@@ -68,7 +71,7 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = {
-  logout: actions.auth.logout,
+  logout: auth.logout,
 }
 
 export default compose(

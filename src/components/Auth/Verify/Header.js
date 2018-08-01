@@ -5,13 +5,15 @@ import { compose } from 'lodash/fp'
 import { connect } from 'react-redux'
 import { translate } from 'react-i18next'
 
+import headerImg from '../../../static/logo-kambio.svg'
+
 import * as actions from '../../../actions'
 
 const Header = ({ t, logout }) => (
   <div className="Header">
     <div className="header clear">
       <Link to="/welcome" className="logo pull-left">
-        <img src="/static/logo-kamio.svg" alt="" />
+        <img src={headerImg} alt="" />
       </Link>
       <ul className="menu pull-right">
         <li className="bordered">

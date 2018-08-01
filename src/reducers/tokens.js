@@ -1,16 +1,24 @@
-import { set } from 'lodash/fp'
+// @flow
+
+/* ::
+import type { TokenState, FSA } from 'types'
+*/
+
 import * as TOKENS from '../constants/tokens'
 
-const defaultState = {
+const defaultState: TokenState = {
   raised: 80000000,
 }
 
-const tokensReducer = (state = defaultState, action) => {
+const tokensReducer = (state: TokenState = defaultState, action: FSA) => {
   switch (action.type) {
 
     case TOKENS.RAISED_REQUEST_SUCCESS: {
       const { amount } = action.payload
-      return set('raised', amount, state)
+      return {
+        ...state,
+        raised: amount,
+      }
     }
 
     default: return state

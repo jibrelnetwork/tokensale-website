@@ -1,68 +1,100 @@
 // @flow
 
-/**
- * NOTE: It's just example
- */
+declare module 'types' {
+  /**
+   * General
+   */
+  declare type FSA = {
+    +type: string,
+    +payload: Object,
+    +meta: Object,
+    +error: boolean,
+  }
 
-/**
- * General
- */
-declare type Index = number
-declare type EthereumAddress = 'Ethereum'
-declare type Address = string | EthereumAddress
-declare type Addresses = Array<Address>
-declare type Decimals = number
-declare type Balances = { [Address]: number }
-declare type AddressBalancePairs = Array<[Address, number]>
-declare type LanguageCode = 'en' | 'ko' | 'zh' | 'ja'
+  declare type Next = FSA => FSA
+  declare type Dispatch = Object => Next
+  declare type GetState = () => State
 
-declare type FormFields = { [string]: ?string }
+  declare type Store = {
+    dispatch: Dispatch,
+    getState: GetState,
+  }
 
-declare type FSA = {
-  +type: string,
-  +payload: Object,
-  +meta: Object,
-  +error: boolean,
-}
+  /**
+   * Account
+   */
+  declare type PopupState = 'close' | 'open' | 'shake' | 'opening' | 'closing'
 
-declare type Next = FSA => FSA
-declare type Dispatch = Object => Next
-declare type GetState = () => State
+  declare type PopupNames = 'login' | 'logout'
 
-declare type Store = {
-  dispatch: Dispatch,
-  getState: GetState,
-}
+  declare type AccountState = {
+    +modals: {
+      +setAddress: PopupState,
+      +setPassword: PopupState,
+      +withdraw: PopupState,
+      +kycStatus: PopupState,
+      +loginModal: PopupState,
+      +registerModal: PopupState,
+      +resetPasswordEmail: PopupState,
+      +resetPassword: PopupState,
+    },
+    +dashboard: {
+      +accountData: {
+        +firstName: string,
+        +lastName: string,
+        +email: string,
+      },
+      +isOpen: boolean,
+    },
+    +transactions: Array<any>,
+    +balance: number,
+    +btcAddress: ?string,
+    +ethAddress: ?string,
+    +address: ?string,
+    +isAddressChangeRequested: boolean,
+    +isWithdrawRequested: boolean,
+    +passwordChangeConfirmModal: {
+      +isOpen: boolean,
+      +status: 'request' | // Request to password change sended to server
+        'success' | // Email with password reset link sended to user
+        'failure' | // Error of sending password reset link to user
+        'confirm', // Waiting confirmation from user for password change
+      +message: ?string,
+    },
+  }
 
-/**
- * Networks
- */
-declare type NetworkId = string
-declare type NetworkTitleById = { [NetworkId]: string }
+  /**
+   * Auth
+   */
+  declare type VerificationStatus = 'Preliminarily Approved' | 'Pending' | 'Approved' | 'Declined'
 
-declare type Network = {
-  id: NetworkId,
-  title: string,
-  rpcaddr: string,
-  rpcport: string,
-  ssl: boolean,
-  isCustom: boolean,
-}
+  declare type AuthState = {
+    +token: ?string,
+    +verifyStatus: ?VerificationStatus,
+    +isSupportLinkShown: boolean
+  }
 
-declare type Networks = Array<Network>
+  /**
+   * Tokens
+   */
+  declare type TokenState = {
+    +raised: number
+  }
 
-declare type NetworksData = {
-  +items: Networks,
-  +invalidFields: FormFields,
-  +customNetworkRPC: string,
-  +isLoading: boolean,
-  +isInitialised: boolean,
-  +currentNetwork: ?NetworkId,
-}
+  /**
+   * Verify
+   */
+  declare type VerifyState = {
+    +stage: string
+  }
 
-/**
- * Entire state
- */
-declare type State = {
-  +networks: NetworksData,
+  /**
+   * Entire state
+   */
+  declare type State = {
+    +account: AccountState,
+    +auth: AuthState,
+    +tokens: TokenState,
+    +verify: VerifyState
+  }
 }
