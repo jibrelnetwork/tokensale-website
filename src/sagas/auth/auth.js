@@ -1,3 +1,7 @@
+// @flow
+
+import type { Saga } from 'redux-saga'
+
 import LogRocket from 'logrocket'
 import { push } from 'react-router-redux'
 import { toast } from 'react-toastify'
@@ -5,14 +9,22 @@ import { put, call, take } from 'redux-saga/effects'
 import { startSubmit, stopSubmit } from 'redux-form'
 
 import request from '../request'
-import * as AUTH from '../../constants/auth'
-import * as actions from '../../actions'
 import { SERVER } from '../.'
 import { grecaptcha, gtm } from '../../services'
 
+import type { authLoginType } from '../../modules/auth'
+import { auth } from '../../modules'
+
+const {
+  AUTH_LOGIN,
+  authSetToken,
+  authSetVerifyStatus,
+  authSetVerifyStage,
+} = auth
+
 const FORM = 'login'
 
-export function* getUserData(token) {
+export function* getUserData(token: string): Saga<void> {
   const response = yield call(request, `${SERVER}/api/account/`, null, 'get', { token })
   if (response.success) {
     const verifyStatus = response.data.identity_verification_status
@@ -26,30 +38,41 @@ export function* getUserData(token) {
         !!response.data.residency,
       isDocumentUploaded: !!response.data.document_url,
     }
-    yield put(actions.auth.verify.setStatus(verifyStatus))
+
+    yield put(authSetVerifyStatus(verifyStatus))
+
     if (!data.isTermsConfirmed) {
-      yield put(actions.auth.verify.setStage('terms'))
+      yield put(authSetVerifyStage('terms'))
     } else if (!data.isUserInfoFilled) {
-      yield put(actions.auth.verify.setStage('user-info'))
+      yield put(authSetVerifyStage('user-info'))
     } else if (!data.isDocumentUploaded || (verifyStatus === 'Declined')) {
-      yield put(actions.auth.verify.setStage('document'))
+      yield put(authSetVerifyStage('document'))
     }
+
     yield put(stopSubmit(FORM))
-    yield put(actions.auth.setToken(token))
+
+    yield put(authSetToken(token))
+
     yield put(verifyStatus ? push('/account') : push('/verify'))
+
     gtm.pushAuthSuccess(verifyStatus === 'Approved')
   } else {
     yield put(stopSubmit(FORM))
+
     toast.error('Account info request error')
   }
 }
 
-export function* login() {
+export function* login(): Saga<void> {
   while (true) { // eslint-disable-line fp/no-loops
-    const { payload: { email, password, captcha } } = yield take(AUTH.LOGIN)
+    const { payload: { email, password, captcha } }: authLoginType = yield take(AUTH_LOGIN)
+
     const data = { email: email.toLowerCase(), password, captcha }
+
     yield put(startSubmit(FORM))
+
     const response = yield call(request, `${SERVER}/auth/login/`, data, 'post')
+
     if (response.success) {
       const token = response.data.key
       LogRocket.identify(data.email)

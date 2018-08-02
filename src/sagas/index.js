@@ -2,10 +2,16 @@ import * as account from './account'
 import * as auth from './auth'
 import * as sync from './sync'
 
+import {
+  modalsSaga,
+} from './modals'
+
 export const SERVER = 'http://localhost:8000'
 
 export default function* sagas() {
   yield [
+    modalsSaga(),
+
     account.address.get(),
     account.address.requestChange(),
     account.addresses.get(),

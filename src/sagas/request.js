@@ -3,7 +3,8 @@ import { push } from 'react-router-redux'
 import { toast } from 'react-toastify'
 import { constant } from 'lodash/fp'
 import { put, call, select } from 'redux-saga/effects'
-import * as actions from '../actions'
+
+import { auth } from '../modules'
 
 export default function* request(url, data, method, options = {}) {
   const authToken = options.token || (yield select((state) => state.auth.token))
@@ -30,7 +31,7 @@ export default function* request(url, data, method, options = {}) {
     } else if ([400, 403].includes(response.status)) {
       return { error: true, ...response }
     } else if (response.status === 401) {
-      yield put(actions.auth.logout())
+      yield put(auth.authLogout())
       yield put(push('/login'))
       return {}
     } else if (response.status === 404) {

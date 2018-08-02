@@ -1,22 +1,10 @@
 // @flow
 
 import { assoc, assocPath, compose } from 'ramda'
-// eslint-disable-next-line import/no-extraneous-dependencies, import/no-unresolved, import/extensions
-import type { AccountState, FSA, PopupState } from 'types'
 
 import * as ACCOUNT from '../constants/account'
 
-const defaultState: AccountState = {
-  modals: {
-    setAddress: 'close',
-    setPassword: 'close',
-    withdraw: 'close',
-    kycStatus: 'close',
-    loginModal: 'close',
-    registerModal: 'close',
-    resetPasswordEmail: 'close',
-    resetPassword: 'close',
-  },
+const defaultState = {
   dashboard: {
     accountData: {
       firstName: '...',
@@ -39,7 +27,7 @@ const defaultState: AccountState = {
   },
 }
 
-const accountReducer = (state: AccountState = defaultState, action: FSA): AccountState => {
+const accountReducer = (state = defaultState, action) => {
   switch (action.type) {
     case ACCOUNT.ADDRESS.CHANGE_REQUESTED: {
       const { isAddressChangeRequested }: { isAddressChangeRequested: boolean } = action.payload
@@ -89,11 +77,6 @@ const accountReducer = (state: AccountState = defaultState, action: FSA): Accoun
     case ACCOUNT.DASHBOARD.SET_DATA: {
       const { accountData }: { accountData: string } = action.payload
       return assocPath(['dashboard', 'accountData'], accountData)(state)
-    }
-
-    case ACCOUNT.MODALS.SET_STATE: {
-      const { modalName, modalState }: { modalName: string, modalState: PopupState } = action.payload
-      return assocPath(['modals', modalName], modalState)(state)
     }
 
     case ACCOUNT.TRANSACTIONS.REQUEST_SUCCESS: {

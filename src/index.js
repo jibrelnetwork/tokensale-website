@@ -107,7 +107,7 @@ const persistedReducers = persistCombineReducers(
 
 const store = createStore(
   persistedReducers,
-  process.env.DEV &&
+  // process.env.DEV &&
   /* eslint-disable no-underscore-dangle, more/no-window */
   window.__REDUX_DEVTOOLS_EXTENSION__ &&
   window.__REDUX_DEVTOOLS_EXTENSION__(),

@@ -1,11 +1,9 @@
 import React from 'react'
 
-import { Modals, AuthHeader, Social } from '../common'
+import { AuthHeader, Social } from '../common'
 import Benefits from '../Welcome/Benefits'
 import Transactions from './Transactions'
 import Addresses from './Addresses'
-
-const { KYCStatusModal, SetAddressModal, WithdrawModal, ChangePasswordModal } = Modals
 
 const Account = () => (
   <div className="Account inner-page">
@@ -22,10 +20,6 @@ const Account = () => (
     </div>
     <Benefits />
     <Social />
-    <ChangePasswordModal />
-    <KYCStatusModal />
-    <SetAddressModal />
-    <WithdrawModal />
   </div>
 )
 
