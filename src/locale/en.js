@@ -1,5 +1,13 @@
 /* eslint-disable max-len */
 const EN = {
+  modals: {
+    title: {
+      login: 'Login',
+      register: 'Registration',
+      resetPasswordEmail: 'Reset password',
+      resetPassword: 'Reset password',
+    },
+  },
   auth: {
     emailVerification: {
       error: {
@@ -312,7 +320,7 @@ const EN = {
       login: 'Sign In',
       logout: 'Logout',
       account: 'Go to dashboard',
-      registration: 'Sign Up',
+      register: 'Sign Up',
       verification: 'Complete verification',
     },
     info: {

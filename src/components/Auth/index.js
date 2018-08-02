@@ -1,7 +1,14 @@
+// @flow
+
+import LoginForm from './Login'
+import RegisterForm from './Register'
+import PasswordResetEmailForm from './Password/Reset'
+
 import Email from './Email'
-import Login from './Login'
 import Verify from './Verify'
-import Register from './Register'
 import Password from './Password'
 
-export { Email, Login, Verify, Register, Password }
+export { LoginForm,
+  RegisterForm,
+  PasswordResetEmailForm,
+  Email, Password, Verify }

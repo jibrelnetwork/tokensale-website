@@ -1,3 +1,5 @@
+// @flow
+
 import React from 'react'
 import cx from 'classnames'
 import PropTypes from 'prop-types'
@@ -9,6 +11,9 @@ import { withHandlers, withState } from 'recompose'
 
 import * as actions from '../../../actions'
 import Dashboard from '../../common/Dashboard'
+
+import { JModalOpenButton } from '../../Modals'
+import { JText } from '../../base'
 
 function isTouchDevice() {
   return ('ontouchstart' in window) || navigator.maxTouchPoints
@@ -23,8 +28,6 @@ const Controls = ({
   openDashboard,
   isDashboardOpen,
   toggleMenuOrDashboard,
-  openLoginModal,
-  openRegisterModal,
 }) => (
   <div className="Controls">
     <ul className={cx('menu pull-right', { 'menu-active': isMenuOpen })}>
@@ -45,16 +48,14 @@ const Controls = ({
           </a>
         </li>,
         <li key="1">
-          <a href="#" onClick={(e) => { openLoginModal(); e.preventDefault() }}>{t('index.header.login')}</a>
+          <JModalOpenButton modalName="login">
+            <JText value="index.header.login" whiteSpace="wrap" />
+          </JModalOpenButton>
         </li>,
         <li key="2">
-          <a
-            href="#"
-            onClick={(e) => { openRegisterModal(); e.preventDefault() }}
-            className="button small"
-          >
-            {t('index.header.registration')}
-          </a>
+          <JModalOpenButton modalName="register" className="button small">
+            <JText value="index.header.register" whiteSpace="wrap" />
+          </JModalOpenButton>
         </li>,
         /* <li key="1">
           <a
@@ -89,8 +90,6 @@ Controls.propTypes = {
   openDashboard: PropTypes.func.isRequired,
   isDashboardOpen: PropTypes.bool.isRequired,
   toggleMenuOrDashboard: PropTypes.func.isRequired,
-  openLoginModal: PropTypes.func.isRequired,
-  openRegisterModal: PropTypes.func.isRequired,
 }
 
 Controls.defaultProps = {
@@ -106,8 +105,6 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = {
   openDashboard: actions.account.dashboard.toggle,
-  openLoginModal: () => actions.account.modals.changeState('loginModal', 'open'),
-  openRegisterModal: () => actions.account.modals.changeState('registerModal', 'open'),
 }
 
 export default compose(

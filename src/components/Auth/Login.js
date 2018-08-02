@@ -1,16 +1,40 @@
+// @flow
+
 import React from 'react'
-// import { Link } from 'react-router-dom'
-import PropTypes from 'prop-types'
+
 import { connect } from 'react-redux'
 import { lifecycle } from 'recompose'
 import { translate } from 'react-i18next'
 import { set, get, compose, identity } from 'lodash/fp'
 import { Field, reduxForm, getFormSubmitErrors, getFormValues } from 'redux-form'
 
+import { JModalOpenButton } from '../Modals'
+import { JText } from '../base'
+
+/* ::
+import type { TFunction } from 'react-i18next'
+import type { State } from '../../modules'
+*/
+
 import * as actions from '../../actions'
 import { Input, Captcha } from '../common'
 
+import { auth } from '../../modules'
+
+const {
+  authLogin,
+} = auth
+
 const VALIDATE_EMAIL_REGEXP = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/ // eslint-disable-line max-len
+
+type Props = {
+  t: TFunction,
+  email: ?string,
+  submitting: boolean,
+  isEmailNotVerified: boolean,
+  resendEmail: Function,
+  handleSubmit: Function,
+}
 
 const Login = ({
   t,
@@ -19,8 +43,7 @@ const Login = ({
   resendEmail,
   handleSubmit,
   isEmailNotVerified,
-  openResetPasswordModal,
-}) => (
+}: Props) => (
   <div className="auth">
     <div className="form-block">
       <form
@@ -57,13 +80,9 @@ const Login = ({
               {t('auth.login.links.resendEmail')}
             </div>
           ) : (
-            <a
-              href="#"
-              className="pull-right"
-              onClick={(e) => { openResetPasswordModal(); e.preventDefault() }}
-            >
-              {t('auth.login.links.resetPassword')}
-            </a>
+            <JModalOpenButton modalName="resetPasswordEmail" className="pull-right">
+              <JText value="auth.login.links.resetPassword" whiteSpace="wrap" />
+            </JModalOpenButton>
           )}
         </div>
       </form>
@@ -71,21 +90,11 @@ const Login = ({
   </div>
 )
 
-Login.propTypes = {
-  t: PropTypes.func.isRequired,
-  email: PropTypes.string,
-  submitting: PropTypes.bool.isRequired,
-  resendEmail: PropTypes.func.isRequired,
-  handleSubmit: PropTypes.func.isRequired,
-  isEmailNotVerified: PropTypes.bool.isRequired,
-  openResetPasswordModal: PropTypes.func.isRequired,
-}
-
 Login.defaultProps = {
   email: undefined,
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: State) => ({
   isEmailNotVerified: get(
     ['password', 0],
     getFormSubmitErrors('login')(state)
@@ -93,13 +102,9 @@ const mapStateToProps = (state) => ({
   email: get('email', getFormValues('login')(state)),
 })
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = (dispatch: Function) => ({
   resendEmail: (email) => dispatch(actions.auth.email.resend(email)),
   showSupportLink: () => dispatch(actions.auth.showSupportLink()),
-  openResetPasswordModal: () => {
-    dispatch(actions.account.modals.changeState('resetPasswordEmail', 'open'))
-    dispatch(actions.account.modals.changeState('loginModal', 'close'))
-  },
 })
 
 export default compose(
@@ -110,8 +115,7 @@ export default compose(
   ),
   reduxForm({
     form: 'login',
-    onSubmit: ({ email, password, captcha }, dispatch) =>
-      dispatch(actions.auth.login(email, password, captcha)),
+    onSubmit: ({ email, password, captcha }, dispatch) => dispatch(authLogin(email, password, captcha)),
     validate: ({ email, password, captcha }, { t }) => compose(
       !email
         ? set('email', t('auth.login.errors.email.isRequired'))

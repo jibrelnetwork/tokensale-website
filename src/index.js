@@ -1,3 +1,5 @@
+// @flow
+
 import React from 'react'
 import ReactDOM from 'react-dom'
 import LogRocket from 'logrocket'
@@ -20,6 +22,7 @@ import './styles/core.scss'
 import i18n from './locale'
 import sagas from './sagas'
 import reducers from './reducers'
+import { modals } from './modules'
 import middlewares from './middlewares'
 import tracking from './services/tracking'
 import { ProtectedRoute } from './routes'
@@ -88,12 +91,14 @@ const logRocketMiddleware = LogRocket.reduxMiddleware({
 })
 
 const { auth, verify, tokens, account } = reducers
+const { modalsReducer } = modals
 
 const persistedReducers = persistCombineReducers(
   rootPersistConfig, {
     auth,
     verify,
     tokens,
+    modals: modalsReducer,
     form: formReducer,
     router: routerReducer,
     account: persistReducer(accountPersistConfig, account),
@@ -118,6 +123,8 @@ const store = createStore(
 const persistor = persistStore(store)
 
 sagaMiddleware.run(sagas)
+
+const rootElement: HTMLElement = document.getElementById('container')
 
 ReactDOM.render(
   <Provider store={store}>
@@ -155,7 +162,7 @@ ReactDOM.render(
       </PersistGate>
     </I18nextProvider>
   </Provider>,
-  document.getElementById('container')
+  rootElement
 )
 
 // Initialize google analytics data: id & utm parameters

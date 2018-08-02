@@ -1,18 +1,35 @@
+// @flow
+
 import React from 'react'
-// import { Link } from 'react-router-dom'
-import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 // import { lifecycle } from 'recompose'
 import { translate } from 'react-i18next'
+import type { TFunction } from 'react-i18next'
+
 import { Field, reduxForm } from 'redux-form'
 import { set, compose, identity } from 'lodash/fp'
+
+import { JModalOpenButton } from '../Modals'
+import { JText } from '../base'
 
 import * as actions from '../../actions'
 import { Input, Captcha } from '../common'
 
+import { auth } from '../../modules'
+
+const {
+  createAccount,
+} = auth
+
 const VALIDATE_EMAIL_REGEXP = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/ // eslint-disable-line max-len
 
-const Register = ({ submitting, handleSubmit, t, openLoginModal }) => (
+type Props = {
+  t: TFunction,
+  submitting: boolean,
+  handleSubmit: Function
+}
+
+const Register = ({ t, submitting, handleSubmit }: Props) => (
   <div className="auth">
     <div className="form-block">
       <form onSubmit={handleSubmit} className="form">
@@ -46,27 +63,16 @@ const Register = ({ submitting, handleSubmit, t, openLoginModal }) => (
           >
             {!submitting && t('auth.registration.submit')}
           </button>
-          <a
-            href="#"
-            className="pull-right"
-            onClick={(e) => { openLoginModal(e); e.preventDefault() }}
-          >
-            {t('auth.registration.links.login')}
-          </a>
+          <JModalOpenButton modalName="login" className="pull-right">
+            <JText value="auth.registration.links.login" whiteSpace="wrap" />
+          </JModalOpenButton>
         </div>
       </form>
     </div>
   </div>
 )
 
-Register.propTypes = {
-  t: PropTypes.func.isRequired,
-  submitting: PropTypes.bool.isRequired,
-  handleSubmit: PropTypes.func.isRequired,
-  openLoginModal: PropTypes.func.isRequired,
-}
-
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = (dispatch: Function) => ({
   openLoginModal: () => {
     dispatch(actions.account.modals.changeState('loginModal', 'open'))
     dispatch(actions.account.modals.changeState('registerModal', 'close'))
@@ -82,7 +88,7 @@ export default compose(
   reduxForm({
     form: 'register',
     onSubmit: ({ email, password, passwordConfirm, captcha }, dispatch) =>
-      dispatch(actions.auth.register.createAccount(email, password, passwordConfirm, captcha)),
+      dispatch(createAccount(email, password, passwordConfirm, captcha)),
     validate: ({ email, password, passwordConfirm, captcha }, { t }) => compose(
       !email
         ? set('email', t('auth.registration.errors.email.isRequired'))

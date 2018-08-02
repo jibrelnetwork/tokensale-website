@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import { Route, Switch, Redirect } from 'react-router-dom'
 
 import * as Auth from '../Auth'
-import { Modals, Social } from '../common'
+import { Social } from '../common'
 import Header from './Header'
 import Content from './Content'
 import Benefits from './Benefits'
@@ -13,14 +13,7 @@ import ConfirmWithdraw from './ConfirmWithdraw'
 import ConfirmAddressChange from './ConfirmAddressChange'
 import Suisse from './Suisse'
 
-const {
-  KYCStatusModal,
-  SetAddressModal,
-  ChangePasswordModal,
-  LoginModal,
-  RegisterModal,
-  ResetPasswordEmailModal,
-} = Modals
+import { JModals } from '../Modals'
 
 const HOME_PAGE_PATHNAME = '/welcome'
 const EMAIL_SENDED_PAGE_PATHNAME = '/welcome/email/sended'
@@ -36,24 +29,14 @@ function getPageName(pathname) {
   }
 }
 
-const Welcome = ({ location: { pathname }, isAuthorized, isSupportLinkShown }) => (
+const Welcome = ({ location: { pathname }, isSupportLinkShown }) => (
   <div className="Welcome">
     <div className={cx('section', 'start', getPageName(pathname))}>
-      <div className="bg-1" />
-      <div className="bg-2" />
       <div className="inner">
         <Header isSupportLinkShown={isSupportLinkShown} />
         <Route path="/welcome" exact component={Content} />
       </div>
       <Switch>
-        {isAuthorized
-          ? <Redirect from="/welcome/login" to="/welcome" />
-          : <Route path="/welcome/login" component={Auth.Login} />
-        }
-        {isAuthorized
-          ? <Redirect from="/welcome/register" to="/welcome" />
-          : <Route path="/welcome/register" component={Auth.Register} />
-        }
         <Route path="/welcome/email/" component={Auth.Email} />
         <Route path="/welcome/password/" component={Auth.Password} />
         <Route
@@ -67,12 +50,7 @@ const Welcome = ({ location: { pathname }, isAuthorized, isSupportLinkShown }) =
         <Redirect from="/welcome/:not_found" to="/welcome" />
       </Switch>
     </div>
-    <KYCStatusModal />
-    <SetAddressModal />
-    <ChangePasswordModal />
-    <LoginModal />
-    <RegisterModal />
-    <ResetPasswordEmailModal />
+    <JModals />
     {(getPageName(pathname) === 'home') && (
       <div>
         <Benefits />
@@ -87,7 +65,6 @@ Welcome.propTypes = {
   location: PropTypes.shape({
     pathname: PropTypes.string.isRequired,
   }).isRequired,
-  isAuthorized: PropTypes.bool.isRequired,
   isSupportLinkShown: PropTypes.bool.isRequired,
 }
 
