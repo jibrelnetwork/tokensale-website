@@ -92,7 +92,7 @@
     "more/no-void-map": 2,
     "more/no-c-like-loops": 2,
     "more/prefer-includes": 2,
-    "more/no-then": 2,
+    "more/no-then": 0,
     "more/no-window": 0,
     "more/no-numeric-endings-for-variables": 2,
     "more/force-native-methods": 2,
@@ -102,6 +102,7 @@
 
     "fp/no-let": 2,
     "fp/no-nil": 0,
+    "fp/no-throw": 0,
     "fp/no-this": 2,
     "fp/no-class": 2,
     "fp/no-rest-parameters": 2,
