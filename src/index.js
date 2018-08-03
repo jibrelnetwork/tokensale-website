@@ -5,28 +5,24 @@ import ReactDOM from 'react-dom'
 import LogRocket from 'logrocket'
 import Promise from 'promise-polyfill'
 import createSagaMiddleware from 'redux-saga'
-import storage from 'redux-persist/es/storage'
-import createHistory from 'history/createHashHistory'
+import { createBrowserHistory } from 'history'
 import { Provider } from 'react-redux'
 import { ToastContainer } from 'react-toastify'
 import { I18nextProvider } from 'react-i18next'
-import { reducer as formReducer } from 'redux-form'
+
 import { createStore, applyMiddleware } from 'redux'
-import { Route, Redirect, Switch } from 'react-router-dom'
-import { PersistGate } from 'redux-persist/es/integration/react'
+import { Route, /* Redirect, */ Switch } from 'react-router-dom'
 import { get, set, compose, update, curry, isString } from 'lodash/fp'
-import { persistStore, persistReducer, persistCombineReducers } from 'redux-persist'
-import { ConnectedRouter, routerReducer, routerMiddleware } from 'react-router-redux'
+import { ConnectedRouter, connectRouter, routerMiddleware } from 'connected-react-router'
 
 import './styles/core.scss'
 import i18n from './locale'
 import sagas from './sagas'
-import reducers from './reducers'
-import { modals } from './modules'
-import middlewares from './middlewares'
-import tracking from './services/tracking'
-import { ProtectedRoute } from './routes'
-import { Auth, Welcome, Account } from './components'
+import { modulesReducer } from './modules'
+// import middlewares from './middlewares'
+// import tracking from './services/tracking'
+// import { Auth, Welcome, Account } from './components'
+import { Auth, Welcome, JModals, ProtectedRoute } from './components'
 
 if (!window.Promise) {
   window.Promise = Promise // eslint-disable-line fp/no-mutation
@@ -52,75 +48,46 @@ LogRocket.init('pnojyg/jibrel-sale', {
   },
 })
 
-const rootPersistConfig = {
-  storage,
-  key: 'root',
-  blacklist: ['account'],
-}
-
-const accountPersistConfig = {
-  storage,
-  key: 'account',
-  blacklist: ['modals'],
-}
-
-const history = createHistory()
+const history = createBrowserHistory()
 const routeMiddleware = routerMiddleware(history)
 const sagaMiddleware = createSagaMiddleware()
-const logRocketMiddleware = LogRocket.reduxMiddleware({
-  actionSanitizer: (action) => action.type.match('@@redux-form')
-    ? null
-    : compose(
-      clean(['payload', 'token']),
-      clean(['payload', 'password']),
-      clean(['payload', 'newPassword']),
-      clean(['payload', 'passwordConfirm']),
-      clean(['payload', 'newPasswordConfirm']),
-    )(action),
-  stateSanitizer: compose(
-    clean(['auth', 'token']),
-    clean(['form', 'login', 'values', 'password']),
-    clean(['form', 'register', 'values', 'password']),
-    clean(['form', 'register', 'values', 'passwordConfirm']),
-    clean(['form', 'set-password', 'values', 'password']),
-    clean(['form', 'set-password', 'values', 'newPassword']),
-    clean(['form', 'set-password', 'values', 'newPasswordConfirm']),
-    clean(['form', 'change-password', 'values', 'newPassword']),
-    clean(['form', 'change-password', 'values', 'newPasswordConfirm']),
-  ),
-})
-
-const { auth, verify, tokens, account } = reducers
-const { modalsReducer } = modals
-
-const persistedReducers = persistCombineReducers(
-  rootPersistConfig, {
-    auth,
-    verify,
-    tokens,
-    modals: modalsReducer,
-    form: formReducer,
-    router: routerReducer,
-    account: persistReducer(accountPersistConfig, account),
-  }
-)
+// const logRocketMiddleware = LogRocket.reduxMiddleware({
+//   actionSanitizer: (action) => action.type.match('@@redux-form')
+//     ? null
+//     : compose(
+//       clean(['payload', 'token']),
+//       clean(['payload', 'password']),
+//       clean(['payload', 'newPassword']),
+//       clean(['payload', 'passwordConfirm']),
+//       clean(['payload', 'newPasswordConfirm']),
+//     )(action),
+//   stateSanitizer: compose(
+//     clean(['auth', 'token']),
+//     clean(['form', 'login', 'values', 'password']),
+//     clean(['form', 'register', 'values', 'password']),
+//     clean(['form', 'register', 'values', 'passwordConfirm']),
+//     clean(['form', 'set-password', 'values', 'password']),
+//     clean(['form', 'set-password', 'values', 'newPassword']),
+//     clean(['form', 'set-password', 'values', 'newPasswordConfirm']),
+//     clean(['form', 'change-password', 'values', 'newPassword']),
+//     clean(['form', 'change-password', 'values', 'newPasswordConfirm']),
+//   ),
+// })
 
 const store = createStore(
-  persistedReducers,
+  connectRouter(history)(modulesReducer),
   // process.env.DEV &&
   /* eslint-disable no-underscore-dangle, more/no-window */
   window.__REDUX_DEVTOOLS_EXTENSION__ &&
   window.__REDUX_DEVTOOLS_EXTENSION__(),
   /* eslint-enable */
   applyMiddleware(
-    ...middlewares,
+    // ...middlewares,
     sagaMiddleware,
     routeMiddleware,
-    logRocketMiddleware,
+    // logRocketMiddleware,
   )
 )
-
-const persistor = persistStore(store)
 
 sagaMiddleware.run(sagas)
 
@@ -129,41 +96,39 @@ const rootElement: HTMLElement = document.getElementById('container')
 ReactDOM.render(
   <Provider store={store}>
     <I18nextProvider i18n={i18n}>
-      <PersistGate persistor={persistor} loading={null}>
-        <ConnectedRouter history={history}>
-          <div>
-            <Switch>
-              <Redirect exact from="/" to="/welcome" />
-              <Route path="/welcome" component={Welcome} />
-              <ProtectedRoute
-                path="/verify"
-                store={store}
-                component={Auth.Verify}
-              />
-              <ProtectedRoute
-                path="/account"
-                store={store}
-                component={Account}
-              />
-              <Redirect from="*" to="/welcome" />
-            </Switch>
-          </div>
-        </ConnectedRouter>
-        <ToastContainer
-          type="error"
-          position="top-center"
-          autoClose={2500}
-          newestOnTop
-          closeButton={false}
-          closeOnClick
-          pauseOnHover
-          hideProgressBar
-        />
-      </PersistGate>
+      <ConnectedRouter history={history}>
+        <div>
+          <Switch>
+            {/* <Redirect exact from="/" to="/welcome" /> */}
+            <ProtectedRoute
+              path="/verify"
+              store={store}
+              component={Auth.Verify}
+            />
+            {/* <ProtectedRoute
+              path="/account"
+              store={store}
+              component={Account}
+            /> */}
+            <Route exact path="/" component={Welcome} />
+          </Switch>
+          <JModals />
+          <ToastContainer
+            type="error"
+            position="top-center"
+            autoClose={2500}
+            newestOnTop
+            closeButton={false}
+            closeOnClick
+            pauseOnHover
+            hideProgressBar
+          />
+        </div>
+      </ConnectedRouter>
     </I18nextProvider>
   </Provider>,
   rootElement
 )
 
 // Initialize google analytics data: id & utm parameters
-tracking.init()
+// tracking.init()
