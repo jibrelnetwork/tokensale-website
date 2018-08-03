@@ -1,11 +1,19 @@
+// @flow
+
 import React from 'react'
 import moment from 'moment'
-import PropTypes from 'prop-types'
 import { compose } from 'lodash/fp'
 import { lifecycle } from 'recompose'
 import { translate } from 'react-i18next'
 
-const Timer = ({ t, timeLeft }) => (
+import type { TFunction } from 'react-i18next'
+
+type Props = {
+  t: TFunction,
+  timeLeft: Object,
+}
+
+const Timer = ({ t, timeLeft }: Props) => (
   <div className="Timer">
     <div className="counter">
       <div className="row clear">
@@ -29,11 +37,6 @@ const Timer = ({ t, timeLeft }) => (
     </div>
   </div>
 )
-
-Timer.propTypes = {
-  t: PropTypes.func.isRequired,
-  timeLeft: PropTypes.object.isRequired,
-}
 
 const enhance = compose(
   translate(),

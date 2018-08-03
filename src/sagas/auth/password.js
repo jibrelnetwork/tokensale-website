@@ -1,5 +1,5 @@
 import { toast } from 'react-toastify'
-import { replace } from 'react-router-redux'
+import { replace } from 'connected-react-router'
 import { put, call, take } from 'redux-saga/effects'
 import { startSubmit, stopSubmit } from 'redux-form'
 

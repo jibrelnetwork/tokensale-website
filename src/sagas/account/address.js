@@ -1,6 +1,6 @@
 /* eslint-disable fp/no-loops */
 
-import { replace } from 'react-router-redux'
+import { replace } from 'connected-react-router'
 import { call, put, take } from 'redux-saga/effects'
 import { startSubmit, stopSubmit, reset } from 'redux-form'
 

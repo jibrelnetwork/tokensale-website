@@ -1,5 +1,5 @@
 import LogRocket from 'logrocket'
-import { push } from 'react-router-redux'
+// import { push } from 'connected-react-router'
 import { put, call, take } from 'redux-saga/effects'
 import { startSubmit, stopSubmit } from 'redux-form'
 
@@ -7,7 +7,8 @@ import request from '../request'
 import * as REGISTER from '../../constants/auth/register'
 import { SERVER } from '../.'
 import { getUserData } from './auth'
-import { grecaptcha, gtm, tracking } from '../../services'
+import { grecaptcha, gtm, tracking, authToken } from '../../services'
+import { authSetToken } from '../../modules'
 
 const FORM = 'register'
 
@@ -34,13 +35,17 @@ export function* createAccount() {
       LogRocket.identify(data.email)
 
       if (token) {
+        authToken.set(token)
+
+        yield put(authSetToken(token))
+
         yield getUserData(token)
       }
 
       gtm.pushRegistrationEmail()
 
       yield put(stopSubmit(FORM))
-      yield put(push('/welcome/email/sended'))
+      // yield put(push('/welcome/email/sended'))
     } else if (response.error) {
       const errors = {
         email: response.data.email,

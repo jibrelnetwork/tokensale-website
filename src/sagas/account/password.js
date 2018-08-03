@@ -8,7 +8,7 @@ import * as actions from '../../actions'
 export function* changeConfirm() {
   while (true) { // eslint-disable-line fp/no-loops
     yield take(PASSWORD.CHANGE_CONFIRM_REQUEST)
-    const email = yield select((state) => state.account.dashboard.accountData.email)
+    const email = yield select((state) => state.account.email)
     const response = yield call(request, `${SERVER}/auth/password/reset/`, { email }, 'post')
     if (response.success) {
       yield put(actions.account.password.changeConfirmSuccess())

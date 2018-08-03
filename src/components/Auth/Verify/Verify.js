@@ -1,5 +1,6 @@
+// @flow
+
 import React from 'react'
-import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
 import { AuthHeader } from '../../common'
@@ -9,7 +10,15 @@ import UserInfo from './UserInfo'
 import Document from './Document'
 import Progress from './Progress'
 
-const Verify = ({ stage, token }) => (
+import type { State } from '../../../modules'
+import type { VerificationStage } from '../../../modules/auth'
+
+type Props = {
+  stage: VerificationStage,
+  token: ?string,
+}
+
+const Verify = ({ stage, token }: Props) => (
   <div className="Verify inner-page">
     <div className="section start">
       <div className="inner">
@@ -28,13 +37,8 @@ const Verify = ({ stage, token }) => (
   </div>
 )
 
-Verify.propTypes = {
-  stage: PropTypes.oneOf(['terms', 'loader', 'document', 'user-info']).isRequired,
-  token: PropTypes.string.isRequired,
-}
-
-const mapStateToProps = (state) => ({
-  stage: state.verify.stage,
+const mapStateToProps = (state: State): Props => ({
+  stage: state.auth.verifyStage,
   token: state.auth.token,
 })
 

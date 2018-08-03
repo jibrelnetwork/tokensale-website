@@ -1,7 +1,7 @@
 import moment from 'moment'
 import { delay } from 'redux-saga'
 import LogRocket from 'logrocket'
-import { replace } from 'react-router-redux'
+import { replace } from 'connected-react-router'
 import { put, call, take, select } from 'redux-saga/effects'
 import { startSubmit, stopSubmit } from 'redux-form'
 

@@ -1,44 +1,42 @@
+// @flow
+
 import React from 'react'
 import cx from 'classnames'
-import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { Route, Switch, Redirect } from 'react-router-dom'
+// import { Route, Switch, Redirect } from 'react-router-dom'
 
-import * as Auth from '../Auth'
-import { Social } from '../common'
+// import * as Auth from '../Auth'
 import Header from './Header'
 import Content from './Content'
 import Benefits from './Benefits'
-import ConfirmWithdraw from './ConfirmWithdraw'
-import ConfirmAddressChange from './ConfirmAddressChange'
 import Suisse from './Suisse'
+import { Social } from '../common'
 
-import { JModals } from '../Modals'
+// import ConfirmWithdraw from './ConfirmWithdraw'
+// import ConfirmAddressChange from './ConfirmAddressChange'
 
-const HOME_PAGE_PATHNAME = '/welcome'
-const EMAIL_SENDED_PAGE_PATHNAME = '/welcome/email/sended'
+// const HOME_PAGE_PATHNAME = '/welcome'
+// const EMAIL_SENDED_PAGE_PATHNAME = '/welcome/email/sended'
 
-function getPageName(pathname) {
-  switch (pathname) {
-    case HOME_PAGE_PATHNAME:
-      return 'home'
-    case EMAIL_SENDED_PAGE_PATHNAME:
-      return 'email-sended'
-    default:
-      return ''
-  }
-}
+// function getPageName(pathname) {
+//   switch (pathname) {
+//     case HOME_PAGE_PATHNAME:
+//       return 'home'
+//     case EMAIL_SENDED_PAGE_PATHNAME:
+//       return 'email-sended'
+//     default:
+//       return ''
+//   }
+// }
 
-const Welcome = ({ location: { pathname }, isSupportLinkShown }) => (
+const Welcome = () => (
   <div className="Welcome">
-    <div className={cx('section', 'start', getPageName(pathname))}>
+    <div className={cx('section', 'start', 'home')}>
       <div className="inner">
-        <Header isSupportLinkShown={isSupportLinkShown} />
-        <Route path="/welcome" exact component={Content} />
+        <Header />
+        <Content />
       </div>
-      <Switch>
-        <Route path="/welcome/email/" component={Auth.Email} />
-        <Route path="/welcome/password/" component={Auth.Password} />
+      {/* <Switch>
         <Route
           component={ConfirmWithdraw}
           path="/welcome/withdraw-confirm/"
@@ -48,28 +46,16 @@ const Welcome = ({ location: { pathname }, isSupportLinkShown }) => (
           path="/welcome/change-address-confirm/"
         />
         <Redirect from="/welcome/:not_found" to="/welcome" />
-      </Switch>
+      </Switch> */}
     </div>
-    <JModals />
-    {(getPageName(pathname) === 'home') && (
-      <div>
-        <Benefits />
-        <Suisse />
-        <Social />
-      </div>
-    )}
+    <Benefits />
+    <Suisse />
+    <Social />
   </div>
 )
 
-Welcome.propTypes = {
-  location: PropTypes.shape({
-    pathname: PropTypes.string.isRequired,
-  }).isRequired,
-  isSupportLinkShown: PropTypes.bool.isRequired,
-}
-
 const mapStateToProps = (state) => ({
-  isAuthorized: !!state.auth.token,
+  // isAuthorized: !!state.auth.token,
   isSupportLinkShown: state.auth.isSupportLinkShown,
 })
 

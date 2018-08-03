@@ -140,7 +140,8 @@ export type createAccountType = {
   }
 }
 
-export const createAccount = (email: string, password: string, passwordConfirm: string, captcha: string): createAccountType => ({
+export const authCreateAccount = (email: string, password: string,
+  passwordConfirm: string, captcha: string): createAccountType => ({
   type: AUTH_CREATE_ACCOUNT,
   payload: { email, password, passwordConfirm, captcha },
 })
@@ -170,7 +171,7 @@ type authActionType = authLoginType |
   authSetVerifyStatusType |
   authSetStageType
 
-const authReducer = (state: AuthState = defaultState, action: authActionType): AuthState => {
+export const authReducer = (state: AuthState = defaultState, action: authActionType): AuthState => {
   switch (action.type) {
 
     case AUTH_SET_TOKEN: {
@@ -217,4 +218,3 @@ const authReducer = (state: AuthState = defaultState, action: authActionType): A
   }
 }
 
-export default authReducer

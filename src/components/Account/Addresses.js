@@ -83,7 +83,7 @@ const mapStateToProps = (state) => ({
   btcAddress: state.account.btcAddress,
   ethAddress: state.account.ethAddress,
   verifyStatus: state.auth.verifyStatus,
-  email: state.account.dashboard.accountData.email,
+  email: state.account.email,
 })
 
 const mapDispatchToProps = {

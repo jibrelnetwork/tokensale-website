@@ -2,21 +2,35 @@
 
 import React from 'react'
 import cx from 'classnames'
-import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 import { compose } from 'lodash/fp'
 import { connect } from 'react-redux'
 import { translate } from 'react-i18next'
+import type { TFunction } from 'react-i18next'
+
 import { withHandlers, withState } from 'recompose'
 
-import * as actions from '../../../actions'
-import Dashboard from '../../common/Dashboard'
+// import Dashboard from '../../common/Dashboard'
 
+import { accountToggleDashboard } from '../../../modules'
 import { JModalOpenButton } from '../../Modals'
 import { JText } from '../../base'
 
-function isTouchDevice() {
-  return ('ontouchstart' in window) || navigator.maxTouchPoints
+function isTouchDevice(): boolean {
+  return ('ontouchstart' in window) || navigator.maxTouchPoints > 0
+}
+
+type Props = {
+  t: TFunction,
+  email: ?string,
+
+  isMenuOpen: boolean,
+  isVerified: boolean,
+  isAuthorized: boolean,
+  isDashboardOpen: boolean,
+
+  openDashboard: Function,
+  toggleMenuOrDashboard: Function
 }
 
 const Controls = ({
@@ -28,7 +42,7 @@ const Controls = ({
   openDashboard,
   isDashboardOpen,
   toggleMenuOrDashboard,
-}) => (
+}: Props) => (
   <div className="Controls">
     <ul className={cx('menu pull-right', { 'menu-active': isMenuOpen })}>
       {isAuthorized ? isVerified ? ([
@@ -77,34 +91,23 @@ const Controls = ({
     >
       <span>Menu</span>
     </button>
-    {isAuthorized && <Dashboard isHomePage />}
+    {/* {isAuthorized && <Dashboard isHomePage />} */}
   </div>
 )
-
-Controls.propTypes = {
-  t: PropTypes.func.isRequired,
-  email: PropTypes.string,
-  isMenuOpen: PropTypes.bool.isRequired,
-  isVerified: PropTypes.bool.isRequired,
-  isAuthorized: PropTypes.bool.isRequired,
-  openDashboard: PropTypes.func.isRequired,
-  isDashboardOpen: PropTypes.bool.isRequired,
-  toggleMenuOrDashboard: PropTypes.func.isRequired,
-}
 
 Controls.defaultProps = {
   email: '...',
 }
 
 const mapStateToProps = (state) => ({
-  email: state.account.dashboard.accountData.email,
+  email: state.account.email,
   isVerified: !!state.auth.verifyStatus,
   isAuthorized: !!state.auth.token,
-  isDashboardOpen: state.account.dashboard.isOpen,
+  isDashboardOpen: state.account.dashboardIsOpen,
 })
 
 const mapDispatchToProps = {
-  openDashboard: actions.account.dashboard.toggle,
+  openDashboard: accountToggleDashboard,
 }
 
 export default compose(

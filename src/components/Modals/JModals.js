@@ -1,24 +1,20 @@
 // @flow
 
 import React from 'react'
+import type { Node } from 'react'
+
 import { compose } from 'ramda'
 import { connect } from 'react-redux'
+
 import { translate } from 'react-i18next'
+import type { TFunction } from 'react-i18next'
 
 import { LoginForm, RegisterForm, PasswordResetEmailForm } from '../Auth'
-import { modals } from '../../modules'
+import { closeModals } from '../../modules'
 import { modalsSelector } from '../../selectors/modals'
 
-/* ::
 import type { State } from '../../modules'
-import type { TFunction } from 'react-i18next'
-import type { ModalState, PopupState, PopupNames } from '../../modules/modals'
-import type { Node } from 'react'
-*/
-
-const {
-  closeModals,
-} = modals
+import type { PopupState, PopupNames } from '../../modules/modals'
 
 type Props = {
   t: TFunction,

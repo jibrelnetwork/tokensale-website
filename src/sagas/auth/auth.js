@@ -3,24 +3,23 @@
 import type { Saga } from 'redux-saga'
 
 import LogRocket from 'logrocket'
-import { push } from 'react-router-redux'
+import { push } from 'connected-react-router'
 import { toast } from 'react-toastify'
 import { put, call, take } from 'redux-saga/effects'
 import { startSubmit, stopSubmit } from 'redux-form'
 
 import request from '../request'
 import { SERVER } from '../.'
-import { grecaptcha, gtm } from '../../services'
+import { grecaptcha, gtm, authToken } from '../../services'
 
 import type { authLoginType } from '../../modules/auth'
-import { auth } from '../../modules'
-
-const {
+import {
   AUTH_LOGIN,
   authSetToken,
   authSetVerifyStatus,
   authSetVerifyStage,
-} = auth
+  closeModals,
+} from '../../modules'
 
 const FORM = 'login'
 
@@ -51,7 +50,7 @@ export function* getUserData(token: string): Saga<void> {
 
     yield put(stopSubmit(FORM))
 
-    yield put(authSetToken(token))
+    yield put(closeModals())
 
     yield put(verifyStatus ? push('/account') : push('/verify'))
 
@@ -63,11 +62,19 @@ export function* getUserData(token: string): Saga<void> {
   }
 }
 
+type loginRequestFields = {
+  email: string,
+  password: string,
+  captcha: string,
+}
+
 export function* login(): Saga<void> {
+  // check if we have token in the local storage and set it to redux
+
   while (true) { // eslint-disable-line fp/no-loops
     const { payload: { email, password, captcha } }: authLoginType = yield take(AUTH_LOGIN)
 
-    const data = { email: email.toLowerCase(), password, captcha }
+    const data: loginRequestFields = { email: email.toLowerCase(), password, captcha }
 
     yield put(startSubmit(FORM))
 
@@ -77,6 +84,11 @@ export function* login(): Saga<void> {
       const token = response.data.key
       LogRocket.identify(data.email)
       if (token) {
+        // set/update auth token
+        authToken.set(token)
+
+        yield put(authSetToken(token))
+
         yield call(getUserData, token)
       }
     } else if (response.error) {

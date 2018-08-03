@@ -15,11 +15,7 @@ import { JText } from '../base'
 import * as actions from '../../actions'
 import { Input, Captcha } from '../common'
 
-import { auth } from '../../modules'
-
-const {
-  createAccount,
-} = auth
+import { authCreateAccount } from '../../modules'
 
 const VALIDATE_EMAIL_REGEXP = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/ // eslint-disable-line max-len
 
@@ -88,7 +84,7 @@ export default compose(
   reduxForm({
     form: 'register',
     onSubmit: ({ email, password, passwordConfirm, captcha }, dispatch) =>
-      dispatch(createAccount(email, password, passwordConfirm, captcha)),
+      dispatch(authCreateAccount(email, password, passwordConfirm, captcha)),
     validate: ({ email, password, passwordConfirm, captcha }, { t }) => compose(
       !email
         ? set('email', t('auth.registration.errors.email.isRequired'))

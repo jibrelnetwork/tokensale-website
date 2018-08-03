@@ -12,14 +12,12 @@ export type PopupState = 'close' | 'open' | 'shake' | 'opening' | 'closing'
  */
 export const MODALS_SHOW_MODAL = '@modals/show'
 
-/* ::
 export type showModalType = {
   type: '@modals/show',
   payload: {
     modalName: PopupNames,
   }
 }
-*/
 
 export const showModal = (modalName: PopupNames): showModalType => ({
   type: MODALS_SHOW_MODAL,
@@ -33,11 +31,9 @@ export const showModal = (modalName: PopupNames): showModalType => ({
  */
 export const MODALS_CLOSE_ALL = '@modals/close'
 
-/* ::
 export type closeModalsType = {
   type: '@modals/close',
 }
-*/
 
 export const closeModals = (): closeModalsType => ({
   type: MODALS_CLOSE_ALL,
@@ -48,7 +44,6 @@ export const closeModals = (): closeModalsType => ({
  */
 export const MODALS_SET_STATE = '@modals/setState'
 
-/* ::
 export type modalStateActionType = {
   type: '@modals/setState',
   payload: {
@@ -56,7 +51,6 @@ export type modalStateActionType = {
     modalState: PopupState,
   }
 }
-*/
 
 export const modalSetState = (modalName: ?PopupNames, newState: PopupState): modalStateActionType => ({
   type: MODALS_SET_STATE,
@@ -78,7 +72,7 @@ type modalsActionType = modalStateActionType | closeModalsType | showModalType
 
 const defaultState: ModalState = {
   modalName: null,
-  modalState: null,
+  modalState: 'close',
 }
 
 export const modalsReducer = (state: ModalState = defaultState, action: modalsActionType): ModalState => {
@@ -97,5 +91,3 @@ export const modalsReducer = (state: ModalState = defaultState, action: modalsAc
       return state
   }
 }
-
-export default modalsReducer

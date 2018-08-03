@@ -1,7 +1,7 @@
 /* eslint-disable fp/no-loops */
 
 import { delay } from 'redux-saga'
-import { replace } from 'react-router-redux'
+import { replace } from 'connected-react-router'
 import { put, call, take } from 'redux-saga/effects'
 import { startSubmit, stopSubmit } from 'redux-form'
 

@@ -10,13 +10,11 @@ import type { PopupState } from '../modules/modals'
 import type { ModalState, showModalType } from '../modules/modals'
 */
 
-import { modals } from '../modules'
-
-const {
+import {
   MODALS_SHOW_MODAL,
   MODALS_CLOSE_ALL,
   modalSetState,
-} = modals
+} from '../modules'
 
 const modalChangeStateDelay = 300
 
@@ -45,14 +43,18 @@ function* showModalSaga(action: showModalType): Saga<void> {
 
 function* closeAllModalsSaga(): Saga<void> {
   const currentState: ModalState = yield select(modalsSelector)
+
   const { modalName } = currentState
 
   yield put(modalSetState(modalName, 'closing'))
+
   yield call(delay, modalChangeStateDelay)
+
   yield put(modalSetState(modalName, 'close'))
 }
 
 export function* modalsSaga(): Saga<void> {
   yield takeEvery(MODALS_SHOW_MODAL, showModalSaga)
+
   yield takeEvery(MODALS_CLOSE_ALL, closeAllModalsSaga)
 }

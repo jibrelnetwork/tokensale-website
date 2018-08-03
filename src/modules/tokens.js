@@ -56,7 +56,7 @@ const defaultState: TokenState = {
   raised: 0,
 }
 
-const tokensReducer = (state: TokenState = defaultState, action: tokenActionType): TokenState => {
+export const tokensReducer = (state: TokenState = defaultState, action: tokenActionType): TokenState => {
   switch (action.type) {
 
     case RAISED_REQUEST_SUCCESS: {
@@ -71,5 +71,3 @@ const tokensReducer = (state: TokenState = defaultState, action: tokenActionType
       return state
   }
 }
-
-export default tokensReducer
