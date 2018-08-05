@@ -41,7 +41,15 @@ import {
 
 import {
   ACCOUNT_DASHBOARD_TOGGLE,
+  ACCOUNT_BALANCE_WITHDRAW_REQUESTED,
+  ACCOUNT_BALANCE_REQUEST_SUCCESS,
+  ACCOUNT_BALANCE_REQUEST_START,
+  ACCOUNT_BALANCE_REQUEST_STOP,
   accountToggleDashboard,
+  accountBalanceRequestSuccess,
+  accountBalanceWithdrawRequested,
+  accountBalaceRequestStart,
+  accountBalanceRequestStop,
   accountReducer,
 } from './account'
 
@@ -73,7 +81,15 @@ export {
   modulesReducer,
   // account
   ACCOUNT_DASHBOARD_TOGGLE,
+  ACCOUNT_BALANCE_WITHDRAW_REQUESTED,
+  ACCOUNT_BALANCE_REQUEST_SUCCESS,
+  ACCOUNT_BALANCE_REQUEST_START,
+  ACCOUNT_BALANCE_REQUEST_STOP,
   accountToggleDashboard,
+  accountBalanceRequestSuccess,
+  accountBalanceWithdrawRequested,
+  accountBalaceRequestStart,
+  accountBalanceRequestStop,
   // auth
   AUTH_LOGIN,
   AUTH_LOGOUT,
