@@ -42,7 +42,7 @@ const selectModalContent = (modalName: PopupNames): Node => {
 const translateTitle = (t: TFunction, modalName: PopupNames): string => t(`modals.title.${modalName}`)
 
 const Modal = ({ t, closeModal, modalState, modalName }: Props) => (
-  <div className={`modal ${modalState}`}>
+  <div className={`modal ${modalState || 'close'}`}>
     <div className="modal-overlay" onClick={closeModal} />
     <div className="modal-content">
       {translateTitle(t, modalName) && <div className="modal-title">{translateTitle(t, modalName)}</div>}
