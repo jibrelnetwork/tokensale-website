@@ -1,5 +1,5 @@
 DEV:
-  apiUrl: 'http://localhost:8000/'
+  apiUrl: 'http://localhost:8000'
   apiOptions:
     mode: 'cors'
     method: 'GET'

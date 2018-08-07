@@ -1,0 +1,5 @@
+DEV:
+  storageKeyGAID: 'KAMBIO-GA'
+  storageKeyUTMData: 'KAMBIO-UTM'
+  affiliateNetworks: []
+  storageKeyAffiliateNetworks: 'KAMBIO-AFN'

@@ -1,133 +1,36 @@
-/* eslint-disable no-use-before-define */
+// @flow
 
-import storage from './storage'
+import storage from 'jwallet-web-storage'
 
-const AFFILIATE_NETWORKS = ['clicksureclickid', 'track_id', 'actionpay', 'adpump']
+import { tracking as config } from '../config'
 
-function init() {
-  initGaId()
-  initUtmData()
-  initAffiliateNetworks()
-  reloadPageWithCleanUrl()
+function generateNInt(length: number): string {
+  return Array.from({ length }, () => Math.floor(Math.random() * 9)).join('')
 }
 
-function get() {
-  const id = getGaId()
-  const utmData = getUtmParams() || {}
-  const affiliates = getAffiliateNetworks() || {}
-
-  return { ...utmData, ...affiliates, ga_id: id }
+function generateGaId(): string {
+  return `7777${generateNInt(6)}.1111${generateNInt(6)}`
 }
 
-function initGaId() {
-  storage.setGaId(getGaId())
-}
-
-function initUtmData() {
-  const newUtmData = parseUtmParams()
-  const utmData = getUtmParams()
-  setUtmParams((Object.keys(newUtmData).length > 0) ? newUtmData : utmData || {})
-}
-
-function initAffiliateNetworks() {
-  const newAN = parseAffiliateNetworks()
-  const aNetworks = getAffiliateNetworks()
-  setAffiliateNetworks((Object.keys(newAN).length > 0) ? newAN : aNetworks || {})
-}
-
-function reloadPageWithCleanUrl() {
+function getGaId(): string {
   try {
-    const { origin, hash } = window.location
-
-    window.location.href = `${origin}/${hash}` // eslint-disable-line fp/no-mutation
+    return storage.getItem(config.storageKeyGAID) || window.ga.getAll()[0].get('clientId')
   } catch (err) {
-    console.error(err)
-  }
-}
-
-function getGaId() {
-  try {
-    return storage.getGaId() || window.ga.getAll()[0].get('clientId')
-  } catch (err) {
-    console.error(err)
-
     return generateGaId()
   }
 }
 
-function parseUtmParams() {
-  const data = {}
-
-  window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, (m, key, value) => {
-    if (key.indexOf('utm_') > -1) {
-      data[key] = value.replace(/[#\/].*/g, '') // eslint-disable-line fp/no-mutation
-    }
-  })
-
-  return data
+function initGaId(): void {
+  storage.setItem(config.storageKeyGAID, getGaId())
 }
 
-function parseAffiliateNetworks() {
-  const data = {}
-
-  window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, (m, key, value) => {
-    AFFILIATE_NETWORKS.forEach((affiliate) => {
-      if (key === affiliate) {
-        data[key] = value.replace(/[#\/].*/g, '') // eslint-disable-line fp/no-mutation
-      }
-    })
-  })
-
-  return data
-}
-
-function getUtmParams() {
-  try {
-    const data = storage.getUtmData()
-
-    return parseDataFromStorage(data)
-  } catch (err) {
-    console.error(err)
-
-    return null
-  }
-}
-
-function getAffiliateNetworks() {
-  try {
-    const data = storage.getAffiliateNetworks()
-
-    return parseDataFromStorage(data)
-  } catch (err) {
-    console.error(err)
-
-    return null
-  }
-}
-
-function setUtmParams(data) {
-  storage.setUtmData(JSON.stringify(data))
-}
-
-function setAffiliateNetworks(data) {
-  storage.setAffiliateNetworks(JSON.stringify(data))
-}
-
-function generateGaId() {
-  return `7777${generateNInt(6)}.1111${generateNInt(6)}`
-}
-
-function generateNInt(length) {
-  return Array.from({ length }, () => Math.floor(Math.random() * 9)).join('')
-}
-
-function parseDataFromStorage(data) {
+function parseDataFromStorage(data: ?string): ?Object {
   try {
     if (!data) {
       return null
     }
 
-    const parsedData = JSON.parse(data)
+    const parsedData: Object = JSON.parse(data)
 
     if (Object.keys(parsedData).length === 0) {
       return null
@@ -135,12 +38,93 @@ function parseDataFromStorage(data) {
 
     return parsedData
   } catch (err) {
-    console.error(err)
-
     return null
   }
 }
 
-export default { init, get }
+function parseUtmParams(): Object {
+  const data = {}
 
-/* eslint-enable no-use-before-define */
+  window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, (m, key, value) => {
+    if (key.indexOf('utm_') > -1) {
+      data[key] = value.replace(/[#/].*/g, '') // eslint-disable-line fp/no-mutation
+    }
+  })
+
+  return data
+}
+
+function getUtmParams(): ?Object {
+  try {
+    const data: ?string = storage.getItem(config.storageKeyUTMData)
+
+    return parseDataFromStorage(data)
+  } catch (err) {
+    return null
+  }
+}
+
+function setUtmParams(data: Object): void {
+  storage.setItem(config.storageKeyUTMData, JSON.stringify(data))
+}
+
+function initUtmData(): void {
+  const newUtmData: Object = parseUtmParams()
+  const utmData: ?Object = getUtmParams()
+
+  setUtmParams((Object.keys(newUtmData).length > 0) ? newUtmData : utmData || {})
+}
+
+function parseAffiliateNetworks(): Object {
+  const data = {}
+
+  window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, (m, key, value) => {
+    config.affiliateNetworks.forEach((affiliate) => {
+      if (key === affiliate) {
+        data[key] = value.replace(/[#/].*/g, '') // eslint-disable-line fp/no-mutation
+      }
+    })
+  })
+
+  return data
+}
+
+function getAffiliateNetworks(): ?Object {
+  try {
+    const data: ?string = storage.getItem(config.storageKeyAffiliateNetworks)
+
+    return parseDataFromStorage(data)
+  } catch (err) {
+    return null
+  }
+}
+
+function setAffiliateNetworks(data: Object): void {
+  storage.setItem(config.storageKeyAffiliateNetworks, JSON.stringify(data))
+}
+
+function initAffiliateNetworks(): void {
+  const newAN: Object = parseAffiliateNetworks()
+  const aNetworks: ?Object = getAffiliateNetworks()
+
+  setAffiliateNetworks((Object.keys(newAN).length > 0) ? newAN : aNetworks || {})
+}
+
+function init(): void {
+  initGaId()
+  initUtmData()
+  initAffiliateNetworks()
+}
+
+function get(): Object {
+  const id: string = getGaId()
+  const utmData: Object = getUtmParams() || {}
+  const affiliates: Object = getAffiliateNetworks() || {}
+
+  return { ...utmData, ...affiliates, ga_id: id }
+}
+
+export default {
+  get,
+  init,
+}
