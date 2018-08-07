@@ -250,7 +250,7 @@ const EN = {
           isRequired: 'Citizenship field is required',
         },
       },
-      submit: 'Next',
+      submit: 'Next step',
     },
     userInfo: {
       fields: {
