@@ -6,7 +6,7 @@ import { connect } from 'react-redux'
 // import { Route, Switch, Redirect } from 'react-router-dom'
 
 // import * as Auth from '../Auth'
-import Header from './Header'
+import Header from '../common/Header'
 import Content from './Content'
 import Benefits from './Benefits'
 import Suisse from './Suisse'

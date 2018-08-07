@@ -1,6 +1,6 @@
 import * as Modals from './Modals'
 import AuthHeader from './AuthHeader'
-import BitcoinSuisse from './BitcoinSuisse'
+// import BitcoinSuisse from './BitcoinSuisse'
 import Input from './Input'
 import Modal from './Modal'
 // import Button from './Button'
@@ -14,7 +14,7 @@ import Uploader from './Uploader'
 export {
   Modals,
   AuthHeader,
-  BitcoinSuisse,
+  // BitcoinSuisse,
   Modal,
   Input,
   Select,
