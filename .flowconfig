@@ -6,7 +6,6 @@
 
 [libs]
 flow-typed
-src
 
 [lints]
 
