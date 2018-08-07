@@ -4,13 +4,14 @@ import React from 'react'
 import { compose } from 'ramda'
 import { connect } from 'react-redux'
 import { translate } from 'react-i18next'
-import { Link } from 'react-router-dom'
 
 import type { TFunction } from 'react-i18next'
 
 import Timer from './Timer'
 
-import { auth } from '../../actions'
+import { JModalOpenButton } from '../Modals'
+// import { JText } from '../base'
+import type { State } from '../../modules'
 
 type Props = {
   t: TFunction,
@@ -56,29 +57,23 @@ const Content = ({ t, isAuthorized, isSaleFinished }: Props) => (
           <p>{t('index.title.text')}</p>
         </div>
         <Timer />
+        { !isAuthorized &&
         <div className="links">
-          <Link to={isAuthorized ? '/account' : '/welcome/login'} className="button big">
-            {t('index.button')}
-          </Link>
-        </div>
+          <JModalOpenButton className="button big" modalName="login">{t('index.button')}</JModalOpenButton>
+        </div>}
       </React.Fragment>}
   </div>
 )
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: State) => ({
   isAuthorized: !!state.auth.token,
   isSaleFinished: false,
 })
 
-const mapDispatchToProps = {
-  logout: auth.logout,
-}
-
 export default compose(
   translate(),
   connect(
-    mapStateToProps,
-    mapDispatchToProps,
+    mapStateToProps
   )
 )(Content)
 

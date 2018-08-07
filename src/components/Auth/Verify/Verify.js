@@ -3,7 +3,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
-import { AuthHeader } from '../../common'
+import Header from '../../common/Header'
 import Terms from './Terms'
 import Loader from './Loader'
 import UserInfo from './UserInfo'
@@ -15,23 +15,22 @@ import type { VerificationStage } from '../../../modules/auth'
 
 type Props = {
   stage: VerificationStage,
-  token: ?string,
 }
 
-const Verify = ({ stage, token }: Props) => (
+const Verify = ({ stage }: Props) => (
   <div className="Verify inner-page">
     <div className="section start">
       <div className="inner">
-        <AuthHeader />
+        <Header />
         <Progress stage={stage} />
       </div>
     </div>
     <div className="section form">
       <div className="inner">
-        {stage === 'terms' && <Terms id={token} />}
-        {stage === 'loader' && <Loader id={token} />}
-        {stage === 'document' && <Document id={token} />}
-        {stage === 'user-info' && <UserInfo id={token} />}
+        {stage === 'terms' && <Terms />}
+        {stage === 'loader' && <Loader />}
+        {stage === 'document' && <Document />}
+        {stage === 'user-info' && <UserInfo />}
       </div>
     </div>
   </div>
@@ -39,7 +38,6 @@ const Verify = ({ stage, token }: Props) => (
 
 const mapStateToProps = (state: State): Props => ({
   stage: state.auth.verifyStage,
-  token: state.auth.token,
 })
 
 export default connect(mapStateToProps)(Verify)

@@ -1,14 +1,27 @@
+// @flow
+
 import React from 'react'
-import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
+// import PropTypes from 'prop-types'
+// import { connect } from 'react-redux'
 import { Field, reduxForm } from 'redux-form'
 import { set, compose, identity } from 'lodash/fp'
+
 import { translate, Interpolate } from 'react-i18next'
+import type { TFunction } from 'react-i18next'
 
 import { Input } from '../../common'
-import * as actions from '../../../actions'
 
-const Terms = ({ t, submitting, handleSubmit }) => (
+import { authConfirmTerms } from '../../../modules'
+
+// import type { State } from '../../../modules'
+
+type Props = {
+  t: TFunction,
+  submitting: Function,
+  handleSubmit: Function,
+}
+
+const Terms = ({ t, submitting, handleSubmit }: Props) => (
   <div className="Terms">
     <form onSubmit={handleSubmit} className="form">
       <Field
@@ -40,7 +53,7 @@ const Terms = ({ t, submitting, handleSubmit }) => (
         <button
           type="submit"
           disabled={submitting}
-          className="button bordered pull-right"
+          className="button medium pull-right"
         >
           {!submitting && t('verification.terms.submit')}
         </button>
@@ -49,21 +62,11 @@ const Terms = ({ t, submitting, handleSubmit }) => (
   </div>
 )
 
-Terms.propTypes = {
-  t: PropTypes.func.isRequired,
-  submitting: PropTypes.bool.isRequired,
-  handleSubmit: PropTypes.func.isRequired,
-}
-
-const mapStateToProps = (state) => ({
-  form: `account-${state.auth.token}`,
-})
-
 export default compose(
   translate(),
-  connect(mapStateToProps),
   reduxForm({
-    onSubmit: (_, dispatch) => dispatch(actions.auth.verify.confirmTerms()),
+    form: 'account-verification-terms-form',
+    onSubmit: (_, dispatch) => dispatch(authConfirmTerms()),
     validate: (values, props) => compose(
       !values.policyConfirm
         ? set('policyConfirm', props.t('verification.terms.errors.policyConfirm.isRequired'))

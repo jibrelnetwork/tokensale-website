@@ -13,7 +13,7 @@ type Props = {
   fontCase: null | 'upper',
   whiteSpace: 'nowrap' | 'wrap',
   weight: null | 'bold' | 'bolder',
-  color: 'blue' | 'gray' | 'red' | 'sky' | 'white',
+  color: 'blue' | 'gray' | 'red' | 'sky' | 'white' | 'default',
   size: 'small' | 'normal' | 'large' | 'header' | 'title' | 'mnemonic' | 'start1' | 'start2',
 }
 
@@ -36,7 +36,7 @@ JText.defaultProps = {
   size: 'normal',
   color: 'gray',
   fontCase: null,
-  whiteSpace: 'nowrap',
+  whiteSpace: 'wrap',
 }
 
 export default translate()(JText)
