@@ -55,27 +55,6 @@
     // color: $white;
   }
 
-  &.bordered {
-    color: #0050db;
-
-    &:hover {
-      background-color: rgba(0, 80, 220, 0.25);
-      color: #0050db;
-      border-color: transparent;
-    }
-
-    &,
-    &.disabled:hover {
-      border: 1px solid rgba(0, 80, 220, 0.25);
-      background-color: transparent;
-      box-shadow: none;
-    }
-
-    &.disabled {
-      opacity: 0.5;
-    }
-  }
-
   &.clean {
     background-color: transparent;
     box-shadow: none;
