@@ -9,7 +9,6 @@ export const AUTH_CHANGE = '@auth/password/Change'
 export const AUTH_STATUS_REQUEST = '@auth/Status request'
 export const AUTH_STATUS_REQUEST_CANCEL = '@auth/Status request cancel'
 
-export const AUTH_CONFIRM_TERMS = '@auth/verify/Confirm terms'
 export const AUTH_SKIP_DOCUMENT = '@auth/verify/Skip document'
 export const AUTH_UPLOAD_DOCUMENT = '@auth/verify/Upload document'
 export const AUTH_UPDATE_USER_INFO = '@auth/verify/Update user info'
@@ -130,7 +129,7 @@ export const authSetVerifyStage = (stage: VerificationStage) => ({
  */
 export const AUTH_CREATE_ACCOUNT = '@auth/register/Create account'
 
-export type createAccountType = {
+export type authCreateAccountType = {
   type: '@auth/register/Create account',
   payload: {
     email: string,
@@ -141,9 +140,22 @@ export type createAccountType = {
 }
 
 export const authCreateAccount = (email: string, password: string,
-  passwordConfirm: string, captcha: string): createAccountType => ({
+  passwordConfirm: string, captcha: string): authCreateAccountType => ({
   type: AUTH_CREATE_ACCOUNT,
   payload: { email, password, passwordConfirm, captcha },
+})
+
+/**
+ * AUTH_CONFIRM_TERMS
+ */
+export const AUTH_CONFIRM_TERMS = '@auth/AUTH_CONFIRM_TERMS'
+
+export type authConfirmTermsType = {
+  type: '@auth/AUTH_CONFIRM_TERMS',
+}
+
+export const authConfirmTerms = (): authConfirmTermsType => ({
+  type: AUTH_CONFIRM_TERMS,
 })
 
 /**
@@ -167,7 +179,7 @@ type authActionType = authLoginType |
   authLogoutType |
   authSetTokenType |
   authShowSupportLinkType |
-  createAccountType |
+  authCreateAccountType |
   authSetVerifyStatusType |
   authSetStageType
 

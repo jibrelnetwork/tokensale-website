@@ -3,8 +3,8 @@ import type { Saga } from 'redux-saga'
 import { put } from 'redux-saga/effects'
 
 import { authToken } from '../services'
-import { authSetToken } from '../modules'
-import { getUserData } from './auth/auth'
+import { authLogout, authSetToken } from '../modules'
+import { accountRequestData } from './accountSaga'
 
 /**
  * Saga, that runs once on application init
@@ -17,6 +17,10 @@ export function* bootSaga(): Saga<void> {
     // if we have token - set it to auth redux storage
     yield put(authSetToken(token))
     // request account from the server
-    yield* getUserData(token)
+    try {
+      yield* accountRequestData()
+    } catch (e) {
+      yield put(authLogout())
+    }
   }
 }

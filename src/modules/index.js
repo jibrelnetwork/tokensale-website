@@ -10,6 +10,8 @@ import {
   AUTH_SET_TOKEN,
   AUTH_SHOW_SUPPORT_LINK,
   AUTH_STATUS_REQUEST_SUCCESS,
+  AUTH_CREATE_ACCOUNT,
+  AUTH_CONFIRM_TERMS,
   authLogin,
   authLogout,
   authSetToken,
@@ -17,6 +19,7 @@ import {
   authSetVerifyStatus,
   authSetVerifyStage,
   authCreateAccount,
+  authConfirmTerms,
   authReducer,
 } from './auth'
 
@@ -45,17 +48,20 @@ import {
   ACCOUNT_BALANCE_REQUEST_SUCCESS,
   ACCOUNT_BALANCE_REQUEST_START,
   ACCOUNT_BALANCE_REQUEST_STOP,
+  ACCOUNT_UPDATE,
   accountToggleDashboard,
   accountBalanceRequestSuccess,
   accountBalanceWithdrawRequested,
   accountBalaceRequestStart,
   accountBalanceRequestStop,
+  accountUpdate,
   accountReducer,
 } from './account'
 
 import type { ModalState, PopupNames } from './modals'
 import type { AuthState, VerificationStage, VerificationStatus } from './auth'
 import type { TokenState } from './tokens'
+import type { AccountState } from './account'
 
 const modulesReducer: Reducer = combineReducers({
   auth: authReducer,
@@ -69,6 +75,7 @@ export type State = {
   +modals: ModalState,
   +auth: AuthState,
   +tokens: TokenState,
+  +account: AccountState,
 }
 
 export type {
@@ -85,17 +92,21 @@ export {
   ACCOUNT_BALANCE_REQUEST_SUCCESS,
   ACCOUNT_BALANCE_REQUEST_START,
   ACCOUNT_BALANCE_REQUEST_STOP,
+  ACCOUNT_UPDATE,
   accountToggleDashboard,
   accountBalanceRequestSuccess,
   accountBalanceWithdrawRequested,
   accountBalaceRequestStart,
   accountBalanceRequestStop,
+  accountUpdate,
   // auth
   AUTH_LOGIN,
   AUTH_LOGOUT,
   AUTH_SET_TOKEN,
   AUTH_SHOW_SUPPORT_LINK,
   AUTH_STATUS_REQUEST_SUCCESS,
+  AUTH_CREATE_ACCOUNT,
+  AUTH_CONFIRM_TERMS,
   authLogin,
   authLogout,
   authSetToken,
@@ -103,6 +114,7 @@ export {
   authSetVerifyStatus,
   authSetVerifyStage,
   authCreateAccount,
+  authConfirmTerms,
   // modals
   MODALS_SHOW_MODAL,
   MODALS_CLOSE_ALL,

@@ -1,5 +1,11 @@
 // @flow
 
+import { AUTH_LOGOUT } from './auth'
+
+export type VerificationStatus = void | "Preliminarily Approved" | "Pending" | "Approved" | "Declined"
+
+export type VerificationStage = "terms" | "user-info" | "document" | "loader"
+
 /**
  * ACCOUNT_BALANCE_WITHDRAW_REQUESTED
  */
@@ -78,21 +84,53 @@ export const accountToggleDashboard = (): accountToggleDashboardType => ({
 })
 
 /**
+ * ACCOUNT_UPDATE
+ */
+export const ACCOUNT_UPDATE = '@account/ACCOUNT_UPDATE'
+
+export type accountUpdatePayloadType = {
+  firstName?: string,
+  lastName?: string,
+  email?: string,
+  balance?: number,
+  btcAddress?: string,
+  ethAddress?: string,
+  address?: string,
+  isAddressChangeRequested?: boolean,
+  verifyStatus?: VerificationStatus,
+  verifyStage?: VerificationStage
+}
+
+export type accountUpdateType = {
+  type: '@account/ACCOUNT_UPDATE',
+  payload: accountUpdatePayloadType,
+}
+
+export const accountUpdate = (payload: accountUpdatePayloadType): accountUpdateType => ({
+  type: ACCOUNT_UPDATE,
+  payload,
+})
+
+/**
  * Reducer
  */
 
 export type AccountState = {
-  firstName: string,
-  lastName: string,
-  email: string,
-  dashboardIsOpen: boolean,
-  transactions: Array<any>,
-  balance: number,
-  btcAddress: ?string,
-  ethAddress: ?string,
-  address: ?string,
-  isAddressChangeRequested: boolean,
-  isWithdrawRequested: boolean,
+  +firstName: string,
+  +lastName: string,
+  +email: string,
+  +dashboardIsOpen: boolean,
+  +transactions: Array<any>,
+  +balance: number,
+  +btcAddress: ?string,
+  +ethAddress: ?string,
+  +address: ?string,
+  +isAddressChangeRequested: boolean,
+  +isWithdrawRequested: boolean,
+
+  +isEmailConfirmed: boolean,
+  +verifyStatus: VerificationStatus,
+  +verifyStage: VerificationStage,
 }
 
 const defaultState: AccountState = {
@@ -107,13 +145,17 @@ const defaultState: AccountState = {
   address: undefined,
   isAddressChangeRequested: false,
   isWithdrawRequested: false,
+  isEmailConfirmed: false,
+  verifyStatus: undefined,
+  verifyStage: 'terms',
 }
 
 type accountActionType = accountToggleDashboardType |
   accountBalanceRequestSuccessType |
   accountBalanceWithdrawRequestedType |
   accountBalaceRequestStartType |
-  accountBalanceRequestStop
+  accountBalanceRequestStop |
+  accountUpdateType
 
 export const accountReducer = (state: AccountState = defaultState, action: accountActionType): AccountState => {
   switch (action.type) {
@@ -139,6 +181,17 @@ export const accountReducer = (state: AccountState = defaultState, action: accou
         ...state,
         dashboardIsOpen: !state.dashboardIsOpen,
       }
+    }
+
+    case ACCOUNT_UPDATE: {
+      return {
+        ...state,
+        ...action.payload,
+      }
+    }
+
+    case AUTH_LOGOUT: {
+      return defaultState
     }
 
     default:
