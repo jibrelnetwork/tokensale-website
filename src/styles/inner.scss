@@ -5,19 +5,6 @@
 }
 
 .inner-page {
-  .start {
-    min-height: initial;
-
-    .header {
-      padding-bottom: 50px;
-
-      .support-link {
-        line-height: 1;
-        margin-right: 0;
-      }
-    }
-  }
-
   @media only screen and (max-width: 600px) {
     .start {
       z-index: 1000;

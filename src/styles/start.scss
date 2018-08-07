@@ -20,7 +20,9 @@
   }
 
   .header {
-    padding: 50px 0;
+    box-sizing: border-box;
+    padding-top: 50px;
+    height: 150px;
 
     .logo {
       display: block;

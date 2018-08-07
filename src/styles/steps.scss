@@ -1,30 +1,31 @@
 .start .steps {
   padding-bottom: 50px;
   text-align: center;
-  color: $white;
+  color: $dusk;
 
   .item {
     display: inline-block;
     width: 200px;
-    opacity: 0.5;
 
     .img {
       width: 20px;
       height: 20px;
       border-radius: 10px;
-      background-color: #fff;
+      background-color: $white;
+      border: 2px solid $blue;
       margin: 0 auto;
       position: relative;
       z-index: 10;
 
       &:after {
-        width: 166px;
+        width: 180px;
         height: 1px;
-        background-color: #fff;
+        background-color: $dusk;
+        opacity: 0.3;
         position: absolute;
         content: '';
-        left: 26px;
-        top: 10px;
+        left: 18px;
+        top: 8px;
       }
     }
 
@@ -32,17 +33,27 @@
       display: none;
     }
 
+    .title {
+      margin-top: 15px;
+      opacity: 0.7;
+    }
+
     &.active {
       opacity: 1;
+
+      .img {
+        background-color: $cucumber;
+        border: 2px solid $cucumber;
+      }
+
+      .title {
+        opacity: 1;
+      }
     }
 
     &.checked .img {
       background-image: url("../static/icons/checkbox-2.svg");
       background-size: 20px 20px;
-    }
-
-    .title {
-      margin-top: 15px;
     }
   }
 
