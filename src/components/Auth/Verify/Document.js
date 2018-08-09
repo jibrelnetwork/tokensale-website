@@ -6,43 +6,23 @@ import { translate } from 'react-i18next'
 import { Field, reduxForm } from 'redux-form'
 import { withState, withHandlers } from 'recompose'
 
-import * as actions from '../../../../actions'
-import { Uploader, Modal } from '../../../common'
+// import * as actions from '../../../actions'
+import { Uploader } from '../../common'
+
+import { JModalOpenButton } from '../../Modals'
+import {
+  accountVerifyDocumentUpload,
+  accountVerifySetStage,
+} from '../../../modules'
+// import { JText } from '../../base'
 
 const Document = ({
   t,
-  skip,
   setStage,
   submitting,
   handleSubmit,
-  openSkipModal,
-  closeSkipModal,
-  isSkipModalOpen,
 }) => (
   <div className="Document">
-    <Modal
-      isOpen={isSkipModalOpen}
-      onClose={closeSkipModal}
-    >
-      <div>
-        {t('verification.document.modal.message')}
-      </div>
-      <div className="buttons">
-        <button
-          onClick={skip}
-          className="button bordered"
-        >
-          {t('verification.document.modal.skipUpload')}
-        </button>
-        <button
-          onClick={closeSkipModal}
-          disabled={submitting}
-          className="button bordered"
-        >
-          {t('verification.document.modal.close')}
-        </button>
-      </div>
-    </Modal>
     <form onSubmit={handleSubmit} className="form">
       <Field
         name="document"
@@ -53,17 +33,13 @@ const Document = ({
         <button
           type="submit"
           disabled={submitting}
-          className="button bordered pull-right"
+          className="button medium pull-right"
         >
-          {!submitting && t('verification.document.submit')}
+          {t('verification.document.submit')}
         </button>
-        <div
-          style={{ marginRight: 5 }}
-          onClick={openSkipModal}
-          className="link pull-right"
-        >
+        <JModalOpenButton modalName="documentSkipUpload" className="button medium white pull-right">
           {t('verification.document.skip')}
-        </div>
+        </JModalOpenButton>
         <div
           onClick={() => setStage('user-info')}
           className="link gray"
@@ -77,13 +53,9 @@ const Document = ({
 
 Document.propTypes = {
   t: PropTypes.func.isRequired,
-  skip: PropTypes.func.isRequired,
   setStage: PropTypes.func.isRequired,
   submitting: PropTypes.bool.isRequired,
   handleSubmit: PropTypes.func.isRequired,
-  openSkipModal: PropTypes.func.isRequired,
-  closeSkipModal: PropTypes.func.isRequired,
-  isSkipModalOpen: PropTypes.bool.isRequired,
 }
 
 const mapStateToProps = (state) => ({
@@ -91,8 +63,7 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = {
-  skip: actions.auth.verify.skipDocument,
-  setStage: actions.auth.verify.setStage,
+  setStage: accountVerifySetStage,
 }
 
 /* eslint-disable fp/no-this */
@@ -116,7 +87,7 @@ export default compose(
   ),
   reduxForm({
     onSubmit: ({ document }, dispatch) =>
-      dispatch(actions.auth.verify.uploadDocument(document)),
+      dispatch(accountVerifyDocumentUpload(document)),
     validate: ({ document }, { t }) => !document || !document.name
       ? { document: t('verification.document.errors.uploader.isRequired') }
       : {},

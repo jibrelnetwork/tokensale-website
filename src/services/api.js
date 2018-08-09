@@ -22,11 +22,41 @@ function getHeaders(authToken?: string, isUploading?: boolean): Object {
   return headers
 }
 
+/* eslint-disable fp/no-this, fp/no-mutation */
+type RequestErrorType = { status: number, data?: ?Object, message: string }
+export function RequestError({ status, data, message }: RequestErrorType) {
+  this.status = status
+  this.name = 'RequestError'
+  this.message = message
+  this.data = data || {}
+  this.stack = new Error().stack
+}
+
+RequestError.prototype = Object.create(Error.prototype)
+/* eslint-enable fp/no-this */
+
 function request(url: string, options: Object): Object {
   return fetch(`${api.apiUrl}/${url}`, options)
-    .then((response) => response.json())
-    .catch((err) => {
-      throw new Error(err)
+    // network error
+    .catch(() => {
+      throw new RequestError({
+        status: 0,
+        message: 'Cannot connect. Please make sure you are connected to internet.',
+      })
+    })
+    .then((response) => {
+      if (response.ok) {
+        return response.json()
+      } else {
+        return response.json().catch(() => {
+          throw new RequestError({
+            status: response.status,
+            message: 'Invalid data, received from the server, please contact system administator.',
+          })
+        }).then((data) => {
+          throw new RequestError({ status: response.status, message: response.statusText, data })
+        })
+      }
     })
 }
 

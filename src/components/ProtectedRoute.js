@@ -4,6 +4,7 @@ import { Route, Redirect } from 'react-router-dom'
 
 const ProtectedRoute = ({ component: Component, path, store, ...restProps }) => {
   const { token, verifyStatus } = store.getState().auth
+  console.log(store.getState().auth)
   const isAuthorized = !!token
   const withoutVerification = !verifyStatus
   const isVerified = ['Approved', 'Preliminarily Approved'].includes(verifyStatus)

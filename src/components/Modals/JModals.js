@@ -9,7 +9,13 @@ import { connect } from 'react-redux'
 import { translate } from 'react-i18next'
 import type { TFunction } from 'react-i18next'
 
-import { LoginForm, RegisterForm, PasswordResetEmailForm } from '../Auth'
+import {
+  LoginForm,
+  RegisterForm,
+  PasswordResetEmailForm,
+  DocumentSkipUpload,
+} from '../Auth'
+
 import { closeModals } from '../../modules'
 import { modalsSelector } from '../../selectors/modals'
 
@@ -33,6 +39,9 @@ const selectModalContent = (modalName: PopupNames): Node => {
 
     case 'resetPasswordEmail':
       return <PasswordResetEmailForm />
+
+    case 'documentSkipUpload':
+      return <DocumentSkipUpload />
 
     default:
       return <div />

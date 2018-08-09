@@ -1,0 +1,23 @@
+ROOT:
+  path: '/'
+
+VERIFY:
+  path: '/verify'
+
+VERIFY_EMAIL_ROOT:
+  path: '/email'
+
+VERIFY_EMAIL_SENDED:
+  path: '/email/sended'
+
+VERIFY_EMAIL_PENDING:
+  path: '/email/verify/:key'
+
+VERIFY_EMAIL_VERIFIED:
+  path: '/email/verified'
+
+VERIFY_EMAIL_DECLINED:
+  path: '/email/declined'
+
+ACCOUNT_ROOT:
+  path: '/account'

@@ -1,14 +1,15 @@
 // @flow
 
-import LoginForm from './Login'
-import RegisterForm from './Register'
+import LoginForm from './LoginForm'
+import RegisterForm from './RegisterForm'
 import PasswordResetEmailForm from './Password/Reset'
+import DocumentSkipUpload from './Verify/DocumentSkipUpload'
 
 import Email from './Email'
-import Verify from './Verify'
 import Password from './Password'
 
 export { LoginForm,
   RegisterForm,
   PasswordResetEmailForm,
-  Email, Password, Verify }
+  DocumentSkipUpload,
+  Email, Password }

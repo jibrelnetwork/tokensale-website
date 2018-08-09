@@ -7,7 +7,8 @@ import { set, identity, compose } from 'lodash/fp'
 
 import { Input, Select, DateInput } from '../../common'
 import { COUNTRIES } from '../../../data/countries'
-import * as actions from '../../../actions'
+
+import { accountUpdateUserInfo } from '../../../modules'
 
 const UserInfo = ({ submitting, handleSubmit, t }) => (
   <div className="UserInfo">
@@ -46,7 +47,7 @@ const UserInfo = ({ submitting, handleSubmit, t }) => (
         <button
           type="submit"
           disabled={submitting}
-          className="button bordered pull-right"
+          className="button medium pull-right"
         >
           {!submitting && t('verification.userInfo.submit')}
         </button>
@@ -70,7 +71,7 @@ export default compose(
   connect(mapStateToProps),
   reduxForm({
     onSubmit: ({ firstName, lastName, birthday, residency, citizenship }, dispatch) =>
-      dispatch(actions.auth.verify.updateUserInfo(firstName, lastName, birthday, residency, citizenship)),
+      dispatch(accountUpdateUserInfo(firstName, lastName, birthday, residency.value, citizenship.value)),
     validate: ({ lastName, birthday, firstName, residency, citizenship }, { t }) => compose(
       !lastName
         ? set('lastName', t('verification.userInfo.errors.lastName.isRequired'))

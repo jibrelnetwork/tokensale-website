@@ -5,6 +5,7 @@
 import { modalsSaga } from './modals'
 import { bootSaga } from './boot'
 import { authLoginSaga, authCreateAccountSaga, logoutSaga } from './authSaga'
+import { accountRootSaga } from './accountSaga'
 
 export const SERVER = 'http://localhost:8000'
 
@@ -15,6 +16,7 @@ export default function* sagas() {
     authLoginSaga(),
     authCreateAccountSaga(),
     logoutSaga(),
+    accountRootSaga(),
 
     // auth.login(),
     // auth.logoutSaga(),

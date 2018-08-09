@@ -92,37 +92,20 @@ export const authShowSupportLink = (isShow: boolean = true): authShowSupportLink
 /**
  * AUTH_STATUS_REQUEST_SUCCESS
  */
-export const AUTH_STATUS_REQUEST_SUCCESS = '@auth/Status request success'
-export const AUTH_SET_STATUS = AUTH_STATUS_REQUEST_SUCCESS
+// export const AUTH_STATUS_REQUEST_SUCCESS = '@auth/Status request success'
+// export const AUTH_SET_STATUS = AUTH_STATUS_REQUEST_SUCCESS
 
-export type authSetVerifyStatusType = {
-  type: '@auth/Status request success',
-  payload: {
-    status: VerificationStatus
-  }
-}
+// export type authSetVerifyStatusType = {
+//   type: '@auth/Status request success',
+//   payload: {
+//     status: VerificationStatus
+//   }
+// }
 
-export const authSetVerifyStatus = (status: VerificationStatus): authSetVerifyStatusType => ({
-  type: AUTH_STATUS_REQUEST_SUCCESS,
-  payload: { status },
-})
-
-/**
- * AUTH_SET_STAGE
- */
-export const AUTH_SET_STAGE = '@auth/verify/Set stage'
-
-export type authSetStageType = {
-  type: '@auth/verify/Set stage',
-  payload: {
-    stage: VerificationStage
-  }
-}
-
-export const authSetVerifyStage = (stage: VerificationStage) => ({
-  type: AUTH_SET_STAGE,
-  payload: { stage },
-})
+// export const authSetVerifyStatus = (status: VerificationStatus): authSetVerifyStatusType => ({
+//   type: AUTH_STATUS_REQUEST_SUCCESS,
+//   payload: { status },
+// })
 
 /**
  * AUTH_CREATE_ACCOUNT
@@ -163,15 +146,11 @@ export const authConfirmTerms = (): authConfirmTermsType => ({
  */
 export type AuthState = {
   token: ?string,
-  verifyStatus: VerificationStatus,
-  verifyStage: VerificationStage,
   isSupportLinkShown: boolean
 }
 
 const defaultState: AuthState = {
   token: undefined,
-  verifyStatus: undefined,
-  verifyStage: 'terms',
   isSupportLinkShown: false,
 }
 
@@ -179,9 +158,7 @@ type authActionType = authLoginType |
   authLogoutType |
   authSetTokenType |
   authShowSupportLinkType |
-  authCreateAccountType |
-  authSetVerifyStatusType |
-  authSetStageType
+  authCreateAccountType
 
 export const authReducer = (state: AuthState = defaultState, action: authActionType): AuthState => {
   switch (action.type) {
@@ -202,27 +179,11 @@ export const authReducer = (state: AuthState = defaultState, action: authActionT
       }
     }
 
-    case AUTH_STATUS_REQUEST_SUCCESS: {
-      const { status }: { status: VerificationStatus } = action.payload
-      return {
-        ...state,
-        verifyStatus: status,
-      }
-    }
-
     case AUTH_SHOW_SUPPORT_LINK: {
       const { isShow } = action.payload
       return {
         ...state,
         isSupportLinkShown: isShow,
-      }
-    }
-
-    case AUTH_SET_STAGE: {
-      const { stage } = action.payload
-      return {
-        ...state,
-        verifyStage: stage,
       }
     }
 

@@ -41,7 +41,7 @@
 
   &.medium {
     height: 45px;
-    // line-height: 45px;
+    line-height: 44px;
     border-top-left-radius: 16px;
     border-bottom-right-radius: 50px;
     background-color: $dusk;
@@ -53,6 +53,16 @@
     opacity: 1;
     background-color: lighten($dusk, 25%);
     // color: $white;
+  }
+
+  &.white {
+    background-color: transparent;
+    color: $dusk;
+
+    &:hover {
+      color: $blue;
+      background-color: transparent;
+    }
   }
 
   &.clean {

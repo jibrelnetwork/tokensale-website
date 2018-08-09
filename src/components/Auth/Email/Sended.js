@@ -1,20 +1,21 @@
+// @flow
+
 import React from 'react'
-import { Link } from 'react-router-dom'
-import PropTypes from 'prop-types'
+// import { Link } from 'react-router-dom'
 import { translate } from 'react-i18next'
 
-const Sended = ({ t }) => (
+type Props = {
+  t: TFunction
+}
+
+const Sended = ({ t }: Props) => (
   <div className="email-verification">
     <div className="img sended" />
     <p>{t('auth.emailVerification.linkSended')}</p>
-    <Link to="/verify" className="button">
+    {/* <Link to="/verify" className="button">
       {t('auth.emailVerification.continue')}
-    </Link>
+    </Link> */}
   </div>
 )
-
-Sended.propTypes = {
-  t: PropTypes.func.isRequired,
-}
 
 export default translate()(Sended)

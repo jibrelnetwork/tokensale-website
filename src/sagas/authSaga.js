@@ -23,8 +23,8 @@ import {
 
 import { accountRequestData, redirectAfterLogin } from './accountSaga'
 
-const loginForm = 'login'
-const registrationForm = 'registration'
+const LOGIN_FORM = 'login'
+const REGISTRATION_FORM = 'register'
 
 type loginRequestFields = {
   email: string,
@@ -35,7 +35,7 @@ type loginRequestFields = {
 type loginResponseFields = {
   key?: string,
   non_field_errors?: Array<string>,
-  captcha?: string,
+  captcha?: string
 }
 
 export function* authLoginSaga(): Saga<void> {
@@ -47,7 +47,7 @@ export function* authLoginSaga(): Saga<void> {
 
     const postBody: loginRequestFields = { email: email.toLowerCase(), password, captcha }
 
-    yield put(startSubmit(loginForm))
+    yield put(startSubmit(LOGIN_FORM))
 
     try {
       const response: loginResponseFields = yield call(api.post, 'auth/login', postBody)
@@ -62,27 +62,23 @@ export function* authLoginSaga(): Saga<void> {
 
         yield* accountRequestData()
 
-        yield put(stopSubmit(loginForm))
+        yield put(stopSubmit(LOGIN_FORM))
 
         yield put(closeModals())
 
         yield* redirectAfterLogin()
-      } else if (response.non_field_errors) {
-        const errors = {
-          captcha: response.captcha,
-          password: response.non_field_errors,
-        }
-        if (errors.captcha) {
-          grecaptcha.trackLoginError()
-          window.grecaptcha.reset()
-        }
-        yield put(stopSubmit(loginForm, errors))
       }
-
     } catch (e) {
-      // server error
-      console.error(e)
-      yield put(stopSubmit(loginForm, { password: 'Server error, please try again' }))
+      const errors = {
+        captcha: e.data.captcha,
+        password: e.data.non_field_errors,
+      }
+      if (errors.captcha) {
+        grecaptcha.trackLoginError()
+        window.grecaptcha.reset()
+      }
+      // server erros
+      yield put(stopSubmit(LOGIN_FORM, errors))
     }
   }
 }
@@ -102,6 +98,10 @@ type registrationResponseFields = {
   captcha?: string,
 }
 
+/**
+ * Create user account
+ * @TODO: Registration is not working on the server side
+ */
 export function* authCreateAccountSaga(): Saga<void> {
   // eslint-disable-next-line fp/no-loops
   while (true) {
@@ -117,10 +117,12 @@ export function* authCreateAccountSaga(): Saga<void> {
       password_confirm: passwordConfirm,
     }
 
-    yield put(startSubmit(registrationForm))
+    yield put(startSubmit(REGISTRATION_FORM))
 
     try {
+      console.log(postBody)
       const response: registrationResponseFields = yield call(api.post, 'auth/registration', postBody)
+      console.log(response)
       if (response.key) {
         const token = response.key
         // LogRocket.identify(postBody.email)
@@ -137,13 +139,21 @@ export function* authCreateAccountSaga(): Saga<void> {
           yield* redirectAfterLogin()
         }
 
-        yield put(stopSubmit(registrationForm))
+        yield put(stopSubmit(REGISTRATION_FORM))
       }
-
     } catch (e) {
-      console.error(e)
-      // @TODO: Fix error handling
-      yield put(stopSubmit(registrationForm, { password: 'Server error, please try again' }))
+      console.log(e)
+      const errors = {
+        email: e.data.email,
+        captcha: e.data.captcha,
+        password: e.data.password || e.data.non_field_errors,
+      }
+      if (errors.captcha) {
+        grecaptcha.trackLoginError()
+        window.grecaptcha.reset()
+      }
+      // server erros
+      yield put(stopSubmit(REGISTRATION_FORM, errors))
     }
   }
 }

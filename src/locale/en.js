@@ -6,6 +6,7 @@ const EN = {
       register: 'Registration',
       resetPasswordEmail: 'Reset password',
       resetPassword: 'Reset password',
+      documentSkipUpload: 'Skip document upload?',
     },
   },
   auth: {

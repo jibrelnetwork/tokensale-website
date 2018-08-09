@@ -1,13 +1,18 @@
+// @flow
+
 import React from 'react'
-import PropTypes from 'prop-types'
 import { compose } from 'lodash/fp'
-import { connect } from 'react-redux'
 import { lifecycle } from 'recompose'
 import { translate } from 'react-i18next'
+import { connect } from 'react-redux'
 
-import * as actions from '../../../actions'
+import { accountEmailVerify } from '../../../modules'
 
-const Pending = ({ t }) => (
+type Props = {
+  t: TFunction
+}
+
+const Pending = ({ t }: Props) => (
   <div className="email-verification">
     <div className="img pending" />
     <p>{t('auth.emailVerification.inProgress')}</p>
@@ -15,23 +20,23 @@ const Pending = ({ t }) => (
 )
 
 const mapDispatchToProps = {
-  verifyEmail: actions.auth.email.verify,
-}
-
-Pending.propTypes = {
-  t: PropTypes.func.isRequired,
+  accountEmailVerify,
 }
 
 const enhance = compose(
   translate(),
   connect(
-    undefined,
-    mapDispatchToProps,
+    null,
+    mapDispatchToProps
   ),
   lifecycle({
     componentWillMount() {
+      // console.log(1111)
       // eslint-disable-next-line fp/no-this
-      this.props.verifyEmail(this.props.match.params.key)
+      console.log(this.props.match.params.key)
+      // eslint-disable-next-line fp/no-this
+      this.props.accountEmailVerify(this.props.match.params.key)
+      // accountEmailVerify(this.props.match.params.key)
     },
   }),
 )

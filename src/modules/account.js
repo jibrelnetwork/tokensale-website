@@ -97,6 +97,7 @@ export type accountUpdatePayloadType = {
   ethAddress?: string,
   address?: string,
   isAddressChangeRequested?: boolean,
+  isDocumentUploadSkipped?: boolean,
   verifyStatus?: VerificationStatus,
   verifyStage?: VerificationStage
 }
@@ -109,6 +110,123 @@ export type accountUpdateType = {
 export const accountUpdate = (payload: accountUpdatePayloadType): accountUpdateType => ({
   type: ACCOUNT_UPDATE,
   payload,
+})
+
+/**
+ * ACCOUNT_EMAIL_VERIFY
+ */
+export const ACCOUNT_EMAIL_VERIFY = '@account/ACCOUNT_EMAIL_VERIFY'
+
+export type accountEmailVerifyType = {
+  type: '@account/ACCOUNT_EMAIL_VERIFY',
+  payload: {
+    key: string,
+  }
+}
+
+export const accountEmailVerify = (key: string): accountEmailVerifyType => ({
+  type: ACCOUNT_EMAIL_VERIFY,
+  payload: {
+    key,
+  },
+})
+
+/**
+ * ACCOUNT_EMAIL_VERIFY_RESEND
+ */
+export const ACCOUNT_EMAIL_VERIFY_RESEND = '@account/ACCOUNT_EMAIL_VERIFY_RESEND'
+
+export type accountEmailVerifyResendType = {
+  type: '@account/ACCOUNT_EMAIL_VERIFY_RESEND'
+}
+
+export const accountEmailVerifyResend = (): accountEmailVerifyResendType => ({
+  type: ACCOUNT_EMAIL_VERIFY_RESEND,
+})
+
+/**
+ * ACCOUNT_VERIFY_TERMS
+ */
+export const ACCOUNT_VERIFY_TERMS_CONFIRM = '@account/ACCOUNT_VERIFY_TERMS'
+
+export type accountVerifyTermsConfirmType = {
+  type: '@account/ACCOUNT_VERIFY_TERMS'
+}
+
+export const accountVerifyTermsConfirm = (): accountVerifyTermsConfirmType => ({
+  type: ACCOUNT_VERIFY_TERMS_CONFIRM,
+})
+
+/**
+ * ACCOUNT_UPDATE_USER_INFO
+ */
+export const ACCOUNT_UPDATE_USER_INFO = '@account/ACCOUNT_UPDATE_USER_INFO'
+
+export type accountUpdateUserInfoType = {
+  type: '@account/ACCOUNT_UPDATE_USER_INFO',
+  payload: {
+    firstName: string,
+    lastName: string,
+    birthday: string,
+    residency: string,
+    citizenship: string,
+  }
+}
+
+export const accountUpdateUserInfo = (firstName: string, lastName: string, birthday: string,
+  residency: string, citizenship: string): accountUpdateUserInfoType => ({
+  type: ACCOUNT_UPDATE_USER_INFO,
+  payload: { firstName, lastName, birthday, residency, citizenship },
+})
+
+/**
+ * ACCOUNT_VERIFY_SKIP_DOCUMENT_UPLOAD
+ */
+export const ACCOUNT_VERIFY_SKIP_DOCUMENT_UPLOAD = '@account/ACCOUNT_VERIFY_SKIP_DOCUMENT_UPLOAD'
+
+export type accountVerifySkipDocumentUploadType = {
+  type: '@account/ACCOUNT_VERIFY_SKIP_DOCUMENT_UPLOAD',
+}
+
+export const accountVerifySkipDocumentUpload = (): accountVerifySkipDocumentUploadType => ({
+  type: ACCOUNT_VERIFY_SKIP_DOCUMENT_UPLOAD,
+})
+
+/**
+ * ACCOUNT_VERIFY_DOCUMENT_UPLOAD
+ */
+export const ACCOUNT_VERIFY_DOCUMENT_UPLOAD = '@account/ACCOUNT_VERIFY_DOCUMENT_UPLOAD'
+
+export type accountVerifyDocumentUploadType = {
+  type: '@account/ACCOUNT_VERIFY_DOCUMENT_UPLOAD',
+  payload: {
+    document: Object
+  }
+}
+
+export const accountVerifyDocumentUpload = (documentFile: Object): accountVerifyDocumentUploadType => ({
+  type: ACCOUNT_VERIFY_DOCUMENT_UPLOAD,
+  payload: {
+    document: documentFile,
+  },
+})
+
+
+/**
+ * ACCOUNT_VERIFY_SET_STAGE
+ */
+export const ACCOUNT_VERIFY_SET_STAGE = '@account/ACCOUNT_VERIFY_SET_STAGE'
+
+export type accountVerifySetStageType = {
+  type: '@account/ACCOUNT_VERIFY_SET_STAGE',
+  payload: {
+    stage: VerificationStage
+  }
+}
+
+export const accountVerifySetStage = (stage: VerificationStage) => ({
+  type: ACCOUNT_VERIFY_SET_STAGE,
+  payload: { stage },
 })
 
 /**
@@ -128,6 +246,7 @@ export type AccountState = {
   +isAddressChangeRequested: boolean,
   +isWithdrawRequested: boolean,
 
+  +isDocumentUploadSkipped: boolean,
   +isEmailConfirmed: boolean,
   +verifyStatus: VerificationStatus,
   +verifyStage: VerificationStage,
@@ -148,6 +267,7 @@ const defaultState: AccountState = {
   isEmailConfirmed: false,
   verifyStatus: undefined,
   verifyStage: 'terms',
+  isDocumentUploadSkipped: false,
 }
 
 type accountActionType = accountToggleDashboardType |
@@ -155,7 +275,13 @@ type accountActionType = accountToggleDashboardType |
   accountBalanceWithdrawRequestedType |
   accountBalaceRequestStartType |
   accountBalanceRequestStop |
-  accountUpdateType
+  accountUpdateType |
+  accountEmailVerifyType |
+  accountEmailVerifyResendType |
+  accountVerifyTermsConfirmType |
+  accountUpdateUserInfoType |
+  accountVerifySkipDocumentUploadType |
+  accountVerifySetStageType
 
 export const accountReducer = (state: AccountState = defaultState, action: accountActionType): AccountState => {
   switch (action.type) {
@@ -187,6 +313,14 @@ export const accountReducer = (state: AccountState = defaultState, action: accou
       return {
         ...state,
         ...action.payload,
+      }
+    }
+
+    case ACCOUNT_VERIFY_SET_STAGE: {
+      const { stage } = action.payload
+      return {
+        ...state,
+        verifyStage: stage,
       }
     }
 

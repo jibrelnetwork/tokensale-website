@@ -1,20 +1,26 @@
+// @flow
+
 import React from 'react'
-import { Link } from 'react-router-dom'
-import PropTypes from 'prop-types'
+// import { Link } from 'react-router-dom'
 import { translate } from 'react-i18next'
 
-const Verified = ({ t }) => (
+type Props = {
+  t: TFunction
+}
+
+const Verified = ({ t }: Props) => (
   <div className="email-verification">
     <div className="img verified" />
     <p>{t('auth.emailVerification.success')}</p>
-    <Link to="/welcome/login" className="button">
+    {/* <Link to="/welcome/login" className="button">
       {t('auth.emailVerification.complete')}
-    </Link>
+    </Link> */}
   </div>
 )
 
-Verified.propTypes = {
-  t: PropTypes.func.isRequired,
-}
+/**
+ * @TODO: Check here, if the user is logged in -> verify, otherwise
+ * display login window
+ */
 
 export default translate()(Verified)

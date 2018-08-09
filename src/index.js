@@ -22,7 +22,11 @@ import { modulesReducer } from './modules'
 // import middlewares from './middlewares'
 // import tracking from './services/tracking'
 // import { Auth, Welcome, Account } from './components'
-import { Auth, Welcome, JModals, ProtectedRoute } from './components'
+import { JModals } from './components/Modals'
+import { WelcomeLayout, AccountVerifyLayout, EmailVerifyLayout } from './components/Layout'
+
+
+import R from './routes.yaml'
 
 if (!window.Promise) {
   window.Promise = Promise // eslint-disable-line fp/no-mutation
@@ -99,18 +103,20 @@ ReactDOM.render(
       <ConnectedRouter history={history}>
         <div>
           <Switch>
-            {/* <Redirect exact from="/" to="/welcome" /> */}
+            {/* <Redirect exact from="/" to="/welcome" />
             <ProtectedRoute
               path="/verify"
               store={store}
               component={Auth.Verify}
             />
-            {/* <ProtectedRoute
+             <ProtectedRoute
               path="/account"
               store={store}
               component={Account}
             /> */}
-            <Route exact path="/" component={Welcome} />
+            <Route {...R.VERIFY} component={AccountVerifyLayout} />
+            <Route {...R.VERIFY_EMAIL_ROOT} component={EmailVerifyLayout} />
+            <Route exact {...R.ROOT} component={WelcomeLayout} />
           </Switch>
           <JModals />
           <ToastContainer

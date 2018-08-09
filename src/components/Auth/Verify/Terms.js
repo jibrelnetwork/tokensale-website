@@ -11,7 +11,7 @@ import type { TFunction } from 'react-i18next'
 
 import { Input } from '../../common'
 
-import { authConfirmTerms } from '../../../modules'
+import { accountVerifyTermsConfirm } from '../../../modules'
 
 // import type { State } from '../../../modules'
 
@@ -66,7 +66,7 @@ export default compose(
   translate(),
   reduxForm({
     form: 'account-verification-terms-form',
-    onSubmit: (_, dispatch) => dispatch(authConfirmTerms()),
+    onSubmit: (_, dispatch) => dispatch(accountVerifyTermsConfirm()),
     validate: (values, props) => compose(
       !values.policyConfirm
         ? set('policyConfirm', props.t('verification.terms.errors.policyConfirm.isRequired'))

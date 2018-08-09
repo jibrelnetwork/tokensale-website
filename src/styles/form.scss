@@ -149,6 +149,32 @@
       }
     }
 
+    .Select > .react-select {
+      .react-select__control {
+        background-color: $white;
+
+        &--is-focused {
+          border: 2px solid $cucumber;
+          box-shadow: none;
+        }
+
+        &:hover {
+          border-color: $cucumber;
+        }
+      }
+
+      .react-select__option {
+        &--is-focused {
+          background-color: lighten($cucumber, 25%);
+          box-shadow: none;
+        }
+
+        &--is-selected {
+          background-color: $cucumber;
+        }
+      }
+    }
+
     &.field-select {
       select {
         display: block;

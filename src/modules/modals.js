@@ -3,7 +3,8 @@
 export type PopupNames = 'login' |
   'register' |
   'resetPasswordEmail' |
-  'resetPassword'
+  'resetPassword' |
+  'documentSkipUpload'
 
 export type PopupState = 'close' | 'open' | 'shake' | 'opening' | 'closing'
 

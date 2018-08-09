@@ -1,14 +1,21 @@
+// @flow
+
 import React from 'react'
-import PropTypes from 'prop-types'
 import { translate, Interpolate } from 'react-i18next'
 
-const Declined = ({ t }) => (
+import { links as config } from '../../../config'
+
+type Props = {
+  t: TFunction
+}
+
+const Declined = ({ t }: Props) => (
   <div className="email-verification">
     <div className="img declined" />
     <p>
       <Interpolate
         email={
-          <a href="mailto:support@jibrel.network">
+          <a href={`mailto:${config.supportEmailAddress}`}>
             {t('auth.emailVerification.error.email')}
           </a>
         }
@@ -17,9 +24,5 @@ const Declined = ({ t }) => (
     </p>
   </div>
 )
-
-Declined.propTypes = {
-  t: PropTypes.func.isRequired,
-}
 
 export default translate()(Declined)

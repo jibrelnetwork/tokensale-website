@@ -4,65 +4,81 @@ import { combineReducers } from 'redux'
 import { reducer as formReducer } from 'redux-form'
 import type { Reducer } from 'redux'
 
-import {
-  AUTH_LOGIN,
-  AUTH_LOGOUT,
-  AUTH_SET_TOKEN,
-  AUTH_SHOW_SUPPORT_LINK,
-  AUTH_STATUS_REQUEST_SUCCESS,
-  AUTH_CREATE_ACCOUNT,
-  AUTH_CONFIRM_TERMS,
-  authLogin,
-  authLogout,
-  authSetToken,
-  authShowSupportLink,
-  authSetVerifyStatus,
-  authSetVerifyStage,
-  authCreateAccount,
-  authConfirmTerms,
-  authReducer,
-} from './auth'
-
-import {
-  RAISED_REQUEST,
-  RAISED_REQUEST_CANCEL,
-  RAISED_REQUEST_SUCCESS,
-  raisedRequest,
-  raisedRequestCancel,
-  raisedRequestSuccess,
-  tokensReducer,
-} from './tokens'
-
-import {
-  MODALS_SHOW_MODAL,
-  MODALS_CLOSE_ALL,
-  showModal,
-  closeModals,
-  modalSetState,
-  modalsReducer,
-} from './modals'
-
-import {
-  ACCOUNT_DASHBOARD_TOGGLE,
-  ACCOUNT_BALANCE_WITHDRAW_REQUESTED,
-  ACCOUNT_BALANCE_REQUEST_SUCCESS,
-  ACCOUNT_BALANCE_REQUEST_START,
-  ACCOUNT_BALANCE_REQUEST_STOP,
-  ACCOUNT_UPDATE,
-  accountToggleDashboard,
-  accountBalanceRequestSuccess,
-  accountBalanceWithdrawRequested,
-  accountBalaceRequestStart,
-  accountBalanceRequestStop,
-  accountUpdate,
-  accountReducer,
-} from './account'
+import { authReducer } from './auth'
+import { tokensReducer } from './tokens'
+import { modalsReducer } from './modals'
+import { accountReducer } from './account'
 
 import type { ModalState, PopupNames } from './modals'
 import type { AuthState, VerificationStage, VerificationStatus } from './auth'
 import type { TokenState } from './tokens'
 import type { AccountState } from './account'
 
+export {
+  AUTH_LOGIN,
+  AUTH_LOGOUT,
+  AUTH_SET_TOKEN,
+  AUTH_SHOW_SUPPORT_LINK,
+  // AUTH_STATUS_REQUEST_SUCCESS,
+  AUTH_CREATE_ACCOUNT,
+  AUTH_CONFIRM_TERMS,
+  authLogin,
+  authLogout,
+  authSetToken,
+  authShowSupportLink,
+  // authSetVerifyStatus,
+  // authSetVerifyStage,
+  authCreateAccount,
+  authConfirmTerms,
+} from './auth'
+
+export {
+  RAISED_REQUEST,
+  RAISED_REQUEST_CANCEL,
+  RAISED_REQUEST_SUCCESS,
+  raisedRequest,
+  raisedRequestCancel,
+  raisedRequestSuccess,
+} from './tokens'
+
+export {
+  MODALS_SHOW_MODAL,
+  MODALS_CLOSE_ALL,
+  showModal,
+  closeModals,
+  modalSetState,
+} from './modals'
+
+export {
+  ACCOUNT_DASHBOARD_TOGGLE,
+  ACCOUNT_BALANCE_WITHDRAW_REQUESTED,
+  ACCOUNT_BALANCE_REQUEST_SUCCESS,
+  ACCOUNT_BALANCE_REQUEST_START,
+  ACCOUNT_BALANCE_REQUEST_STOP,
+  ACCOUNT_UPDATE,
+  ACCOUNT_EMAIL_VERIFY,
+  ACCOUNT_EMAIL_VERIFY_RESEND,
+  ACCOUNT_VERIFY_TERMS_CONFIRM,
+  ACCOUNT_UPDATE_USER_INFO,
+  ACCOUNT_VERIFY_SKIP_DOCUMENT_UPLOAD,
+  ACCOUNT_VERIFY_DOCUMENT_UPLOAD,
+  ACCOUNT_VERIFY_SET_STAGE,
+  accountToggleDashboard,
+  accountBalanceRequestSuccess,
+  accountBalanceWithdrawRequested,
+  accountBalaceRequestStart,
+  accountBalanceRequestStop,
+  accountEmailVerify,
+  accountUpdate,
+  accountEmailVerifyResend,
+  accountVerifyTermsConfirm,
+  accountUpdateUserInfo,
+  accountVerifySkipDocumentUpload,
+  accountVerifyDocumentUpload,
+  accountVerifySetStage,
+} from './account'
+
+// combine all reducers
 const modulesReducer: Reducer = combineReducers({
   auth: authReducer,
   modals: modalsReducer,
@@ -71,7 +87,7 @@ const modulesReducer: Reducer = combineReducers({
   form: formReducer,
 })
 
-export type State = {
+type State = {
   +modals: ModalState,
   +auth: AuthState,
   +tokens: TokenState,
@@ -82,50 +98,9 @@ export type {
   PopupNames,
   VerificationStatus,
   VerificationStage,
+  State,
 }
 
 export {
   modulesReducer,
-  // account
-  ACCOUNT_DASHBOARD_TOGGLE,
-  ACCOUNT_BALANCE_WITHDRAW_REQUESTED,
-  ACCOUNT_BALANCE_REQUEST_SUCCESS,
-  ACCOUNT_BALANCE_REQUEST_START,
-  ACCOUNT_BALANCE_REQUEST_STOP,
-  ACCOUNT_UPDATE,
-  accountToggleDashboard,
-  accountBalanceRequestSuccess,
-  accountBalanceWithdrawRequested,
-  accountBalaceRequestStart,
-  accountBalanceRequestStop,
-  accountUpdate,
-  // auth
-  AUTH_LOGIN,
-  AUTH_LOGOUT,
-  AUTH_SET_TOKEN,
-  AUTH_SHOW_SUPPORT_LINK,
-  AUTH_STATUS_REQUEST_SUCCESS,
-  AUTH_CREATE_ACCOUNT,
-  AUTH_CONFIRM_TERMS,
-  authLogin,
-  authLogout,
-  authSetToken,
-  authShowSupportLink,
-  authSetVerifyStatus,
-  authSetVerifyStage,
-  authCreateAccount,
-  authConfirmTerms,
-  // modals
-  MODALS_SHOW_MODAL,
-  MODALS_CLOSE_ALL,
-  showModal,
-  closeModals,
-  modalSetState,
-  // tokens
-  RAISED_REQUEST,
-  RAISED_REQUEST_CANCEL,
-  RAISED_REQUEST_SUCCESS,
-  raisedRequest,
-  raisedRequestCancel,
-  raisedRequestSuccess,
 }
