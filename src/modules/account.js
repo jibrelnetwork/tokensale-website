@@ -127,6 +127,27 @@ export function accountUpdate(payload: accountUpdatePayloadType): accountUpdateT
 }
 
 /**
+ * ACCOUNT_UPDATE_TRANSACTIONS
+ */
+export const ACCOUNT_UPDATE_TRANSACTIONS = '@account/ACCOUNT_UPDATE_TRANSACTIONS'
+
+export type accountUpdateTransactionsType = {
+  type: '@account/ACCOUNT_UPDATE_TRANSACTIONS',
+  payload: {
+    transactions: Array<any>
+  }
+}
+
+export function accountUpdateTransactions(transactions: Array<any>) {
+  return {
+    type: ACCOUNT_UPDATE_TRANSACTIONS,
+    payload: {
+      transactions,
+    },
+  }
+}
+
+/**
  * ACCOUNT_EMAIL_VERIFY
  */
 export const ACCOUNT_EMAIL_VERIFY = '@account/ACCOUNT_EMAIL_VERIFY'
@@ -237,7 +258,6 @@ export function accountVerifyDocumentUpload(documentFile: Object): accountVerify
   }
 }
 
-
 /**
  * ACCOUNT_VERIFY_SET_STAGE
  */
@@ -314,7 +334,8 @@ type accountActionType = accountToggleDashboardType |
   accountVerifyTermsConfirmType |
   accountUpdateUserInfoType |
   accountVerifySkipDocumentUploadType |
-  accountVerifySetStageType
+  accountVerifySetStageType |
+  accountUpdateTransactionsType
 
 export function accountReducer(state: AccountState = defaultState, action: accountActionType): AccountState {
   switch (action.type) {
@@ -347,6 +368,15 @@ export function accountReducer(state: AccountState = defaultState, action: accou
         ...state,
         ...action.payload,
         accountFetched: true,
+      }
+    }
+
+    case ACCOUNT_UPDATE_TRANSACTIONS: {
+      const { transactions } = action.payload
+      return {
+        ...state,
+        transactions,
+        transactionsFetched: true,
       }
     }
 

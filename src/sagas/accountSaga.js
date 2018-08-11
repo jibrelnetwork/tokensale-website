@@ -32,6 +32,7 @@ import {
   ACCOUNT_VERIFY_DOCUMENT_UPLOAD,
   authLogout,
   accountUpdate,
+  accountUpdateTransactions,
   closeModals,
 } from '../modules'
 
@@ -110,6 +111,32 @@ function* accountUpdateFromRequest(accountData: responseAccountType): Saga<void>
 export function* accountRequestData(): Saga<void> {
   const accountData: responseAccountType = yield call(api.get, 'api/account', {}, authToken.get())
   yield* accountUpdateFromRequest(accountData)
+}
+
+type responseAccountTransactions = {
+  success: boolean,
+  // @TODO: flow
+  data: Array<Any>,
+}
+
+// @TODO: gtm integration
+// function pushNewTransactionEvent(transactions) {
+//   const isNewTransactionEventSended = (storage.getNewTransactionEventSended() === '1')
+
+//   if (isNewTransactionEventSended || (transactions && (transactions.length === 0))) {
+//     return
+//   }
+
+//   gtm.pushNewTransaction()
+//   storage.setNewTransactionEventSended('1')
+// }
+
+export function* accountRequestTransactons(): Saga<void> {
+  const response: responseAccountTransactions = yield call(api.get, 'api/transactions', {}, authToken.get())
+  if (response.success) {
+    yield put(accountUpdateTransactions(response.data))
+    // pushNewTransactionEvent
+  }
 }
 
 export function* redirectAfterLogin(): Saga<void> {
@@ -344,7 +371,7 @@ function* accountRefreshLoop(): Saga<void> {
     try {
       // refresh account data
       yield* accountRequestData()
-
+      yield* accountRequestTransactons()
     } catch (e) {
       if (e.code === 301) {
         put(authLogout())
@@ -361,7 +388,7 @@ export function* accountRefreshSaga(): Saga<void> {
     yield take(AUTH_SET_TOKEN)
     // @TODO: flow
     const accountRefreshTask = yield fork(accountRefreshLoop)
-    console.log(accountRefreshTask)
+
     yield take(AUTH_LOGOUT)
 
     yield cancel(accountRefreshTask)
