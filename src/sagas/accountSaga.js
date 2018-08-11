@@ -83,6 +83,8 @@ function* accountUpdateFromRequest(accountData: responseAccountType): Saga<void>
     verifyStage = 'user-info'
   } else if (!isDocumentUploaded || (accountData.identity_verification_status === 'Declined')) {
     verifyStage = 'document'
+  } else {
+    verifyStage = 'loader'
   }
   /* eslint-enable */
 
@@ -312,10 +314,9 @@ function* skipDocumentUpload(): Saga<void> {
 // }
 
 function* uploadDocument(action: accountVerifyDocumentUploadType): Saga<void> {
-  const { payload: { documentFile } } = action
+  const { payload: { document: documentFile } } = action
 
   yield put(startSubmit(ACCOUNT_VERIFY_DOCUMENT_UPLOAD_FORM))
-
   const formData: FormData = new FormData()
   formData.append('image', documentFile, documentFile.name)
   try {

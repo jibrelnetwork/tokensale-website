@@ -19,5 +19,5 @@ VERIFY_EMAIL_VERIFIED:
 VERIFY_EMAIL_DECLINED:
   path: '/email/declined'
 
-ACCOUNT_ROOT:
+ACCOUNT:
   path: '/account'

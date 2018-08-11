@@ -90,7 +90,8 @@ Header.defaultProps = {
 const mapStateToProps = (state) => ({
   address: state.account.address,
   email: state.account.email,
-  isDashboardOpen: state.account.dashboardIsOpen,
+  isDashboardOpen: true,
+  // isDashboardOpen: state.account.dashboardIsOpen,
 })
 
 const mapDispatchToProps = {
