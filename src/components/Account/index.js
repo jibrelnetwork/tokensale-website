@@ -1,3 +1,4 @@
-import Account from './Account'
+import Addresses from './Addresses'
+import Transactions from './Transactions'
 
-export default Account
+export { Addresses, Transactions }

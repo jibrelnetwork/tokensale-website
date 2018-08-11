@@ -23,7 +23,7 @@ import { modulesReducer } from './modules'
 // import tracking from './services/tracking'
 // import { Auth, Welcome, Account } from './components'
 import { JModals } from './components/Modals'
-import { WelcomeLayout, AccountVerifyLayout, EmailVerifyLayout } from './components/Layout'
+import { WelcomeLayout, AccountVerifyLayout, EmailVerifyLayout, AccountLayout } from './components/Layout'
 
 
 import R from './routes.yaml'
@@ -114,6 +114,7 @@ ReactDOM.render(
               store={store}
               component={Account}
             /> */}
+            <Route {...R.ACCOUNT} component={AccountLayout} />
             <Route {...R.VERIFY} component={AccountVerifyLayout} />
             <Route {...R.VERIFY_EMAIL_ROOT} component={EmailVerifyLayout} />
             <Route exact {...R.ROOT} component={WelcomeLayout} />
