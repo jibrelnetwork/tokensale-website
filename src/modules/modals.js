@@ -20,12 +20,15 @@ export type showModalType = {
   }
 }
 
-export const showModal = (modalName: PopupNames): showModalType => ({
-  type: MODALS_SHOW_MODAL,
-  payload: {
-    modalName,
-  },
-})
+export function showModal(modalName: PopupNames): showModalType {
+  return {
+    type: MODALS_SHOW_MODAL,
+    payload: {
+      modalName,
+    },
+  }
+}
+
 
 /**
  * MODALS_CLOSE_ALL
@@ -36,9 +39,11 @@ export type closeModalsType = {
   type: '@modals/close',
 }
 
-export const closeModals = (): closeModalsType => ({
-  type: MODALS_CLOSE_ALL,
-})
+export function closeModals(): closeModalsType {
+  return {
+    type: MODALS_CLOSE_ALL,
+  }
+}
 
 /**
  * MODALS_SET_STATE
@@ -53,13 +58,15 @@ export type modalStateActionType = {
   }
 }
 
-export const modalSetState = (modalName: ?PopupNames, newState: PopupState): modalStateActionType => ({
-  type: MODALS_SET_STATE,
-  payload: {
-    modalName,
-    modalState: newState,
-  },
-})
+export function modalSetState(modalName: ?PopupNames, newState: PopupState): modalStateActionType {
+  return {
+    type: MODALS_SET_STATE,
+    payload: {
+      modalName,
+      modalState: newState,
+    },
+  }
+}
 
 /**
  * Reducer
@@ -76,7 +83,7 @@ const defaultState: ModalState = {
   modalState: 'close',
 }
 
-export const modalsReducer = (state: ModalState = defaultState, action: modalsActionType): ModalState => {
+export function modalsReducer(state: ModalState = defaultState, action: modalsActionType): ModalState {
   switch (action.type) {
 
     case MODALS_SET_STATE: {

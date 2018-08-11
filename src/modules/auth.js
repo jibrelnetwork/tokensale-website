@@ -31,14 +31,16 @@ export type authLoginType = {
   }
 }
 
-export const authLogin = (email: string, password: string, captcha: string): authLoginType => ({
-  type: AUTH_LOGIN,
-  payload: {
-    email,
-    password,
-    captcha,
-  },
-})
+export function authLogin(email: string, password: string, captcha: string): authLoginType {
+  return {
+    type: AUTH_LOGIN,
+    payload: {
+      email,
+      password,
+      captcha,
+    },
+  }
+}
 
 /**
  * AUTH_LOGOUT
@@ -49,9 +51,11 @@ declare type authLogoutType = {
   type: '@auth/Logout'
 }
 
-export const authLogout = (): authLogoutType => ({
-  type: AUTH_LOGOUT,
-})
+export function authLogout(): authLogoutType {
+  return {
+    type: AUTH_LOGOUT,
+  }
+}
 
 /**
  * AUTH_SET_TOKEN
@@ -65,10 +69,12 @@ declare type authSetTokenType = {
   }
 }
 
-export const authSetToken = (token: string): authSetTokenType => ({
-  type: AUTH_SET_TOKEN,
-  payload: { token },
-})
+export function authSetToken(token: string): authSetTokenType {
+  return {
+    type: AUTH_SET_TOKEN,
+    payload: { token },
+  }
+}
 
 /**
  * AUTH_SHOW_SUPPORT_LINK
@@ -82,30 +88,14 @@ declare type authShowSupportLinkType = {
   }
 }
 
-export const authShowSupportLink = (isShow: boolean = true): authShowSupportLinkType => ({
-  type: AUTH_SHOW_SUPPORT_LINK,
-  payload: {
-    isShow,
-  },
-})
-
-/**
- * AUTH_STATUS_REQUEST_SUCCESS
- */
-// export const AUTH_STATUS_REQUEST_SUCCESS = '@auth/Status request success'
-// export const AUTH_SET_STATUS = AUTH_STATUS_REQUEST_SUCCESS
-
-// export type authSetVerifyStatusType = {
-//   type: '@auth/Status request success',
-//   payload: {
-//     status: VerificationStatus
-//   }
-// }
-
-// export const authSetVerifyStatus = (status: VerificationStatus): authSetVerifyStatusType => ({
-//   type: AUTH_STATUS_REQUEST_SUCCESS,
-//   payload: { status },
-// })
+export function authShowSupportLink(isShow: boolean = true): authShowSupportLinkType {
+  return {
+    type: AUTH_SHOW_SUPPORT_LINK,
+    payload: {
+      isShow,
+    },
+  }
+}
 
 /**
  * AUTH_CREATE_ACCOUNT
@@ -122,11 +112,13 @@ export type authCreateAccountType = {
   }
 }
 
-export const authCreateAccount = (email: string, password: string,
-  passwordConfirm: string, captcha: string): authCreateAccountType => ({
-  type: AUTH_CREATE_ACCOUNT,
-  payload: { email, password, passwordConfirm, captcha },
-})
+export function authCreateAccount(email: string, password: string,
+  passwordConfirm: string, captcha: string): authCreateAccountType {
+  return {
+    type: AUTH_CREATE_ACCOUNT,
+    payload: { email, password, passwordConfirm, captcha },
+  }
+}
 
 /**
  * AUTH_CONFIRM_TERMS
@@ -137,9 +129,11 @@ export type authConfirmTermsType = {
   type: '@auth/AUTH_CONFIRM_TERMS',
 }
 
-export const authConfirmTerms = (): authConfirmTermsType => ({
-  type: AUTH_CONFIRM_TERMS,
-})
+export function authConfirmTerms(): authConfirmTermsType {
+  return {
+    type: AUTH_CONFIRM_TERMS,
+  }
+}
 
 /**
  * Reducer
@@ -160,7 +154,7 @@ type authActionType = authLoginType |
   authShowSupportLinkType |
   authCreateAccountType
 
-export const authReducer = (state: AuthState = defaultState, action: authActionType): AuthState => {
+export function authReducer(state: AuthState = defaultState, action: authActionType): AuthState {
   switch (action.type) {
 
     case AUTH_SET_TOKEN: {

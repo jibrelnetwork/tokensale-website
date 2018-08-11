@@ -18,12 +18,14 @@ export type accountBalanceWithdrawRequestedType = {
   }
 }
 
-export const accountBalanceWithdrawRequested = (isWithdrawRequested: boolean): accountBalanceWithdrawRequestedType => ({
-  type: ACCOUNT_BALANCE_WITHDRAW_REQUESTED,
-  payload: {
-    isWithdrawRequested,
-  },
-})
+export function accountBalanceWithdrawRequested(isWithdrawRequested: boolean): accountBalanceWithdrawRequestedType {
+  return {
+    type: ACCOUNT_BALANCE_WITHDRAW_REQUESTED,
+    payload: {
+      isWithdrawRequested,
+    },
+  }
+}
 
 /**
  * ACCOUNT_BALANCE_REQUEST_SUCCESS
@@ -37,12 +39,14 @@ export type accountBalanceRequestSuccessType = {
   }
 }
 
-export const accountBalanceRequestSuccess = (balance: number): accountBalanceRequestSuccessType => ({
-  type: ACCOUNT_BALANCE_REQUEST_SUCCESS,
-  payload: {
-    balance,
-  },
-})
+export function accountBalanceRequestSuccess(balance: number): accountBalanceRequestSuccessType {
+  return {
+    type: ACCOUNT_BALANCE_REQUEST_SUCCESS,
+    payload: {
+      balance,
+    },
+  }
+}
 
 /**
  * ACCOUNT_BALANCE_REQUEST_START
@@ -53,9 +57,11 @@ export type accountBalaceRequestStartType = {
   type: '@account/ACCOUNT_BALANCE_REQUEST_START'
 }
 
-export const accountBalaceRequestStart = (): accountBalaceRequestStartType => ({
-  type: ACCOUNT_BALANCE_REQUEST_START,
-})
+export function accountBalaceRequestStart(): accountBalaceRequestStartType {
+  return {
+    type: ACCOUNT_BALANCE_REQUEST_START,
+  }
+}
 
 /**
  * ACCOUNT_BALANCE_REQUEST_STOP
@@ -66,9 +72,11 @@ export type accountBalanceRequestStopType = {
   type: '@account/ACCOUNT_BALANCE_REQUEST_STOP'
 }
 
-export const accountBalanceRequestStop = (): accountBalanceRequestStopType => ({
-  type: ACCOUNT_BALANCE_REQUEST_STOP,
-})
+export function accountBalanceRequestStop(): accountBalanceRequestStopType {
+  return {
+    type: ACCOUNT_BALANCE_REQUEST_STOP,
+  }
+}
 
 /**
  * ACCOUNT_DASHBOARD_TOGGLE
@@ -79,9 +87,11 @@ export type accountToggleDashboardType = {
   type: '@account/ACCOUNT_DASHBOARD_TOGGLE'
 }
 
-export const accountToggleDashboard = (): accountToggleDashboardType => ({
-  type: ACCOUNT_DASHBOARD_TOGGLE,
-})
+export function accountToggleDashboard(): accountToggleDashboardType {
+  return {
+    type: ACCOUNT_DASHBOARD_TOGGLE,
+  }
+}
 
 /**
  * ACCOUNT_UPDATE
@@ -107,10 +117,12 @@ export type accountUpdateType = {
   payload: accountUpdatePayloadType,
 }
 
-export const accountUpdate = (payload: accountUpdatePayloadType): accountUpdateType => ({
-  type: ACCOUNT_UPDATE,
-  payload,
-})
+export function accountUpdate(payload: accountUpdatePayloadType): accountUpdateType {
+  return {
+    type: ACCOUNT_UPDATE,
+    payload,
+  }
+}
 
 /**
  * ACCOUNT_EMAIL_VERIFY
@@ -124,12 +136,14 @@ export type accountEmailVerifyType = {
   }
 }
 
-export const accountEmailVerify = (key: string): accountEmailVerifyType => ({
-  type: ACCOUNT_EMAIL_VERIFY,
-  payload: {
-    key,
-  },
-})
+export function accountEmailVerify(key: string): accountEmailVerifyType {
+  return {
+    type: ACCOUNT_EMAIL_VERIFY,
+    payload: {
+      key,
+    },
+  }
+}
 
 /**
  * ACCOUNT_EMAIL_VERIFY_RESEND
@@ -140,9 +154,11 @@ export type accountEmailVerifyResendType = {
   type: '@account/ACCOUNT_EMAIL_VERIFY_RESEND'
 }
 
-export const accountEmailVerifyResend = (): accountEmailVerifyResendType => ({
-  type: ACCOUNT_EMAIL_VERIFY_RESEND,
-})
+export function accountEmailVerifyResend(): accountEmailVerifyResendType {
+  return {
+    type: ACCOUNT_EMAIL_VERIFY_RESEND,
+  }
+}
 
 /**
  * ACCOUNT_VERIFY_TERMS
@@ -153,9 +169,11 @@ export type accountVerifyTermsConfirmType = {
   type: '@account/ACCOUNT_VERIFY_TERMS'
 }
 
-export const accountVerifyTermsConfirm = (): accountVerifyTermsConfirmType => ({
-  type: ACCOUNT_VERIFY_TERMS_CONFIRM,
-})
+export function accountVerifyTermsConfirm(): accountVerifyTermsConfirmType {
+  return {
+    type: ACCOUNT_VERIFY_TERMS_CONFIRM,
+  }
+}
 
 /**
  * ACCOUNT_UPDATE_USER_INFO
@@ -173,11 +191,13 @@ export type accountUpdateUserInfoType = {
   }
 }
 
-export const accountUpdateUserInfo = (firstName: string, lastName: string, birthday: string,
-  residency: string, citizenship: string): accountUpdateUserInfoType => ({
-  type: ACCOUNT_UPDATE_USER_INFO,
-  payload: { firstName, lastName, birthday, residency, citizenship },
-})
+export function accountUpdateUserInfo(firstName: string, lastName: string, birthday: string,
+  residency: string, citizenship: string): accountUpdateUserInfoType {
+  return {
+    type: ACCOUNT_UPDATE_USER_INFO,
+    payload: { firstName, lastName, birthday, residency, citizenship },
+  }
+}
 
 /**
  * ACCOUNT_VERIFY_SKIP_DOCUMENT_UPLOAD
@@ -188,9 +208,11 @@ export type accountVerifySkipDocumentUploadType = {
   type: '@account/ACCOUNT_VERIFY_SKIP_DOCUMENT_UPLOAD',
 }
 
-export const accountVerifySkipDocumentUpload = (): accountVerifySkipDocumentUploadType => ({
-  type: ACCOUNT_VERIFY_SKIP_DOCUMENT_UPLOAD,
-})
+export function accountVerifySkipDocumentUpload(): accountVerifySkipDocumentUploadType {
+  return {
+    type: ACCOUNT_VERIFY_SKIP_DOCUMENT_UPLOAD,
+  }
+}
 
 /**
  * ACCOUNT_VERIFY_DOCUMENT_UPLOAD
@@ -204,12 +226,14 @@ export type accountVerifyDocumentUploadType = {
   }
 }
 
-export const accountVerifyDocumentUpload = (documentFile: Object): accountVerifyDocumentUploadType => ({
-  type: ACCOUNT_VERIFY_DOCUMENT_UPLOAD,
-  payload: {
-    document: documentFile,
-  },
-})
+export function accountVerifyDocumentUpload(documentFile: Object): accountVerifyDocumentUploadType {
+  return {
+    type: ACCOUNT_VERIFY_DOCUMENT_UPLOAD,
+    payload: {
+      document: documentFile,
+    },
+  }
+}
 
 
 /**
@@ -224,10 +248,12 @@ export type accountVerifySetStageType = {
   }
 }
 
-export const accountVerifySetStage = (stage: VerificationStage) => ({
-  type: ACCOUNT_VERIFY_SET_STAGE,
-  payload: { stage },
-})
+export function accountVerifySetStage(stage: VerificationStage) {
+  return {
+    type: ACCOUNT_VERIFY_SET_STAGE,
+    payload: { stage },
+  }
+}
 
 /**
  * Reducer
@@ -283,7 +309,7 @@ type accountActionType = accountToggleDashboardType |
   accountVerifySkipDocumentUploadType |
   accountVerifySetStageType
 
-export const accountReducer = (state: AccountState = defaultState, action: accountActionType): AccountState => {
+export function accountReducer(state: AccountState = defaultState, action: accountActionType): AccountState {
   switch (action.type) {
 
     case ACCOUNT_BALANCE_REQUEST_SUCCESS: {
