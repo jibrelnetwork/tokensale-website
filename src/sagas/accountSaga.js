@@ -5,7 +5,8 @@ import type { Saga } from 'redux-saga'
 // import LogRocket from 'logrocket'
 import { push, replace } from 'connected-react-router'
 import { toast } from 'react-toastify'
-import { put, call, select, takeEvery } from 'redux-saga/effects'
+import { delay } from 'redux-saga'
+import { put, call, select, takeEvery, take, fork, cancel } from 'redux-saga/effects'
 import { startSubmit, stopSubmit } from 'redux-form'
 import moment from 'moment'
 
@@ -21,6 +22,8 @@ import type {
 } from '../modules/account'
 
 import {
+  AUTH_SET_TOKEN,
+  AUTH_LOGOUT,
   ACCOUNT_EMAIL_VERIFY,
   ACCOUNT_EMAIL_VERIFY_RESEND,
   ACCOUNT_VERIFY_TERMS_CONFIRM,
@@ -329,6 +332,39 @@ function* uploadDocument(action: accountVerifyDocumentUploadType): Saga<void> {
   } catch (e) {
     const errors = { document: e.data.error }
     yield put(stopSubmit(ACCOUNT_VERIFY_DOCUMENT_UPLOAD_FORM, errors))
+  }
+}
+
+/**
+ * Account refresh
+ */
+function* accountRefreshLoop(): Saga<void> {
+  // eslint-disable-next-line fp/no-loops
+  while (true) {
+    try {
+      // refresh account data
+      yield* accountRequestData()
+
+    } catch (e) {
+      if (e.code === 301) {
+        put(authLogout())
+      }
+    }
+
+    yield delay(10000)
+  }
+}
+
+export function* accountRefreshSaga(): Saga<void> {
+  // eslint-disable-next-line fp/no-loops
+  while (true) {
+    yield take(AUTH_SET_TOKEN)
+    // @TODO: flow
+    const accountRefreshTask = yield fork(accountRefreshLoop)
+    console.log(accountRefreshTask)
+    yield take(AUTH_LOGOUT)
+
+    yield cancel(accountRefreshTask)
   }
 }
 

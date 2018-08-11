@@ -2,19 +2,17 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { compose } from 'lodash/fp'
-import { lifecycle } from 'recompose'
 import { translate, Interpolate } from 'react-i18next'
 
 import gtm from '../../services/gtm'
-import * as actions from '../../actions'
 
+// eslint-disable-next-line no-unused-vars
 function isAddressesAvailable(email) {
-  return [
-    'eth3316@gmail.com',
-    'gusong8087@gmail.com',
-    '609103457@qq.com',
-    'ivan.violentov@jibrel.network', // for test
-  ].includes(email)
+  return true
+  // return [
+  //   'flexxnn@gmail.com',
+  //   'ivan.violentov@jibrel.network', // for test
+  // ].includes(email)
 }
 
 const Addresses = ({
@@ -87,7 +85,6 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = {
-  request: actions.account.addresses.request,
   pushSendRequestEvent: gtm.pushProfileSendRequest,
 }
 
@@ -96,12 +93,7 @@ const enhance = compose(
   connect(
     mapStateToProps,
     mapDispatchToProps,
-  ),
-  lifecycle({
-    /* eslint-disable fp/no-this */
-    componentDidMount() { this.props.request() },
-    /* eslint-enable */
-  }),
+  )
 )
 
 export default enhance(Addresses)
