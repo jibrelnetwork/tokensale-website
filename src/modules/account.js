@@ -6,6 +6,8 @@ export type VerificationStatus = void | "Preliminarily Approved" | "Pending" | "
 
 export type VerificationStage = "terms" | "user-info" | "document" | "loader"
 
+export type VerificationFormStatus = void | "personal_data_filled" | "passport_uploaded"
+
 /**
  * ACCOUNT_BALANCE_WITHDRAW_REQUESTED
  */
@@ -276,6 +278,9 @@ export type AccountState = {
   +isEmailConfirmed: boolean,
   +verifyStatus: VerificationStatus,
   +verifyStage: VerificationStage,
+
+  +accountFetched: boolean,
+  +transactionsFetched: boolean,
 }
 
 const defaultState: AccountState = {
@@ -294,6 +299,8 @@ const defaultState: AccountState = {
   verifyStatus: undefined,
   verifyStage: 'terms',
   isDocumentUploadSkipped: false,
+  accountFetched: false,
+  transactionsFetched: false,
 }
 
 type accountActionType = accountToggleDashboardType |
@@ -339,6 +346,7 @@ export function accountReducer(state: AccountState = defaultState, action: accou
       return {
         ...state,
         ...action.payload,
+        accountFetched: true,
       }
     }
 
