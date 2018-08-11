@@ -116,10 +116,7 @@ function del(url: string, authToken: string): Object {
   )(api.apiOptions))
 }
 
-function form(url: string, body: Object, authToken: string): Object {
-  const formData = new FormData()
-  Object.keys(body).forEach((key: string): void => formData.append(key, body[key]))
-
+function form(url: string, formData: FormData, authToken: string): Object {
   return request(`${url}/`, compose(
     assoc('method', 'POST'),
     assoc('body', formData),
