@@ -86,6 +86,7 @@ export default compose(
     mapDispatchToProps,
   ),
   reduxForm({
+    form: 'account-verification-document-upload-form',
     onSubmit: ({ document }, dispatch) =>
       dispatch(accountVerifyDocumentUpload(document)),
     validate: ({ document }, { t }) => !document || !document.name

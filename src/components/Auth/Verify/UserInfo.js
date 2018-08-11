@@ -70,6 +70,7 @@ export default compose(
   translate(),
   connect(mapStateToProps),
   reduxForm({
+    form: 'account-verification-user-info-form',
     onSubmit: ({ firstName, lastName, birthday, residency, citizenship }, dispatch) =>
       dispatch(accountUpdateUserInfo(firstName, lastName, birthday, residency.value, citizenship.value)),
     validate: ({ lastName, birthday, firstName, residency, citizenship }, { t }) => compose(
