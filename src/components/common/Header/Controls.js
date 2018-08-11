@@ -28,6 +28,7 @@ type Props = {
   isVerified: boolean,
   isAuthorized: boolean,
   isDashboardOpen: boolean,
+  isEmailConfirmed: boolean,
 
   openDashboard: Function,
   toggleMenuOrDashboard: Function,
@@ -40,6 +41,7 @@ const Controls = ({
   isMenuOpen,
   isVerified,
   isAuthorized,
+  isEmailConfirmed,
   openDashboard,
   isDashboardOpen,
   toggleMenuOrDashboard,
@@ -47,17 +49,21 @@ const Controls = ({
 }: Props) => (
   <div className="Controls">
     <ul className={cx('menu pull-right', { 'menu-active': isMenuOpen })}>
-      {isAuthorized ? isVerified ? ([
-        <li key="0"><Link to="/account">{t('index.header.account')}</Link></li>,
-        <li key="1" className="bordered">
-          <button onClick={openDashboard} className="button arrow">{email}</button>
-        </li>,
-      ]) : ([
-        <li key="0"><Link to="/verify">{t('index.header.verification')}</Link></li>,
-        <li key="1">
-          <button onClick={onLogoutClick} className="button small"><JText value="account.logout" /></button>
-        </li>,
-      ]) : ([
+      {isAuthorized ? isVerified ? (
+        <React.Fragment>
+          <li><Link to="/account">{t('index.header.account')}</Link></li>
+          <li>
+            <button onClick={openDashboard} className="button arrow">{email}</button>
+          </li>
+        </React.Fragment>
+      ) : (
+        <React.Fragment>
+          { isEmailConfirmed && <li><Link to="/verify">{t('index.header.verification')}</Link></li> }
+          <li>
+            <button onClick={onLogoutClick} className="button small"><JText value="account.logout" /></button>
+          </li>
+        </React.Fragment>
+      ) : ([
         <li key="0">
           <a href="https://jibrel.network" target={`${isTouchDevice() ? '_self' : '_blank'}`}>
             {t('index.header.about')}
@@ -103,7 +109,8 @@ Controls.defaultProps = {
 
 const mapStateToProps = (state) => ({
   email: state.account.email,
-  isVerified: !!state.auth.verifyStatus,
+  isVerified: !!state.account.verifyStatus,
+  isEmailConfirmed: state.account.isEmailConfirmed,
   isAuthorized: !!state.auth.token,
   isDashboardOpen: state.account.dashboardIsOpen,
 })
