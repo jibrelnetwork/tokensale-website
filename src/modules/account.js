@@ -161,7 +161,7 @@ export function accountEmailVerifyResend(): accountEmailVerifyResendType {
 }
 
 /**
- * ACCOUNT_VERIFY_TERMS
+ * ACCOUNT_VERIFY_TERMS_CONFIRM
  */
 export const ACCOUNT_VERIFY_TERMS_CONFIRM = '@account/ACCOUNT_VERIFY_TERMS'
 
@@ -279,9 +279,9 @@ export type AccountState = {
 }
 
 const defaultState: AccountState = {
-  firstName: '...',
-  lastName: '...',
-  email: '...',
+  firstName: '',
+  lastName: '',
+  email: '',
   dashboardIsOpen: false,
   transactions: [],
   balance: 0,
