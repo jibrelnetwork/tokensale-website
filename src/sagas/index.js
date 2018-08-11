@@ -4,7 +4,7 @@
 
 import { modalsSaga } from './modals'
 import { bootSaga } from './boot'
-import { authLoginSaga, authCreateAccountSaga, logoutSaga } from './authSaga'
+import { authRootSaga } from './authSaga'
 import { accountRootSaga, accountRefreshSaga } from './accountSaga'
 
 export const SERVER = 'http://localhost:8000'
@@ -12,10 +12,8 @@ export const SERVER = 'http://localhost:8000'
 export default function* sagas() {
   yield [
     accountRefreshSaga(),
-    authLoginSaga(),
-    authCreateAccountSaga(),
+    authRootSaga(),
     accountRootSaga(),
-    logoutSaga(),
     modalsSaga(),
     bootSaga(),
     // auth.login(),

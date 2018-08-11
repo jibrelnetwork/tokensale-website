@@ -5,7 +5,7 @@ import type { Saga } from 'redux-saga'
 // import LogRocket from 'logrocket'
 import { push } from 'connected-react-router'
 // import { toast } from 'react-toastify'
-import { put, call, take, takeEvery } from 'redux-saga/effects'
+import { put, call, takeEvery } from 'redux-saga/effects'
 import { startSubmit, stopSubmit } from 'redux-form'
 
 // import request from '../request'
@@ -38,48 +38,45 @@ type loginResponseFields = {
   captcha?: string
 }
 
-export function* authLoginSaga(): Saga<void> {
-  // eslint-disable-next-line fp/no-loops
-  while (true) {
-    const {
-      payload: { email, password, captcha },
-    }: authLoginType = yield take(AUTH_LOGIN)
+function* authLogin(action: authLoginType): Saga<void> {
+  const {
+    payload: { email, password, captcha },
+  } = action
 
-    const postBody: loginRequestFields = { email: email.toLowerCase(), password, captcha }
+  const postBody: loginRequestFields = { email: email.toLowerCase(), password, captcha }
 
-    yield put(startSubmit(LOGIN_FORM))
+  yield put(startSubmit(LOGIN_FORM))
 
-    try {
-      const response: loginResponseFields = yield call(api.post, 'auth/login', postBody)
+  try {
+    const response: loginResponseFields = yield call(api.post, 'auth/login', postBody)
 
-      if (response.key) {
-        const token: string = response.key
-        // LogRocket.identify(postBody.email)
+    if (response.key) {
+      const token: string = response.key
+      // LogRocket.identify(postBody.email)
 
-        authToken.set(token)
+      authToken.set(token)
 
-        yield put(authSetToken(token))
+      yield put(authSetToken(token))
 
-        yield* accountRequestData()
+      yield* accountRequestData()
 
-        yield put(stopSubmit(LOGIN_FORM))
+      yield put(stopSubmit(LOGIN_FORM))
 
-        yield put(closeModals())
+      yield put(closeModals())
 
-        yield* redirectAfterLogin()
-      }
-    } catch (e) {
-      const errors = {
-        captcha: e.data.captcha,
-        password: e.data.non_field_errors,
-      }
-      if (errors.captcha) {
-        grecaptcha.trackLoginError()
-        window.grecaptcha.reset()
-      }
-      // server erros
-      yield put(stopSubmit(LOGIN_FORM, errors))
+      yield* redirectAfterLogin()
     }
+  } catch (e) {
+    const errors = {
+      captcha: e.data.captcha,
+      password: e.data.non_field_errors,
+    }
+    if (errors.captcha) {
+      grecaptcha.trackLoginError()
+      window.grecaptcha.reset()
+    }
+    // server erros
+    yield put(stopSubmit(LOGIN_FORM, errors))
   }
 }
 
@@ -102,72 +99,68 @@ type registrationResponseFields = {
  * Create user account
  * @TODO: Registration is not working on the server side
  */
-export function* authCreateAccountSaga(): Saga<void> {
-  // eslint-disable-next-line fp/no-loops
-  while (true) {
-    const {
-      payload: { email, password, passwordConfirm, captcha },
-    }: authCreateAccountType = yield take(AUTH_CREATE_ACCOUNT)
+function* authCreateAccount(action: authCreateAccountType): Saga<void> {
+  const {
+    payload: { email, password, passwordConfirm, captcha },
+  } = action
 
-    const postBody: registrationRequestFields = {
-      captcha,
-      password,
-      tracking: tracking.get(),
-      email: email.toLowerCase(),
-      password_confirm: passwordConfirm,
+  const postBody: registrationRequestFields = {
+    captcha,
+    password,
+    tracking: tracking.get(),
+    email: email.toLowerCase(),
+    password_confirm: passwordConfirm,
+  }
+
+  yield put(startSubmit(REGISTRATION_FORM))
+
+  try {
+    console.log(postBody)
+    const response: registrationResponseFields = yield call(api.post, 'auth/registration', postBody)
+    console.log(response)
+    if (response.key) {
+      const token = response.key
+      // LogRocket.identify(postBody.email)
+
+      if (token) {
+        authToken.set(token)
+
+        yield put(authSetToken(token))
+
+        yield* accountRequestData()
+
+        yield put(closeModals())
+
+        yield* redirectAfterLogin()
+      }
+
+      yield put(stopSubmit(REGISTRATION_FORM))
     }
-
-    yield put(startSubmit(REGISTRATION_FORM))
-
-    try {
-      console.log(postBody)
-      const response: registrationResponseFields = yield call(api.post, 'auth/registration', postBody)
-      console.log(response)
-      if (response.key) {
-        const token = response.key
-        // LogRocket.identify(postBody.email)
-
-        if (token) {
-          authToken.set(token)
-
-          yield put(authSetToken(token))
-
-          yield* accountRequestData()
-
-          yield put(closeModals())
-
-          yield* redirectAfterLogin()
-        }
-
-        yield put(stopSubmit(REGISTRATION_FORM))
-      }
-    } catch (e) {
-      console.log(e)
-      const errors = {
-        email: e.data.email,
-        captcha: e.data.captcha,
-        password: e.data.password || e.data.non_field_errors,
-      }
-      if (errors.captcha) {
-        grecaptcha.trackLoginError()
-        window.grecaptcha.reset()
-      }
-      // server erros
-      yield put(stopSubmit(REGISTRATION_FORM, errors))
+  } catch (e) {
+    console.log(e)
+    const errors = {
+      email: e.data.email,
+      captcha: e.data.captcha,
+      password: e.data.password || e.data.non_field_errors,
     }
+    if (errors.captcha) {
+      grecaptcha.trackLoginError()
+      window.grecaptcha.reset()
+    }
+    // server erros
+    yield put(stopSubmit(REGISTRATION_FORM, errors))
   }
 }
 
-function* onLogout(): Saga<void> {
+function* authLogout(): Saga<void> {
   // remove token
   authToken.remove()
   // redirect to main page
   yield put(push('/'))
 }
 
-/**
- * Saga, that on user logout
- */
-export function* logoutSaga(): Saga<void> {
-  yield takeEvery(AUTH_LOGOUT, onLogout)
+export function* authRootSaga(): Saga<void> {
+  yield takeEvery(AUTH_LOGIN, authLogin)
+  yield takeEvery(AUTH_LOGOUT, authLogout)
+  yield takeEvery(AUTH_CREATE_ACCOUNT, authCreateAccount)
 }
