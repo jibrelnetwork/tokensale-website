@@ -371,6 +371,7 @@ function* accountRefreshLoop(): Saga<void> {
     try {
       // refresh account data
       yield* accountRequestData()
+      // @TODO: run this only for approoved accounts
       yield* accountRequestTransactons()
     } catch (e) {
       if (e.code === 301) {

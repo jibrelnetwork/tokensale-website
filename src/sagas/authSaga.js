@@ -18,6 +18,7 @@ import {
   AUTH_LOGOUT,
   AUTH_CREATE_ACCOUNT,
   AUTH_RESET_PASSWORD,
+  AUTH_RESET_PASSWORD_CHANGE,
   authSetToken,
   closeModals,
 } from '../modules'
@@ -27,7 +28,7 @@ import { accountRequestData, redirectAfterLogin } from './accountSaga'
 const LOGIN_FORM = 'login'
 const REGISTRATION_FORM = 'register'
 const RESET_PASSWORD_FORM = 'reset-password'
-// const CHANGE_PASSWORD_FORM = 'change-password'
+const CHANGE_PASSWORD_FORM = 'change-password'
 
 type loginRequestFields = {
   email: string,
@@ -165,9 +166,9 @@ function* authLogout(): Saga<void> {
 /**
  * Reset password handler
  *
- * @param {authResetPasswordChangeType} action
+ * @param {authResetPasswordType} action
  */
-export function* authResetPassword(action: authResetPasswordChangeType) {
+function* authResetPassword(action: authResetPasswordType) {
   const { payload: { email } } = action
 
   const postData = { email: email.toLowerCase() }
@@ -186,10 +187,46 @@ export function* authResetPassword(action: authResetPasswordChangeType) {
   }
 }
 
+function* authResetPasswordChange(action: authResetPasswordChangeType) {
+  const {
+    payload: {
+      uid,
+      token,
+      newPassword,
+      newPasswordConfirm,
+    },
+  } = action
+
+  const postData = { uid, token, new_password1: newPassword, new_password2: newPasswordConfirm }
+
+  yield put(startSubmit(CHANGE_PASSWORD_FORM))
+  const response = yield call(api.post, 'auth/password/reset/confirm', postData)
+
+  if (response.success) {
+    yield put(stopSubmit(CHANGE_PASSWORD_FORM))
+    yield put(closeModals())
+    // yield put(replace( ))
+    // toast.success(response.data.detail)
+  } else if (response.error) {
+    const errors = {
+      newPassword: response.data.new_password1,
+      newPasswordConfirm: response.data.new_password2,
+    }
+    if (response.data.token || response.data.uid) {
+      // toast.error('Please try to recover your password again, your recovery link is expired ')
+    }
+    yield put(stopSubmit(CHANGE_PASSWORD_FORM, errors))
+  } else {
+    // toast.error("We can't reset your password, please try again later or contact us via email")
+    yield put(stopSubmit(CHANGE_PASSWORD_FORM))
+    // console.error(response)
+  }
+}
 
 export function* authRootSaga(): Saga<void> {
   yield takeEvery(AUTH_LOGIN, authLogin)
   yield takeEvery(AUTH_LOGOUT, authLogout)
   yield takeEvery(AUTH_CREATE_ACCOUNT, authCreateAccount)
   yield takeEvery(AUTH_RESET_PASSWORD, authResetPassword)
+  yield takeEvery(AUTH_RESET_PASSWORD_CHANGE, authResetPasswordChange)
 }
