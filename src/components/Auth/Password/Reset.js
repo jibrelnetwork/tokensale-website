@@ -1,15 +1,23 @@
+// @flow
+
 import React from 'react'
 import PropTypes from 'prop-types'
-import { compose } from 'lodash/fp'
+import { compose } from 'ramda'
 import { translate } from 'react-i18next'
 import { Field, reduxForm } from 'redux-form'
 
-import * as actions from '../../../actions'
 import { Input } from '../../common'
+import { authResetPassword } from '../../../modules'
 
 const VALIDATE_EMAIL_REGEXP = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/ // eslint-disable-line max-len
 
-const Reset = ({ submitting, handleSubmit, t }) => (
+type Props = {
+  submitting: Function,
+  handleSubmit: Function,
+  t: TFunction,
+}
+
+const Reset = ({ submitting, handleSubmit, t }: Props) => (
   <div className="form-block">
     <form onSubmit={handleSubmit} className="form">
       <Field
@@ -24,7 +32,7 @@ const Reset = ({ submitting, handleSubmit, t }) => (
           disabled={submitting}
           className="button medium pull-left"
         >
-          {!submitting && t('auth.sendResetPasswordEmail.submit')}
+          {t('auth.sendResetPasswordEmail.submit')}
         </button>
       </div>
     </form>
@@ -42,7 +50,7 @@ export default compose(
   reduxForm({
     form: 'reset-password',
     onSubmit: ({ email }, dispatch) => dispatch(
-      actions.auth.password.reset(email)
+      authResetPassword(email)
     ),
     validate: ({ email }, { t }) => !email
       ? { email: t('auth.sendResetPasswordEmail.errors.email.isRequired') }

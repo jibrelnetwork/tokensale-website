@@ -17,6 +17,7 @@ import {
   AUTH_LOGIN,
   AUTH_LOGOUT,
   AUTH_CREATE_ACCOUNT,
+  AUTH_RESET_PASSWORD,
   authSetToken,
   closeModals,
 } from '../modules'
@@ -25,6 +26,8 @@ import { accountRequestData, redirectAfterLogin } from './accountSaga'
 
 const LOGIN_FORM = 'login'
 const REGISTRATION_FORM = 'register'
+const RESET_PASSWORD_FORM = 'reset-password'
+// const CHANGE_PASSWORD_FORM = 'change-password'
 
 type loginRequestFields = {
   email: string,
@@ -159,8 +162,34 @@ function* authLogout(): Saga<void> {
   yield put(push('/'))
 }
 
+/**
+ * Reset password handler
+ *
+ * @param {authResetPasswordChangeType} action
+ */
+export function* authResetPassword(action: authResetPasswordChangeType) {
+  const { payload: { email } } = action
+
+  const postData = { email: email.toLowerCase() }
+
+  yield put(startSubmit(RESET_PASSWORD_FORM))
+
+  const response = yield call(api.post, 'auth/password/reset', postData)
+
+  yield put(stopSubmit(RESET_PASSWORD_FORM))
+  if (response.success) {
+    // @TODO: show email sended modal
+    // yield put(replace('/welcome/password/sended'))
+  } else {
+    // toast.error('Server error, please try again later or contact with us via email')
+    console.error(response)
+  }
+}
+
+
 export function* authRootSaga(): Saga<void> {
   yield takeEvery(AUTH_LOGIN, authLogin)
   yield takeEvery(AUTH_LOGOUT, authLogout)
   yield takeEvery(AUTH_CREATE_ACCOUNT, authCreateAccount)
+  yield takeEvery(AUTH_RESET_PASSWORD, authResetPassword)
 }

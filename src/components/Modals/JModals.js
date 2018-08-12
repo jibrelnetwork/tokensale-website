@@ -14,6 +14,8 @@ import {
   RegisterForm,
   PasswordResetEmailForm,
   DocumentSkipUpload,
+  PasswordResetEmailSended,
+  PasswordResetChangeForm,
 } from '../Auth'
 
 import { closeModals } from '../../modules'
@@ -39,6 +41,12 @@ const selectModalContent = (modalName: PopupNames): Node => {
 
     case 'resetPasswordEmail':
       return <PasswordResetEmailForm />
+
+    case 'resetPasswordEmailSended':
+      return <PasswordResetEmailSended />
+
+    case 'resetPasswordChange':
+      return <PasswordResetChangeForm />
 
     case 'documentSkipUpload':
       return <DocumentSkipUpload />

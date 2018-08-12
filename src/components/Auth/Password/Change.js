@@ -1,13 +1,20 @@
+// @flow
+
 import React from 'react'
-import PropTypes from 'prop-types'
 import { translate } from 'react-i18next'
 import { Field, reduxForm } from 'redux-form'
-import { set, compose, identity } from 'lodash/fp'
+import { assoc, compose, identity } from 'ramda'
 
-import * as actions from '../../../actions'
+import { authResetPasswordChange } from '../../../modules'
 import { Input } from '../../common'
 
-const Change = ({ submitting, handleSubmit, t }) => (
+type Props = {
+  submitting: Function,
+  handleSubmit: Function,
+  t: TFunction,
+}
+
+const Change = ({ submitting, handleSubmit, t }: Props) => (
   <div className="form-block">
     <form onSubmit={handleSubmit} className="form">
       <Field
@@ -28,19 +35,14 @@ const Change = ({ submitting, handleSubmit, t }) => (
           disabled={submitting}
           className="button pull-left"
         >
-          {!submitting && t('auth.resetPassword.submit')}
+          {t('auth.resetPassword.submit')}
         </button>
       </div>
     </form>
   </div>
 )
 
-Change.propTypes = {
-  t: PropTypes.func.isRequired,
-  submitting: PropTypes.bool.isRequired,
-  handleSubmit: PropTypes.func.isRequired,
-}
-
+// @TODO: have a look issue with react-router
 export default compose(
   translate(),
   reduxForm({
@@ -50,19 +52,19 @@ export default compose(
       dispatch,
       { match: { params: { uid, token } } }
     ) => dispatch(
-      actions.auth.password.change(uid, token, newPassword, newPasswordConfirm)
+      authResetPasswordChange(uid, token, newPassword, newPasswordConfirm)
     ),
     validate: ({ newPassword, newPasswordConfirm }, { t }) => compose(
       !newPassword
-        ? set('newPassword', t('auth.resetPassword.errors.newPassword.isRequired'))
+        ? assoc('newPassword', t('auth.resetPassword.errors.newPassword.isRequired'))
         : newPassword.length < 8
-          ? set('newPassword', t('auth.resetPassword.errors.newPassword.isTooShort'))
+          ? assoc('newPassword', t('auth.resetPassword.errors.newPassword.isTooShort'))
           : identity,
       !newPasswordConfirm
-        ? set('newPasswordConfirm', t('auth.resetPassword.errors.newPasswordConfirm.isRequired'))
+        ? assoc('newPasswordConfirm', t('auth.resetPassword.errors.newPasswordConfirm.isRequired'))
         : identity,
       newPasswordConfirm && newPassword !== newPasswordConfirm
-        ? set('newPasswordConfirm', t('auth.resetPassword.errors.newPasswordConfirm.notMatch'))
+        ? assoc('newPasswordConfirm', t('auth.resetPassword.errors.newPasswordConfirm.notMatch'))
         : identity,
     )({}),
   })

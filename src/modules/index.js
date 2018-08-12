@@ -20,13 +20,15 @@ export {
   AUTH_SET_TOKEN,
   AUTH_SHOW_SUPPORT_LINK,
   AUTH_CREATE_ACCOUNT,
-  AUTH_CONFIRM_TERMS,
+  AUTH_RESET_PASSWORD,
+  AUTH_RESET_PASSWORD_CHANGE,
   authLogin,
   authLogout,
   authSetToken,
   authShowSupportLink,
   authCreateAccount,
-  authConfirmTerms,
+  authResetPassword,
+  authResetPasswordChange,
 } from './auth'
 
 export {

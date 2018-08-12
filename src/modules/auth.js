@@ -3,9 +3,6 @@
 export const AUTH_VERIFY = '@auth/email/Verify'
 export const AUTH_RESEND = '@auth/email/Resend'
 
-export const AUTH_RESET = '@auth/password/Reset'
-export const AUTH_CHANGE = '@auth/password/Change'
-
 export const AUTH_STATUS_REQUEST = '@auth/Status request'
 export const AUTH_STATUS_REQUEST_CANCEL = '@auth/Status request cancel'
 
@@ -121,17 +118,51 @@ export function authCreateAccount(email: string, password: string,
 }
 
 /**
- * AUTH_CONFIRM_TERMS
+ * AUTH_RESET_PASSWORD
  */
-export const AUTH_CONFIRM_TERMS = '@auth/AUTH_CONFIRM_TERMS'
+export const AUTH_RESET_PASSWORD = '@auth/AUTH_RESET_PASSWORD'
 
-export type authConfirmTermsType = {
-  type: '@auth/AUTH_CONFIRM_TERMS',
+export type authResetPasswordType = {
+  type: '@auth/AUTH_RESET_PASSWORD',
+  payload: {
+    email: string,
+  }
 }
 
-export function authConfirmTerms(): authConfirmTermsType {
+export function authResetPassword(email: string): authResetPasswordType {
   return {
-    type: AUTH_CONFIRM_TERMS,
+    type: AUTH_RESET_PASSWORD,
+    payload: {
+      email,
+    },
+  }
+}
+
+/**
+ * AUTH_RESET_PASSWORD_CHANGE
+ */
+export const AUTH_RESET_PASSWORD_CHANGE = '@auth/AUTH_RESET_PASSWORD_CHANGE'
+
+export type authResetPasswordChangeType = {
+  type: '@auth/AUTH_RESET_PASSWORD_CHANGE',
+  payload: {
+    uid: string,
+    token: string,
+    newPassword: string,
+    newPasswordConfirm: string
+  }
+}
+
+export function authResetPasswordChange(uid: string, token: string,
+  newPassword: string, newPasswordConfirm: string): authResetPasswordChangeType {
+  return {
+    type: AUTH_RESET_PASSWORD_CHANGE,
+    payload: {
+      uid,
+      token,
+      newPassword,
+      newPasswordConfirm,
+    },
   }
 }
 
@@ -152,7 +183,9 @@ type authActionType = authLoginType |
   authLogoutType |
   authSetTokenType |
   authShowSupportLinkType |
-  authCreateAccountType
+  authCreateAccountType |
+  authResetPasswordType |
+  authResetPasswordChangeType
 
 export function authReducer(state: AuthState = defaultState, action: authActionType): AuthState {
   switch (action.type) {
