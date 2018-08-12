@@ -1,21 +1,24 @@
-import cx from 'classnames'
+// @flow
+
 import React from 'react'
 import numeral from 'numeral'
 import PropTypes from 'prop-types'
-import { compose } from 'lodash/fp'
+import { compose } from 'ramda'
 import { connect } from 'react-redux'
 import { translate, Interpolate } from 'react-i18next'
 
-import * as actions from '../../../actions'
+import { JModalOpenButton } from '../../Modals'
 
-const Balance = ({ openWithdrawModal, balance, t /* , address */ }) => (
+type Props = {
+  t: TFunction,
+  balance: number,
+}
+
+const Balance = ({ balance, t /* , address */ }: Props) => (
   <div className="Balance">
-    <div
-      className={cx('button bordered pull-right', { disabled: false /* !(address && balance) */})}
-      onClick={openWithdrawModal /* (address && balance) ? openWithdrawModal : null */}
-    >
+    <JModalOpenButton modalName="withdraw" className="button medium pull-right">
       {t('account.withdraw.button')}
-    </div>
+    </JModalOpenButton>
     <div className="balance pull-right">
       <Interpolate
         i18nKey="account.balance"
@@ -28,7 +31,6 @@ const Balance = ({ openWithdrawModal, balance, t /* , address */ }) => (
 Balance.propTypes = {
   t: PropTypes.func.isRequired,
   balance: PropTypes.number.isRequired,
-  openWithdrawModal: PropTypes.func.isRequired,
   /* optional */
   // address: PropTypes.string,
 }
@@ -41,16 +43,10 @@ const mapStateToProps = (state) => ({
   // address: state.account.address,
   balance: state.account.balance,
 })
-
-const mapDispatchToProps = {
-  openWithdrawModal: () => actions.account.modals.changeState('withdraw', 'open'),
-}
-
 const enhance = compose(
   translate(),
   connect(
     mapStateToProps,
-    mapDispatchToProps,
   )
 )
 
