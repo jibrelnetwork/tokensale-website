@@ -18,6 +18,8 @@ import {
   PasswordResetChangeForm,
 } from '../Auth'
 
+import WithdrawForm from '../Withdraw/WithdrawForm'
+
 import { closeModals } from '../../modules'
 import { modalsSelector } from '../../selectors/modals'
 
@@ -48,6 +50,9 @@ const selectModalContent = (modalName: PopupNames): Node => {
     case 'resetPasswordChange':
       return <PasswordResetChangeForm />
 
+    case 'withdraw':
+      return <WithdrawForm />
+
     case 'documentSkipUpload':
       return <DocumentSkipUpload />
 
@@ -56,7 +61,14 @@ const selectModalContent = (modalName: PopupNames): Node => {
   }
 }
 
-const translateTitle = (t: TFunction, modalName: PopupNames): string => t(`modals.title.${modalName}`)
+const translateTitle = (t: TFunction, modalName: PopupNames): ?string => {
+  const translated = t(`modals.title.${modalName}`)
+  if (translated === `modals.title.${modalName}`) {
+    return null
+  }
+
+  return translated
+}
 
 const Modal = ({ t, closeModal, modalState, modalName }: Props) => (
   <div className={`modal ${modalState || 'close'}`}>
