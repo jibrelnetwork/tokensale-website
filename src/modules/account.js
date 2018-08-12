@@ -9,27 +9,6 @@ export type VerificationStage = "terms" | "user-info" | "document" | "loader"
 export type VerificationFormStatus = void | "personal_data_filled" | "passport_uploaded"
 
 /**
- * ACCOUNT_BALANCE_WITHDRAW_REQUESTED
- */
-export const ACCOUNT_BALANCE_WITHDRAW_REQUESTED = '@account/ACCOUNT_BALANCE_WITHDRAW_REQUESTED'
-
-export type accountBalanceWithdrawRequestedType = {
-  type: '@account/ACCOUNT_BALANCE_WITHDRAW_REQUESTED',
-  payload: {
-    isWithdrawRequested: boolean,
-  }
-}
-
-export function accountBalanceWithdrawRequested(isWithdrawRequested: boolean): accountBalanceWithdrawRequestedType {
-  return {
-    type: ACCOUNT_BALANCE_WITHDRAW_REQUESTED,
-    payload: {
-      isWithdrawRequested,
-    },
-  }
-}
-
-/**
  * ACCOUNT_BALANCE_REQUEST_SUCCESS
  */
 export const ACCOUNT_BALANCE_REQUEST_SUCCESS = '@account/ACCOUNT_BALANCE_REQUEST_SUCCESS'
@@ -47,36 +26,6 @@ export function accountBalanceRequestSuccess(balance: number): accountBalanceReq
     payload: {
       balance,
     },
-  }
-}
-
-/**
- * ACCOUNT_BALANCE_REQUEST_START
- */
-export const ACCOUNT_BALANCE_REQUEST_START = '@account/ACCOUNT_BALANCE_REQUEST_START'
-
-export type accountBalaceRequestStartType = {
-  type: '@account/ACCOUNT_BALANCE_REQUEST_START'
-}
-
-export function accountBalaceRequestStart(): accountBalaceRequestStartType {
-  return {
-    type: ACCOUNT_BALANCE_REQUEST_START,
-  }
-}
-
-/**
- * ACCOUNT_BALANCE_REQUEST_STOP
- */
-export const ACCOUNT_BALANCE_REQUEST_STOP = '@account/ACCOUNT_BALANCE_REQUEST_STOP'
-
-export type accountBalanceRequestStopType = {
-  type: '@account/ACCOUNT_BALANCE_REQUEST_STOP'
-}
-
-export function accountBalanceRequestStop(): accountBalanceRequestStopType {
-  return {
-    type: ACCOUNT_BALANCE_REQUEST_STOP,
   }
 }
 
@@ -278,6 +227,65 @@ export function accountVerifySetStage(stage: VerificationStage) {
 }
 
 /**
+ * ACCOUNT_WITHDRAW_REQUEST
+ */
+export const ACCOUNT_WITHDRAW_REQUEST = '@account/ACCOUNT_WITHDRAW_REQUEST'
+
+export type requestWithdrawType = {
+  type: '@account/ACCOUNT_WITHDRAW_REQUEST'
+}
+
+export function accountWithdrawRequest(): requestWithdrawType {
+  return {
+    type: ACCOUNT_WITHDRAW_REQUEST,
+  }
+}
+
+/**
+ * ACCOUNT_SET_WITHDRAW_REQUESTED
+ */
+export const ACCOUNT_WITHDRAW_SET_REQUESTED = '@account/ACCOUNT_SET_WITHDRAW_REQUESTED'
+
+export type accountWithdrawSetRequestedType = {
+  type: '@account/ACCOUNT_WITHDRAW_SET_REQUESTED',
+  payload: {
+    isWithdrawRequested: boolean
+  }
+}
+
+export function accountWithdrawSetRequested(isWithdrawRequested: boolean): accountWithdrawSetRequestedType {
+  return {
+    type: ACCOUNT_WITHDRAW_SET_REQUESTED,
+    payload: {
+      isWithdrawRequested,
+    },
+  }
+}
+
+/**
+ * ACCOUNT_WITHDRAW_CONFIRM
+ */
+export const ACCOUNT_WITHDRAW_CONFIRM = '@account/ACCOUNT_WITHDRAW_CONFIRM'
+
+export type accountWithdrawConfirmType = {
+  type: '@account/ACCOUNT_WITHDRAW_CONFIRM',
+  payload: {
+    token: string,
+    operationId: string,
+  }
+}
+
+export function accountWithdrawConfirm(token, operationId): accountWithdrawConfirmType {
+  return {
+    type: ACCOUNT_WITHDRAW_CONFIRM,
+    payload: {
+      token,
+      operationId,
+    },
+  }
+}
+
+/**
  * Reducer
  */
 
@@ -325,9 +333,6 @@ const defaultState: AccountState = {
 
 type accountActionType = accountToggleDashboardType |
   accountBalanceRequestSuccessType |
-  accountBalanceWithdrawRequestedType |
-  accountBalaceRequestStartType |
-  accountBalanceRequestStop |
   accountUpdateType |
   accountEmailVerifyType |
   accountEmailVerifyResendType |
@@ -335,7 +340,10 @@ type accountActionType = accountToggleDashboardType |
   accountUpdateUserInfoType |
   accountVerifySkipDocumentUploadType |
   accountVerifySetStageType |
-  accountUpdateTransactionsType
+  accountUpdateTransactionsType |
+  requestWithdrawType |
+  accountWithdrawSetRequestedType |
+  accountWithdrawConfirmType
 
 export function accountReducer(state: AccountState = defaultState, action: accountActionType): AccountState {
   switch (action.type) {
@@ -348,7 +356,7 @@ export function accountReducer(state: AccountState = defaultState, action: accou
       }
     }
 
-    case ACCOUNT_BALANCE_WITHDRAW_REQUESTED: {
+    case ACCOUNT_WITHDRAW_SET_REQUESTED: {
       const { isWithdrawRequested } = action.payload
       return {
         ...state,

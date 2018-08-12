@@ -30,9 +30,12 @@ import {
   ACCOUNT_UPDATE_USER_INFO,
   ACCOUNT_VERIFY_SKIP_DOCUMENT_UPLOAD,
   ACCOUNT_VERIFY_DOCUMENT_UPLOAD,
+  ACCOUNT_WITHDRAW_REQUEST,
+  ACCOUNT_WITHDRAW_CONFIRM,
   authLogout,
   accountUpdate,
   accountUpdateTransactions,
+  accountWithdrawSetRequested,
   closeModals,
 } from '../modules'
 
@@ -41,6 +44,7 @@ import R from '../routes.yaml'
 const ACCOUNT_VERIFY_TERMS_FORM = 'account-verification-terms-form'
 const ACCOUNT_VERIFY_USER_INFO_FORM = 'account-verification-user-info-form'
 const ACCOUNT_VERIFY_DOCUMENT_UPLOAD_FORM = 'account-verification-document-upload-form'
+const ACCOUNT_REQUEST_WITHDRAW_FORM = 'withdraw'
 
 type responseAccountType = {
   // auth fields
@@ -237,10 +241,10 @@ function* verifyTermsConfirm(): Saga<void> {
     }
     yield put(stopSubmit(ACCOUNT_VERIFY_TERMS_FORM))
   } catch (e) {
+    yield put(stopSubmit(ACCOUNT_VERIFY_TERMS_FORM))
     if (e.code === 301) {
       put(authLogout())
     }
-    yield put(stopSubmit(ACCOUNT_VERIFY_TERMS_FORM))
   }
 }
 
@@ -294,6 +298,10 @@ function* updateUserInfo(action: accountUpdateUserInfoType): Saga<void> {
     yield put(stopSubmit(ACCOUNT_VERIFY_USER_INFO_FORM))
   } catch (e) {
     yield put(stopSubmit(ACCOUNT_VERIFY_USER_INFO_FORM))
+
+    if (e.code === 301) {
+      put(authLogout())
+    }
   }
 }
 
@@ -316,6 +324,10 @@ function* skipDocumentUpload(): Saga<void> {
   } catch (e) {
     // @TODO: error handling
     toast.error(e.message)
+
+    if (e.code === 301) {
+      put(authLogout())
+    }
   }
 }
 
@@ -359,6 +371,58 @@ function* uploadDocument(action: accountVerifyDocumentUploadType): Saga<void> {
   } catch (e) {
     const errors = { document: e.data.error }
     yield put(stopSubmit(ACCOUNT_VERIFY_DOCUMENT_UPLOAD_FORM, errors))
+
+    if (e.code === 301) {
+      put(authLogout())
+    }
+  }
+}
+
+/**
+ * Request Withdraw
+ */
+function* requestWithdraw(): Saga<void> {
+  yield put(startSubmit(ACCOUNT_REQUEST_WITHDRAW_FORM))
+  try {
+    const response = yield call(api.post, 'api/withdraw-jnt', null, 'post')
+    if (response.success) {
+      // refresh balance
+      yield* accountRequestData()
+      yield put(accountWithdrawSetRequested(true))
+
+      yield put(stopSubmit(ACCOUNT_REQUEST_WITHDRAW_FORM))
+      // @TODO: Google integration
+      // gtm.pushProfileRequestWithdraw()
+    } else {
+      yield put(stopSubmit(ACCOUNT_REQUEST_WITHDRAW_FORM))
+    }
+  } catch (e) {
+    // @TODO: How we will handle errors here?
+    yield put(stopSubmit(ACCOUNT_REQUEST_WITHDRAW_FORM))
+
+    if (e.code === 301) {
+      put(authLogout())
+    }
+  }
+}
+
+function* withdrawConfirm(action: accountWithdrawConfirmType): Saga<void> {
+  const { payload: { operationId, token } } = action
+
+  const postData = { operation_id: operationId, token }
+
+  const response = yield call(api.post, 'api/withdraw-jnt/confirm', postData, 'post')
+
+  // @TODO: fix links
+  if (response.success) {
+    yield put(replace('/welcome/withdraw-confirm/success'))
+  } else if (response.error) {
+    // yield put(replace({
+    //   state: { message: get(['data', 'detail'], response) },
+    //   pathname: '/welcome/withdraw-confirm/fail',
+    // }))
+  } else {
+    yield put(replace('/welcome/withdraw-confirm/fail'))
   }
 }
 
@@ -403,4 +467,6 @@ export function* accountRootSaga(): Saga<void> {
   yield takeEvery(ACCOUNT_UPDATE_USER_INFO, updateUserInfo)
   yield takeEvery(ACCOUNT_VERIFY_SKIP_DOCUMENT_UPLOAD, skipDocumentUpload)
   yield takeEvery(ACCOUNT_VERIFY_DOCUMENT_UPLOAD, uploadDocument)
+  yield takeEvery(ACCOUNT_WITHDRAW_REQUEST, requestWithdraw)
+  yield takeEvery(ACCOUNT_WITHDRAW_CONFIRM, withdrawConfirm)
 }

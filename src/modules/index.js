@@ -50,10 +50,7 @@ export {
 
 export {
   ACCOUNT_DASHBOARD_TOGGLE,
-  ACCOUNT_BALANCE_WITHDRAW_REQUESTED,
   ACCOUNT_BALANCE_REQUEST_SUCCESS,
-  ACCOUNT_BALANCE_REQUEST_START,
-  ACCOUNT_BALANCE_REQUEST_STOP,
   ACCOUNT_UPDATE,
   ACCOUNT_UPDATE_TRANSACTIONS,
   ACCOUNT_EMAIL_VERIFY,
@@ -63,11 +60,11 @@ export {
   ACCOUNT_VERIFY_SKIP_DOCUMENT_UPLOAD,
   ACCOUNT_VERIFY_DOCUMENT_UPLOAD,
   ACCOUNT_VERIFY_SET_STAGE,
+  ACCOUNT_WITHDRAW_REQUEST,
+  ACCOUNT_WITHDRAW_SET_REQUESTED,
+  ACCOUNT_WITHDRAW_CONFIRM,
   accountToggleDashboard,
   accountBalanceRequestSuccess,
-  accountBalanceWithdrawRequested,
-  accountBalaceRequestStart,
-  accountBalanceRequestStop,
   accountEmailVerify,
   accountUpdate,
   accountUpdateTransactions,
@@ -77,6 +74,9 @@ export {
   accountVerifySkipDocumentUpload,
   accountVerifyDocumentUpload,
   accountVerifySetStage,
+  accountWithdrawRequest,
+  accountWithdrawSetRequested,
+  accountWithdrawConfirm,
 } from './account'
 
 // combine all reducers
