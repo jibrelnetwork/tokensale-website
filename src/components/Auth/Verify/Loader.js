@@ -3,7 +3,7 @@ import cx from 'classnames'
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { compose } from 'lodash/fp'
+import { compose } from 'ramda'
 import { translate } from 'react-i18next'
 
 const Loader = ({ t, verifyStatus }) => (
@@ -41,7 +41,7 @@ const Loader = ({ t, verifyStatus }) => (
       <p>{t(`verification.loader.results.${verifyStatus.toLowerCase()}`)}</p>
       <Link
         to="/account"
-        className="button bordered"
+        className="button medium"
       >
         {t('verification.loader.close')}
       </Link>
@@ -54,6 +54,7 @@ Loader.propTypes = {
   verifyStatus: PropTypes.string,
 }
 
+// @TODO: we don't have i18n message for 'pending' status
 Loader.defaultProps = {
   verifyStatus: 'Pending',
 }
