@@ -2,16 +2,21 @@ import React from 'react'
 import cx from 'classnames'
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
-import { compose } from 'lodash/fp'
+import { compose } from 'ramda'
 import { connect } from 'react-redux'
 import { translate, Interpolate } from 'react-i18next'
-import { lifecycle, withState } from 'recompose'
+import { withState } from 'recompose'
 
 import * as actions from '../../actions'
 
-function toggleDropdown(handler, isOpen) {
-  return () => handler(!isOpen)
-}
+import {
+  accountToggleDashboard,
+  authLogout,
+} from '../../modules'
+
+// function toggleDropdown(handler, isOpen) {
+//   return () => handler(!isOpen)
+// }
 
 function isTouchDevice() {
   return ('ontouchstart' in window) || navigator.maxTouchPoints
@@ -23,12 +28,10 @@ const Dashboard = ({
   openSetAddressModal,
   openKYCStatusModal,
   logout,
-  toggleLanguageDropdown,
   openChangePasswordModal,
   accountData,
   verifyStatus,
   isOpen,
-  isLanguageDropdownOpen,
   isHomePage,
   isAccountPage,
 }) => (
@@ -73,10 +76,10 @@ const Dashboard = ({
             <Link to="/verify" className="title">{t('account.uploadDocument')}</Link>
           </div>
         )}
-        <div style={{ display: 'none' }} className="item">
+        {/* <div style={{ display: 'none' }} className="item">
           <div onClick={console.log} className="title">Change email address</div>
-        </div>
-        <div
+        </div> */}
+        {/* <div
           style={{ display: 'none' }}
           className={cx('item', 'dropdown', { open: isLanguageDropdownOpen })}
         >
@@ -94,7 +97,7 @@ const Dashboard = ({
               <div onClick={console.log} className="title">Korean</div>
             </div>
           </div>
-        </div>
+        </div> */}
         <div className="item support">
           <a
             className="title"
@@ -141,13 +144,13 @@ Dashboard.propTypes = {
   openKYCStatusModal: PropTypes.func.isRequired,
   openChangePasswordModal: PropTypes.func.isRequired,
   logout: PropTypes.func.isRequired,
-  toggleLanguageDropdown: PropTypes.func.isRequired,
+  // toggleLanguageDropdown: PropTypes.func.isRequired,
   accountData: PropTypes.shape({
     firstName: PropTypes.string,
     lastName: PropTypes.string,
   }).isRequired,
   isOpen: PropTypes.bool.isRequired,
-  isLanguageDropdownOpen: PropTypes.bool.isRequired,
+  // isLanguageDropdownOpen: PropTypes.bool.isRequired,
   /* optional */
   verifyStatus: PropTypes.string,
   isHomePage: PropTypes.bool,
@@ -161,18 +164,20 @@ Dashboard.defaultProps = {
 }
 
 const mapStateToProps = (state) => ({
-  ...state.account.dashboard,
-  verifyStatus: state.auth.verifyStatus,
+  isOpen: state.account.dashboardIsOpen,
+  accountData: {
+    firstName: state.account.firstName,
+    lastName: state.account.lastName,
+  },
+  verifyStatus: state.account.verifyStatus,
 })
 
 const mapDispatchToProps = {
-  closeDashboard: actions.account.dashboard.toggle,
+  closeDashboard: accountToggleDashboard,
   openSetAddressModal: () => actions.account.modals.changeState('setAddress', 'open'),
   openKYCStatusModal: () => actions.account.modals.changeState('kycStatus', 'open'),
   openChangePasswordModal: actions.account.password.openChangeConfirm,
-  verifyStatusRequestStart: actions.auth.verify.statusRequest,
-  verifyStatusRequestCancel: actions.auth.verify.statusRequestCancel,
-  logout: actions.auth.logout,
+  logout: authLogout,
 }
 
 export default compose(
@@ -185,11 +190,5 @@ export default compose(
     'isLanguageDropdownOpen',
     'toggleLanguageDropdown',
     false,
-  ),
-  lifecycle({
-    /* eslint-disable fp/no-this */
-    componentDidMount() { this.props.verifyStatusRequestStart() },
-    componentWillUnmount() { this.props.verifyStatusRequestCancel() },
-    /* eslint-enable */
-  }),
+  )
 )(Dashboard)

@@ -10,7 +10,7 @@ import type { TFunction } from 'react-i18next'
 
 import { withHandlers, withState } from 'recompose'
 
-// import Dashboard from '../../common/Dashboard'
+import Dashboard from '../Dashboard'
 
 import { accountToggleDashboard, authLogout } from '../../../modules'
 import { JModalOpenButton } from '../../Modals'
@@ -27,11 +27,11 @@ type Props = {
   isMenuOpen: boolean,
   isVerified: boolean,
   isAuthorized: boolean,
-  isDashboardOpen: boolean,
+  // isDashboardOpen: boolean,
   isEmailConfirmed: boolean,
 
   openDashboard: Function,
-  toggleMenuOrDashboard: Function,
+  // toggleMenuOrDashboard: Function,
   onLogoutClick: Function,
 }
 
@@ -43,8 +43,8 @@ const Controls = ({
   isAuthorized,
   isEmailConfirmed,
   openDashboard,
-  isDashboardOpen,
-  toggleMenuOrDashboard,
+  // isDashboardOpen,
+  // toggleMenuOrDashboard,
   onLogoutClick,
 }: Props) => (
   <div className="Controls">
@@ -93,12 +93,13 @@ const Controls = ({
         </li>, */
       ])}
     </ul>
-    <button
+    {/* <button
       onClick={toggleMenuOrDashboard}
       className={cx('menu-button', 'pull-right', { active: isMenuOpen || isDashboardOpen })}
     >
       <span>Menu</span>
-    </button>
+    </button> */}
+    <Dashboard />
     {/* {isAuthorized && <Dashboard isHomePage />} */}
   </div>
 )
