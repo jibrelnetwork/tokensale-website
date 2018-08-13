@@ -63,7 +63,7 @@ const Login = ({
           <button
             type="submit"
             disabled={submitting}
-            className="button medium pull-left"
+            className="button medium dark pull-left"
           >
             {!submitting && t('auth.login.submit')}
           </button>
@@ -76,7 +76,7 @@ const Login = ({
               {t('auth.login.links.resendEmail')}
             </div>
           ) : (
-            <JModalOpenButton modalName="resetPasswordEmail" className="pull-right">
+            <JModalOpenButton modalName="resetPasswordEmail" className="pull-right button medium transparent">
               <JText value="auth.login.links.resetPassword" whiteSpace="wrap" />
             </JModalOpenButton>
           )}

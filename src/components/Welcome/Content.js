@@ -59,7 +59,7 @@ const Content = ({ t, isAuthorized, isSaleFinished }: Props) => (
         <Timer />
         { !isAuthorized &&
         <div className="links">
-          <JModalOpenButton className="button big" modalName="login">{t('index.button')}</JModalOpenButton>
+          <JModalOpenButton className="button big dark" modalName="login">{t('index.button')}</JModalOpenButton>
         </div>}
       </React.Fragment>}
   </div>

@@ -55,11 +55,11 @@ const Register = ({ t, submitting, handleSubmit }: Props) => (
           <button
             type="submit"
             disabled={submitting}
-            className="button medium pull-left"
+            className="button medium dark pull-left"
           >
             {!submitting && t('auth.registration.submit')}
           </button>
-          <JModalOpenButton modalName="login" className="pull-right">
+          <JModalOpenButton modalName="login" className="button medium transparent pull-right">
             <JText value="auth.registration.links.login" whiteSpace="wrap" />
           </JModalOpenButton>
         </div>

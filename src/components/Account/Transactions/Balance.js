@@ -16,7 +16,7 @@ type Props = {
 
 const Balance = ({ balance, t /* , address */ }: Props) => (
   <div className="Balance">
-    <JModalOpenButton modalName="withdraw" className="button medium pull-right">
+    <JModalOpenButton modalName="withdraw" className="button small dark pull-right">
       {t('account.withdraw.button')}
     </JModalOpenButton>
     <div className="balance pull-right">

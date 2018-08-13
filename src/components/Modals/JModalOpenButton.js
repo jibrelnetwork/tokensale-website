@@ -17,13 +17,12 @@ type Props = {
 }
 
 const JModalOpenButton = ({ className, children, modalName, onShowModalClick }: Props) => (
-  <a
-    href="#"
+  <button
     onClick={(e) => { onShowModalClick(modalName); e.preventDefault() }}
     className={className}
   >
     {children}
-  </a>
+  </button>
 )
 
 JModalOpenButton.defaultProps = {

@@ -70,13 +70,13 @@ const Controls = ({
           </a>
         </li>,
         <li key="1">
-          <JModalOpenButton modalName="login">
-            <JText value="index.header.login" whiteSpace="wrap" />
+          <JModalOpenButton modalName="login" className="button small transparent">
+            <JText value="index.header.login" whiteSpace="wrap" color="default" />
           </JModalOpenButton>
         </li>,
         <li key="2">
-          <JModalOpenButton modalName="register" className="button small">
-            <JText value="index.header.register" whiteSpace="wrap" />
+          <JModalOpenButton modalName="register" className="button small light">
+            <JText value="index.header.register" whiteSpace="wrap" color="default" />
           </JModalOpenButton>
         </li>,
         /* <li key="1">
