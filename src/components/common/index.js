@@ -2,7 +2,6 @@ import * as Modals from './Modals'
 import AuthHeader from './AuthHeader'
 // import BitcoinSuisse from './BitcoinSuisse'
 import Input from './Input'
-import Modal from './Modal'
 // import Button from './Button'
 import Select from './Select'
 import Captcha from './Captcha'
@@ -15,7 +14,6 @@ export {
   Modals,
   AuthHeader,
   // BitcoinSuisse,
-  Modal,
   Input,
   Select,
   Captcha,

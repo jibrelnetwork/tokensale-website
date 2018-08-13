@@ -10,7 +10,6 @@ import Header from '../common/Header'
 // import AuthHeader from '../common/AuthHeader'
 import { Addresses, Transactions } from '../Account'
 import Benefits from '../Welcome/Benefits'
-import Social from '../common/Social'
 
 import R from '../../routes.yaml'
 import type { VerificationStatus } from '../../modules/account'
@@ -37,7 +36,6 @@ const AccountLayout = ({ isAuthorized, isEmailConfirmed, verifyStatus }: Props) 
       </div>
     </div>
     <Benefits />
-    <Social />
   </div>
 )
 
