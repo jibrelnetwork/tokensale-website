@@ -10,7 +10,7 @@
     padding: 40px 0;
     border: 1px solid #e4ebf3;
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.05);
-    color: #0050db;
+    color: $dusk;
     position: relative;
     margin-bottom: 60px;
 
@@ -33,9 +33,9 @@
     }
 
     .img {
-      background-size: 72px 72px;
-      width: 72px;
-      height: 72px;
+      background-size: 70px 70px;
+      width: 70px;
+      height: 70px;
       position: absolute;
       left: 30px;
       top: 50%;
