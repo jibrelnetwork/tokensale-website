@@ -12,6 +12,7 @@ import * as actions from '../../actions'
 import {
   accountToggleDashboard,
   authLogout,
+  showModal,
 } from '../../modules'
 
 // function toggleDropdown(handler, isOpen) {
@@ -175,7 +176,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = {
   closeDashboard: accountToggleDashboard,
   openSetAddressModal: () => actions.account.modals.changeState('setAddress', 'open'),
-  openKYCStatusModal: () => actions.account.modals.changeState('kycStatus', 'open'),
+  openKYCStatusModal: () => showModal('kyc-status'),
   openChangePasswordModal: actions.account.password.openChangeConfirm,
   logout: authLogout,
 }

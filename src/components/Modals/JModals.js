@@ -20,6 +20,8 @@ import {
 
 import WithdrawForm from '../Withdraw/WithdrawForm'
 
+import KYCStatus from '../common/KYCStatus'
+
 import { closeModals } from '../../modules'
 import { modalsSelector } from '../../selectors/modals'
 
@@ -55,6 +57,9 @@ const selectModalContent = (modalName: PopupNames): Node => {
 
     case 'documentSkipUpload':
       return <DocumentSkipUpload />
+
+    case 'kyc-status':
+      return <KYCStatus />
 
     default:
       return <div />

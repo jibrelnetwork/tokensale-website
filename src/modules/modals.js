@@ -7,7 +7,8 @@ export type PopupNames = 'login' |
   'documentSkipUpload' |
   "withdraw" |
   "resetPasswordEmailSended" |
-  "resetPasswordChange"
+  "resetPasswordChange" |
+  "kyc-status"
 
 export type PopupState = 'close' | 'open' | 'shake' | 'opening' | 'closing'
 
