@@ -33,11 +33,11 @@ const Document = ({
         <button
           type="submit"
           disabled={submitting}
-          className="button medium pull-right"
+          className="button medium dark pull-right"
         >
           {t('verification.document.submit')}
         </button>
-        <JModalOpenButton modalName="documentSkipUpload" className="button medium white pull-right">
+        <JModalOpenButton modalName="documentSkipUpload" className="button medium transparent pull-right">
           {t('verification.document.skip')}
         </JModalOpenButton>
         <div
@@ -57,10 +57,6 @@ Document.propTypes = {
   submitting: PropTypes.bool.isRequired,
   handleSubmit: PropTypes.func.isRequired,
 }
-
-const mapStateToProps = (state) => ({
-  form: `account-${state.auth.token}`,
-})
 
 const mapDispatchToProps = {
   setStage: accountVerifySetStage,
@@ -82,7 +78,7 @@ export default compose(
       () => props.toggleSkipModal(false),
   }),
   connect(
-    mapStateToProps,
+    null,
     mapDispatchToProps,
   ),
   reduxForm({

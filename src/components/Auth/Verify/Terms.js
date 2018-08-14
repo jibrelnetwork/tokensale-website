@@ -53,7 +53,7 @@ const Terms = ({ t, submitting, handleSubmit }: Props) => (
         <button
           type="submit"
           disabled={submitting}
-          className="button medium pull-right"
+          className="button medium dark pull-right"
         >
           {!submitting && t('verification.terms.submit')}
         </button>

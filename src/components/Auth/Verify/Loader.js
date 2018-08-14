@@ -41,7 +41,7 @@ const Loader = ({ t, verifyStatus }) => (
       <p>{t(`verification.loader.results.${verifyStatus.toLowerCase()}`)}</p>
       <Link
         to="/account"
-        className="button medium"
+        className="button dark medium"
       >
         {t('verification.loader.close')}
       </Link>

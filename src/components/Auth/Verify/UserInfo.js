@@ -47,7 +47,7 @@ const UserInfo = ({ submitting, handleSubmit, t }) => (
         <button
           type="submit"
           disabled={submitting}
-          className="button medium pull-right"
+          className="button medium dark pull-right"
         >
           {!submitting && t('verification.userInfo.submit')}
         </button>

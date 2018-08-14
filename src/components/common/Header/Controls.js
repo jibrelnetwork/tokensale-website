@@ -60,7 +60,7 @@ const Controls = ({
         <React.Fragment>
           { isEmailConfirmed && <li><Link to="/verify">{t('index.header.verification')}</Link></li> }
           <li>
-            <button onClick={onLogoutClick} className="button small"><JText value="account.logout" /></button>
+            <button onClick={onLogoutClick} className="button small light"><JText value="account.logout" /></button>
           </li>
         </React.Fragment>
       ) : ([
