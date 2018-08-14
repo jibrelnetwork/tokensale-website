@@ -107,6 +107,9 @@
       background-repeat: no-repeat;
       content: "";
     }
+    &:hover:after {
+      background-image: $arrow-button-hover-icon;
+    }
   }
 
   &.banking,
