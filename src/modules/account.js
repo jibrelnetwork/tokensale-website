@@ -1,6 +1,7 @@
 // @flow
 
 import { AUTH_LOGOUT } from './auth'
+import type { authLogoutType } from './auth'
 
 export type VerificationStatus = void | "Preliminarily Approved" | "Pending" | "Approved" | "Declined"
 
@@ -242,9 +243,9 @@ export function accountWithdrawRequest(): requestWithdrawType {
 }
 
 /**
- * ACCOUNT_SET_WITHDRAW_REQUESTED
+ * ACCOUNT_WITHDRAW_SET_REQUESTED
  */
-export const ACCOUNT_WITHDRAW_SET_REQUESTED = '@account/ACCOUNT_SET_WITHDRAW_REQUESTED'
+export const ACCOUNT_WITHDRAW_SET_REQUESTED = '@account/ACCOUNT_WITHDRAW_SET_REQUESTED'
 
 export type accountWithdrawSetRequestedType = {
   type: '@account/ACCOUNT_WITHDRAW_SET_REQUESTED',
@@ -275,7 +276,7 @@ export type accountWithdrawConfirmType = {
   }
 }
 
-export function accountWithdrawConfirm(token, operationId): accountWithdrawConfirmType {
+export function accountWithdrawConfirm(token: string, operationId: string): accountWithdrawConfirmType {
   return {
     type: ACCOUNT_WITHDRAW_CONFIRM,
     payload: {
@@ -343,7 +344,8 @@ type accountActionType = accountToggleDashboardType |
   accountUpdateTransactionsType |
   requestWithdrawType |
   accountWithdrawSetRequestedType |
-  accountWithdrawConfirmType
+  accountWithdrawConfirmType |
+  authLogoutType
 
 export function accountReducer(state: AccountState = defaultState, action: accountActionType): AccountState {
   switch (action.type) {

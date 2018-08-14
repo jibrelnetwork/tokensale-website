@@ -5,21 +5,18 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { lifecycle } from 'recompose'
 import { translate } from 'react-i18next'
+import type { TFunction } from 'react-i18next'
 import { set, get, compose, identity } from 'lodash/fp'
 import { Field, reduxForm, getFormSubmitErrors, getFormValues } from 'redux-form'
 
 import { JModalOpenButton } from '../Modals'
 import { JText } from '../base'
 
-/* ::
-import type { TFunction } from 'react-i18next'
-import type { State } from '../../modules'
-*/
-
 import * as actions from '../../actions'
 import { Input, Captcha } from '../common'
 
 import { authLogin } from '../../modules'
+import type { State } from '../../modules'
 
 const VALIDATE_EMAIL_REGEXP = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/ // eslint-disable-line max-len
 
@@ -87,7 +84,7 @@ const Login = ({
 )
 
 Login.defaultProps = {
-  email: undefined,
+  email: null,
 }
 
 const mapStateToProps = (state: State) => ({

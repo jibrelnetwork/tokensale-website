@@ -19,6 +19,7 @@ import type {
   VerificationStage,
   accountUpdateUserInfoType,
   accountVerifyDocumentUploadType,
+  accountWithdrawConfirmType,
 } from '../modules/account'
 
 import {
@@ -120,7 +121,7 @@ export function* accountRequestData(): Saga<void> {
 type responseAccountTransactions = {
   success: boolean,
   // @TODO: flow
-  data: Array<Any>,
+  data: Array<Object>,
 }
 
 // @TODO: gtm integration
@@ -443,7 +444,7 @@ function* accountRefreshLoop(): Saga<void> {
       }
     }
 
-    yield delay(10000)
+    yield call(delay, 10000)
   }
 }
 

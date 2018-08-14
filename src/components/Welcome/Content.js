@@ -16,7 +16,7 @@ import type { State } from '../../modules'
 type Props = {
   t: TFunction,
   isAuthorized: boolean,
-  isSaleFinished: boolean,
+  isSaleFinished?: boolean,
 }
 
 const Content = ({ t, isAuthorized, isSaleFinished }: Props) => (
@@ -65,9 +65,12 @@ const Content = ({ t, isAuthorized, isSaleFinished }: Props) => (
   </div>
 )
 
+Content.defaultProps = {
+  isSaleFinished: false,
+}
+
 const mapStateToProps = (state: State) => ({
   isAuthorized: !!state.auth.token,
-  isSaleFinished: false,
 })
 
 export default compose(

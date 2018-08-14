@@ -2,13 +2,11 @@
 
 import React from 'react'
 import { connect } from 'react-redux'
+import type { Node } from 'react'
 
 import { showModal } from '../../modules/modals'
+import type { PopupNames } from '../../modules/modals'
 
-/* ::
-import type { Node } from 'react'
-import type { PopupNames } from '../../modules'
-*/
 type Props = {
   modalName: PopupNames,
   className?: string,

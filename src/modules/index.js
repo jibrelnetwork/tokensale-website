@@ -9,8 +9,8 @@ import { tokensReducer } from './tokens'
 import { modalsReducer } from './modals'
 import { accountReducer } from './account'
 
-import type { ModalState, PopupNames } from './modals'
-import type { AuthState, VerificationStage, VerificationStatus } from './auth'
+import type { ModalState } from './modals'
+import type { AuthState } from './auth'
 import type { TokenState } from './tokens'
 import type { AccountState } from './account'
 
@@ -88,18 +88,11 @@ const modulesReducer: Reducer = combineReducers({
   form: formReducer,
 })
 
-type State = {
+export type State = {
   +modals: ModalState,
   +auth: AuthState,
   +tokens: TokenState,
   +account: AccountState,
-}
-
-export type {
-  PopupNames,
-  VerificationStatus,
-  VerificationStage,
-  State,
 }
 
 export {

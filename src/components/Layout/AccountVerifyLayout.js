@@ -11,7 +11,7 @@ import Document from '../Auth/Verify/Document'
 import Progress from '../Auth/Verify/Progress'
 
 import type { State } from '../../modules'
-import type { VerificationStage } from '../../modules/auth'
+import type { VerificationStage } from '../../modules/account'
 
 type Props = {
   stage: VerificationStage,
