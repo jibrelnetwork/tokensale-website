@@ -2,6 +2,7 @@
 
 import React from 'react'
 import { translate } from 'react-i18next'
+import type { TFunction } from 'react-i18next'
 
 type Props = {
   t: TFunction,

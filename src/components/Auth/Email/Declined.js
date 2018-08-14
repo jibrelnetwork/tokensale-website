@@ -2,6 +2,7 @@
 
 import React from 'react'
 import { translate, Interpolate } from 'react-i18next'
+import type { TFunction } from 'react-i18next'
 
 import { links as config } from '../../../config'
 

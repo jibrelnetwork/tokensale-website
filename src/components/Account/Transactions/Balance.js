@@ -6,6 +6,7 @@ import PropTypes from 'prop-types'
 import { compose } from 'ramda'
 import { connect } from 'react-redux'
 import { translate, Interpolate } from 'react-i18next'
+import type { TFunction } from 'react-i18next'
 
 import { JModalOpenButton } from '../../Modals'
 

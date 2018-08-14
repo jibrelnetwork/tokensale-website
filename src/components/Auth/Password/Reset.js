@@ -4,6 +4,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { compose } from 'ramda'
 import { translate } from 'react-i18next'
+import type { TFunction } from 'react-i18next'
 import { Field, reduxForm } from 'redux-form'
 
 import { Input } from '../../common'

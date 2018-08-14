@@ -2,6 +2,7 @@
 
 import React from 'react'
 import { translate } from 'react-i18next'
+import type { TFunction } from 'react-i18next'
 import { Field, reduxForm } from 'redux-form'
 import { assoc, compose, identity } from 'ramda'
 
