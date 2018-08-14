@@ -8,11 +8,15 @@ import { push } from 'connected-react-router'
 import { put, call, takeEvery } from 'redux-saga/effects'
 import { startSubmit, stopSubmit } from 'redux-form'
 
-// import request from '../request'
-// import { SERVER } from '../.'
 import { tracking, grecaptcha, /* gtm, */ authToken, api } from '../services'
 
-import type { authLoginType, authCreateAccountType } from '../modules/auth'
+import type {
+  authLoginType,
+  authCreateAccountType,
+  authResetPasswordType,
+  authResetPasswordChangeType,
+} from '../modules/auth'
+
 import {
   AUTH_LOGIN,
   AUTH_LOGOUT,
@@ -168,7 +172,7 @@ function* authLogout(): Saga<void> {
  *
  * @param {authResetPasswordType} action
  */
-function* authResetPassword(action: authResetPasswordType) {
+function* authResetPassword(action: authResetPasswordType): Saga<void> {
   const { payload: { email } } = action
 
   const postData = { email: email.toLowerCase() }
@@ -187,7 +191,7 @@ function* authResetPassword(action: authResetPasswordType) {
   }
 }
 
-function* authResetPasswordChange(action: authResetPasswordChangeType) {
+function* authResetPasswordChange(action: authResetPasswordChangeType): Saga<void> {
   const {
     payload: {
       uid,
