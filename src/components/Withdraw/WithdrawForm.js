@@ -63,7 +63,7 @@ const Withdraw = ({
         </div>
       </div>
       <div className="text-center">
-        <button type="submit" className="button medium" disabled={submitting}>
+        <button type="submit" className="button medium dark" disabled={submitting}>
           {t(`account.withdraw.${messageType}.button`)}
         </button>
       </div>
