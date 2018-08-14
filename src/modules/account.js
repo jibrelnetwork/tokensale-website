@@ -287,6 +287,48 @@ export function accountWithdrawConfirm(token: string, operationId: string): acco
 }
 
 /**
+ * ACCOUNT_ADDRESS_CHANGE_REQUEST
+ */
+export const ACCOUNT_ADDRESS_CHANGE_REQUEST = '@account/ACCOUNT_ADDRESS_CHANGE_REQUEST'
+
+export type accountAddressChangeRequestType = {
+  type: '@account/ACCOUNT_ADDRESS_CHANGE_REQUEST',
+  payload: {
+    address: string,
+  }
+}
+
+export function accountAddressChangeRequest(newAddress: string): accountAddressChangeRequestType {
+  return {
+    type: ACCOUNT_ADDRESS_CHANGE_REQUEST,
+    payload: {
+      address: newAddress,
+    },
+  }
+}
+
+/**
+ * ACCOUNT_ADDRESS_CHANGE_REQUESTED
+ */
+export const ACCOUNT_ADDRESS_CHANGE_REQUESTED = '@account/ACCOUNT_ADDRESS_CHANGE_REQUESTED'
+
+export type accountAddressChangeRequestedType = {
+  type: '@account/ACCOUNT_ADDRESS_CHANGE_REQUESTED',
+  payload: {
+    isAddressChangeRequested: boolean,
+  }
+}
+
+export function accountAddressChangeRequested(isRequested: boolean): accountAddressChangeRequestedType {
+  return {
+    type: ACCOUNT_ADDRESS_CHANGE_REQUESTED,
+    payload: {
+      isAddressChangeRequested: isRequested,
+    },
+  }
+}
+
+/**
  * Reducer
  */
 
@@ -345,6 +387,8 @@ type accountActionType = accountToggleDashboardType |
   requestWithdrawType |
   accountWithdrawSetRequestedType |
   accountWithdrawConfirmType |
+  accountAddressChangeRequestType |
+  accountAddressChangeRequestedType |
   authLogoutType
 
 export function accountReducer(state: AccountState = defaultState, action: accountActionType): AccountState {
@@ -395,6 +439,14 @@ export function accountReducer(state: AccountState = defaultState, action: accou
       return {
         ...state,
         verifyStage: stage,
+      }
+    }
+
+    case ACCOUNT_ADDRESS_CHANGE_REQUESTED: {
+      const { isAddressChangeRequested } = action.payload
+      return {
+        ...state,
+        isAddressChangeRequested,
       }
     }
 
