@@ -385,7 +385,7 @@ function* uploadDocument(action: accountVerifyDocumentUploadType): Saga<void> {
 function* requestWithdraw(): Saga<void> {
   yield put(startSubmit(ACCOUNT_REQUEST_WITHDRAW_FORM))
   try {
-    const response = yield call(api.post, 'api/withdraw-jnt', null, 'post')
+    const response = yield call(api.post, 'api/withdraw-jnt', null, authToken.get())
     if (response.success) {
       // refresh balance
       yield* accountRequestData()
@@ -412,7 +412,7 @@ function* withdrawConfirm(action: accountWithdrawConfirmType): Saga<void> {
 
   const postData = { operation_id: operationId, token }
 
-  const response = yield call(api.post, 'api/withdraw-jnt/confirm', postData, 'post')
+  const response = yield call(api.post, 'api/withdraw-jnt/confirm', postData, authToken.get())
 
   // @TODO: fix links
   if (response.success) {

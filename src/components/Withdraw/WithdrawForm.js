@@ -15,6 +15,8 @@ import {
   closeModals,
 } from '../../modules'
 
+import type { State } from '../../modules'
+
 const ICONS = {
   confirm: 'withdraw-tokens',
   notApproved: 'status-declined',
@@ -77,9 +79,9 @@ Withdraw.defaultProps = {
   messageType: null,
 }
 
-const mapStateToProps = (state) => {
-  const { verifyStatus } = state.auth
-  const { address, balance, isWithdrawRequested } = state.account
+const mapStateToProps = (state: State) => {
+  const { verifyStatus } = state.account
+  const { balance, address, isWithdrawRequested } = state.account
   const messageType = isWithdrawRequested
     ? 'withdrawRequested'
     : verifyStatus !== 'Approved'
