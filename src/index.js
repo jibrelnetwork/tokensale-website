@@ -95,47 +95,51 @@ const store = createStore(
 
 sagaMiddleware.run(sagas)
 
-const rootElement: HTMLElement = document.getElementById('container')
+const rootElement: ?HTMLElement = document.getElementById('container')
 
-ReactDOM.render(
-  <Provider store={store}>
-    <I18nextProvider i18n={i18n}>
-      <ConnectedRouter history={history}>
-        <div>
-          <Switch>
-            {/* <Redirect exact from="/" to="/welcome" />
-            <ProtectedRoute
-              path="/verify"
-              store={store}
-              component={Auth.Verify}
+if (!rootElement) {
+  // eslint-disable-next-line no-console
+  console.error('No root element on the page')
+} else {
+  ReactDOM.render(
+    <Provider store={store}>
+      <I18nextProvider i18n={i18n}>
+        <ConnectedRouter history={history}>
+          <div>
+            <Switch>
+              {/* <Redirect exact from="/" to="/welcome" />
+              <ProtectedRoute
+                path="/verify"
+                store={store}
+                component={Auth.Verify}
+              />
+              <ProtectedRoute
+                path="/account"
+                store={store}
+                component={Account}
+              /> */}
+              <Route {...R.ACCOUNT} component={AccountLayout} />
+              <Route {...R.VERIFY} component={AccountVerifyLayout} />
+              <Route {...R.VERIFY_EMAIL_ROOT} component={EmailVerifyLayout} />
+              <Route exact {...R.ROOT} component={WelcomeLayout} />
+            </Switch>
+            <JModals />
+            <ToastContainer
+              type="error"
+              position="top-center"
+              autoClose={2500}
+              newestOnTop
+              closeButton={false}
+              closeOnClick
+              pauseOnHover
+              hideProgressBar
             />
-             <ProtectedRoute
-              path="/account"
-              store={store}
-              component={Account}
-            /> */}
-            <Route {...R.ACCOUNT} component={AccountLayout} />
-            <Route {...R.VERIFY} component={AccountVerifyLayout} />
-            <Route {...R.VERIFY_EMAIL_ROOT} component={EmailVerifyLayout} />
-            <Route exact {...R.ROOT} component={WelcomeLayout} />
-          </Switch>
-          <JModals />
-          <ToastContainer
-            type="error"
-            position="top-center"
-            autoClose={2500}
-            newestOnTop
-            closeButton={false}
-            closeOnClick
-            pauseOnHover
-            hideProgressBar
-          />
-        </div>
-      </ConnectedRouter>
-    </I18nextProvider>
-  </Provider>,
-  rootElement
-)
-
+          </div>
+        </ConnectedRouter>
+      </I18nextProvider>
+    </Provider>,
+    rootElement
+  )
+}
 // Initialize google analytics data: id & utm parameters
 // tracking.init()
