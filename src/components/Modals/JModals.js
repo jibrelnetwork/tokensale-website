@@ -20,7 +20,7 @@ import {
 
 import WithdrawForm from '../Withdraw/WithdrawForm'
 
-import KYCStatus from '../common/KYCStatus'
+import { KYCStatus } from '../common'
 
 import { closeModals } from '../../modules'
 import { modalsSelector } from '../../selectors/modals'
