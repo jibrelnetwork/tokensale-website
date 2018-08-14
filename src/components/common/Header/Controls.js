@@ -53,7 +53,7 @@ const Controls = ({
         <React.Fragment>
           <li><Link to="/account">{t('index.header.account')}</Link></li>
           <li>
-            <button onClick={openDashboard} className="button arrow">{email}</button>
+            <button onClick={openDashboard} className="button arrow transparent">{email}</button>
           </li>
         </React.Fragment>
       ) : (
