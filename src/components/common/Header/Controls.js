@@ -51,7 +51,7 @@ const Controls = ({
     <ul className={cx('menu pull-right', { 'menu-active': isMenuOpen })}>
       {isAuthorized ? isVerified ? (
         <React.Fragment>
-          <li><Link to="/account">{t('index.header.account')}</Link></li>
+          <li><Link className="button transparent" to="/account">{t('index.header.account')}</Link></li>
           <li>
             <button onClick={openDashboard} className="button arrow transparent">{email}</button>
           </li>

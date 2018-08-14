@@ -3,7 +3,7 @@
 import React from 'react'
 import type { Node } from 'react'
 
-import { compose } from 'ramda'
+import { compose } from 'lodash/fp'
 import { connect } from 'react-redux'
 
 import { translate } from 'react-i18next'

@@ -12,6 +12,8 @@ import Benefits from '../Welcome/Benefits'
 import Suisse from '../Welcome/Suisse'
 import { Social } from '../common'
 
+import type { State } from '../../modules'
+
 const WelcomeLayout = () => (
   <div className="Welcome">
     <div className={cx('section', 'start', 'home')}>
@@ -26,11 +28,12 @@ const WelcomeLayout = () => (
   </div>
 )
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: State) => ({
   // isAuthorized: !!state.auth.token,
   isSupportLinkShown: state.auth.isSupportLinkShown,
 })
 
 export default connect(
   mapStateToProps,
+  null
 )(WelcomeLayout)

@@ -1,7 +1,7 @@
 // @flow
 
 import React from 'react'
-import { compose } from 'ramda'
+import { compose } from 'lodash/fp'
 import { connect } from 'react-redux'
 import { translate } from 'react-i18next'
 
@@ -16,7 +16,7 @@ import type { State } from '../../modules'
 type Props = {
   t: TFunction,
   isAuthorized: boolean,
-  isSaleFinished?: boolean,
+  isSaleFinished: boolean,
 }
 
 const Content = ({ t, isAuthorized, isSaleFinished }: Props) => (
@@ -65,18 +65,17 @@ const Content = ({ t, isAuthorized, isSaleFinished }: Props) => (
   </div>
 )
 
-Content.defaultProps = {
-  isSaleFinished: false,
+function mapStateToProps(state: State) {
+  return {
+    isAuthorized: !!state.auth.token,
+    isSaleFinished: false,
+  }
 }
-
-const mapStateToProps = (state: State) => ({
-  isAuthorized: !!state.auth.token,
-})
 
 export default compose(
   translate(),
   connect(
-    mapStateToProps
-  )
+    mapStateToProps,
+    null
+  ),
 )(Content)
-
