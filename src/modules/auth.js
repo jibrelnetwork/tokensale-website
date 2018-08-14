@@ -1,31 +1,17 @@
 // @flow
 
-export const AUTH_VERIFY = '@auth/email/Verify'
-export const AUTH_RESEND = '@auth/email/Resend'
-
-export const AUTH_STATUS_REQUEST = '@auth/Status request'
-export const AUTH_STATUS_REQUEST_CANCEL = '@auth/Status request cancel'
-
-export const AUTH_SKIP_DOCUMENT = '@auth/verify/Skip document'
-export const AUTH_UPLOAD_DOCUMENT = '@auth/verify/Upload document'
-export const AUTH_UPDATE_USER_INFO = '@auth/verify/Update user info'
-
-export type VerificationStatus = void | "Preliminarily Approved" | "Pending" | "Approved" | "Declined"
-
-export type VerificationStage = "terms" | "user-info" | "document" | "loader"
-
 /**
  * AUTH_LOGIN
  */
-export const AUTH_LOGIN = '@auth/Login'
+export const AUTH_LOGIN = '@auth/AUTH_LOGIN'
 
 export type authLoginType = {
-  type: '@auth/Login',
+  type: '@auth/AUTH_LOGIN',
   payload: {
     email: string,
     password: string,
-    captcha: string
-  }
+    captcha: string,
+  },
 }
 
 export function authLogin(email: string, password: string, captcha: string): authLoginType {
@@ -42,10 +28,10 @@ export function authLogin(email: string, password: string, captcha: string): aut
 /**
  * AUTH_LOGOUT
  */
-export const AUTH_LOGOUT = '@auth/Logout'
+export const AUTH_LOGOUT = '@auth/AUTH_LOGOUT'
 
-declare type authLogoutType = {
-  type: '@auth/Logout'
+export type authLogoutType = {
+  type: '@auth/AUTH_LOGOUT'
 }
 
 export function authLogout(): authLogoutType {
@@ -57,10 +43,10 @@ export function authLogout(): authLogoutType {
 /**
  * AUTH_SET_TOKEN
  */
-export const AUTH_SET_TOKEN = '@auth/Set auth token'
+export const AUTH_SET_TOKEN = '@auth/AUTH_SET_TOKEN'
 
-declare type authSetTokenType = {
-  type: '@auth/Set auth token',
+export type authSetTokenType = {
+  type: '@auth/AUTH_SET_TOKEN',
   payload: {
     token: string
   }
@@ -76,10 +62,10 @@ export function authSetToken(token: string): authSetTokenType {
 /**
  * AUTH_SHOW_SUPPORT_LINK
  */
-export const AUTH_SHOW_SUPPORT_LINK = '@auth/Show support link'
+export const AUTH_SHOW_SUPPORT_LINK = '@auth/AUTH_SHOW_SUPPORT_LINK'
 
-declare type authShowSupportLinkType = {
-  type: '@auth/Show support link',
+export type authShowSupportLinkType = {
+  type: '@auth/AUTH_SHOW_SUPPORT_LINK',
   payload: {
     isShow: boolean
   }
@@ -97,10 +83,10 @@ export function authShowSupportLink(isShow: boolean = true): authShowSupportLink
 /**
  * AUTH_CREATE_ACCOUNT
  */
-export const AUTH_CREATE_ACCOUNT = '@auth/register/Create account'
+export const AUTH_CREATE_ACCOUNT = '@auth/AUTH_CREATE_ACCOUNT'
 
 export type authCreateAccountType = {
-  type: '@auth/register/Create account',
+  type: '@auth/AUTH_CREATE_ACCOUNT',
   payload: {
     email: string,
     password: string,
@@ -217,4 +203,3 @@ export function authReducer(state: AuthState = defaultState, action: authActionT
     default: return state
   }
 }
-
