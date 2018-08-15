@@ -13,6 +13,7 @@
   display: inline-block;
   line-height: 38px;
   color: #fff;
+  font-family: $font !important;
   // box-shadow: 0 10px 30px rgba(45, 63, 148, 0.4);
   // font-size: 13px;
   // font-weight: 600;
@@ -62,6 +63,7 @@
   }
 
   &.transparent {
+    padding: 0 !important;
     background-color: transparent;
     color: $dusk;
 

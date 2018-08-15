@@ -17,13 +17,13 @@ const DocumentSkipUpload = ({ onSkipUploadClick, onCloseClick }: Props) => (
       <div className="buttons clear">
         <button
           onClick={onSkipUploadClick}
-          className="button medium white pull-right"
+          className="button medium transparent pull-right"
         >
           <JText value="verification.document.modal.skipUpload" />
         </button>
         <button
           onClick={onCloseClick}
-          className="button medium pull-left"
+          className="button medium dark pull-left"
         >
           <JText value="verification.document.modal.close" color="white" />
         </button>

@@ -27,11 +27,11 @@ const Reset = ({ submitting, handleSubmit, t }: Props) => (
         label={t('auth.sendResetPasswordEmail.fields.email')}
         component={Input}
       />
-      <div className="buttons clear">
+      <div className="buttons text-center clear">
         <button
           type="submit"
           disabled={submitting}
-          className="button medium pull-left"
+          className="button medium dark"
         >
           {t('auth.sendResetPasswordEmail.submit')}
         </button>

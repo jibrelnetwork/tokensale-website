@@ -46,14 +46,14 @@ const SetAddress = ({
           />
         )
       }
-      <div className="warning">
+      <div className="warning field">
         {t('account.setETHAddress.addressWarning')}
       </div>
       <div className="clear">
         <button
           type="submit"
           disabled={submitting}
-          className="bordered button pull-right"
+          className="button medium dark pull-right"
         >
           {!submitting && isAddressChangeRequested
             ? t('account.setETHAddress.close')

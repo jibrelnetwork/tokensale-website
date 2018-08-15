@@ -4,21 +4,27 @@ import PropTypes from 'prop-types'
 import Recaptcha from 'react-grecaptcha'
 import lifecycle from 'recompose/lifecycle'
 
+import { api as config } from '../../config'
+
 import grecaptcha from '../../services/grecaptcha'
 
-const RECAPTCHA_SITE_KEY = '6Lcd-DgUAAAAAJj89dm3aR43OMwW5_OS3Q4tg9MO'
+const RECAPTCHA_SITE_KEY = config.recaptchaSiteKey
 
 const Captcha = ({ input: { onChange }, meta: { error, touched } }) => (
-  <div className="Captcha">
-    <div className={cx('field', 'captcha', { error: error && touched })}>
-      <Recaptcha
-        sitekey={RECAPTCHA_SITE_KEY}
-        callback={onChange}
-        expiredCallback={() => window.grecaptcha.reset()}
-      />
-      {touched && error && <div className="error-text">{error}</div>}
-    </div>
-  </div>
+  <React.Fragment>
+    {config.enableRecaptcha &&
+    <div className="Captcha">
+      <div className={cx('field', 'captcha', { error: error && touched })}>
+        <Recaptcha
+          sitekey={RECAPTCHA_SITE_KEY}
+          callback={onChange}
+          expiredCallback={() => window.grecaptcha.reset()}
+        />
+        {touched && error && <div className="error-text">{error}</div>}
+      </div>
+    </div>}
+    {!config.enableRecaptcha && onChange('no-captcha')}
+  </React.Fragment>
 )
 
 Captcha.propTypes = {
@@ -32,7 +38,9 @@ Captcha.propTypes = {
 }
 
 export default lifecycle({
-  componentWillMount() {
-    grecaptcha.trackScriptLoad()
+  componentDidMount() {
+    if (config.enableRecaptcha) {
+      grecaptcha.trackScriptLoad()
+    }
   },
 })(Captcha)

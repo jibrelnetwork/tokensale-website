@@ -19,7 +19,7 @@ import {
 } from '../Auth'
 
 import WithdrawForm from '../Withdraw/WithdrawForm'
-
+import SetAddressForm from '../AddressChange/SetAddressForm'
 import { KYCStatus } from '../common'
 
 import { closeModals } from '../../modules'
@@ -60,6 +60,9 @@ const selectModalContent = (modalName: PopupNames): Node => {
 
     case 'kyc-status':
       return <KYCStatus />
+
+    case 'set-address':
+      return <SetAddressForm />
 
     default:
       return <div />

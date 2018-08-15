@@ -34,7 +34,7 @@ const Change = ({ submitting, handleSubmit, t }: Props) => (
         <button
           type="submit"
           disabled={submitting}
-          className="button pull-left"
+          className="button medium dark pull-left"
         >
           {t('auth.resetPassword.submit')}
         </button>
@@ -43,7 +43,6 @@ const Change = ({ submitting, handleSubmit, t }: Props) => (
   </div>
 )
 
-// @TODO: have a look issue with react-router
 export default compose(
   translate(),
   reduxForm({
