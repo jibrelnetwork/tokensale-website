@@ -19,7 +19,7 @@ const WelcomeLayout = () => (
   <div className="Welcome">
     <div className={cx('section', 'start', 'home')}>
       <div className="inner">
-        <Header />
+        <Header activeLayout="welcome" />
         <Content />
         <Tokens />
       </div>

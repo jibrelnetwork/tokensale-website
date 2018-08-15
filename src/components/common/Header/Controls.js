@@ -10,11 +10,12 @@ import type { TFunction } from 'react-i18next'
 
 import { withHandlers, withState } from 'recompose'
 
-import Dashboard from '../Dashboard'
+import Dashboard from './Dashboard'
 
 import { accountToggleDashboard, authLogout } from '../../../modules'
 import { JModalOpenButton } from '../../Modals'
 import { JText } from '../../base'
+import type { ActiveLayout } from '../../Layout'
 
 function isTouchDevice(): boolean {
   return ('ontouchstart' in window) || navigator.maxTouchPoints > 0
@@ -33,6 +34,7 @@ type Props = {
   openDashboard: Function,
   // toggleMenuOrDashboard: Function,
   onLogoutClick: Function,
+  activeLayout?: ActiveLayout,
 }
 
 const Controls = ({
@@ -46,12 +48,14 @@ const Controls = ({
   // isDashboardOpen,
   // toggleMenuOrDashboard,
   onLogoutClick,
+  activeLayout,
 }: Props) => (
   <div className="Controls">
     <ul className={cx('menu pull-right', { 'menu-active': isMenuOpen })}>
       {isAuthorized ? isVerified ? (
         <React.Fragment>
-          <li><Link className="button transparent" to="/account">{t('index.header.account')}</Link></li>
+          {activeLayout !== 'account' &&
+            <li><Link className="button transparent" to="/account">{t('index.header.account')}</Link></li>}
           <li>
             <button onClick={openDashboard} className="button arrow transparent">{email}</button>
           </li>
@@ -99,13 +103,14 @@ const Controls = ({
     >
       <span>Menu</span>
     </button> */}
-    <Dashboard />
+    { isAuthorized && <Dashboard activeLayout={activeLayout} /> }
     {/* {isAuthorized && <Dashboard isHomePage />} */}
   </div>
 )
 
 Controls.defaultProps = {
-  email: '...',
+  email: '',
+  activeLayout: 'welcome',
 }
 
 const mapStateToProps = (state) => ({

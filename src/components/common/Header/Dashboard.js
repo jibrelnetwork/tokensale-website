@@ -13,13 +13,13 @@ import {
   accountToggleDashboard,
   authLogout,
   showModal,
-} from '../../modules'
+} from '../../../modules'
 
 import type {
   VerificationStatus,
-} from '../../modules/account'
+} from '../../../modules/account'
 
-import { links } from '../../config'
+import { links } from '../../../config'
 
 // function toggleDropdown(handler, isOpen) {
 //   return () => handler(!isOpen)

@@ -21,7 +21,7 @@ const AccountVerifyLayout = ({ stage }: Props) => (
   <div className="Verify inner-page">
     <div className="section start">
       <div className="inner">
-        <Header />
+        <Header activeLayput="verify" />
         <Progress stage={stage} />
       </div>
     </div>

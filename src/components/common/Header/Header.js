@@ -7,12 +7,18 @@ import Controls from './Controls'
 
 import LogoImage from '../../../static/logo-kambio.svg'
 
-const Header = () => (
+import type { ActiveLayout } from '../../Layout'
+
+type Props = {
+  activeLayout?: ActiveLayout
+}
+
+const Header = ({ activeLayout }: Props) => (
   <div className="header clear">
     <Link to="/" className="logo pull-left scroll">
       <img src={LogoImage} alt="" />
     </Link>
-    <Controls />
+    <Controls activeLayout={activeLayout} />
     {/* <Route
       path="/welcome/:modal"
       render={() => (
@@ -31,5 +37,9 @@ const Header = () => (
     /> */}
   </div>
 )
+
+Header.defaultProps = {
+  activeLayout: 'welcome',
+}
 
 export default Header

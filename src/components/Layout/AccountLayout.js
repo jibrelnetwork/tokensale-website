@@ -27,7 +27,7 @@ const AccountLayout = ({ isAuthorized, isEmailConfirmed, verifyStatus }: Props) 
     { !(isAuthorized && isEmailConfirmed && verifyStatus) && <Redirect to={R.VERIFY.path} /> }
     <div className="section start">
       <div className="inner">
-        <Header />
+        <Header activeLayout="account" />
       </div>
     </div>
     <div className="section content">
