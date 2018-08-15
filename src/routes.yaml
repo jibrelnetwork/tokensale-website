@@ -5,19 +5,22 @@ VERIFY:
   path: '/verify'
 
 VERIFY_EMAIL_ROOT:
-  path: '/email'
+  path: '/confirm'
+
+CONFIRM:
+  path: '/confirm'
 
 VERIFY_EMAIL_SENDED:
-  path: '/email/sended'
+  path: '/confirm/email/sended'
 
 VERIFY_EMAIL_PENDING:
-  path: '/email/verify/:key'
+  path: '/confirm/email/verify/:key'
 
 VERIFY_EMAIL_VERIFIED:
-  path: '/email/verified'
+  path: '/confirm/email/verified'
 
 VERIFY_EMAIL_DECLINED:
-  path: '/email/declined'
+  path: '/confirm/email/declined'
 
 ACCOUNT:
   path: '/account'

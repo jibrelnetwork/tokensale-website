@@ -13,9 +13,6 @@ const Sended = ({ t }: Props) => (
   <div className="email-verification">
     <div className="img sended" />
     <p>{t('auth.emailVerification.linkSended')}</p>
-    {/* <Link to="/verify" className="button">
-      {t('auth.emailVerification.continue')}
-    </Link> */}
   </div>
 )
 

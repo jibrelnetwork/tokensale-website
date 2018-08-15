@@ -7,7 +7,6 @@ import PasswordResetEmailSended from './Password/Sended'
 import PasswordResetChangeForm from './Password/Change'
 import DocumentSkipUpload from './Verify/DocumentSkipUpload'
 
-import Email from './Email'
 import Password from './Password'
 
 export { LoginForm,
@@ -16,4 +15,4 @@ export { LoginForm,
   PasswordResetEmailSended,
   PasswordResetChangeForm,
   DocumentSkipUpload,
-  Email, Password }
+  Password }
