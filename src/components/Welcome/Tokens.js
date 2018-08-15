@@ -1,17 +1,23 @@
+// @flow
+
 import React from 'react'
 import numeral from 'numeral'
-import PropTypes from 'prop-types'
 import { compose } from 'lodash/fp'
 import { connect } from 'react-redux'
-import { lifecycle } from 'recompose'
+// import { lifecycle } from 'recompose'
 import { translate } from 'react-i18next'
-
-import * as actions from '../../actions'
+import type { TFunction } from 'react-i18next'
 
 const AVAILABLE = 200 * 1000 * 1000
 const INITIAL = 150 * 1000 * 1000
 
-const Tokens = ({ t, raised, raisedPercent }) => (
+type Props = {
+  t: TFunction,
+  raised: number,
+  raisedPercent: number,
+}
+
+const Tokens = ({ t, raised, raisedPercent }: Props) => (
   <div className="Progress">
     <div className="progress">
       <div className="wrap">
@@ -33,14 +39,8 @@ const Tokens = ({ t, raised, raisedPercent }) => (
   </div>
 )
 
-Tokens.propTypes = {
-  t: PropTypes.func.isRequired,
-  raised: PropTypes.number.isRequired,
-  raisedPercent: PropTypes.number.isRequired,
-}
-
 const mapStateToProps = ({ tokens }) => {
-  const raised = process.env.PROD ? tokens.raised : (tokens.raised + (70 * 1000 * 1000))
+  const raised = (185 * 1000 * 1000) - tokens.raised // process.env.PROD ? tokens.raised : (tokens.raised + (70 * 1000 * 1000))
 
   return {
     raised,
@@ -48,23 +48,23 @@ const mapStateToProps = ({ tokens }) => {
   }
 }
 
-const mapDispatchToProps = {
-  requestStart: actions.tokens.raisedRequest,
-  cancelRequest: actions.tokens.raisedRequestCancel,
-}
+// const mapDispatchToProps = {
+//   requestStart: actions.tokens.raisedRequest,
+//   cancelRequest: actions.tokens.raisedRequestCancel,
+// }
 
 const enhance = compose(
   translate(),
   connect(
-    mapStateToProps,
-    mapDispatchToProps,
+    mapStateToProps
+    // mapDispatchToProps,
   ),
-  lifecycle({
-    /* eslint-disable fp/no-this */
-    componentDidMount() { this.props.requestStart() },
-    componentWillUnmount() { this.props.cancelRequest() },
-    /* eslint-disable fp/no-this */
-  })
+  // lifecycle({
+  //   /* eslint-disable fp/no-this */
+  //   componentDidMount() { this.props.requestStart() },
+  //   componentWillUnmount() { this.props.cancelRequest() },
+  //   /* eslint-disable fp/no-this */
+  // })
 )
 
 export default enhance(Tokens)

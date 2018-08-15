@@ -6,6 +6,7 @@ import { connect } from 'react-redux'
 // import { Route, Switch, Redirect } from 'react-router-dom'
 import { Redirect } from 'react-router-dom'
 
+import Tokens from '../Welcome/Tokens'
 import Header from '../common/Header'
 // import AuthHeader from '../common/AuthHeader'
 import { Addresses, Transactions } from '../Account'
@@ -33,6 +34,7 @@ const AccountLayout = ({ isAuthorized, isEmailConfirmed, verifyStatus }: Props) 
       <div className="inner">
         <Addresses />
         <Transactions />
+        <Tokens />
       </div>
     </div>
     <Benefits />

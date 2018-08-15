@@ -9,6 +9,7 @@ import { connect } from 'react-redux'
 import Header from '../common/Header'
 import Content from '../Welcome/Content'
 import Benefits from '../Welcome/Benefits'
+import Tokens from '../Welcome/Tokens'
 import Suisse from '../Welcome/Suisse'
 import { Social } from '../common'
 
@@ -20,6 +21,7 @@ const WelcomeLayout = () => (
       <div className="inner">
         <Header />
         <Content />
+        <Tokens />
       </div>
     </div>
     <Benefits />
