@@ -40,6 +40,7 @@ import {
   accountUpdateTransactions,
   accountWithdrawSetRequested,
   accountAddressChangeRequested,
+  showModal,
   closeModals,
 } from '../modules'
 
@@ -440,11 +441,11 @@ function* requestAddressChange(action: accountAddressChangeRequestType): Saga<vo
   yield put(startSubmit(ACCOUNT_REQUEST_ADDRESS_CHANGE_FORM))
   try {
     const response = yield call(api.put, 'api/withdraw-address', { address }, authToken.get())
-    if (response.success) {
+    if (response.address) {
       yield put(accountAddressChangeRequested(true))
       yield put(stopSubmit(ACCOUNT_REQUEST_ADDRESS_CHANGE_FORM))
       yield put(reset(ACCOUNT_REQUEST_ADDRESS_CHANGE_FORM))
-      yield put(closeModals()) // @TODO: show modal, that account address change has been requested
+      yield put(showModal('set-address-success'))
       // @TODO: google integration
       // gtm.pushProfileAddedEth()
     }

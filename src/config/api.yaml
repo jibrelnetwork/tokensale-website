@@ -4,4 +4,5 @@ DEV:
     mode: 'cors'
     method: 'GET'
     cache: 'default'
-
+  enableRecaptcha: false
+  recaptchaSiteKey: '6Lcd-DgUAAAAAJj89dm3aR43OMwW5_OS3Q4tg9MO'

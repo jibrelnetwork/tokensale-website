@@ -4,11 +4,13 @@ export type PopupNames = 'login' |
   'register' |
   'resetPasswordEmail' |
   'resetPassword' |
-  'documentSkipUpload' |
-  "withdraw" |
   "resetPasswordEmailSended" |
   "resetPasswordChange" |
-  "kyc-status"
+  'documentSkipUpload' |
+  "withdraw" |
+  "kyc-status" |
+  "set-address" |
+  "set-address-success"
 
 export type PopupState = 'close' | 'open' | 'shake' | 'opening' | 'closing'
 

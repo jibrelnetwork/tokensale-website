@@ -188,7 +188,6 @@ export function authReducer(state: AuthState = defaultState, action: authActionT
       return {
         ...state,
         token: undefined,
-        verifyStatus: undefined,
       }
     }
 

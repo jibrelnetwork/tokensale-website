@@ -1,13 +1,13 @@
+// @flow
+
 import React from 'react'
 import cx from 'classnames'
 import { Link } from 'react-router-dom'
-import PropTypes from 'prop-types'
 import { compose } from 'ramda'
 import { connect } from 'react-redux'
 import { translate, Interpolate } from 'react-i18next'
+import type { TFunction } from 'react-i18next'
 import { withState } from 'recompose'
-
-import * as actions from '../../actions'
 
 import {
   accountToggleDashboard,
@@ -15,12 +15,33 @@ import {
   showModal,
 } from '../../modules'
 
+import type {
+  VerificationStatus,
+} from '../../modules/account'
+
+import { links } from '../../config'
+
 // function toggleDropdown(handler, isOpen) {
 //   return () => handler(!isOpen)
 // }
 
-function isTouchDevice() {
-  return ('ontouchstart' in window) || navigator.maxTouchPoints
+// function isTouchDevice() {
+//   return ('ontouchstart' in window) || navigator.maxTouchPoints
+// }
+type Props = {
+  t: TFunction,
+  closeDashboard: Function,
+  openSetAddressModal: Function,
+  openKYCStatusModal: Function,
+  logout: Function,
+  accountData: {
+    firstName: string,
+    lastName: string,
+  },
+  isOpen: boolean,
+  isHomePage?: boolean,
+  isAccountPage?: boolean,
+  verifyStatus: VerificationStatus,
 }
 
 const Dashboard = ({
@@ -29,13 +50,13 @@ const Dashboard = ({
   openSetAddressModal,
   openKYCStatusModal,
   logout,
-  openChangePasswordModal,
+  // openChangePasswordModal,
   accountData,
   verifyStatus,
   isOpen,
   isHomePage,
   isAccountPage,
-}) => (
+}: Props) => (
   <div onClick={closeDashboard} className={cx('dashboard', { open: isOpen })}>
     <div className="overlay" />
     <div className="content">
@@ -54,7 +75,7 @@ const Dashboard = ({
         </div>
       )}
       <div className="body">
-        {isHomePage && (
+        {/* {isHomePage && (
           <div className="item">
             <a
               className="title"
@@ -64,7 +85,7 @@ const Dashboard = ({
               {t('index.header.about')}
             </a>
           </div>
-        )}
+        )} */}
         {isHomePage && (
           <div className="item go-to-dashboard">
             <Link to={verifyStatus ? '/account' : '/verify'} className="title">
@@ -104,7 +125,7 @@ const Dashboard = ({
             className="title"
             target="_blank"
             rel="noopener noreferrer"
-            href="https://jibrelnetwork.freshdesk.com/support/tickets/new"
+            href={links.supportLink}
           >
             {t('account.support')}
           </a>
@@ -117,14 +138,14 @@ const Dashboard = ({
             {t('account.changeETHAddress')}
           </div>
         </div>
-        <div className="item">
+        {/* <div className="item">
           <div
             onClick={openChangePasswordModal}
             className="title"
           >
             {t('account.changePassword.button')}
           </div>
-        </div>
+        </div> */}
         <div className="item">
           <div
             onClick={logout}
@@ -137,26 +158,6 @@ const Dashboard = ({
     </div>
   </div>
 )
-
-Dashboard.propTypes = {
-  t: PropTypes.func.isRequired,
-  closeDashboard: PropTypes.func.isRequired,
-  openSetAddressModal: PropTypes.func.isRequired,
-  openKYCStatusModal: PropTypes.func.isRequired,
-  openChangePasswordModal: PropTypes.func.isRequired,
-  logout: PropTypes.func.isRequired,
-  // toggleLanguageDropdown: PropTypes.func.isRequired,
-  accountData: PropTypes.shape({
-    firstName: PropTypes.string,
-    lastName: PropTypes.string,
-  }).isRequired,
-  isOpen: PropTypes.bool.isRequired,
-  // isLanguageDropdownOpen: PropTypes.bool.isRequired,
-  /* optional */
-  verifyStatus: PropTypes.string,
-  isHomePage: PropTypes.bool,
-  isAccountPage: PropTypes.bool,
-}
 
 Dashboard.defaultProps = {
   isHomePage: false,
@@ -175,9 +176,9 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = {
   closeDashboard: accountToggleDashboard,
-  openSetAddressModal: () => actions.account.modals.changeState('setAddress', 'open'),
+  openSetAddressModal: () => showModal('set-address'),
   openKYCStatusModal: () => showModal('kyc-status'),
-  openChangePasswordModal: actions.account.password.openChangeConfirm,
+  // openChangePasswordModal: showModal(''),
   logout: authLogout,
 }
 

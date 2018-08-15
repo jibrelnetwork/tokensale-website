@@ -329,6 +329,50 @@ export function accountAddressChangeRequested(isRequested: boolean): accountAddr
 }
 
 /**
+ * ACCOUNT_ADDRESS_CHANGE_CONFIRM
+ */
+export const ACCOUNT_ADDRESS_CHANGE_CONFIRM = '@account/ACCOUNT_ADDRESS_CHANGE_CONFIRM'
+
+export type accountAddressChangeConfirmType = {
+  type: '@account/ACCOUNT_ADDRESS_CHANGE_CONFIRM',
+  payload: {
+    token: string,
+    operationId: string,
+  }
+}
+
+export function accountAddressChangeConfirm(operationId: string, token: string): accountAddressChangeConfirmType {
+  return {
+    type: ACCOUNT_ADDRESS_CHANGE_CONFIRM,
+    payload: {
+      operationId,
+      token,
+    },
+  }
+}
+
+/**
+ * ACCOUNT_ADDRESS_UPDATED
+ */
+export const ACCOUNT_ADDRESS_UPDATED = '@account/ACCOUNT_ADDRESS_UPDATED'
+
+export type accountAddressUpdatedType = {
+  type: '@account/ACCOUNT_ADDRESS_UPDATED',
+  payload: {
+    address: string,
+  }
+}
+
+export function accountAddressUpdated(address: string): accountAddressUpdatedType {
+  return {
+    type: ACCOUNT_ADDRESS_UPDATED,
+    payload: {
+      address,
+    },
+  }
+}
+
+/**
  * Reducer
  */
 
@@ -389,6 +433,7 @@ type accountActionType = accountToggleDashboardType |
   accountWithdrawConfirmType |
   accountAddressChangeRequestType |
   accountAddressChangeRequestedType |
+  accountAddressUpdatedType |
   authLogoutType
 
 export function accountReducer(state: AccountState = defaultState, action: accountActionType): AccountState {
@@ -450,8 +495,18 @@ export function accountReducer(state: AccountState = defaultState, action: accou
       }
     }
 
+    case ACCOUNT_ADDRESS_UPDATED: {
+      const { address } = action.payload
+      return {
+        ...state,
+        address,
+      }
+    }
+
     case AUTH_LOGOUT: {
-      return defaultState
+      return {
+        ...defaultState,
+      }
     }
 
     default:

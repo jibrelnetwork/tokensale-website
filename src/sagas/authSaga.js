@@ -3,7 +3,7 @@
 import type { Saga } from 'redux-saga'
 
 // import LogRocket from 'logrocket'
-import { push } from 'connected-react-router'
+import { replace } from 'connected-react-router'
 // import { toast } from 'react-toastify'
 import { put, call, takeEvery } from 'redux-saga/effects'
 import { startSubmit, stopSubmit } from 'redux-form'
@@ -24,6 +24,7 @@ import {
   AUTH_RESET_PASSWORD,
   AUTH_RESET_PASSWORD_CHANGE,
   authSetToken,
+  showModal,
   closeModals,
 } from '../modules'
 
@@ -79,11 +80,10 @@ function* authLogin(action: authLoginType): Saga<void> {
       captcha: e.data.captcha,
       password: e.data.non_field_errors,
     }
-    if (errors.captcha) {
+    if (window.grecaptcha && errors.captcha) {
       grecaptcha.trackLoginError()
       window.grecaptcha.reset()
     }
-    // server erros
     yield put(stopSubmit(LOGIN_FORM, errors))
   }
 }
@@ -164,7 +164,7 @@ function* authLogout(): Saga<void> {
   // remove token
   authToken.remove()
   // redirect to main page
-  yield put(push('/'))
+  yield put(replace('/'))
 }
 
 /**
@@ -177,17 +177,14 @@ function* authResetPassword(action: authResetPasswordType): Saga<void> {
 
   const postData = { email: email.toLowerCase() }
 
-  yield put(startSubmit(RESET_PASSWORD_FORM))
-
-  const response = yield call(api.post, 'auth/password/reset', postData)
-
-  yield put(stopSubmit(RESET_PASSWORD_FORM))
-  if (response.success) {
-    // @TODO: show email sended modal
-    // yield put(replace('/welcome/password/sended'))
-  } else {
+  try {
+    yield put(startSubmit(RESET_PASSWORD_FORM))
+    yield call(api.post, 'auth/password/reset', postData)
+    yield put(stopSubmit(RESET_PASSWORD_FORM))
+    yield put(showModal('resetPasswordEmailSended'))
+  } catch (error) {
     // toast.error('Server error, please try again later or contact with us via email')
-    console.error(response)
+    console.error(error)
   }
 }
 

@@ -5,6 +5,7 @@ const EN = {
       login: 'Login',
       register: 'Registration',
       resetPasswordEmail: 'Reset password',
+      resetPasswordEmailSended: 'Reset password',
       resetPassword: 'Reset password',
       documentSkipUpload: 'Skip document upload?',
     },
