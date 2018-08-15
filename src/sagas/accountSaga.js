@@ -7,7 +7,7 @@ import { push, replace } from 'connected-react-router'
 import { toast } from 'react-toastify'
 import { delay } from 'redux-saga'
 import { put, call, select, takeEvery, take, fork, cancel } from 'redux-saga/effects'
-import { startSubmit, stopSubmit } from 'redux-form'
+import { startSubmit, stopSubmit, reset } from 'redux-form'
 import moment from 'moment'
 
 import { authToken, api } from '../services'
@@ -20,6 +20,7 @@ import type {
   accountUpdateUserInfoType,
   accountVerifyDocumentUploadType,
   accountWithdrawConfirmType,
+  accountAddressChangeRequestType,
 } from '../modules/account'
 
 import {
@@ -33,10 +34,12 @@ import {
   ACCOUNT_VERIFY_DOCUMENT_UPLOAD,
   ACCOUNT_WITHDRAW_REQUEST,
   ACCOUNT_WITHDRAW_CONFIRM,
+  ACCOUNT_ADDRESS_CHANGE_REQUEST,
   authLogout,
   accountUpdate,
   accountUpdateTransactions,
   accountWithdrawSetRequested,
+  accountAddressChangeRequested,
   closeModals,
 } from '../modules'
 
@@ -46,6 +49,7 @@ const ACCOUNT_VERIFY_TERMS_FORM = 'account-verification-terms-form'
 const ACCOUNT_VERIFY_USER_INFO_FORM = 'account-verification-user-info-form'
 const ACCOUNT_VERIFY_DOCUMENT_UPLOAD_FORM = 'account-verification-document-upload-form'
 const ACCOUNT_REQUEST_WITHDRAW_FORM = 'withdraw'
+const ACCOUNT_REQUEST_ADDRESS_CHANGE_FORM = 'set-address'
 
 type responseAccountType = {
   // auth fields
@@ -428,6 +432,45 @@ function* withdrawConfirm(action: accountWithdrawConfirmType): Saga<void> {
 }
 
 /**
+ * Request address change
+ */
+function* requestAddressChange(action: accountAddressChangeRequestType): Saga<void> {
+  const { payload: { address } } = action
+
+  yield put(startSubmit(ACCOUNT_REQUEST_ADDRESS_CHANGE_FORM))
+  try {
+    const response = yield call(api.put, 'api/withdraw-address', { address }, authToken.get())
+    if (response.success) {
+      yield put(accountAddressChangeRequested(true))
+      yield put(stopSubmit(ACCOUNT_REQUEST_ADDRESS_CHANGE_FORM))
+      yield put(reset(ACCOUNT_REQUEST_ADDRESS_CHANGE_FORM))
+      yield put(closeModals()) // @TODO: show modal, that account address change has been requested
+      // @TODO: google integration
+      // gtm.pushProfileAddedEth()
+    }
+  } catch ({ code, data, statusText }) {
+    if (code === 301) {
+      yield put(stopSubmit(ACCOUNT_REQUEST_ADDRESS_CHANGE_FORM))
+      yield put(closeModals())
+      yield put(authLogout())
+    } else if (data.fail) {
+      yield put(stopSubmit(ACCOUNT_REQUEST_ADDRESS_CHANGE_FORM, { address: data.fail }))
+    } else if (data.data) {
+      const err = data.data
+      if (err.address && (err.address.length > 0)) {
+        yield put(stopSubmit(ACCOUNT_REQUEST_ADDRESS_CHANGE_FORM, { address: err.address[0] }))
+      } else if (err.detail) {
+        yield put(stopSubmit(ACCOUNT_REQUEST_ADDRESS_CHANGE_FORM, { address: err.detail }))
+      } else {
+        yield put(stopSubmit(ACCOUNT_REQUEST_ADDRESS_CHANGE_FORM, { address: 'Internal server error' }))
+      }
+    } else {
+      yield put(stopSubmit(ACCOUNT_REQUEST_ADDRESS_CHANGE_FORM, { address: statusText }))
+    }
+  }
+}
+
+/**
  * Account refresh
  */
 function* accountRefreshLoop(): Saga<void> {
@@ -470,4 +513,5 @@ export function* accountRootSaga(): Saga<void> {
   yield takeEvery(ACCOUNT_VERIFY_DOCUMENT_UPLOAD, uploadDocument)
   yield takeEvery(ACCOUNT_WITHDRAW_REQUEST, requestWithdraw)
   yield takeEvery(ACCOUNT_WITHDRAW_CONFIRM, withdrawConfirm)
+  yield takeEvery(ACCOUNT_ADDRESS_CHANGE_REQUEST, requestAddressChange)
 }

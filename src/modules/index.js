@@ -63,6 +63,8 @@ export {
   ACCOUNT_WITHDRAW_REQUEST,
   ACCOUNT_WITHDRAW_SET_REQUESTED,
   ACCOUNT_WITHDRAW_CONFIRM,
+  ACCOUNT_ADDRESS_CHANGE_REQUEST,
+  ACCOUNT_ADDRESS_CHANGE_REQUESTED,
   accountToggleDashboard,
   accountBalanceRequestSuccess,
   accountEmailVerify,
@@ -77,6 +79,8 @@ export {
   accountWithdrawRequest,
   accountWithdrawSetRequested,
   accountWithdrawConfirm,
+  accountAddressChangeRequest,
+  accountAddressChangeRequested,
 } from './account'
 
 // combine all reducers

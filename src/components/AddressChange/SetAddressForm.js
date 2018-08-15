@@ -1,13 +1,24 @@
+// @flow
+
 import React from 'react'
-import PropTypes from 'prop-types'
-import compose from 'lodash/fp/compose'
+import { compose } from 'lodash/fp'
 import { connect } from 'react-redux'
 import { translate } from 'react-i18next'
+import type { TFunction } from 'react-i18next'
 import { Field, reduxForm } from 'redux-form'
-import { lifecycle, withHandlers } from 'recompose'
+import { withHandlers } from 'recompose'
 
-import { Input } from '../../../common'
-import { account } from '../../../../actions'
+import { Input } from '../common'
+import { closeModals, accountAddressChangeRequest } from '../../modules'
+import type { State } from '../../modules'
+
+type Props = {
+  t: TFunction,
+  isAddressChangeRequested: boolean,
+  handleSubmit: Function,
+  submitAddressChanging: Function,
+  submitting: Function,
+}
 
 const SetAddress = ({
   t,
@@ -15,7 +26,7 @@ const SetAddress = ({
   handleSubmit,
   submitAddressChanging,
   isAddressChangeRequested,
-}) => (
+}: Props) => (
   <div className="form-block">
     <form onSubmit={handleSubmit(submitAddressChanging)} className="form">
       {isAddressChangeRequested
@@ -54,23 +65,13 @@ const SetAddress = ({
   </div>
 )
 
-SetAddress.propTypes = {
-  t: PropTypes.func.isRequired,
-  submitting: PropTypes.bool.isRequired,
-  handleSubmit: PropTypes.func.isRequired,
-  submitAddressChanging: PropTypes.func.isRequired,
-  isAddressChangeRequested: PropTypes.bool.isRequired,
-}
-
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: State) => ({
   isAddressChangeRequested: state.account.isAddressChangeRequested,
 })
 
 const mapDispatchToProps = {
-  setAddressChangeRequested: account.address.changeRequested,
-  requestAddressChange: (address) => account.address.requestChange(address),
-  shakeSetAddressModal: () => account.modals.changeState('setAddress', 'shake'),
-  closeSetAddressModal: () => account.modals.changeState('setAddress', 'close'),
+  requestAddressChange: accountAddressChangeRequest,
+  closeSetAddressModal: closeModals,
 }
 
 export default compose(
@@ -96,17 +97,5 @@ export default compose(
       return isAddressChangeRequested ? closeSetAddressModal() : requestAddressChange(address)
     },
   }),
-  /* eslint-disable fp/no-this */
-  lifecycle({
-    componentWillMount() {
-      this.props.setAddressChangeRequested(false)
-    },
-    componentWillReceiveProps(nextProps) {
-      if (!this.props.submitFailed && nextProps.submitFailed) {
-        this.props.shakeSetAddressModal()
-      }
-    },
-  }),
-  /* eslint-enable */
 )(SetAddress)
 
