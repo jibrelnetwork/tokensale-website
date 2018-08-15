@@ -4,10 +4,14 @@ ROOT:
 VERIFY:
   path: '/verify'
 
-VERIFY_EMAIL_ROOT:
-  path: '/confirm'
+ACCOUNT:
+  path: '/account'
 
 CONFIRM:
+  path: '/confirm'
+
+# old stuff
+VERIFY_EMAIL_ROOT:
   path: '/confirm'
 
 VERIFY_EMAIL_SENDED:
@@ -22,5 +26,23 @@ VERIFY_EMAIL_VERIFIED:
 VERIFY_EMAIL_DECLINED:
   path: '/confirm/email/declined'
 
-ACCOUNT:
-  path: '/account'
+CONFIRM_ADDRESS_CHANGE:
+  path: '/confirm/address-change/request/:operationId/:token'
+
+CONFIRM_ADDRESS_CHANGE_SUCCESS:
+  path: '/confirm/address-change/success'
+
+CONFIRM_ADDRESS_CHANGE_FAIL:
+  path: '/confirm/address-change/fail'
+
+CONFIRM_PASSWORD_CHANGE:
+  path: '/confirm/password-change/request/:uid/:token'
+
+CONFIRM_WITHDRAW:
+  path: '/confirm/withdraw/request/:operationId/:token'
+
+CONFIRM_WITHDRAW_SUCCESS:
+  path: '/confirm/withdraw/success'
+
+CONFIRM_WITHDRAW_FAIL:
+  path: '/confirm/withdraw/fail'
