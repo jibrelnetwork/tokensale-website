@@ -105,7 +105,7 @@ if (!rootElement) {
     <Provider store={store}>
       <I18nextProvider i18n={i18n}>
         <ConnectedRouter history={history}>
-          <div>
+          <React.Fragment>
             <Switch>
               {/* <Redirect exact from="/" to="/welcome" />
               <ProtectedRoute
@@ -134,7 +134,7 @@ if (!rootElement) {
               pauseOnHover
               hideProgressBar
             />
-          </div>
+          </React.Fragment>
         </ConnectedRouter>
       </I18nextProvider>
     </Provider>,
