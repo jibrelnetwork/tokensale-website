@@ -2,6 +2,7 @@
 
 import React from 'react'
 import moment from 'moment'
+import numeral from 'numeral'
 import { compose } from 'lodash/fp'
 import { lifecycle } from 'recompose'
 import { translate } from 'react-i18next'
@@ -18,19 +19,19 @@ const Timer = ({ t, timeLeft }: Props) => (
     <div className="counter">
       <div className="row clear">
         <div className="col-3">
-          <div className="time">{timeLeft.days()}</div>
+          <div className="time">{numeral(timeLeft.days()).format('00')}</div>
           <div className="title">{t('index.timer.days')}</div>
         </div>
         <div className="col-3">
-          <div className="time">{timeLeft.hours() > 0 ? timeLeft.hours() : 0 }</div>
+          <div className="time">{numeral(timeLeft.hours() > 0 ? timeLeft.hours() : 0).format('00')}</div>
           <div className="title">{t('index.timer.hours')}</div>
         </div>
         <div className="col-3">
-          <div className="time">{timeLeft.minutes() > 0 ? timeLeft.minutes() : 0 }</div>
+          <div className="time">{numeral(timeLeft.minutes() > 0 ? timeLeft.minutes() : 0).format('00')}</div>
           <div className="title">{t('index.timer.minutes')}</div>
         </div>
         <div className="col-3">
-          <div className="time">{timeLeft.seconds() > 0 ? timeLeft.seconds() : 0 }</div>
+          <div className="time">{numeral(timeLeft.seconds() > 0 ? timeLeft.seconds() : 0).format('00')}</div>
           <div className="title">{t('index.timer.seconds')}</div>
         </div>
       </div>
