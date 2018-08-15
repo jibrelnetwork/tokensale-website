@@ -1,6 +1,4 @@
 .progress {
-  color: $white;
-
   .wrap {
     position: relative;
     margin: 0 auto;
@@ -20,7 +18,7 @@
   .item {
     z-index: 4;
     position: absolute;
-    bottom: -12px;
+    bottom: -13px;
     width: 120px;
     margin-left: -60px;
 
