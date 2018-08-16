@@ -161,10 +161,17 @@ function* authCreateAccount(action: authCreateAccountType): Saga<void> {
 }
 
 function* authLogout(): Saga<void> {
-  // remove token
-  authToken.remove()
   // redirect to main page
   yield put(replace('/'))
+
+  try {
+    yield call(api.post, 'auth/logout', {}, authToken.get())
+  } catch (e) {
+    console.error('logout error', e)
+  }
+
+  // remove token
+  authToken.remove()
 }
 
 /**
