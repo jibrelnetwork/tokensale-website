@@ -3,12 +3,6 @@
 import { AUTH_LOGOUT } from './auth'
 import type { authLogoutType } from './auth'
 
-export type VerificationStatus = void | "Preliminarily Approved" | "Pending" | "Approved" | "Declined"
-
-export type VerificationStage = "terms" | "user-info" | "document" | "loader"
-
-export type VerificationFormStatus = void | "personal_data_filled" | "passport_uploaded"
-
 /**
  * ACCOUNT_BALANCE_REQUEST_SUCCESS
  */
