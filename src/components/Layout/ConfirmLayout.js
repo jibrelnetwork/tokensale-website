@@ -8,6 +8,7 @@ import { Route, Switch } from 'react-router-dom'
 
 import Header from '../common/Header'
 import * as Email from '../Auth/Email'
+import * as AddressChange from '../AddressChange'
 import R from '../../routes.yaml'
 
 // type Props = {
@@ -32,6 +33,10 @@ const ConfirmLayout = () => (
             <Route {...R.VERIFY_EMAIL_PENDING} component={Email.Pending} />
             <Route {...R.VERIFY_EMAIL_VERIFIED} component={Email.Verified} />
             <Route {...R.VERIFY_EMAIL_DECLINED} component={Email.Declined} />
+            {/* Address change */}
+            <Route {...R.CONFIRM_ADDRESS_CHANGE} component={AddressChange.Request} />
+            <Route {...R.CONFIRM_ADDRESS_CHANGE_SUCCESS} component={AddressChange.Success} />
+            <Route {...R.CONFIRM_ADDRESS_CHANGE_FAIL} component={AddressChange.Fail} />
           </Switch>
         </div>
       </div>

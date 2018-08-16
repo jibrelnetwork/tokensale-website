@@ -21,6 +21,7 @@ import type {
   accountVerifyDocumentUploadType,
   accountWithdrawConfirmType,
   accountAddressChangeRequestType,
+  accountAddressChangeConfirmType,
 } from '../modules/account'
 
 import {
@@ -35,6 +36,7 @@ import {
   ACCOUNT_WITHDRAW_REQUEST,
   ACCOUNT_WITHDRAW_CONFIRM,
   ACCOUNT_ADDRESS_CHANGE_REQUEST,
+  ACCOUNT_ADDRESS_CHANGE_CONFIRM,
   authLogout,
   accountUpdate,
   accountUpdateTransactions,
@@ -156,7 +158,6 @@ export function* redirectAfterLogin(): Saga<void> {
   } = yield select(accountSelector)
 
   if (!isEmailConfirmed) {
-    // yield put(push('/welcome/email/sended'))
     yield put(push(R.VERIFY_EMAIL_SENDED.path))
   } else if (verifyStatus === 'Approved') {
     yield put(push(R.ACCOUNT.path))
@@ -449,7 +450,8 @@ function* requestAddressChange(action: accountAddressChangeRequestType): Saga<vo
       // @TODO: google integration
       // gtm.pushProfileAddedEth()
     }
-  } catch ({ code, data, statusText }) {
+  } catch (e) {
+    const { code, data, statusText } = e
     if (code === 301) {
       yield put(stopSubmit(ACCOUNT_REQUEST_ADDRESS_CHANGE_FORM))
       yield put(closeModals())
@@ -467,6 +469,28 @@ function* requestAddressChange(action: accountAddressChangeRequestType): Saga<vo
       }
     } else {
       yield put(stopSubmit(ACCOUNT_REQUEST_ADDRESS_CHANGE_FORM, { address: statusText }))
+    }
+  }
+}
+
+/**
+ * Confirm address change
+ */
+export function* addressChangeConfirm(action: accountAddressChangeConfirmType): Saga<void> {
+  const { payload: { operationId, token } } = action
+  const postData = { operation_id: operationId, token }
+  try {
+    // @TODO: check, do we need user authorisation for this action???
+    yield call(api.post, 'api/withdraw-address/confirm', postData, 'post')
+    yield put(replace(R.CONFIRM_ADDRESS_CHANGE_SUCCESS.path))
+  } catch (e) {
+    if (e.data.data) {
+      yield put(replace({
+        state: { message: e.data.data.detail },
+        pathname: R.CONFIRM_ADDRESS_CHANGE_FAIL.path,
+      }))
+    } else {
+      yield put(replace(R.CONFIRM_ADDRESS_CHANGE_FAIL.path))
     }
   }
 }
@@ -515,4 +539,5 @@ export function* accountRootSaga(): Saga<void> {
   yield takeEvery(ACCOUNT_WITHDRAW_REQUEST, requestWithdraw)
   yield takeEvery(ACCOUNT_WITHDRAW_CONFIRM, withdrawConfirm)
   yield takeEvery(ACCOUNT_ADDRESS_CHANGE_REQUEST, requestAddressChange)
+  yield takeEvery(ACCOUNT_ADDRESS_CHANGE_CONFIRM, addressChangeConfirm)
 }

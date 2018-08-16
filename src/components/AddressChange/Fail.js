@@ -8,7 +8,7 @@ const Fail = (props) => (
   <div className="address-change-confirm">
     <div className="img fail" />
     <p>{get(['location', 'state', 'message'], props) || props.t('confirmations.changeAddress.fail')}</p>
-    <Link to="/account" replace className="button">{props.t('index.header.account')}</Link>
+    <Link to="/account" replace className="button medium dark">{props.t('index.header.account')}</Link>
   </div>
 )
 
