@@ -23,7 +23,8 @@ function getHeaders(authToken?: string, isUploading?: boolean): Object {
 }
 
 /* eslint-disable fp/no-this, fp/no-mutation */
-type RequestErrorType = { status: number, data?: ?Object, message: string }
+export type RequestErrorType = { status: number, data?: ?Object, message: string }
+
 export function RequestError({ status, data, message }: RequestErrorType) {
   this.status = status
   this.name = 'RequestError'
