@@ -15,10 +15,6 @@ import {
   showModal,
 } from '../../../modules'
 
-import type {
-  VerificationStatus,
-} from '../../../modules/account'
-
 import { links } from '../../../config'
 
 // function toggleDropdown(handler, isOpen) {

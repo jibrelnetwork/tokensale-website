@@ -15,8 +15,6 @@ import { accountSelector } from '../selectors/account'
 import type {
   accountEmailVerifyType,
   accountUpdatePayloadType,
-  VerificationStatus,
-  VerificationStage,
   accountUpdateUserInfoType,
   accountVerifyDocumentUploadType,
   accountWithdrawConfirmType,

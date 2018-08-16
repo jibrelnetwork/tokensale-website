@@ -2,10 +2,7 @@
 
 import React from 'react'
 import { translate } from 'react-i18next'
-
-import type {
-  TFunction,
-} from 'react-i18next'
+import type { TFunction } from 'react-i18next'
 
 import benefit1 from '../../static/icons/benefit-1.svg'
 import benefit2 from '../../static/icons/benefit-2.svg'
