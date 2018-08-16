@@ -1,27 +1,36 @@
+// @flow
+
 import React from 'react'
-import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { compose } from 'lodash/fp'
+import { compose } from 'ramda'
 import { translate } from 'react-i18next'
+import type { TFunction } from 'react-i18next'
 import { Field, reduxForm } from 'redux-form'
-import { withState, withHandlers } from 'recompose'
 
-// import * as actions from '../../../actions'
-import { Uploader } from '../../common'
+import { Uploader, Button, ModalOpenButton } from '../../common'
 
-import { JModalOpenButton } from '../../Modals'
 import {
   accountVerifyDocumentUpload,
   accountVerifySetStage,
 } from '../../../modules'
-// import { JText } from '../../base'
+
+// import type {
+//   accountVerifySetStageType,
+// } from '../../../modules/account'
+
+type Props = {
+  t: TFunction,
+  submitting: boolean,
+  handleSubmit: Function,
+  setStage: (stage: VerificationStage) => any
+}
 
 const Document = ({
   t,
   setStage,
   submitting,
   handleSubmit,
-}) => (
+}: Props) => (
   <div className="Document">
     <form onSubmit={handleSubmit} className="form">
       <Field
@@ -30,33 +39,29 @@ const Document = ({
         component={Uploader}
       />
       <div className="buttons clear">
-        <button
+        <Button
           type="submit"
           disabled={submitting}
-          className="button medium dark pull-right"
-        >
-          {t('verification.document.submit')}
-        </button>
-        <JModalOpenButton modalName="documentSkipUpload" className="button medium transparent pull-right">
-          {t('verification.document.skip')}
-        </JModalOpenButton>
-        <div
+          className="pull-right"
+          value="verification.document.submit"
+        />
+        <ModalOpenButton
+          modalName="documentSkipUpload"
+          className="pull-right"
+          colorStyle="transparent"
+          value="verification.document.skip"
+        />
+        <Button
+          disabled={submitting}
+          colorStyle="transparent"
+          className="pull-left"
           onClick={() => setStage('user-info')}
-          className="link gray"
-        >
-          {t('verification.document.goBack')}
-        </div>
+          value="verification.document.goBack"
+        />
       </div>
     </form>
   </div>
 )
-
-Document.propTypes = {
-  t: PropTypes.func.isRequired,
-  setStage: PropTypes.func.isRequired,
-  submitting: PropTypes.bool.isRequired,
-  handleSubmit: PropTypes.func.isRequired,
-}
 
 const mapDispatchToProps = {
   setStage: accountVerifySetStage,
@@ -66,17 +71,6 @@ const mapDispatchToProps = {
 
 export default compose(
   translate(),
-  withState(
-    'isSkipModalOpen',
-    'toggleSkipModal',
-    false,
-  ),
-  withHandlers({
-    openSkipModal: (props) =>
-      () => props.toggleSkipModal(true),
-    closeSkipModal: (props) =>
-      () => props.toggleSkipModal(false),
-  }),
   connect(
     null,
     mapDispatchToProps,

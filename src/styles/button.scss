@@ -55,7 +55,8 @@
 
   &.light {
     background-color: #a7dbee;
-
+    color: $dusk;
+    
     &:hover {
       opacity: 1 !important;
       background-color: lighten(#a7dbee, 10%);

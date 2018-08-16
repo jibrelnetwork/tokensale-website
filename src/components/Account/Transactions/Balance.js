@@ -2,24 +2,22 @@
 
 import React from 'react'
 import numeral from 'numeral'
-import PropTypes from 'prop-types'
-import { compose } from 'ramda'
 import { connect } from 'react-redux'
-import { translate, Interpolate } from 'react-i18next'
-import type { TFunction } from 'react-i18next'
+import { Interpolate } from 'react-i18next'
 
-import { JModalOpenButton } from '../../Modals'
+import { ModalOpenButton } from '../../common'
 
 type Props = {
-  t: TFunction,
   balance: number,
 }
 
-const Balance = ({ balance, t /* , address */ }: Props) => (
+const Balance = ({ balance /* , address */ }: Props) => (
   <div className="Balance">
-    <JModalOpenButton modalName="withdraw" className="button small dark pull-right">
-      {t('account.withdraw.button')}
-    </JModalOpenButton>
+    <ModalOpenButton
+      modalName="withdraw"
+      className="pull-right"
+      value="account.withdraw.button"
+    />
     <div className="balance pull-right">
       <Interpolate
         i18nKey="account.balance"
@@ -29,13 +27,6 @@ const Balance = ({ balance, t /* , address */ }: Props) => (
   </div>
 )
 
-Balance.propTypes = {
-  t: PropTypes.func.isRequired,
-  balance: PropTypes.number.isRequired,
-  /* optional */
-  // address: PropTypes.string,
-}
-
 Balance.defaultProps = {
   // address: undefined,
 }
@@ -44,11 +35,7 @@ const mapStateToProps = (state) => ({
   // address: state.account.address,
   balance: state.account.balance,
 })
-const enhance = compose(
-  translate(),
-  connect(
-    mapStateToProps,
-  )
-)
 
-export default enhance(Balance)
+export default connect(
+  mapStateToProps,
+)(Balance)

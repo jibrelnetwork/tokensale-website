@@ -1,19 +1,13 @@
 // @flow
 
 import React from 'react'
-import { connect } from 'react-redux'
-// import { lifecycle } from 'recompose'
 import { translate } from 'react-i18next'
 import type { TFunction } from 'react-i18next'
 
 import { Field, reduxForm } from 'redux-form'
 import { set, compose, identity } from 'lodash/fp'
 
-import { JModalOpenButton } from '../Modals'
-import { JText } from '../base'
-
-import * as actions from '../../actions'
-import { Input, Captcha } from '../common'
+import { Input, Captcha, Button, ModalOpenButton } from '../common'
 
 import { authCreateAccount } from '../../modules'
 
@@ -52,35 +46,26 @@ const Register = ({ t, submitting, handleSubmit }: Props) => (
           component={Captcha}
         />
         <div className="buttons clear">
-          <button
+          <Button
             type="submit"
             disabled={submitting}
-            className="button medium dark pull-left"
-          >
-            {!submitting && t('auth.registration.submit')}
-          </button>
-          <JModalOpenButton modalName="login" className="button medium transparent pull-right">
-            <JText value="auth.registration.links.login" whiteSpace="wrap" />
-          </JModalOpenButton>
+            className="pull-left"
+            value="auth.registration.submit"
+          />
+          <ModalOpenButton
+            modalName="login"
+            className="pull-right"
+            value="auth.registration.links.login"
+            colorStyle="transparent"
+          />
         </div>
       </form>
     </div>
   </div>
 )
 
-const mapDispatchToProps = (dispatch: Function) => ({
-  openLoginModal: () => {
-    dispatch(actions.account.modals.changeState('loginModal', 'open'))
-    dispatch(actions.account.modals.changeState('registerModal', 'close'))
-  },
-})
-
 export default compose(
   translate(),
-  connect(
-    null,
-    mapDispatchToProps,
-  ),
   reduxForm({
     form: 'register',
     onSubmit: ({ email, password, passwordConfirm, captcha }, dispatch) =>
@@ -107,14 +92,4 @@ export default compose(
         : identity,
     )({}),
   }),
-  // lifecycle({
-  //   componentWillReceiveProps(props) {
-  //     if (props.submitFailed) {
-  //       props.showSupportLink()
-  //     }
-  //   },
-  //   componentWillUnmount() {
-  //     this.props.showSupportLink(false) // eslint-disable-line fp/no-this
-  //   },
-  // }),
 )(Register)

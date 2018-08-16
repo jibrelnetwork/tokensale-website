@@ -8,7 +8,7 @@ import type { TFunction } from 'react-i18next'
 import { Field, reduxForm } from 'redux-form'
 import { withHandlers } from 'recompose'
 
-import { Input } from '../common'
+import { Input, Button } from '../common'
 import { closeModals, accountAddressChangeRequest } from '../../modules'
 import type { State } from '../../modules'
 
@@ -17,7 +17,7 @@ type Props = {
   isAddressChangeRequested: boolean,
   handleSubmit: Function,
   submitAddressChanging: Function,
-  submitting: Function,
+  submitting: boolean,
 }
 
 const SetAddress = ({
@@ -50,16 +50,12 @@ const SetAddress = ({
         {t('account.setETHAddress.addressWarning')}
       </div>
       <div className="clear">
-        <button
+        <Button
           type="submit"
           disabled={submitting}
-          className="button medium dark pull-right"
-        >
-          {!submitting && isAddressChangeRequested
-            ? t('account.setETHAddress.close')
-            : t('account.setETHAddress.submit')
-          }
-        </button>
+          className="pull-right"
+          value={isAddressChangeRequested ? 'account.setETHAddress.close' : 'account.setETHAddress.submit'}
+        />
       </div>
     </form>
   </div>

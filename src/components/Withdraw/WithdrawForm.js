@@ -15,6 +15,8 @@ import {
   closeModals,
 } from '../../modules'
 
+import { Button } from '../common'
+
 import type { State } from '../../modules'
 
 const ICONS = {
@@ -30,7 +32,7 @@ type Props = {
   t: TFunction,
   address: string,
   balance: number,
-  submitting: Function,
+  submitting: boolean,
   messageType: string,
   handleSubmit: Function,
   submitWithdraw: Function,
@@ -65,9 +67,11 @@ const Withdraw = ({
         </div>
       </div>
       <div className="text-center">
-        <button type="submit" className="button medium dark" disabled={submitting}>
-          {t(`account.withdraw.${messageType}.button`)}
-        </button>
+        <Button
+          type="submit"
+          disabled={submitting}
+          value={`account.withdraw.${messageType}.button`}
+        />
       </div>
     </form>
   </div>

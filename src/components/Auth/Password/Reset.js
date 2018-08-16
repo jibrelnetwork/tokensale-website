@@ -1,19 +1,18 @@
 // @flow
 
 import React from 'react'
-import PropTypes from 'prop-types'
 import { compose } from 'ramda'
 import { translate } from 'react-i18next'
 import type { TFunction } from 'react-i18next'
 import { Field, reduxForm } from 'redux-form'
 
-import { Input } from '../../common'
+import { Input, Button } from '../../common'
 import { authResetPassword } from '../../../modules'
 
 const VALIDATE_EMAIL_REGEXP = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/ // eslint-disable-line max-len
 
 type Props = {
-  submitting: Function,
+  submitting: boolean,
   handleSubmit: Function,
   t: TFunction,
 }
@@ -28,23 +27,15 @@ const Reset = ({ submitting, handleSubmit, t }: Props) => (
         component={Input}
       />
       <div className="buttons text-center clear">
-        <button
+        <Button
           type="submit"
           disabled={submitting}
-          className="button medium dark"
-        >
-          {t('auth.sendResetPasswordEmail.submit')}
-        </button>
+          value="auth.sendResetPasswordEmail.submit"
+        />
       </div>
     </form>
   </div>
 )
-
-Reset.propTypes = {
-  t: PropTypes.func.isRequired,
-  submitting: PropTypes.bool.isRequired,
-  handleSubmit: PropTypes.func.isRequired,
-}
 
 export default compose(
   translate(),

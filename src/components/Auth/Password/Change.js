@@ -7,10 +7,10 @@ import { Field, reduxForm } from 'redux-form'
 import { assoc, compose, identity } from 'ramda'
 
 import { authResetPasswordChange } from '../../../modules'
-import { Input } from '../../common'
+import { Input, Button } from '../../common'
 
 type Props = {
-  submitting: Function,
+  submitting: boolean,
   handleSubmit: Function,
   t: TFunction,
 }
@@ -30,14 +30,12 @@ const Change = ({ submitting, handleSubmit, t }: Props) => (
         label={t('auth.resetPassword.fields.newPasswordConfirm')}
         component={Input}
       />
-      <div className="buttons clear">
-        <button
+      <div className="buttons clear center">
+        <Button
           type="submit"
           disabled={submitting}
-          className="button medium dark pull-left"
-        >
-          {t('auth.resetPassword.submit')}
-        </button>
+          value="auth.resetPassword.submit"
+        />
       </div>
     </form>
   </div>

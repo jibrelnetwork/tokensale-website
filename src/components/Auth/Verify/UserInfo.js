@@ -5,7 +5,7 @@ import { translate } from 'react-i18next'
 import { Field, reduxForm } from 'redux-form'
 import { set, identity, compose } from 'lodash/fp'
 
-import { Input, Select, DateInput } from '../../common'
+import { Input, Select, DateInput, Button } from '../../common'
 import { COUNTRIES } from '../../../data/countries'
 
 import { accountUpdateUserInfo } from '../../../modules'
@@ -44,13 +44,12 @@ const UserInfo = ({ submitting, handleSubmit, t }) => (
         component={Select}
       />
       <div className="buttons clear">
-        <button
+        <Button
           type="submit"
           disabled={submitting}
-          className="button medium dark pull-right"
-        >
-          {!submitting && t('verification.userInfo.submit')}
-        </button>
+          className="pull-right"
+          value="verification.userInfo.submit"
+        />
       </div>
     </form>
   </div>

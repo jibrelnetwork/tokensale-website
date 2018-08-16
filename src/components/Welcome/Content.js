@@ -9,8 +9,7 @@ import type { TFunction } from 'react-i18next'
 
 import Timer from './Timer'
 
-import { JModalOpenButton } from '../Modals'
-// import { JText } from '../base'
+import { ModalOpenButton } from '../common'
 import type { State } from '../../modules'
 
 type Props = {
@@ -59,7 +58,11 @@ const Content = ({ t, isAuthorized, isSaleFinished }: Props) => (
         <Timer />
         { !isAuthorized &&
         <div className="links">
-          <JModalOpenButton className="button big dark" modalName="login">{t('index.button')}</JModalOpenButton>
+          <ModalOpenButton
+            size="big"
+            modalName="login"
+            value="index.button"
+          />
         </div>}
       </React.Fragment>}
   </div>

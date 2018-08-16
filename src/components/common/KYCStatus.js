@@ -8,10 +8,10 @@ import { translate, Interpolate } from 'react-i18next'
 import type { TFunction } from 'react-i18next'
 
 import type { State } from '../../modules'
-// import type { VerificationStatus } from '../../modules/account'
 
 import { links } from '../../config'
 import { closeModals } from '../../modules'
+import Button from './Button'
 
 type Props = {
   t: TFunction,
@@ -39,9 +39,7 @@ const KYCStatus = ({
       </div>
     </div>
     <div className="text-center">
-      <button className="button medium dark" onClick={closeClick}>
-        {t('account.KYC.close')}
-      </button>
+      <Button onClick={closeClick} value="account.KYC.close" />
     </div>
   </div>
 )

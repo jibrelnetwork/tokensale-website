@@ -13,7 +13,6 @@ import { Addresses, Transactions } from '../Account'
 import Benefits from '../Welcome/Benefits'
 
 import R from '../../routes.yaml'
-import type { VerificationStatus } from '../../modules/account'
 
 type Props = {
   isAuthorized: boolean,

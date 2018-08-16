@@ -13,8 +13,7 @@ import { withHandlers, withState } from 'recompose'
 import Dashboard from './Dashboard'
 
 import { accountToggleDashboard, authLogout } from '../../../modules'
-import { JModalOpenButton } from '../../Modals'
-import { JText } from '../../base'
+import { ModalOpenButton, Button } from '../../common'
 import type { ActiveLayout } from '../../Layout'
 
 function isTouchDevice(): boolean {
@@ -64,7 +63,12 @@ const Controls = ({
         <React.Fragment>
           { isEmailConfirmed && <li><Link to="/verify">{t('index.header.verification')}</Link></li> }
           <li>
-            <button onClick={onLogoutClick} className="button small light"><JText value="account.logout" /></button>
+            <Button
+              onClick={onLogoutClick}
+              colorStyle="light"
+              size="small"
+              value="account.logout"
+            />
           </li>
         </React.Fragment>
       ) : ([
@@ -74,14 +78,20 @@ const Controls = ({
           </a>
         </li>,
         <li key="1">
-          <JModalOpenButton modalName="login" className="button small transparent">
-            <JText value="index.header.login" whiteSpace="wrap" color="default" />
-          </JModalOpenButton>
+          <ModalOpenButton
+            modalName="login"
+            colorStyle="transparent"
+            size="small"
+            value="index.header.login"
+          />
         </li>,
         <li key="2">
-          <JModalOpenButton modalName="register" className="button small light">
-            <JText value="index.header.register" whiteSpace="wrap" color="default" />
-          </JModalOpenButton>
+          <ModalOpenButton
+            modalName="register"
+            colorStyle="light"
+            size="small"
+            value="index.header.register"
+          />
         </li>,
         /* <li key="1">
           <a

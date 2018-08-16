@@ -1,7 +1,6 @@
 // @flow
 
 import React from 'react'
-// import PropTypes from 'prop-types'
 // import { connect } from 'react-redux'
 import { Field, reduxForm } from 'redux-form'
 import { set, compose, identity } from 'lodash/fp'
@@ -9,15 +8,13 @@ import { set, compose, identity } from 'lodash/fp'
 import { translate, Interpolate } from 'react-i18next'
 import type { TFunction } from 'react-i18next'
 
-import { Input } from '../../common'
+import { Input, Button } from '../../common'
 
 import { accountVerifyTermsConfirm } from '../../../modules'
 
-// import type { State } from '../../../modules'
-
 type Props = {
   t: TFunction,
-  submitting: Function,
+  submitting: boolean,
   handleSubmit: Function,
 }
 
@@ -50,13 +47,12 @@ const Terms = ({ t, submitting, handleSubmit }: Props) => (
         component={Input}
       />
       <div className="buttons clear">
-        <button
+        <Button
           type="submit"
           disabled={submitting}
-          className="button medium dark pull-right"
-        >
-          {!submitting && t('verification.terms.submit')}
-        </button>
+          className="pull-right"
+          value="verification.terms.submit"
+        />
       </div>
     </form>
   </div>

@@ -2,7 +2,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
-import { JText } from '../../base'
+import { Button, JText } from '../../common'
 import { closeModals, accountVerifySkipDocumentUpload } from '../../../modules'
 
 type Props = {
@@ -15,18 +15,17 @@ const DocumentSkipUpload = ({ onSkipUploadClick, onCloseClick }: Props) => (
     <div className="form-block">
       <p className="popup-text"><JText value="verification.document.modal.message" /></p>
       <div className="buttons clear">
-        <button
+        <Button
           onClick={onSkipUploadClick}
-          className="button medium transparent pull-right"
-        >
-          <JText value="verification.document.modal.skipUpload" />
-        </button>
-        <button
+          colorStyle="transparent"
+          className="pull-right"
+          value="verification.document.modal.skipUpload"
+        />
+        <Button
           onClick={onCloseClick}
-          className="button medium dark pull-left"
-        >
-          <JText value="verification.document.modal.close" color="white" />
-        </button>
+          className="pull-left"
+          value="verification.document.modal.close"
+        />
       </div>
     </div>
   </div>

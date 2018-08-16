@@ -7,7 +7,7 @@ import { connect } from 'react-redux'
 import { translate } from 'react-i18next'
 import type { TFunction } from 'react-i18next'
 
-import { JModalOpenButton } from '../../Modals'
+import { ModalOpenButton } from '../../common'
 import type { State } from '../../../modules'
 
 import R from '../../../routes.yaml'
@@ -25,9 +25,10 @@ const Verified = ({ t, isLoggedIn }: Props) => (
       <Link to={R.VERIFY.path} className="button medium dark">{t('auth.emailVerification.continue')}</Link>
     }
     {!isLoggedIn &&
-      <JModalOpenButton modalName="login" className="button medium dark">
-        {t('auth.emailVerification.complete')}
-      </JModalOpenButton>
+      <ModalOpenButton
+        modalName="login"
+        value="auth.emailVerification.complete"
+      />
     }
   </div>
 )
