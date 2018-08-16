@@ -9,6 +9,7 @@ import Uploader from './Uploader'
 import KYCStatus from './KYCStatus'
 import Button from './Button'
 import ModalOpenButton from './ModalOpenButton'
+import JText from './JText'
 
 export {
   Input,
@@ -20,4 +21,5 @@ export {
   KYCStatus,
   Button,
   ModalOpenButton,
+  JText,
 }
