@@ -31,8 +31,7 @@ const enhance = compose(
     mapDispatchToProps
   ),
   lifecycle({
-    componentWillMount() {
-      // console.log(1111)
+    componentDidMount() {
       // eslint-disable-next-line fp/no-this
       console.log(this.props.match.params.key)
       // eslint-disable-next-line fp/no-this

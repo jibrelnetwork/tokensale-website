@@ -110,7 +110,7 @@ export default compose(
   ),
   reduxForm({ form: 'withdraw' }),
   lifecycle({
-    componentWillMount() {
+    componentDidMount() {
       this.props.setWithdrawRequested(false)
     },
   }),

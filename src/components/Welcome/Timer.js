@@ -44,7 +44,7 @@ const enhance = compose(
   lifecycle({
     state: { timeLeft: moment.duration(moment.utc('2018-10-26T12:00') - moment.utc()) },
     /* eslint-disable fp/no-this */
-    componentWillMount() {
+    componentDidMount() {
       const { timeLeft } = this.state
       if (timeLeft.asMilliseconds() > 0) {
         this.timer = setInterval(
