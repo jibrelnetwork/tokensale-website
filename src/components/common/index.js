@@ -7,6 +7,8 @@ import DateInput from './DateInput'
 import Social from './Social'
 import Uploader from './Uploader'
 import KYCStatus from './KYCStatus'
+import Button from './Button'
+import ModalOpenButton from './ModalOpenButton'
 
 export {
   Input,
@@ -16,4 +18,6 @@ export {
   Social,
   Uploader,
   KYCStatus,
+  Button,
+  ModalOpenButton,
 }

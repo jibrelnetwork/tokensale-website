@@ -73,6 +73,11 @@
     }
   }
 
+  &.disabled {
+    background-color: #c1c1c1 !important;
+    color: $dusk !important;
+  }
+
   &.clean {
     background-color: transparent;
     box-shadow: none;
