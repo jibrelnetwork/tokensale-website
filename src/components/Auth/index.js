@@ -3,16 +3,19 @@
 import LoginForm from './LoginForm'
 import RegisterForm from './RegisterForm'
 import PasswordResetEmailForm from './Password/Reset'
-import PasswordResetEmailSended from './Password/Sended'
-import PasswordResetChangeForm from './Password/Change'
+import PasswordResetEmailSended from './Password/ResetSended'
+import PasswordResetChangeForm from './Password/ResetChange'
 import DocumentSkipUpload from './Verify/DocumentSkipUpload'
+import ChangeCurrentPasswordForm from './Password/ChangeCurrentPassword'
+import ChangePasswordSuccess from './Password/ChangePasswordSuccess'
 
-import Password from './Password'
-
-export { LoginForm,
+export {
+  LoginForm,
   RegisterForm,
   PasswordResetEmailForm,
   PasswordResetEmailSended,
   PasswordResetChangeForm,
   DocumentSkipUpload,
-  Password }
+  ChangeCurrentPasswordForm,
+  ChangePasswordSuccess,
+}

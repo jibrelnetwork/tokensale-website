@@ -45,6 +45,7 @@ export default compose(
   translate(),
   reduxForm({
     form: 'change-password',
+    destroyOnUnmount: true,
     onSubmit: (
       { newPassword, newPasswordConfirm },
       dispatch,

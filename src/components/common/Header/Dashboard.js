@@ -29,6 +29,7 @@ type Props = {
   closeDashboard: Function,
   openSetAddressModal: Function,
   openKYCStatusModal: Function,
+  openChangePasswordModal: Function,
   logout: Function,
   accountData: {
     firstName: string,
@@ -46,7 +47,7 @@ const Dashboard = ({
   openSetAddressModal,
   openKYCStatusModal,
   logout,
-  // openChangePasswordModal,
+  openChangePasswordModal,
   accountData,
   verifyStatus,
   isOpen,
@@ -134,14 +135,14 @@ const Dashboard = ({
             {t('account.changeETHAddress')}
           </div>
         </div>
-        {/* <div className="item">
+        <div className="item">
           <div
             onClick={openChangePasswordModal}
             className="title"
           >
             {t('account.changePassword.button')}
           </div>
-        </div> */}
+        </div>
         <div className="item">
           <div
             onClick={logout}
@@ -174,7 +175,7 @@ const mapDispatchToProps = {
   closeDashboard: toggleDashboard,
   openSetAddressModal: () => showModal('set-address'),
   openKYCStatusModal: () => showModal('kyc-status'),
-  // openChangePasswordModal: showModal(''),
+  openChangePasswordModal: () => showModal('changeCurrentPassword'),
   logout: authLogout,
 }
 

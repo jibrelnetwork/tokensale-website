@@ -15,6 +15,7 @@ import type {
   authCreateAccountType,
   authResetPasswordType,
   authResetPasswordChangeType,
+  authChangeCurrentPasswordType,
 } from '../modules/auth'
 
 import {
@@ -23,6 +24,7 @@ import {
   AUTH_CREATE_ACCOUNT,
   AUTH_RESET_PASSWORD,
   AUTH_RESET_PASSWORD_CHANGE,
+  AUTH_CHANGE_CURRENT_PASSWORD,
   authSetToken,
   showModal,
   closeModals,
@@ -34,6 +36,7 @@ const LOGIN_FORM = 'login'
 const REGISTRATION_FORM = 'register'
 const RESET_PASSWORD_FORM = 'reset-password'
 const CHANGE_PASSWORD_FORM = 'change-password'
+const CHANGE_CURRENT_PASSWORD_FORM = 'change-password'
 
 type loginRequestFields = {
   email: string,
@@ -162,13 +165,13 @@ function* authCreateAccount(action: authCreateAccountType): Saga<void> {
 
 function* authLogout(): Saga<void> {
   // redirect to main page
-  yield put(replace('/'))
-
   try {
     yield call(api.post, 'auth/logout', {}, authToken.get())
   } catch (e) {
     console.error('logout error', e)
   }
+
+  yield put(replace('/'))
 
   // remove token
   authToken.remove()
@@ -231,10 +234,44 @@ function* authResetPasswordChange(action: authResetPasswordChangeType): Saga<voi
   }
 }
 
+type changeCurrentPasswordFields = {
+  old_password: string,
+  new_password1: string,
+  new_password2: string,
+}
+
+function* authChangeCurrentPassword(action: authChangeCurrentPasswordType): Saga<void> {
+  const {
+    payload: {
+      oldPassword,
+      newPassword,
+    },
+  } = action
+
+  const postData: changeCurrentPasswordFields = {
+    old_password: oldPassword,
+    new_password1: newPassword,
+    new_password2: oldPassword,
+  }
+
+  try {
+    yield put(startSubmit(CHANGE_CURRENT_PASSWORD_FORM))
+    // @TODO: flowtype response
+    const response = yield call(api.post, 'auth/password/change', postData, authToken.get())
+    yield put(stopSubmit(CHANGE_CURRENT_PASSWORD_FORM))
+    yield put(showModal('changePasswordSuccess'))
+    console.log(response)
+  } catch (e) {
+    yield put(stopSubmit(CHANGE_CURRENT_PASSWORD_FORM))
+    console.error(e)
+  }
+}
+
 export function* authRootSaga(): Saga<void> {
   yield takeEvery(AUTH_LOGIN, authLogin)
   yield takeEvery(AUTH_LOGOUT, authLogout)
   yield takeEvery(AUTH_CREATE_ACCOUNT, authCreateAccount)
   yield takeEvery(AUTH_RESET_PASSWORD, authResetPassword)
   yield takeEvery(AUTH_RESET_PASSWORD_CHANGE, authResetPasswordChange)
+  yield takeEvery(AUTH_CHANGE_CURRENT_PASSWORD, authChangeCurrentPassword)
 }

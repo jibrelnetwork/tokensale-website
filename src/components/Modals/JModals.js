@@ -16,6 +16,8 @@ import {
   DocumentSkipUpload,
   PasswordResetEmailSended,
   PasswordResetChangeForm,
+  ChangeCurrentPasswordForm,
+  ChangePasswordSuccess,
 } from '../Auth'
 
 import WithdrawForm from '../Withdraw/WithdrawForm'
@@ -57,6 +59,12 @@ const selectModalContent = (modalName: PopupNames): Node => {
 
     case 'documentSkipUpload':
       return <DocumentSkipUpload />
+
+    case 'changeCurrentPassword':
+      return <ChangeCurrentPasswordForm />
+
+    case 'changePasswordSuccess':
+      return <ChangePasswordSuccess />
 
     case 'kyc-status':
       return <KYCStatus />

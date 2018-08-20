@@ -24,6 +24,7 @@ export {
   AUTH_CREATE_ACCOUNT,
   AUTH_RESET_PASSWORD,
   AUTH_RESET_PASSWORD_CHANGE,
+  AUTH_CHANGE_CURRENT_PASSWORD,
   authLogin,
   authLogout,
   authSetToken,
@@ -31,6 +32,7 @@ export {
   authCreateAccount,
   authResetPassword,
   authResetPasswordChange,
+  authChangeCurrentPassword,
 } from './auth'
 
 export {

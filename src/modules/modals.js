@@ -10,7 +10,9 @@ export type PopupNames = 'login' |
   "withdraw" |
   "kyc-status" |
   "set-address" |
-  "set-address-success"
+  "set-address-success" |
+  "changeCurrentPassword" |
+  "changePasswordSuccess"
 
 export type PopupState = 'close' | 'open' | 'shake' | 'opening' | 'closing'
 

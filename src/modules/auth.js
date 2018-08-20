@@ -155,6 +155,31 @@ export function authResetPasswordChange(uid: string, token: string,
 }
 
 /**
+ * AUTH_CHANGE_CURRENT_PASSWORD
+ * When user would like to change his current password
+ */
+export const AUTH_CHANGE_CURRENT_PASSWORD = '@auth/AUTH_CHANGE_CURRENT_PASSWORD'
+
+export type authChangeCurrentPasswordType = {
+  type: '@auth/AUTH_CHANGE_CURRENT_PASSWORD',
+  payload: {
+    newPassword: string,
+    oldPassword: string
+  }
+}
+
+export function authChangeCurrentPassword(oldPassword: string,
+  newPassword: string): authChangeCurrentPasswordType {
+  return {
+    type: AUTH_CHANGE_CURRENT_PASSWORD,
+    payload: {
+      newPassword,
+      oldPassword,
+    },
+  }
+}
+
+/**
  * Reducer
  */
 export type AuthState = {
@@ -173,7 +198,8 @@ type authActionType = authLoginType |
   authShowSupportLinkType |
   authCreateAccountType |
   authResetPasswordType |
-  authResetPasswordChangeType
+  authResetPasswordChangeType |
+  authChangeCurrentPasswordType
 
 export function authReducer(state: AuthState = defaultState, action: authActionType): AuthState {
   switch (action.type) {
