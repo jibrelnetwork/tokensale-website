@@ -78,8 +78,8 @@ export function modalSetState(modalName: ?PopupNames, newState: PopupState): mod
  * Reducer
  */
 export type ModalState = {
-  modalName: PopupNames | null,
-  modalState: PopupState | null
+  +modalName: PopupNames | null,
+  +modalState: PopupState | null
 }
 
 type modalsActionType = modalStateActionType | closeModalsType | showModalType
