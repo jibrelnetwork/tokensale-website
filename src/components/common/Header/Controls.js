@@ -14,7 +14,6 @@ import Dashboard from './Dashboard'
 
 import { accountToggleDashboard, authLogout } from '../../../modules'
 import { ModalOpenButton, Button } from '../../common'
-import type { ActiveLayout } from '../../Layout'
 
 function isTouchDevice(): boolean {
   return ('ontouchstart' in window) || navigator.maxTouchPoints > 0
@@ -71,29 +70,30 @@ const Controls = ({
             />
           </li>
         </React.Fragment>
-      ) : ([
-        <li key="0">
-          <a href="https://jibrel.network" target={`${isTouchDevice() ? '_self' : '_blank'}`}>
-            {t('index.header.about')}
-          </a>
-        </li>,
-        <li key="1">
-          <ModalOpenButton
-            modalName="login"
-            colorStyle="transparent"
-            size="small"
-            value="index.header.login"
-          />
-        </li>,
-        <li key="2">
-          <ModalOpenButton
-            modalName="register"
-            colorStyle="light"
-            size="small"
-            value="index.header.register"
-          />
-        </li>,
-        /* <li key="1">
+      ) : (
+        <React.Fragment>
+          <li>
+            <a href="https://jibrel.network" target={`${isTouchDevice() ? '_self' : '_blank'}`}>
+              {t('index.header.about')}
+            </a>
+          </li>
+          <li>
+            <ModalOpenButton
+              modalName="login"
+              colorStyle="transparent"
+              size="small"
+              value="index.header.login"
+            />
+          </li>
+          <li>
+            <ModalOpenButton
+              modalName="register"
+              colorStyle="light"
+              size="small"
+              value="index.header.register"
+            />
+          </li>
+          {/* <li key="1">
           <a
             target="_blank"
             rel="noopener noreferrer"
@@ -101,11 +101,11 @@ const Controls = ({
           >
             Support
           </a>
-        </li>,
+        </li>
         <li key="2" className="bordered">
           <Link to="/welcome/login">{t('index.header.login')}</Link>
-        </li>, */
-      ])}
+        </li> */}
+        </React.Fragment>)}
     </ul>
     {/* <button
       onClick={toggleMenuOrDashboard}
@@ -114,7 +114,6 @@ const Controls = ({
       <span>Menu</span>
     </button> */}
     { isAuthorized && <Dashboard activeLayout={activeLayout} /> }
-    {/* {isAuthorized && <Dashboard isHomePage />} */}
   </div>
 )
 
