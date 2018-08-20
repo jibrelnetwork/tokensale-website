@@ -251,7 +251,7 @@ function* authChangeCurrentPassword(action: authChangeCurrentPasswordType): Saga
   const postData: changeCurrentPasswordFields = {
     old_password: oldPassword,
     new_password1: newPassword,
-    new_password2: oldPassword,
+    new_password2: newPassword,
   }
 
   try {
