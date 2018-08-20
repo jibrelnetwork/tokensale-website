@@ -7,8 +7,6 @@ import Controls from './Controls'
 
 import LogoImage from '../../../static/logo-kambio.svg'
 
-import type { ActiveLayout } from '../../Layout'
-
 type Props = {
   activeLayout?: ActiveLayout
 }

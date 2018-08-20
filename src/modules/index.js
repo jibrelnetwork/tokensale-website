@@ -8,11 +8,13 @@ import { authReducer } from './auth'
 import { tokensReducer } from './tokens'
 import { modalsReducer } from './modals'
 import { accountReducer } from './account'
+import { appearanceReducer } from './appearance'
 
 import type { ModalState } from './modals'
 import type { AuthState } from './auth'
 import type { TokenState } from './tokens'
 import type { AccountState } from './account'
+import type { AppearanceState } from './appearance'
 
 export {
   AUTH_LOGIN,
@@ -49,7 +51,6 @@ export {
 } from './modals'
 
 export {
-  ACCOUNT_DASHBOARD_TOGGLE,
   ACCOUNT_BALANCE_REQUEST_SUCCESS,
   ACCOUNT_UPDATE,
   ACCOUNT_UPDATE_TRANSACTIONS,
@@ -67,7 +68,6 @@ export {
   ACCOUNT_ADDRESS_CHANGE_REQUESTED,
   ACCOUNT_ADDRESS_CHANGE_CONFIRM,
   ACCOUNT_ADDRESS_UPDATED,
-  accountToggleDashboard,
   accountBalanceRequestSuccess,
   accountEmailVerify,
   accountUpdate,
@@ -87,6 +87,11 @@ export {
   accountAddressUpdated,
 } from './account'
 
+export {
+  DASHBOARD_TOGGLE,
+  toggleDashboard,
+} from './appearance'
+
 // combine all reducers
 const modulesReducer: Reducer = combineReducers({
   auth: authReducer,
@@ -94,6 +99,7 @@ const modulesReducer: Reducer = combineReducers({
   tokens: tokensReducer,
   account: accountReducer,
   form: formReducer,
+  appearance: appearanceReducer,
 })
 
 export type State = {
@@ -101,6 +107,7 @@ export type State = {
   +auth: AuthState,
   +tokens: TokenState,
   +account: AccountState,
+  +appearance: AppearanceState,
 }
 
 export {

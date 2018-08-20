@@ -10,7 +10,7 @@ import type { TFunction } from 'react-i18next'
 import { withState } from 'recompose'
 
 import {
-  accountToggleDashboard,
+  toggleDashboard,
   authLogout,
   showModal,
 } from '../../../modules'
@@ -162,7 +162,7 @@ Dashboard.defaultProps = {
 }
 
 const mapStateToProps = (state) => ({
-  isOpen: state.account.dashboardIsOpen,
+  isOpen: state.appearance.dashboardIsOpen,
   accountData: {
     firstName: state.account.firstName,
     lastName: state.account.lastName,
@@ -171,7 +171,7 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = {
-  closeDashboard: accountToggleDashboard,
+  closeDashboard: toggleDashboard,
   openSetAddressModal: () => showModal('set-address'),
   openKYCStatusModal: () => showModal('kyc-status'),
   // openChangePasswordModal: showModal(''),

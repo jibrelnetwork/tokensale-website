@@ -12,7 +12,7 @@ import { withHandlers, withState } from 'recompose'
 
 import Dashboard from './Dashboard'
 
-import { accountToggleDashboard, authLogout } from '../../../modules'
+import { toggleDashboard, authLogout } from '../../../modules'
 import { ModalOpenButton, Button } from '../../common'
 
 function isTouchDevice(): boolean {
@@ -127,11 +127,11 @@ const mapStateToProps = (state) => ({
   isVerified: !!state.account.verifyStatus,
   isEmailConfirmed: state.account.isEmailConfirmed,
   isAuthorized: !!state.auth.token,
-  isDashboardOpen: state.account.dashboardIsOpen,
+  isDashboardOpen: state.appearance.dashboardIsOpen,
 })
 
 const mapDispatchToProps = {
-  openDashboard: accountToggleDashboard,
+  openDashboard: toggleDashboard,
   onLogoutClick: authLogout,
 }
 

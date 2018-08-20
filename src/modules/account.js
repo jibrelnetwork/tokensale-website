@@ -25,21 +25,6 @@ export function accountBalanceRequestSuccess(balance: number): accountBalanceReq
 }
 
 /**
- * ACCOUNT_DASHBOARD_TOGGLE
- */
-export const ACCOUNT_DASHBOARD_TOGGLE = '@account/ACCOUNT_DASHBOARD_TOGGLE'
-
-export type accountToggleDashboardType = {
-  type: '@account/ACCOUNT_DASHBOARD_TOGGLE'
-}
-
-export function accountToggleDashboard(): accountToggleDashboardType {
-  return {
-    type: ACCOUNT_DASHBOARD_TOGGLE,
-  }
-}
-
-/**
  * ACCOUNT_UPDATE
  */
 export const ACCOUNT_UPDATE = '@account/ACCOUNT_UPDATE'
@@ -374,7 +359,6 @@ export type AccountState = {
   +firstName: string,
   +lastName: string,
   +email: string,
-  +dashboardIsOpen: boolean,
   +transactions: Array<any>,
   +balance: number,
   +btcAddress: ?string,
@@ -396,7 +380,6 @@ const defaultState: AccountState = {
   firstName: '',
   lastName: '',
   email: '',
-  dashboardIsOpen: false,
   transactions: [],
   balance: 0,
   btcAddress: undefined,
@@ -412,8 +395,7 @@ const defaultState: AccountState = {
   transactionsFetched: false,
 }
 
-type accountActionType = accountToggleDashboardType |
-  accountBalanceRequestSuccessType |
+type accountActionType = accountBalanceRequestSuccessType |
   accountUpdateType |
   accountEmailVerifyType |
   accountEmailVerifyResendType |
@@ -446,13 +428,6 @@ export function accountReducer(state: AccountState = defaultState, action: accou
       return {
         ...state,
         isWithdrawRequested,
-      }
-    }
-
-    case ACCOUNT_DASHBOARD_TOGGLE: {
-      return {
-        ...state,
-        dashboardIsOpen: !state.dashboardIsOpen,
       }
     }
 
