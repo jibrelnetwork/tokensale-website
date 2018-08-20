@@ -105,6 +105,7 @@ export function authCreateAccount(email: string, password: string,
 
 /**
  * AUTH_RESET_PASSWORD
+ * Reset forgotten user password
  */
 export const AUTH_RESET_PASSWORD = '@auth/AUTH_RESET_PASSWORD'
 
@@ -126,6 +127,7 @@ export function authResetPassword(email: string): authResetPasswordType {
 
 /**
  * AUTH_RESET_PASSWORD_CHANGE
+ * When user follows link from reset password email
  */
 export const AUTH_RESET_PASSWORD_CHANGE = '@auth/AUTH_RESET_PASSWORD_CHANGE'
 
