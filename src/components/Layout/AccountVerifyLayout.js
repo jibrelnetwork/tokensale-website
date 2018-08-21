@@ -3,12 +3,16 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
+import { Switch, Route, Redirect } from 'react-router-dom'
+
 import Header from '../common/Header'
 import Terms from '../Auth/Verify/Terms'
 import Loader from '../Auth/Verify/Loader'
 import UserInfo from '../Auth/Verify/UserInfo'
 import Document from '../Auth/Verify/Document'
 import Progress from '../Auth/Verify/Progress'
+
+import R from '../../routes.yaml'
 
 import type { State } from '../../modules'
 
@@ -26,10 +30,17 @@ const AccountVerifyLayout = ({ stage }: Props) => (
     </div>
     <div className="section form">
       <div className="inner">
-        {stage === 'terms' && <Terms />}
+        <Switch>
+          <Route {...R.VERIFY_TERMS} component={Terms} />
+          <Route {...R.VERIFY_USER_INFO} component={UserInfo} />
+          <Route {...R.VERIFY_DOCUMENT} component={Document} />
+          <Route {...R.VERIFY_LOADER} component={Loader} />
+          <Route render={() => <Redirect to={R.VERIFY_TERMS.path} />} />
+        </Switch>
+        { /* {stage === 'terms' && <Terms />}
         {stage === 'user-info' && <UserInfo />}
         {stage === 'document' && <Document />}
-        {stage === 'loader' && <Loader />}
+        {stage === 'loader' && <Loader />} */ }
       </div>
     </div>
   </div>

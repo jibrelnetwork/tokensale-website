@@ -1,9 +1,16 @@
+// @flow
+
 import React from 'react'
 import cx from 'classnames'
-import PropTypes from 'prop-types'
 import { translate } from 'react-i18next'
+import type { TFunction } from 'react-i18next'
 
-const Progress = ({ t, stage }) => (
+type Props = {
+  t: TFunction,
+  stage: VerificationStage,
+}
+
+const Progress = ({ t, stage }: Props) => (
   <div className="Progress">
     <div className="steps">
       <div
@@ -36,10 +43,5 @@ const Progress = ({ t, stage }) => (
     </div>
   </div>
 )
-
-Progress.propTypes = {
-  t: PropTypes.func.isRequired,
-  stage: PropTypes.oneOf(['terms', 'user-info', 'document', 'loader']).isRequired,
-}
 
 export default translate()(Progress)

@@ -3,6 +3,8 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { compose } from 'ramda'
+import { Redirect } from 'react-router-dom'
+import { replace } from 'connected-react-router'
 import { translate } from 'react-i18next'
 import type { TFunction } from 'react-i18next'
 import { Field, reduxForm } from 'redux-form'
@@ -11,27 +13,33 @@ import { Uploader, Button, ModalOpenButton } from '../../common'
 
 import {
   accountVerifyDocumentUpload,
-  accountVerifySetStage,
 } from '../../../modules'
 
-// import type {
-//   accountVerifySetStageType,
-// } from '../../../modules/account'
+import type {
+  State,
+} from '../../../modules'
+
+
+import R from '../../../routes.yaml'
 
 type Props = {
   t: TFunction,
   submitting: boolean,
   handleSubmit: Function,
-  setStage: (stage: VerificationStage) => any
+  verifyStage: VerificationStage,
+  goBack: (any) => any
 }
 
 const Document = ({
   t,
-  setStage,
+  goBack,
   submitting,
   handleSubmit,
+  verifyStage,
 }: Props) => (
   <div className="Document">
+    { verifyStage === 'terms' && <Redirect to={R.VERIFY_TERMS.path} /> }
+    { verifyStage === 'user-info' && <Redirect to={R.VERIFY_USER_INFO.path} /> }
     <form onSubmit={handleSubmit} className="form">
       <Field
         name="document"
@@ -55,7 +63,7 @@ const Document = ({
           disabled={submitting}
           colorStyle="transparent"
           className="pull-left"
-          onClick={() => setStage('user-info')}
+          onClick={() => goBack()}
           value="verification.document.goBack"
         />
       </div>
@@ -63,8 +71,12 @@ const Document = ({
   </div>
 )
 
+const mapStateToProps = (state: State) => ({
+  verifyStage: state.account.verifyStage,
+})
+
 const mapDispatchToProps = {
-  setStage: accountVerifySetStage,
+  goBack: () => replace(R.VERIFY_USER_INFO.path),
 }
 
 /* eslint-disable fp/no-this */
@@ -72,7 +84,7 @@ const mapDispatchToProps = {
 export default compose(
   translate(),
   connect(
-    null,
+    mapStateToProps,
     mapDispatchToProps,
   ),
   reduxForm({
@@ -85,6 +97,6 @@ export default compose(
     initialValues: {
       document: {},
     },
-    destroyOnUnmount: false,
+    destroyOnUnmount: true,
   })
 )(Document)

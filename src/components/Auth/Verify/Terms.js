@@ -1,9 +1,10 @@
 // @flow
 
 import React from 'react'
-// import { connect } from 'react-redux'
+import { connect } from 'react-redux'
 import { Field, reduxForm } from 'redux-form'
 import { set, compose, identity } from 'lodash/fp'
+import { Redirect } from 'react-router-dom'
 
 import { translate, Interpolate } from 'react-i18next'
 import type { TFunction } from 'react-i18next'
@@ -11,15 +12,18 @@ import type { TFunction } from 'react-i18next'
 import { Input, Button } from '../../common'
 
 import { accountVerifyTermsConfirm } from '../../../modules'
+import R from '../../../routes.yaml'
 
 type Props = {
   t: TFunction,
   submitting: boolean,
   handleSubmit: Function,
+  verifyStage: VerificationStage,
 }
 
-const Terms = ({ t, submitting, handleSubmit }: Props) => (
+const Terms = ({ t, submitting, handleSubmit, verifyStage }: Props) => (
   <div className="Terms">
+    { verifyStage !== 'terms' && <Redirect to={R.VERIFY_USER_INFO.path} />}
     <form onSubmit={handleSubmit} className="form">
       <Field
         name="policyConfirm"
@@ -58,8 +62,15 @@ const Terms = ({ t, submitting, handleSubmit }: Props) => (
   </div>
 )
 
+const mapStateToProps = (state) => ({
+  verifyStage: state.account.verifyStage,
+})
+
 export default compose(
   translate(),
+  connect(
+    mapStateToProps
+  ),
   reduxForm({
     form: 'account-verification-terms-form',
     onSubmit: (_, dispatch) => dispatch(accountVerifyTermsConfirm()),
@@ -71,6 +82,6 @@ export default compose(
         ? set('citizenshipConfirm', props.t('verification.terms.errors.citizenshipConfirm.isRequired'))
         : identity,
     )({}),
-    destroyOnUnmount: false,
+    destroyOnUnmount: true,
   })
 )(Terms)

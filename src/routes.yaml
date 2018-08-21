@@ -1,8 +1,21 @@
 ROOT:
   path: '/'
 
+# user verification
 VERIFY:
   path: '/verify'
+
+VERIFY_TERMS:
+  path: '/verify/terms'
+
+VERIFY_USER_INFO:
+  path: '/verify/user-info'
+
+VERIFY_DOCUMENT:
+  path: '/verify/document'
+
+VERIFY_LOADER:
+  path: '/verify/loader'
 
 ACCOUNT:
   path: '/account'

@@ -59,10 +59,10 @@ type responseAccountType = {
   // account fields
   first_name: string, // -> firstName
   last_name: string, // -> lastName
-  date_of_birth: ?string,
+  date_of_birth: ?string, // -> birthday
 
-  citizenship: string, // -> address
-  residency: string,
+  citizenship: string, // -> citizenship
+  residency: string, // -> residency
 
   terms_confirmed: boolean,
   is_document_skipped: boolean,
@@ -93,9 +93,9 @@ function* accountUpdateFromRequest(accountData: responseAccountType): Saga<void>
   let verifyStage: VerificationStage = 'terms'
   if (!accountData.terms_confirmed) {
     verifyStage = 'terms'
-  } else if (!isUserInfoFilled) {
+  } else if (!isUserInfoFilled || (accountData.identity_verification_status === 'Declined')) {
     verifyStage = 'user-info'
-  } else if (!isDocumentUploaded || (accountData.identity_verification_status === 'Declined')) {
+  } else if (!isDocumentUploaded) {
     verifyStage = 'document'
   } else {
     verifyStage = 'loader'
@@ -112,6 +112,9 @@ function* accountUpdateFromRequest(accountData: responseAccountType): Saga<void>
     isEmailConfirmed: accountData.is_email_confirmed,
     verifyStatus: accountData.identity_verification_status,
     isDocumentUploadSkipped: accountData.is_document_skipped,
+    birthday: accountData.date_of_birth || '',
+    citizenship: accountData.citizenship,
+    residency: accountData.residency,
     verifyStage,
   }
 
@@ -152,15 +155,20 @@ export function* accountRequestTransactons(): Saga<void> {
 export function* redirectAfterLogin(): Saga<void> {
   const {
     verifyStatus,
+    verifyStage,
     isEmailConfirmed,
   } = yield select(accountSelector)
 
   if (!isEmailConfirmed) {
     yield put(push(R.VERIFY_EMAIL_SENDED.path))
-  } else if (verifyStatus === 'Approved') {
+  } else if (verifyStatus === 'Approved' || verifyStatus === 'Preliminarily approoved') {
     yield put(push(R.ACCOUNT.path))
+  } else if (verifyStage === 'terms') {
+    yield put(push(R.VERIFY_TERMS.path))
+  } else if (verifyStage === 'user-info') {
+    yield put(push(R.VERIFY_USER_INFO.path))
   } else {
-    yield put(push(R.VERIFY.path))
+    yield put(push(R.VERIFY_DOCUMENT.path))
   }
 }
 
@@ -244,7 +252,10 @@ function* verifyTermsConfirm(): Saga<void> {
     if (accountData.terms_confirmed) {
       yield* accountUpdateFromRequest(accountData)
     }
+
     yield put(stopSubmit(ACCOUNT_VERIFY_TERMS_FORM))
+    // redirect to the next page
+    yield put(replace(R.VERIFY_USER_INFO.path))
   } catch (e) {
     yield put(stopSubmit(ACCOUNT_VERIFY_TERMS_FORM))
     if (e.code === 301) {
@@ -301,6 +312,8 @@ function* updateUserInfo(action: accountUpdateUserInfoType): Saga<void> {
     // yield put(stopSubmit(form, errors))
 
     yield put(stopSubmit(ACCOUNT_VERIFY_USER_INFO_FORM))
+
+    yield put(push(R.VERIFY_DOCUMENT.path))
   } catch (e) {
     yield put(stopSubmit(ACCOUNT_VERIFY_USER_INFO_FORM))
 

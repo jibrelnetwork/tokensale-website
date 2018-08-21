@@ -40,7 +40,10 @@ export type accountUpdatePayloadType = {
   isAddressChangeRequested?: boolean,
   isDocumentUploadSkipped?: boolean,
   verifyStatus?: VerificationStatus,
-  verifyStage?: VerificationStage
+  verifyStage?: VerificationStage,
+  birthday?: string,
+  citizenship?: string,
+  residency?: string,
 }
 
 export type accountUpdateType = {
@@ -367,6 +370,10 @@ export type AccountState = {
   +isAddressChangeRequested: boolean,
   +isWithdrawRequested: boolean,
 
+  +birthday: string,
+  +citizenship: string,
+  +residency: string,
+
   +isDocumentUploadSkipped: boolean,
   +isEmailConfirmed: boolean,
   +verifyStatus: VerificationStatus,
@@ -393,6 +400,9 @@ const defaultState: AccountState = {
   isDocumentUploadSkipped: false,
   accountFetched: false,
   transactionsFetched: false,
+  birthday: '',
+  citizenship: '',
+  residency: '',
 }
 
 type accountActionType = accountBalanceRequestSuccessType |
