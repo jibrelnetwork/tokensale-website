@@ -20,50 +20,38 @@ type Props = {
   submitting: boolean,
   handleSubmit: Function,
   verifyStage: VerificationStage,
-  userInfo: {
-    firstName: string,
-    lastName: string,
-    birthday: string,
-    residency: string,
-    citizenship: string,
-  }
 }
 
-const UserInfo = ({ submitting, handleSubmit, t, userInfo, verifyStage }: Props) => (
+const UserInfo = ({ submitting, handleSubmit, t, verifyStage }: Props) => (
   <div className="UserInfo">
     { verifyStage === 'terms' && <Redirect to={R.VERIFY_TERMS.path} /> }
     <form onSubmit={handleSubmit} className="form">
       <Field
         name="firstName"
-        defaultValue={userInfo.firstName}
         type="text"
         label={t('verification.userInfo.fields.firstName')}
         component={Input}
       />
       <Field
         name="lastName"
-        defaultValue={userInfo.lastName}
         type="text"
         label={t('verification.userInfo.fields.lastName')}
         component={Input}
       />
       <Field
         name="birthday"
-        defaultValue={userInfo.birthday}
         type="date"
         label={t('verification.userInfo.fields.birthday')}
         component={DateInput}
       />
       <Field
         name="residency"
-        defaultValue={userInfo.residency}
         label={t('verification.userInfo.fields.residency')}
         options={COUNTRIES}
         component={Select}
       />
       <Field
         name="citizenship"
-        defaultValue={userInfo.citizenship}
         label={t('verification.userInfo.fields.citizenship')}
         options={COUNTRIES}
         component={Select}
@@ -81,7 +69,7 @@ const UserInfo = ({ submitting, handleSubmit, t, userInfo, verifyStage }: Props)
 )
 
 const mapStateToProps = (state: State) => ({
-  userInfo: {
+  initialValues: {
     firstName: state.account.firstName,
     lastName: state.account.lastName,
     birthday: state.account.birthday,
@@ -115,6 +103,7 @@ export default compose(
         ? set('citizenship', t('verification.userInfo.errors.citizenship.isRequired'))
         : identity,
     )({}),
+    enableReinitialize: true,
     destroyOnUnmount: true,
-  })
+  }),
 )(UserInfo)

@@ -1,7 +1,7 @@
 // @flow
+
 import cx from 'classnames'
 import React from 'react'
-// import PropTypes from 'prop-types'
 
 import ReactSelect from 'react-select'
 // import { compose, withState, withHandlers } from 'recompose'
@@ -24,7 +24,7 @@ const Select = ({ label, options, input, meta: { error, touched } }: Props) => (
   <div className={cx('field')}>
     <div className="Select">
       <ReactSelect
-        value={input.value}
+        value={typeof input.value === 'string' ? { value: input.value, label: input.value } : input.value}
         onChange={input.onChange}
         isClearable
         isSearchable
