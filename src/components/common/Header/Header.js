@@ -14,7 +14,7 @@ type Props = {
 const Header = ({ activeLayout }: Props) => (
   <div className="header clear">
     <Link to="/" className="logo pull-left scroll">
-      <img src={LogoImage} alt="" />
+      <img width="147" src={LogoImage} alt="" />
     </Link>
     <Controls activeLayout={activeLayout} />
     {/* <Route

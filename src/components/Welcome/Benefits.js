@@ -19,28 +19,28 @@ const Benefits = ({ t }: Props) => (
       <div className="row clear">
         <div className="col-3 benefit-1">
           <div className="img">
-            <img src={benefit1} alt="" />
+            <img width="72" height="72" src={benefit1} alt="" />
           </div>
           <h3>{t('index.info.price.title')}</h3>
           <p>{t('index.info.price.text')}</p>
         </div>
         <div className="col-3 benefit-2">
           <div className="img">
-            <img src={benefit2} alt="" />
+            <img width="72" height="72" src={benefit2} alt="" />
           </div>
           <h3>{t('index.info.currencies.title')}</h3>
           <p>{t('index.info.currencies.text')}</p>
         </div>
         <div className="col-3 benefit-3">
           <div className="img">
-            <img src={benefit3} alt="" />
+            <img width="72" height="72" src={benefit3} alt="" />
           </div>
           <h3>{t('index.info.exchange.title')}</h3>
           <p>{t('index.info.exchange.text')}</p>
         </div>
         <div className="col-3 benefit-4">
           <div className="img">
-            <img src={benefit4} alt="" />
+            <img width="72" height="72" src={benefit4} alt="" />
           </div>
           <h3>{t('index.info.jurisdictions.title')}</h3>
           <p>{t('index.info.jurisdictions.text')}</p>
