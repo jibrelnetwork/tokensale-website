@@ -4,7 +4,6 @@ import React from 'react'
 import numeral from 'numeral'
 import { compose } from 'lodash/fp'
 import { connect } from 'react-redux'
-// import { lifecycle } from 'recompose'
 import { translate } from 'react-i18next'
 import type { TFunction } from 'react-i18next'
 
@@ -39,8 +38,8 @@ const Tokens = ({ t, raised, raisedPercent }: Props) => (
   </div>
 )
 
-const mapStateToProps = ({ tokens }) => {
-  const raised = (185 * 1000 * 1000) - tokens.raised // process.env.PROD ? tokens.raised : (tokens.raised + (70 * 1000 * 1000))
+const mapStateToProps = ({ ico }) => {
+  const raised = (185 * 1000 * 1000) - ico.tokenRaised // process.env.PROD ? tokens.raised : (tokens.raised + (70 * 1000 * 1000))
 
   return {
     raised,
@@ -48,23 +47,12 @@ const mapStateToProps = ({ tokens }) => {
   }
 }
 
-// const mapDispatchToProps = {
-//   requestStart: actions.tokens.raisedRequest,
-//   cancelRequest: actions.tokens.raisedRequestCancel,
-// }
-
 const enhance = compose(
   translate(),
   connect(
     mapStateToProps
     // mapDispatchToProps,
   ),
-  // lifecycle({
-  //   /* eslint-disable fp/no-this */
-  //   componentDidMount() { this.props.requestStart() },
-  //   componentWillUnmount() { this.props.cancelRequest() },
-  //   /* eslint-disable fp/no-this */
-  // })
 )
 
 export default enhance(Tokens)

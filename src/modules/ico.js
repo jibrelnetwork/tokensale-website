@@ -26,7 +26,6 @@ export const raisedRequestCancel = (): raisedRequestCancelType => ({
   type: RAISED_REQUEST_CANCEL,
 })
 
-
 /**
  * RAISED_REQUEST_SUCCESS
  */
@@ -44,26 +43,40 @@ export const raisedRequestSuccess = (amount: number): raisedRequestSuccessType =
   payload: { amount },
 })
 
-type tokenActionType = raisedRequestType |
+type icoActionType = raisedRequestType |
   raisedRequestCancelType |
   raisedRequestSuccessType
 
-export type TokenState = {
-  +raised: number
+export type IcoState = {
+  +isFetched: boolean,
+  +state: 'presale' | 'sale' | 'sale-ended' | 'ico-ended',
+  +presaleEnd: string, // (date or timestamp with timezone)
+  +saleEnd: string, // (date or timestamp with timezone)
+  +tokenRaised: number,
+  +tokenTotal: number,
+  +tokenInitial: number,
+  +pricePerToken: number
 }
 
-const defaultState: TokenState = {
-  raised: 0,
+const defaultState: IcoState = {
+  isFetched: false,
+  state: 'presale',
+  presaleEnd: '2018-09-24T03:32:45.678Z',
+  saleEnd: '2018-10-24T03:32:45.678Z',
+  tokenRaised: 250000,
+  tokenTotal: 150000,
+  tokenInitial: 100000,
+  pricePerToken: 0.25,
 }
 
-export const tokensReducer = (state: TokenState = defaultState, action: tokenActionType): TokenState => {
+export const icoReducer = (state: IcoState = defaultState, action: icoActionType): IcoState => {
   switch (action.type) {
 
     case RAISED_REQUEST_SUCCESS: {
       const { amount } = action.payload
       return {
         ...state,
-        raised: amount,
+        tokenRaised: amount,
       }
     }
 

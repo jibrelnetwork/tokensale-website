@@ -5,14 +5,14 @@ import { reducer as formReducer } from 'redux-form'
 import type { Reducer } from 'redux'
 
 import { authReducer } from './auth'
-import { tokensReducer } from './tokens'
+import { icoReducer } from './ico'
 import { modalsReducer } from './modals'
 import { accountReducer } from './account'
 import { appearanceReducer } from './appearance'
 
 import type { ModalState } from './modals'
 import type { AuthState } from './auth'
-import type { TokenState } from './tokens'
+import type { IcoState } from './ico'
 import type { AccountState } from './account'
 import type { AppearanceState } from './appearance'
 
@@ -42,7 +42,7 @@ export {
   raisedRequest,
   raisedRequestCancel,
   raisedRequestSuccess,
-} from './tokens'
+} from './ico'
 
 export {
   MODALS_SHOW_MODAL,
@@ -98,7 +98,7 @@ export {
 const modulesReducer: Reducer = combineReducers({
   auth: authReducer,
   modals: modalsReducer,
-  tokens: tokensReducer,
+  ico: icoReducer,
   account: accountReducer,
   form: formReducer,
   appearance: appearanceReducer,
@@ -107,7 +107,7 @@ const modulesReducer: Reducer = combineReducers({
 export type State = {
   +modals: ModalState,
   +auth: AuthState,
-  +tokens: TokenState,
+  +ico: IcoState,
   +account: AccountState,
   +appearance: AppearanceState,
 }
