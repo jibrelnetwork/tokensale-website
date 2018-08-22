@@ -1,19 +1,24 @@
 // @flow
-import React from 'react'
-import { connect } from 'react-redux'
 
-import { Button, JText } from '../../common'
+import React from 'react'
+import { compose } from 'redux'
+import { connect } from 'react-redux'
+import { translate } from 'react-i18next'
+import type { TFunction } from 'react-i18next'
+
+import { Button } from '../../common'
 import { closeModals, accountVerifySkipDocumentUpload } from '../../../modules'
 
 type Props = {
+  t: TFunction,
   onCloseClick: Function,
   onSkipUploadClick: Function
 }
 
-const DocumentSkipUpload = ({ onSkipUploadClick, onCloseClick }: Props) => (
+const DocumentSkipUpload = ({ t, onSkipUploadClick, onCloseClick }: Props) => (
   <div className="auth">
     <div className="form-block">
-      <p className="popup-text"><JText value="verification.document.modal.message" /></p>
+      <p className="popup-text">{t('verification.document.modal.message')}</p>
       <div className="buttons clear">
         <Button
           onClick={onSkipUploadClick}
@@ -36,7 +41,10 @@ const mapDispatchToProps = {
   onSkipUploadClick: accountVerifySkipDocumentUpload,
 }
 
-export default connect(
-  null,
-  mapDispatchToProps
+export default compose(
+  translate(),
+  connect(
+    null,
+    mapDispatchToProps
+  )
 )(DocumentSkipUpload)
