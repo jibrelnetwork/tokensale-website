@@ -1,16 +1,28 @@
+// @flow
+
 import React from 'react'
-import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { translate } from 'react-i18next'
-import { lifecycle, withState } from 'recompose'
+import type { TFunction } from 'react-i18next'
+import { withState } from 'recompose'
 import { get, compose, isEmpty } from 'lodash/fp'
 
 import Filter from './Filter'
 import Balance from './Balance'
 import Transaction from './Transaction'
-import * as actions from '../../../actions'
 
-const Transactions = ({ t, list, filter, setFilter }) => (
+import type { State } from '../../../modules'
+
+type TransactionFilter = 'all' | 'incoming' | 'outgoing'
+
+type Props = {
+  t: TFunction,
+  list: Array<any>,
+  filter: TransactionFilter,
+  setFilter: Function,
+}
+
+const Transactions = ({ t, list, filter, setFilter }: Props) => (
   <div className="Transactions">
     <div className="tabs clear">
       <Filter
@@ -40,17 +52,10 @@ const Transactions = ({ t, list, filter, setFilter }) => (
   </div>
 )
 
-Transactions.propTypes = {
-  t: PropTypes.func.isRequired,
-  list: PropTypes.array.isRequired,
-  filter: PropTypes.oneOf(['all', 'incoming', 'outgoing']).isRequired,
-  setFilter: PropTypes.func.isRequired,
-}
-
-const filterTransactions = (transactions, type) =>
+const filterTransactions = (transactions: Array<any>, type: TransactionFilter): Array<any> =>
   transactions.filter((transaction) => transaction.type === type)
 
-const transactionSelector = (transactions, filter) => get(
+const transactionSelector = (transactions: Array<any>, filter: TransactionFilter): Object => get(
   filter, {
     all: transactions,
     incoming: filterTransactions(transactions, 'incoming'),
@@ -58,15 +63,10 @@ const transactionSelector = (transactions, filter) => get(
   }
 )
 
-const mapStateToProps = (state, { filter }) => ({
+const mapStateToProps = (state: State, { filter }: {filter: TransactionFilter}) => ({
   list: transactionSelector(state.account.transactions, filter),
   balance: state.account.balance,
 })
-
-const mapDispatchToProps = {
-  requestStart: actions.account.transactions.request,
-  requestCancel: actions.account.transactions.requestCancel,
-}
 
 const enhance = compose(
   translate(),
@@ -77,14 +77,8 @@ const enhance = compose(
   ),
   connect(
     mapStateToProps,
-    mapDispatchToProps,
+    null,
   ),
-  lifecycle({
-    /* eslint-disable fp/no-this */
-    componentDidMount() { this.props.requestStart() },
-    componentWillUnmount() { this.props.requestCancel() },
-    /* eslint-enable */
-  }),
 )
 
 export default enhance(Transactions)
