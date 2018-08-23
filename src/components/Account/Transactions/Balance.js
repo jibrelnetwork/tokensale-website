@@ -14,6 +14,7 @@ type Props = {
 const Balance = ({ balance /* , address */ }: Props) => (
   <div className="Balance">
     <ModalOpenButton
+      size="small"
       modalName="withdraw"
       className="pull-right"
       value="account.withdraw.button"
