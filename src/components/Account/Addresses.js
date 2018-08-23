@@ -6,6 +6,8 @@ import { translate, Interpolate } from 'react-i18next'
 
 import gtm from '../../services/gtm'
 
+import { links } from '../../config'
+
 // eslint-disable-next-line no-unused-vars
 function isAddressesAvailable(email) {
   return true
@@ -34,7 +36,7 @@ const Addresses = ({
               support={(
                 <a
                   style={{ margin: '0 5px' }}
-                  href="mailto:support@jibrel.network"
+                  href={links.icoHomePageLink}
                   onClick={pushSendRequestEvent}
                 >
                   {t('account.verificationDeclined.support')}

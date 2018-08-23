@@ -12,6 +12,8 @@ import Timer from './Timer'
 import { ModalOpenButton } from '../common'
 import type { State } from '../../modules'
 
+import { links } from '../../config'
+
 type Props = {
   t: TFunction,
   isAuthorized: boolean,
@@ -29,7 +31,7 @@ const Content = ({ t, isAuthorized, isSaleFinished }: Props) => (
       <div className="links">
         <div className="link">
           <a
-            href="https://medium.com/@jibrelnetwork/checking-your-jnt-balance-on-etherscan-599ebcb4cf3f"
+            href={links.checkingYourBalanceLink}
             className="button big banking"
             target="_blank"
             rel="noopener noreferrer"
@@ -39,7 +41,7 @@ const Content = ({ t, isAuthorized, isSaleFinished }: Props) => (
         </div>
         <div className="link">
           <a
-            href="https://medium.com/@jibrelnetwork/how-to-add-jnt-into-an-ethereum-wallet-48ebc2c52817"
+            href={links.howToAddLink}
             className="button big wallet"
             target="_blank"
             rel="noopener noreferrer"

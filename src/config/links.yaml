@@ -1,3 +1,6 @@
 DEV:
   supportEmailAddress: 'support@kambio.network'
   supportLink: https://jibrelnetwork.freshdesk.com/support/tickets/new
+  icoHomePageLink: 'https://kambio.io'
+  checkingYourBalanceLink: 'https://kambio.io/1'
+  howToAddLink: 'https://kambio.io/2'
