@@ -1,8 +1,5 @@
 // @flow
 
-import { AUTH_LOGOUT } from './auth'
-import type { authLogoutType } from './auth'
-
 /**
  * DASHBOARD_TOGGLE
  */
@@ -18,11 +15,10 @@ export function toggleDashboard(): toggleDashboardType {
   }
 }
 
-type AppearanceActionType = toggleDashboardType |
-    authLogoutType
+type AppearanceActionType = toggleDashboardType
 
 export type AppearanceState = {
-  +dashboardIsOpen: boolean
+  +dashboardIsOpen: boolean,
 }
 
 const defaultState: AppearanceState = {
@@ -35,12 +31,6 @@ export const appearanceReducer = (state: AppearanceState = defaultState, action:
       return {
         ...state,
         dashboardIsOpen: !state.dashboardIsOpen,
-      }
-    }
-
-    case AUTH_LOGOUT: {
-      return {
-        ...defaultState,
       }
     }
 

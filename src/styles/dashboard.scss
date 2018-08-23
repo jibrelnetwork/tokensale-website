@@ -189,7 +189,7 @@
       width: 100vw;
       max-width: 100%;
       max-width: 100vw;
-      background-color: $blue4;
+      background-color: $white;
 
       .overlay {
         display: none;
@@ -204,21 +204,21 @@
     }
 
     .head {
-      border-color: rgba($white, 0.2);
+      border-color: rgba($dusk, 0.2);
     }
 
     .status {
-      color: rgba($white, 0.5);
+      color: rgba($dusk, 0.5);
     }
 
-    .status-info {
-      background-image: $question-white-icon;
-      border: 1px solid rgba($white, 0.2);
-    }
+    // .status-info {
+    //   background-image: $question-white-icon;
+    //   border: 1px solid rgba($dusk, 0.2);
+    // }
 
     .name,
     .item .title {
-      color: $white;
+      color: $dusk;
     }
   }
 }

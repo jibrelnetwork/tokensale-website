@@ -15,15 +15,15 @@ import Benefits from '../Welcome/Benefits'
 import R from '../../routes.yaml'
 
 type Props = {
+  isAccountFetched: boolean,
   isAuthorized: boolean,
   isEmailConfirmed: boolean,
-  verifyStatus: VerificationStatus,
 }
 
-const AccountLayout = ({ isAuthorized, isEmailConfirmed, verifyStatus }: Props) => (
+const AccountLayout = ({ isAccountFetched, isAuthorized, isEmailConfirmed }: Props) => (
   <div className="Account inner-page">
-    { /* when user is logged in and email is confirmed -> verification page */ }
-    { !(isAuthorized && isEmailConfirmed && verifyStatus) && <Redirect to={R.VERIFY.path} /> }
+    { !isAuthorized && <Redirect to={R.ROOT.path} /> }
+    { isAuthorized && isAccountFetched && !isEmailConfirmed && <Redirect to={R.VERIFY_EMAIL_SENDED.path} /> }
     <div className="section start">
       <div className="inner">
         <Header activeLayout="account" />
@@ -42,8 +42,8 @@ const AccountLayout = ({ isAuthorized, isEmailConfirmed, verifyStatus }: Props) 
 
 const mapStateToProps = (state) => ({
   isAuthorized: !!state.auth.token,
+  isAccountFetched: state.account.isAccountFetched,
   isEmailConfirmed: state.account.isEmailConfirmed,
-  verifyStatus: state.account.verifyStatus,
 })
 
 export default connect(

@@ -157,11 +157,14 @@ export function* redirectAfterLogin(): Saga<void> {
     verifyStatus,
     verifyStage,
     isEmailConfirmed,
+    isDocumentUploadSkipped,
   } = yield select(accountSelector)
 
   if (!isEmailConfirmed) {
     yield put(push(R.VERIFY_EMAIL_SENDED.path))
-  } else if (verifyStatus === 'Approved' || verifyStatus === 'Preliminarily approoved') {
+  } else if (verifyStatus === 'Approved' ||
+    verifyStatus === 'Preliminarily approoved' ||
+    isDocumentUploadSkipped) {
     yield put(push(R.ACCOUNT.path))
   } else if (verifyStage === 'terms') {
     yield put(push(R.VERIFY_TERMS.path))
