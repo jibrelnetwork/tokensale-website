@@ -77,7 +77,11 @@ function* authLogin(action: authLoginType): Saga<void> {
       yield put(closeModals())
 
       yield* redirectAfterLogin()
+
+      return
     }
+
+    yield put(stopSubmit(LOGIN_FORM))
   } catch (e) {
     const errors = {
       captcha: e.data.captcha,
@@ -165,13 +169,13 @@ function* authCreateAccount(action: authCreateAccountType): Saga<void> {
 
 function* authLogout(): Saga<void> {
   // redirect to main page
+  yield put(replace('/'))
+
   try {
     yield call(api.post, 'auth/logout', {}, authToken.get())
   } catch (e) {
     console.error('logout error', e)
   }
-
-  yield put(replace('/'))
 
   // remove token
   authToken.remove()
